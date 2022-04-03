@@ -2,3 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
+
+@layer utilities {
+  .text-color {
+    color: #1e266d;
+  }
+  .color-lightGrey {
+    color: #969ba0;
+  }
+  .bg-primary {
+    background: #3751ff;
+  }
+  .rounded-8 {
+    border-radius: 8px;
+  }
+  .fill-active {
+    fill: #3751ff;
+  }
+  .border-b-active {
+    border-color: #3751ff;
+  }
+  .border-b-inactive {
+    border-color: #e5e5e5;
+  }
+  .leading-50 {
+    line-height: 50px;
+  }
+  .w-608 {
+    width: 608px;
+  }
+  .w-390 {
+    width: 390px;
+  }
+  .w-400 {
+    width: 400px;
+  }
+  .w-120 {
+    width: 120px;
+  }
+  .h-520 {
+    height: 510px;
+  }
+  .h-485 {
+    height: 485px;
+  }
+  .h-335 {
+    height: 335px;
+  }
+  .h-48 {
+    height: 48px;
+  }
+  .h-40 {
+    height: 40px;
+  }
+}
