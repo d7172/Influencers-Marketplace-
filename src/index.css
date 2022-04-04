@@ -13,6 +13,9 @@
   .bg-primary {
     background: #3751ff;
   }
+  .color-primary {
+    color: #3751ff;
+  }
   .rounded-8 {
     border-radius: 8px;
   }
@@ -28,6 +31,12 @@
   .leading-50 {
     line-height: 50px;
   }
+  .bg-dark-transparent {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .w-1258 {
+    width: 1258px;
+  }
   .w-608 {
     width: 608px;
   }
@@ -40,6 +49,9 @@
   .w-120 {
     width: 120px;
   }
+  .w-168 {
+    width: 168px;
+  }
   .h-520 {
     height: 510px;
   }
@@ -49,10 +61,16 @@
   .h-335 {
     height: 335px;
   }
+  .h-52 {
+    height: 52px;
+  }
   .h-48 {
     height: 48px;
   }
   .h-40 {
     height: 40px;
+  }
+  .min-h-1225 {
+    min-height: 1225px;
   }
 }
