@@ -4,19 +4,100 @@ import PersonalDetails from "./PersonalDetails";
 import SignUpContactInfo from "./SignUpContactInfo";
 import SignUpSocialFeed from "./SignUpSocialFeed";
 
+export const initSignUp = {
+  phone: {
+    dail_code: "+91",
+    contact_number: "",
+  },
+  otp: "",
+  type: "",
+  personal_details: {
+    first_name: "",
+    last_name: "",
+    user_name: "",
+    email: "",
+    phone: {
+      dail_code: "+91",
+      contact_number: "",
+    },
+    gender: "male",
+    whats_app: {
+      dail_code: "+91",
+      contact_number: "",
+    },
+    dob: "2022-02-01",
+    about_yourself: "i m influencer",
+    category: ["health", "fitness"],
+  },
+  address_details: {
+    line1: "",
+    line2: "",
+    pincode: "",
+    country: "",
+    state: "",
+    city: "",
+  },
+  profession_details: {
+    avg_user_engagement: "",
+    basic_charges_per_post: 0,
+    influencer_experience: "",
+    profile_title: "",
+  },
+  bank_detials: {
+    bank_name: "",
+    account_number: "",
+    ifsc_code: "",
+  },
+  kyc_details: {
+    pan_card_number: "",
+    aadhar_card_number: "",
+  },
+  social_feeds: [],
+  profile_pic: {},
+  cover_pic: {},
+  pan_card: {},
+  aadhar_card_front: {},
+  aadhar_card_back: {},
+};
+
 function SignUp() {
   const [signUpstatus, setSignUpStatus] = useState(1);
+  const [signUp, setSignUp] = useState(initSignUp);
 
   const signUpStep = () => {
     switch (signUpstatus) {
       case 1:
-        return <PersonalDetails />;
+        return (
+          <PersonalDetails
+            signUp={signUp}
+            setSignUp={(data) => setSignUp(data)}
+            setSignUpStatus={(status) => setSignUpStatus(status)}
+          />
+        );
       case 2:
-        return <Category />;
+        return (
+          <Category
+            signUp={signUp}
+            setSignUp={(data) => setSignUp(data)}
+            setSignUpStatus={(status) => setSignUpStatus(status)}
+          />
+        );
       case 3:
-        return <SignUpContactInfo />;
+        return (
+          <SignUpContactInfo
+            signUp={signUp}
+            setSignUp={(data) => setSignUp(data)}
+            setSignUpStatus={(status) => setSignUpStatus(status)}
+          />
+        );
       case 4:
-        return <SignUpSocialFeed />;
+        return (
+          <SignUpSocialFeed
+            signUp={signUp}
+            setSignUp={(data) => setSignUp(data)}
+            setSignUpStatus={(status) => setSignUpStatus(status)}
+          />
+        );
     }
   };
 
@@ -29,9 +110,9 @@ function SignUp() {
       <div className="w-1258 bg-white h-full rounded-8 pb-14">
         <div className="flex items-center w-390 m-auto my-10">
           <div className="flex items-center relative">
-            <div className="rounded-full transition duration-500 ease-in-out h-10 w-10 border-2 border-b-active flex items-center justify-center cursor-pointer">
+            <div className="rounded-full transition duration-500 ease-in-out h-8 w-8 border-2 border-b-active flex items-center justify-center cursor-pointer">
               <div
-                className="rounded-full transition duration-500 ease-in-out h-7 w-7 bg-primary"
+                className="rounded-full transition duration-500 ease-in-out h-5 w-5 bg-primary"
                 onClick={() => setSignUpStatus(1)}
               />
             </div>
@@ -43,12 +124,12 @@ function SignUp() {
           />
           <div className="flex items-center text-white relative">
             <div
-              className={`rounded-full transition duration-500 ease-in-out h-10 w-10 py-3 border-2  flex items-center justify-center cursor-pointer ${
+              className={`rounded-full transition duration-500 ease-in-out h-8 w-8 py-3 border-2  flex items-center justify-center cursor-pointer ${
                 signUpstatus >= 2 ? "border-b-active" : "border-gray-300"
               }`}
             >
               <div
-                className={`rounded-full transition duration-500 ease-in-out h-7 w-7 ${
+                className={`rounded-full transition duration-500 ease-in-out h-5 w-5 ${
                   signUpstatus >= 2 && "bg-primary"
                 }`}
                 onClick={() => setSignUpStatus(2)}
@@ -62,12 +143,12 @@ function SignUp() {
           />
           <div className="flex items-center relative">
             <div
-              className={`rounded-full transition duration-500 ease-in-out h-10 w-10 py-3 border-2  flex items-center justify-center cursor-pointer ${
+              className={`rounded-full transition duration-500 ease-in-out h-8 w-8 py-3 border-2  flex items-center justify-center cursor-pointer ${
                 signUpstatus >= 3 ? "border-b-active" : "border-gray-300"
               }`}
             >
               <div
-                className={`rounded-full transition duration-500 ease-in-out h-7 w-7 ${
+                className={`rounded-full transition duration-500 ease-in-out h-5 w-5 ${
                   signUpstatus >= 3 && "bg-primary"
                 }`}
                 onClick={() => setSignUpStatus(3)}
@@ -81,12 +162,12 @@ function SignUp() {
           ></div>
           <div className="flex items-center relative">
             <div
-              className={`rounded-full transition duration-500 ease-in-out h-10 w-10 py-3 border-2  flex items-center justify-center cursor-pointer ${
+              className={`rounded-full transition duration-500 ease-in-out h-8 w-8 py-3 border-2  flex items-center justify-center cursor-pointer ${
                 signUpstatus >= 4 ? "border-b-active" : "border-gray-300"
               }`}
             >
               <div
-                className={`rounded-full transition duration-500 ease-in-out h-7 w-7 ${
+                className={`rounded-full transition duration-500 ease-in-out h-5 w-5 ${
                   signUpstatus >= 4 && "bg-primary"
                 }`}
                 onClick={() => setSignUpStatus(4)}

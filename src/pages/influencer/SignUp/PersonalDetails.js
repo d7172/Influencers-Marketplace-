@@ -13,17 +13,53 @@ const initForm = {
   whatsapp: "",
   DOB: "",
   aboutYourself: "",
+  profile: {},
+  cover: {},
 };
 
-function PersonalDetails() {
+export const FormError = ({ children }) => {
+  return <p className="text-red-500 text-xs italic mt-1">{children}</p>;
+};
+
+function PersonalDetails({ signUp, setSignUp, setSignUpStatus }) {
   return (
     <div>
       <h1 className="text-center text-2xl font-bold mb-2">Personal Details</h1>
       <p className="w-390 text-gray-500 text-sm text-center m-auto mb-4">
         Log in to your account using email and password provided during registration.
       </p>
-      <Formik initialValues={initForm} validateSchema={personalDetailsSchema} onSubmit={(values, { resetForm }) => {}}>
-        {({ handleChange, handleSubmit, values, errors, setFieldValue }) => {
+      <Formik
+        initialValues={initForm}
+        validationSchema={personalDetailsSchema}
+        onSubmit={(values) => {
+          setSignUp({
+            ...signUp,
+            personal_details: {
+              ...signUp.personalDetails,
+              first_name: values.firstName,
+              last_name: values.lastName,
+              user_name: values.userName,
+              email: values.email,
+              phone: {
+                dail_code: "+91",
+                contact_number: values.phone,
+              },
+              gender: values.gender,
+              whats_app: {
+                dail_code: "+91",
+                contact_number: values.whatsapp,
+              },
+              dob: values.DOB,
+              about_yourself: values.aboutYourself,
+            },
+            profile_pic: values.profile,
+            cover_pic: values.cover,
+          });
+          setSignUpStatus(2);
+        }}
+      >
+        {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
+          console.log(values);
           return (
             <div className="w-[1100px] m-auto">
               <div className="flex flex-wrap gap-10 items-center justify-between">
@@ -32,65 +68,70 @@ function PersonalDetails() {
                     First Name<span className="text-red-500">*</span>
                   </label>
                   <input
-                    className="appearance-none border rounded w-390 h-48  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-blue-300"
+                    className="input-field w-390"
                     id="firstName"
                     type="text"
                     placeholder="First Name"
                     value={values.firstName}
                     onChange={handleChange("firstName")}
                   />
+                  {errors.firstName && touched.firstName && <FormError>{errors.firstName}</FormError>}
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                     Last Name<span className="text-red-500">*</span>
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-390 h-48  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-blue-300"
-                    id="firstName"
+                    className="input-field w-390"
+                    id="lastName"
                     type="text"
                     placeholder="Last Name"
                     value={values.lastName}
                     onChange={handleChange("lastName")}
                   />
+                  {errors.lastName && touched.lastName && <FormError>{errors.lastName}</FormError>}
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                     User Name<span className="text-red-500">*</span>
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-168 h-48  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-blue-300"
+                    className="input-field w-168"
                     id="userName"
                     type="text"
                     placeholder="User Name"
                     value={values.userName}
                     onChange={handleChange("userName")}
                   />
+                  {errors.userName && touched.userName && <FormError>{errors.userName}</FormError>}
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                     Email<span className="text-red-500">*</span>
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-390 h-48  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-blue-300"
-                    id="firstName"
+                    className="input-field w-390"
+                    id="email"
                     type="text"
                     placeholder="example@gmail.com"
                     value={values.email}
                     onChange={handleChange("email")}
                   />
+                  {errors.email && touched.email && <FormError>{errors.email}</FormError>}
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                     Phone Number<span className="text-red-500">*</span>
                   </label>
                   <input
-                    className="shadow appearance-none border rounded w-390 h-48  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-blue-300"
-                    id="firstName"
-                    type="text"
+                    className="input-field w-390"
+                    id="phone"
+                    type="number"
                     placeholder="Phone Number"
                     value={values.phone}
                     onChange={handleChange("phone")}
                   />
+                  {errors.phone && touched.phone && <FormError>{errors.phone}</FormError>}
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
@@ -112,6 +153,7 @@ function PersonalDetails() {
                         },
                       ]}
                     />
+                    {errors.gender && touched.gender && <FormError>{errors.gender}</FormError>}
                   </div>
                 </div>
                 <div className="flex gap-20">
@@ -120,71 +162,101 @@ function PersonalDetails() {
                       Whatsapp Number<span className="text-red-500">*</span>
                     </label>
                     <input
-                      className="shadow appearance-none border rounded w-390 h-48  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-blue-300"
+                      className="input-field w-390"
                       id="phone"
-                      type="text"
+                      type="number"
                       placeholder="Phone Number"
                       value={values.whatsapp}
                       onChange={handleChange("whatsapp")}
                     />
+                    {errors.whatsapp && touched.whatsapp && <FormError>{errors.whatsapp}</FormError>}
                   </div>
                   <div>
-                    <label className="block text-gray-700 text-sm mb-2">Date Of Birth</label>
-                    <input type="date" className="form-date h-48" />
+                    <label className="block text-gray-700 text-sm mb-2">
+                      Date Of Birth<span className="text-red-500">*</span>{" "}
+                    </label>
+                    <input
+                      type="date"
+                      className="form-date h-48"
+                      onChange={(e) => setFieldValue("DOB", e.target.value)}
+                    />
+                    {errors.DOB && touched.DOB && <FormError>{errors.DOB}</FormError>}
                   </div>
                 </div>
               </div>
               <div className="mt-10 flex gap-20">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700">Profile Picture</label>
-                  <div class="mt-1 flex w-390 justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                    <div class="space-y-1 text-center">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Profile Picture<span className="text-red-500">*</span>{" "}
+                  </label>
+                  <div className="mt-1 flex w-390 justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div className="space-y-1 text-center">
                       {imageSvg}
-                      <div class="flex text-sm text-gray-600">
-                        <label
-                          for="file-upload"
-                          class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                        >
+                      <div className="flex text-sm text-gray-600">
+                        <label htmlFor="profile" className="drag-drop">
                           <span>Upload a file</span>
-                          <input id="file-upload" name="file-upload" type="file" class="sr-only" />
+                          <input
+                            id="profile"
+                            name="profile"
+                            type="file"
+                            className="sr-only"
+                            accept="image/png, image/jpeg"
+                            onChange={(e) => setFieldValue("profile", e.target.files[0])}
+                          />
                         </label>
-                        <p class="pl-1">or drag and drop</p>
+                        <p className="pl-1">or drag and drop</p>
                       </div>
-                      <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                      <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                     </div>
                   </div>
+                  {errors.profile && touched.profile && <FormError>{errors.profile}</FormError>}
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-gray-700">Cover Picture</label>
-                  <div class="mt-1 flex w-390 justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                    <div class="space-y-1 text-center">
+                  <label className="block text-sm font-medium text-gray-700">Cover Picture</label>
+                  <div className="mt-1 flex w-390 justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div className="space-y-1 text-center">
                       {imageSvg}
-                      <div class="flex text-sm text-gray-600">
-                        <label
-                          for="file-upload"
-                          class="relative cursor-pointer outline-none bg-white rounded-md font-medium text-indigo-600 focus:shadow-blue-300 focus:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-                        >
+                      <div className="flex text-sm text-gray-600">
+                        <label htmlFor="cover" className="drag-drop">
                           <span>Upload a file</span>
-                          <input id="file-upload" name="file-upload" type="file" class="sr-only" />
+                          <input
+                            id="cover"
+                            name="cover"
+                            type="file"
+                            className="sr-only"
+                            accept="image/png, image/jpeg"
+                            onChange={(e) => setFieldValue("cover", e.target.files[0])}
+                          />
                         </label>
-                        <p class="pl-1">or drag and drop</p>
+                        <p className="pl-1">or drag and drop</p>
                       </div>
-                      <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                      <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="mt-10">
-                <label class="form-label inline-block mb-2">About Your Self</label>
+              <div className="mt-10">
+                <label className="form-label inline-block mb-2">
+                  About Your Self <span className="text-red-500">*</span>{" "}
+                </label>
                 <textarea
                   className="block w-[860px] h-[148px] px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:shadow-blue-300 focus:outline-none"
                   id="exampleFormControlTextarea1"
                   rows="3"
                   placeholder="Your message"
+                  value={values.aboutYourself}
+                  onChange={(e) => setFieldValue("aboutYourself", e.target.value)}
                 />
+                {errors.aboutYourself && touched.aboutYourself && <FormError>{errors.aboutYourself}</FormError>}
               </div>
               <div className="mt-14 flex justify-center cursor-pointer">
-                <button className="w-[400px] rounded-[50px] bg-primary text-white py-2">Next</button>
+                <button
+                  type="button"
+                  className="w-[400px] rounded-[50px] bg-primary text-white py-2"
+                  onClick={handleSubmit}
+                >
+                  Next
+                </button>
               </div>
             </div>
           );
@@ -197,12 +269,18 @@ function PersonalDetails() {
 export default PersonalDetails;
 
 export const imageSvg = (
-  <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+  <svg
+    className="mx-auto h-12 w-12 text-gray-400"
+    stroke="currentColor"
+    fill="none"
+    viewBox="0 0 48 48"
+    aria-hidden="true"
+  >
     <path
       d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

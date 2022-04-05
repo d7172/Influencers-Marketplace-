@@ -1,10 +1,10 @@
 import React from "react";
 import CloseBtn from "./CloseBtn";
 
-function ConnectSocialFeed({ name = "Instagram" }) {
+function ConnectSocialFeed({ name = "Instagram", close, signUp, setSignUp }) {
   return (
     <div className="w-[600px] h-full flex flex-col items-center justify-center">
-      <CloseBtn className="absolute right-5 top-7" />
+      <CloseBtn onClick={close} className="absolute right-5 top-7" />
       <h1 className="mb-4 text-color text-2xl">How to Connect your Account with {name}</h1>
       <p className="text-sm w-390 text-gray-400 text-center mb-7 m-auto">
         Log in to your account using email and password provided during registration.
@@ -24,7 +24,14 @@ function ConnectSocialFeed({ name = "Instagram" }) {
         />
       </div>
       <div className="mt-12 flex justify-center cursor-pointer">
-        <button className="w-[277px] rounded-[50px] bg-primary text-white py-2">Submit</button>
+        <button
+          className="w-[277px] rounded-[50px] bg-primary text-white py-2"
+          onClick={() => {
+            close();
+          }}
+        >
+          Submit
+        </button>
       </div>
       <p className="text-sm text-gray-400 w-[409px] m-auto mt-10">
         Having trouble? Please contact help@yourdomain.com or you can call on 1800-200-3200 for further support.

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import ConnectSocialFeed from "../../../components/ConnectSocialFeed";
 import MyDialog from "../../../components/MyDialog";
 import SuccessfullSignUp from "../../../components/SuccessfullSignUp";
+import { postSignUp } from "../../../store/SignUp/action";
 
-function SignUpSocialFeed() {
+function SignUpSocialFeed({ signUp, setSignUp, setSignUpStatus }) {
+  const dispatch = useDispatch();
   const [socialFeed, setSocialFeed] = useState({
     name: "",
     show: false,
@@ -11,7 +14,12 @@ function SignUpSocialFeed() {
   return (
     <div className="w-[1100px] m-auto">
       <MyDialog isOpen={socialFeed.show} close={() => setSocialFeed({ name: "", show: false })} className="rounded-8">
-        <ConnectSocialFeed name={socialFeed.name} />
+        <ConnectSocialFeed
+          signUp={signUp}
+          close={() => setSocialFeed({ name: "", show: false })}
+          setSignUp={setSignUp}
+          name={socialFeed.name}
+        />
       </MyDialog>
       <MyDialog isOpen={false} close={() => {}} className="rounded-8">
         <SuccessfullSignUp />
@@ -40,7 +48,28 @@ function SignUpSocialFeed() {
         ))}
       </div>
       <div className="mt-14 flex justify-center cursor-pointer">
-        <button className="w-[400px] rounded-[50px] bg-primary text-white py-2">Submit</button>
+        <button
+          className="w-[400px] rounded-[50px] bg-primary text-white py-2"
+          onClick={() => {
+            const temp = { ...signUp };
+            delete temp.profile_pic;
+            delete temp.cover_pic;
+            delete temp.pan_card;
+            delete temp.aadhar_card_back;
+            delete temp.aadhar_card_front;
+
+            const data = new FormData();
+            data.append("req_params", temp);
+            data.append("profile_pic", signUp.profile_pic);
+            data.append("cover_pic", signUp.cover_pic);
+            data.append("pan_card", signUp.pan_card);
+            data.append("aadhar_card_back", signUp.aadhar_card_back);
+            data.append("aadhar_card_front", signUp.aadhar_card_front);
+            dispatch(postSignUp(data));
+          }}
+        >
+          Submit
+        </button>
       </div>
     </div>
   );

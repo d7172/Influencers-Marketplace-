@@ -49,11 +49,11 @@ function Login() {
               placeholder="Input your OTP in here"
             />
           </div>
-          {isLogin && (
+          {/* {isLogin && (
             <div className="mt-5 flex gap-10">
               <div className="flex gap-2.5">
                 <input
-                  class="overflow-hidden h-4 w-4 border border-gray-300 rounded-sm bg-white checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
+                  className="overflow-hidden h-4 w-4 border border-gray-300 rounded-sm bg-white checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
                   type="checkbox"
                   checked={isBrand}
                   onChange={() => setIsBrand(!isBrand)}
@@ -62,7 +62,7 @@ function Login() {
               </div>
               <div className="flex gap-2.5">
                 <input
-                  class="overflow-hidden h-4 w-4 border border-gray-300 rounded-sm bg-white checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
+                  className="overflow-hidden h-4 w-4 border border-gray-300 rounded-sm bg-white checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
                   type="checkbox"
                   checked={!isBrand}
                   onChange={() => setIsBrand(!isBrand)}
@@ -70,9 +70,9 @@ function Login() {
                 <label>Are you Influencers</label>
               </div>
             </div>
-          )}
+          )} */}
           <button
-            className={`bg-primary h-48 text-white w-full rounded-3xl ${isLogin ? "mt-16" : "mt-20"}`}
+            className={`bg-primary h-48 text-white w-full rounded-3xl mt-20`}
             onClick={() => navigate("/signup-type")}
           >
             LogIn

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { FormError } from "./PersonalDetails";
 
-function Category() {
+function Category({ signUp, setSignUp, setSignUpStatus }) {
+  const [zeroCategoryError, setZeroCategoryError] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [channel, setChannel] = useState({
     name: "",
@@ -39,7 +41,10 @@ function Category() {
           );
         })}
       </div>
-      <div className="mt-10">
+
+      {/* ADD YOUTUBE CHANNEL */}
+
+      {/* <div className="mt-10">
         <h1 className="text-3xl text-center mb-2">Add your youtube channel</h1>
         <p className="text-sm w-390 text-gray-400 text-center mb-10 m-auto">
           Log in to your account using email and password provided during registration.
@@ -72,10 +77,31 @@ function Category() {
             />
           </div>
         </div>
-        <div className="mt-14 flex justify-center cursor-pointer">
-          <button className="w-[400px] rounded-[50px] bg-primary text-white py-2">Next</button>
-        </div>
+      </div> */}
+      <div className="mt-14 flex justify-center cursor-pointer">
+        <button
+          className="w-[400px] rounded-[50px] bg-primary text-white py-2"
+          onClick={() => {
+            if (selectedCategory.length) {
+              setSignUp({
+                ...signUp,
+                category: [...selectedCategory],
+              });
+              setSignUpStatus(3);
+              setZeroCategoryError(false);
+            } else {
+              setZeroCategoryError(true);
+            }
+          }}
+        >
+          Next
+        </button>
       </div>
+      {zeroCategoryError && (
+        <div className="text-center">
+          <FormError>Choose at least one category.</FormError>
+        </div>
+      )}
     </div>
   );
 }
