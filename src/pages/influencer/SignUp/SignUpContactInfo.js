@@ -1,8 +1,10 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import Dropdown from "../../../components/Dropdown";
 import { contactInfoSchema } from "../../../utils/formsSchema";
 import { FormError, imageSvg } from "./PersonalDetails";
+import { Country, State, City } from "country-state-city";
 
 const initForm = {
   address: "",
@@ -24,15 +26,16 @@ const initForm = {
   uploadAadharBack: {},
 };
 
-function SignUpContactInfo({ signUp, setSignUp, setSignUpStatus }) {
+function SignUpContactInfo({ setSignUpStatus }) {
+  const dispatch = useDispatch();
+  const [cities, setCities] = useState([]);
+
   return (
     <Formik
       initialValues={initForm}
       validationSchema={contactInfoSchema}
       onSubmit={(values, { resetForm }) => {
-        console.log(values);
-        setSignUp({
-          ...signUp,
+        const data = {
           address_details: {
             line1: values.address,
             line2: "",
@@ -59,12 +62,12 @@ function SignUpContactInfo({ signUp, setSignUp, setSignUpStatus }) {
           pan_card: values.uploadPanCard,
           aadhar_card_front: values.uploadAadharFront,
           aadhar_card_back: values.uploadAadharBack,
-        });
+        };
+        dispatch({ type: "UPDATE_SIGNUP_STATE", data });
         setSignUpStatus(4);
       }}
     >
       {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
-        console.log(errors);
         return (
           <div className="w-[1100px] m-auto">
             <h1 className="text-3xl text-center mb-2">Contact Information</h1>
@@ -89,14 +92,34 @@ function SignUpContactInfo({ signUp, setSignUp, setSignUpStatus }) {
               <div>
                 <label className="block text-gray-700 text-sm mb-2">City</label>
                 <div>
-                  <Dropdown className="w-390" dropdownStyle="w-390" label="City" options={[{ label: "India" }]} />
+                  <Dropdown
+                    className="w-390"
+                    dropdownStyle="w-390"
+                    label={cities.length ? (values.city.length ? values.city : "City") : "Please select a state first."}
+                    options={cities}
+                    optionsLabel="name"
+                    onChange={(val) => {
+                      setFieldValue("city", val.name);
+                    }}
+                  />
                 </div>
                 {errors.city && touched.city && <FormError>{errors.city}</FormError>}
               </div>
               <div>
                 <label className="block text-gray-700 text-sm mb-2">State</label>
                 <div>
-                  <Dropdown className="w-390" dropdownStyle="w-390" label="State" options={[{ label: "State" }]} />
+                  <Dropdown
+                    className="w-390"
+                    dropdownStyle="w-390"
+                    label={values.state.length ? values.state : "State"}
+                    options={State.getStatesOfCountry("IN")}
+                    optionsLabel="name"
+                    onChange={(props) => {
+                      setCities(City.getCitiesOfState("IN", props.isoCode));
+                      setFieldValue("city", "");
+                      setFieldValue("state", props.name);
+                    }}
+                  />
                 </div>
                 {errors.state && touched.state && <FormError>{errors.state}</FormError>}
               </div>
@@ -117,7 +140,13 @@ function SignUpContactInfo({ signUp, setSignUp, setSignUpStatus }) {
               <div>
                 <label className="block text-gray-700 text-sm mb-2">Country</label>
                 <div>
-                  <Dropdown className="w-390" dropdownStyle="w-390" label="India" options={[{ label: "India" }]} />
+                  <Dropdown
+                    className="w-390"
+                    dropdownStyle="w-390"
+                    label="India"
+                    options={[{ label: "India" }]}
+                    onChange={() => {}}
+                  />
                 </div>
               </div>
             </div>
@@ -193,8 +222,8 @@ function SignUpContactInfo({ signUp, setSignUp, setSignUpStatus }) {
                 </label>
                 <input
                   className="input-field w-390"
-                  id="phone"
-                  type="text"
+                  id="accountNumber"
+                  type="number"
                   placeholder="Account Number"
                   value={values.accountNumber}
                   onChange={handleChange}
@@ -208,7 +237,7 @@ function SignUpContactInfo({ signUp, setSignUp, setSignUpStatus }) {
                 <input
                   className="input-field w-390"
                   id="confirmAccountNumber"
-                  type="text"
+                  type="number"
                   placeholder="Account Number"
                   value={values.confirmAccountNumber}
                   onChange={handleChange}
@@ -242,7 +271,7 @@ function SignUpContactInfo({ signUp, setSignUp, setSignUpStatus }) {
                   Pan Card Number<span className="text-red-500">*</span>
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-390 h-48  py-2 px-3 text-gray-700 leading-tight outline-none focus:outline-none focus:shadow-blue-300"
+                  className="input-field w-390"
                   id="panCardNumber"
                   type="text"
                   placeholder="Pan Card Number"

@@ -2,7 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import React, { Fragment } from "react";
 
-function Dropdown({ label = "Options", options, className, dropdownStyle }) {
+function Dropdown({ label = "Options", options, className, dropdownStyle, onChange, optionsLabel = "label" }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button
@@ -10,7 +10,7 @@ function Dropdown({ label = "Options", options, className, dropdownStyle }) {
       >
         {label}
         <ChevronDownIcon
-          className="w-5 h-5 ml-2 -mr-1 absolute right-5 text-gray-500 hover:text-violet-100"
+          className="w-5 h-5 ml-2 mr-1 absolute right-5 text-gray-500 hover:text-violet-100"
           aria-hidden="true"
         />
       </Menu.Button>
@@ -25,19 +25,19 @@ function Dropdown({ label = "Options", options, className, dropdownStyle }) {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className={`absolute right-0 w-390 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${dropdownStyle}`}
+          className={`absolute right-0 w-390 mt-2 max-h-[200px] overflow-auto origin-top-right bg-white divide-y z-[100] divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${dropdownStyle}`}
         >
           <div className="px-1 py-1 ">
-            {options.map(({ label, onClick }) => (
-              <Menu.Item key={label}>
+            {options.map((props) => (
+              <Menu.Item key={props[optionsLabel]}>
                 {({ active }) => (
                   <button
                     className={`${
                       active ? "bg-primary text-white" : "text-gray-900"
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                    onClick={onClick}
+                    onClick={() => onChange(props)}
                   >
-                    {label}
+                    {props[optionsLabel]}
                   </button>
                 )}
               </Menu.Item>

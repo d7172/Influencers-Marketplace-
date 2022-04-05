@@ -2,6 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import { personalDetailsSchema } from "../../../utils/formsSchema";
 import Dropdown from "../../../components/Dropdown";
+import { useDispatch } from "react-redux";
 
 const initForm = {
   firstName: "",
@@ -21,7 +22,8 @@ export const FormError = ({ children }) => {
   return <p className="text-red-500 text-xs italic mt-1">{children}</p>;
 };
 
-function PersonalDetails({ signUp, setSignUp, setSignUpStatus }) {
+function PersonalDetails({ setSignUpStatus }) {
+  const dispatch = useDispatch();
   return (
     <div>
       <h1 className="text-center text-2xl font-bold mb-2">Personal Details</h1>
@@ -32,10 +34,8 @@ function PersonalDetails({ signUp, setSignUp, setSignUpStatus }) {
         initialValues={initForm}
         validationSchema={personalDetailsSchema}
         onSubmit={(values) => {
-          setSignUp({
-            ...signUp,
+          const data = {
             personal_details: {
-              ...signUp.personalDetails,
               first_name: values.firstName,
               last_name: values.lastName,
               user_name: values.userName,
@@ -54,12 +54,12 @@ function PersonalDetails({ signUp, setSignUp, setSignUpStatus }) {
             },
             profile_pic: values.profile,
             cover_pic: values.cover,
-          });
+          };
+          dispatch({ type: "UPDATE_SIGNUP_STATE", data });
           setSignUpStatus(2);
         }}
       >
         {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
-          console.log(values);
           return (
             <div className="w-[1100px] m-auto">
               <div className="flex flex-wrap gap-10 items-center justify-between">
@@ -145,13 +145,12 @@ function PersonalDetails({ signUp, setSignUp, setSignUpStatus }) {
                       options={[
                         {
                           label: "Male",
-                          onClick: () => setFieldValue("gender", "Male"),
                         },
                         {
                           label: "Female",
-                          onClick: () => setFieldValue("gender", "Female"),
                         },
                       ]}
+                      onChange={(val) => setFieldValue("gender", val.label)}
                     />
                     {errors.gender && touched.gender && <FormError>{errors.gender}</FormError>}
                   </div>
@@ -177,7 +176,7 @@ function PersonalDetails({ signUp, setSignUp, setSignUpStatus }) {
                     </label>
                     <input
                       type="date"
-                      className="form-date h-48"
+                      className="input-field text-gray-500"
                       onChange={(e) => setFieldValue("DOB", e.target.value)}
                     />
                     {errors.DOB && touched.DOB && <FormError>{errors.DOB}</FormError>}

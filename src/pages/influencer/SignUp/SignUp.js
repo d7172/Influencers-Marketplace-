@@ -4,62 +4,6 @@ import PersonalDetails from "./PersonalDetails";
 import SignUpContactInfo from "./SignUpContactInfo";
 import SignUpSocialFeed from "./SignUpSocialFeed";
 
-export const initSignUp = {
-  phone: {
-    dail_code: "+91",
-    contact_number: "",
-  },
-  otp: "",
-  type: "",
-  personal_details: {
-    first_name: "",
-    last_name: "",
-    user_name: "",
-    email: "",
-    phone: {
-      dail_code: "+91",
-      contact_number: "",
-    },
-    gender: "male",
-    whats_app: {
-      dail_code: "+91",
-      contact_number: "",
-    },
-    dob: "2022-02-01",
-    about_yourself: "i m influencer",
-    category: ["health", "fitness"],
-  },
-  address_details: {
-    line1: "",
-    line2: "",
-    pincode: "",
-    country: "",
-    state: "",
-    city: "",
-  },
-  profession_details: {
-    avg_user_engagement: "",
-    basic_charges_per_post: 0,
-    influencer_experience: "",
-    profile_title: "",
-  },
-  bank_detials: {
-    bank_name: "",
-    account_number: "",
-    ifsc_code: "",
-  },
-  kyc_details: {
-    pan_card_number: "",
-    aadhar_card_number: "",
-  },
-  social_feeds: [],
-  profile_pic: {},
-  cover_pic: {},
-  pan_card: {},
-  aadhar_card_front: {},
-  aadhar_card_back: {},
-};
-
 function SignUp() {
   const [signUpstatus, setSignUpStatus] = useState(1);
   const [signUp, setSignUp] = useState(initSignUp);
@@ -182,3 +126,59 @@ function SignUp() {
 }
 
 export default SignUp;
+
+export const initSignUp = {
+  phone: {
+    dail_code: "+91",
+    contact_number: "",
+  },
+  otp: "",
+  type: "",
+  personal_details: {
+    first_name: "",
+    last_name: "",
+    user_name: "",
+    email: "",
+    phone: {
+      dail_code: "+91",
+      contact_number: "",
+    },
+    gender: "male",
+    whats_app: {
+      dail_code: "+91",
+      contact_number: "",
+    },
+    dob: "2022-02-01",
+    about_yourself: "i m influencer",
+    category: ["health", "fitness"],
+  },
+  address_details: {
+    line1: "",
+    line2: "",
+    pincode: "",
+    country: "",
+    state: "",
+    city: "",
+  },
+  profession_details: {
+    avg_user_engagement: "",
+    basic_charges_per_post: 0,
+    influencer_experience: "",
+    profile_title: "",
+  },
+  bank_detials: {
+    bank_name: "",
+    account_number: "",
+    ifsc_code: "",
+  },
+  kyc_details: {
+    pan_card_number: "",
+    aadhar_card_number: "",
+  },
+  social_feeds: [],
+  profile_pic: {},
+  cover_pic: {},
+  pan_card: {},
+  aadhar_card_front: {},
+  aadhar_card_back: {},
+};

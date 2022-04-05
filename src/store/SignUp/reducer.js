@@ -1,0 +1,1 @@
+const signup = (state = {}, action) => {};

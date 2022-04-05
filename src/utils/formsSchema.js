@@ -1,5 +1,18 @@
 import * as yup from "yup";
 
+export const loginSchema = yup.object().shape({
+  phone: yup
+    .number()
+    .min(999999999, "Minimum 10 characters")
+    .max(9999999999, "Max 10 characters")
+    .required("Mobile number is required"),
+  otp: yup
+    .string()
+    .min(6, "Must be exactly 6 characters")
+    .max(6, "Must be exactly 6 characters")
+    .required("OTP is required."),
+});
+
 export const personalDetailsSchema = yup.object().shape({
   firstName: yup.string().min(3, "Minimum 3 characters").required("First name is required."),
   lastName: yup.string().min(3, "Minimum 3 characters").required("Last name is required."),
@@ -39,7 +52,10 @@ export const contactInfoSchema = yup.object().shape({
   profileTitle: yup.string().required("Profile Title is required."),
   bankName: yup.string().min(3, "Minimum 3 characters").required("Bank Name is required."),
   accountNumber: yup.string().min(3, "Minimum 3 characters").required("Account Number is required."),
-  confirmAccountNumber: yup.string().min(3, "Minimum 3 characters").required("Confirm Account Number is required."),
+  confirmAccountNumber: yup
+    .string()
+    .oneOf([yup.ref("accountNumber"), null], "Passwords must match")
+    .required("Confirm Account Number is required."),
   IFSCCode: yup.string().min(3, "Minimum 3 characters").required("IFSC Code is required."),
   panCardNumber: yup.string().min(3, "Minimum 3 characters").required("Pan Card Number is required."),
   aadharCardNumber: yup.string().min(3, "Minimum 3 characters").required("AAdhaar Card Number is required."),

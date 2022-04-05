@@ -1,8 +1,10 @@
 import React from "react";
 import BackArrowBtn from "../../components/BackArrowBtn";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 function SignUpType() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <div className="bg-background pb-3 h-full min-h-screen flex flex-col gap-14 items-center justify-center">
@@ -21,7 +23,13 @@ function SignUpType() {
             <p className="w-238 leading-5 text-gray-500 text-sm">
               Log in to your account using email and password provided.
             </p>
-            <button onClick={() => navigate("/signup")} className="bg-primary h-40 text-white w-120 rounded-3xl mt-10 ">
+            <button
+              onClick={() => {
+                dispatch({ type: "UPDATE_SIGNUP_STATE", data: { type: "influancer" } });
+                navigate("/signup");
+              }}
+              className="bg-primary h-40 text-white w-120 rounded-3xl mt-10 "
+            >
               Sign up
             </button>
           </div>
@@ -31,7 +39,13 @@ function SignUpType() {
             <p className="w-238 leading-5 text-gray-500 text-sm">
               Log in to your account using email and password provided.
             </p>
-            <button onClick={() => navigate("/signup")} className="bg-primary h-40 text-white w-120 rounded-3xl mt-10 ">
+            <button
+              onClick={() => {
+                dispatch({ type: "UPDATE_SIGNUP_STATE", data: { type: "brand" } });
+                navigate("/signup");
+              }}
+              className="bg-primary h-40 text-white w-120 rounded-3xl mt-10 "
+            >
               Sign up
             </button>
           </div>

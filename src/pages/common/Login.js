@@ -1,10 +1,19 @@
+import { Formik } from "formik";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginSchema } from "../../utils/formsSchema";
+import { FormError } from "../influencer/SignUp/PersonalDetails";
+
+const initForm = {
+  phone: "",
+  otp: "",
+};
 
 function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
-  const [isBrand, setIsBrand] = useState(false);
   return (
     <div className="bg-background h-full min-h-screen py-4 flex flex-col gap-14 items-center justify-center">
       <div className="text-center flex flex-col gap-5">
@@ -32,53 +41,64 @@ function Login() {
             Sign Up
           </div>
         </div>
-        <div className="w-400 m-auto mt-14">
-          <div className="flex flex-col text-left">
-            <label className="ml-2">Phone</label>
-            <input
-              type="text"
-              className="border-2 border-neutral-200 rounded-8 px-4 py-2"
-              placeholder="Input your Phone in here"
-            />
-          </div>
-          <div className="flex flex-col text-left mt-10">
-            <label className="ml-2">OTP</label>
-            <input
-              type="text"
-              className="border-2 border-neutral-200 rounded-8 px-4 py-2"
-              placeholder="Input your OTP in here"
-            />
-          </div>
-          {/* {isLogin && (
-            <div className="mt-5 flex gap-10">
-              <div className="flex gap-2.5">
-                <input
-                  className="overflow-hidden h-4 w-4 border border-gray-300 rounded-sm bg-white checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
-                  type="checkbox"
-                  checked={isBrand}
-                  onChange={() => setIsBrand(!isBrand)}
-                />
-                <label>Are you Brand</label>
+        <Formik
+          initialValues={initForm}
+          validationSchema={loginSchema}
+          onSubmit={(values) => {
+            if (!isLogin) {
+              dispatch({
+                type: "UPDATE_SIGNUP_STATE",
+                data: {
+                  phone: {
+                    dail_code: "+91",
+                    contact_number: values.phone.toString(),
+                  },
+                  otp: values.otp,
+                },
+              });
+              navigate("/signup-type");
+            }
+          }}
+        >
+          {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
+            return (
+              <div className="w-400 m-auto mt-14">
+                <div className="flex flex-col text-left">
+                  <label className="ml-2">Phone</label>
+                  <input
+                    id="phone"
+                    type="number"
+                    className="input-field"
+                    placeholder="Input your Phone in here"
+                    value={values.phone}
+                    onChange={handleChange}
+                  />
+                  {errors.phone && touched.phone && <FormError>{errors.phone}</FormError>}
+                </div>
+                <div className="flex flex-col text-left mt-10">
+                  <label className="ml-2">OTP</label>
+                  <input
+                    id="otp"
+                    type="text"
+                    className="input-field"
+                    placeholder="Input your OTP in here"
+                    value={values.otp}
+                    onChange={handleChange}
+                  />
+                  {errors.otp && touched.otp && <FormError>{errors.otp}</FormError>}
+                </div>
+                <button
+                  type="button"
+                  className={`bg-primary h-48 text-white w-full rounded-3xl mt-20`}
+                  onClick={handleSubmit}
+                >
+                  LogIn
+                </button>
+                <button className="text-sm mt-4 underline color-lightGrey">Resend OTP in 00:34</button>
               </div>
-              <div className="flex gap-2.5">
-                <input
-                  className="overflow-hidden h-4 w-4 border border-gray-300 rounded-sm bg-white checked:border-blue-600 focus:outline-none transition duration-200 my-1 align-top bg-no-repeat bg-center bg-contain float-left cursor-pointer"
-                  type="checkbox"
-                  checked={!isBrand}
-                  onChange={() => setIsBrand(!isBrand)}
-                />
-                <label>Are you Influencers</label>
-              </div>
-            </div>
-          )} */}
-          <button
-            className={`bg-primary h-48 text-white w-full rounded-3xl mt-20`}
-            onClick={() => navigate("/signup-type")}
-          >
-            LogIn
-          </button>
-          <button className="text-sm mt-4 underline color-lightGrey">Resend OTP in 00:34</button>
-        </div>
+            );
+          }}
+        </Formik>
       </div>
     </div>
   );

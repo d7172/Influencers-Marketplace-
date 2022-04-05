@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FormError } from "./PersonalDetails";
 
-function Category({ signUp, setSignUp, setSignUpStatus }) {
+function Category({ setSignUpStatus }) {
+  const dispatch = useDispatch();
+  const signUpState = useSelector((state) => state.signUpState);
   const [zeroCategoryError, setZeroCategoryError] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState([]);
-  const [channel, setChannel] = useState({
-    name: "",
-    link: "",
-  });
+  // const [channel, setChannel] = useState({
+  //   name: "",
+  //   link: "",
+  // });
 
   function handleSelectCategory(title) {
     const isSelected = selectedCategory.includes(title);
@@ -83,10 +86,15 @@ function Category({ signUp, setSignUp, setSignUpStatus }) {
           className="w-[400px] rounded-[50px] bg-primary text-white py-2"
           onClick={() => {
             if (selectedCategory.length) {
-              setSignUp({
-                ...signUp,
-                category: [...selectedCategory],
-              });
+              const data = {
+                ...signUpState,
+                personal_details: {
+                  ...signUpState.personal_details,
+                  category: [...selectedCategory],
+                },
+              };
+              dispatch({ type: "UPDATE_SIGNUP_STATE", data });
+
               setSignUpStatus(3);
               setZeroCategoryError(false);
             } else {

@@ -5,7 +5,7 @@
 
 @layer components {
   .input-field {
-    @apply shadow appearance-none border rounded h-48  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-blue-300;
+    @apply shadow appearance-none border-[1.5px] border-neutral-200 rounded h-48  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-blue-300;
   }
   .drag-drop {
     @apply relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500;
