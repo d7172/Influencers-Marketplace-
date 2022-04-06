@@ -44,7 +44,7 @@ function SignUp() {
             <div className="rounded-full transition duration-500 ease-in-out h-8 w-8 border-2 border-b-active flex items-center justify-center cursor-pointer">
               <div
                 className="rounded-full transition duration-500 ease-in-out h-5 w-5 bg-primary"
-                onClick={() => setSignUpStatus(1)}
+                // onClick={() => setSignUpStatus(1)}
               />
             </div>
           </div>
@@ -63,7 +63,7 @@ function SignUp() {
                 className={`rounded-full transition duration-500 ease-in-out h-5 w-5 ${
                   signUpstatus >= 2 && "bg-primary"
                 }`}
-                onClick={() => setSignUpStatus(2)}
+                // onClick={() => setSignUpStatus(2)}
               />
             </div>
           </div>
@@ -82,7 +82,7 @@ function SignUp() {
                 className={`rounded-full transition duration-500 ease-in-out h-5 w-5 ${
                   signUpstatus >= 3 && "bg-primary"
                 }`}
-                onClick={() => setSignUpStatus(3)}
+                // onClick={() => setSignUpStatus(3)}
               />
             </div>
           </div>
@@ -101,7 +101,7 @@ function SignUp() {
                 className={`rounded-full transition duration-500 ease-in-out h-5 w-5 ${
                   signUpstatus >= 4 && "bg-primary"
                 }`}
-                onClick={() => setSignUpStatus(4)}
+                // onClick={() => setSignUpStatus(4)}
               />
             </div>
           </div>
