@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import { personalDetailsSchema } from "../../../utils/formsSchema";
 import Dropdown from "../../../components/Dropdown";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const initForm = {
   firstName: "",
@@ -24,6 +25,28 @@ export const FormError = ({ children }) => {
 
 function PersonalDetails({ setSignUpStatus }) {
   const dispatch = useDispatch();
+  const [personalDetails, setPersonalDetails] = useState(initForm);
+  const signUpState = useSelector((state) => state.signUpState);
+
+  useEffect(() => {
+    const { first_name, last_name, user_name, email, phone, gender, whats_app, dob, about_yourself, category } =
+      signUpState.personal_details;
+    if (first_name.length) {
+      setPersonalDetails({
+        firstName: first_name,
+        lastName: last_name,
+        userName: user_name,
+        email,
+        phone: phone.contact_number,
+        gender,
+        whatsapp: whats_app.contact_number,
+        DOB: dob,
+        aboutYourself: about_yourself,
+        profile: signUpState.profile_pic,
+        cover: signUpState.cover_pic,
+      });
+    }
+  }, []);
   return (
     <div>
       <h1 className="text-center text-2xl font-bold mb-2">Personal Details</h1>
@@ -31,7 +54,8 @@ function PersonalDetails({ setSignUpStatus }) {
         Log in to your account using email and password provided during registration.
       </p>
       <Formik
-        initialValues={initForm}
+        enableReinitialize={true}
+        initialValues={personalDetails}
         validationSchema={personalDetailsSchema}
         onSubmit={(values) => {
           const data = {
@@ -51,6 +75,7 @@ function PersonalDetails({ setSignUpStatus }) {
               },
               dob: values.DOB,
               about_yourself: values.aboutYourself,
+              category: [...signUpState.personal_details.category],
             },
             profile_pic: values.profile,
             cover_pic: values.cover,
@@ -177,6 +202,7 @@ function PersonalDetails({ setSignUpStatus }) {
                     <input
                       type="date"
                       className="input-field text-gray-500"
+                      value={values.DOB}
                       onChange={(e) => setFieldValue("DOB", e.target.value)}
                     />
                     {errors.DOB && touched.DOB && <FormError>{errors.DOB}</FormError>}

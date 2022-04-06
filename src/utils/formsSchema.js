@@ -54,7 +54,7 @@ export const contactInfoSchema = yup.object().shape({
   accountNumber: yup.string().min(3, "Minimum 3 characters").required("Account Number is required."),
   confirmAccountNumber: yup
     .string()
-    .oneOf([yup.ref("accountNumber"), null], "Passwords must match")
+    .oneOf([yup.ref("accountNumber"), null], "Account Number must match")
     .required("Confirm Account Number is required."),
   IFSCCode: yup.string().min(3, "Minimum 3 characters").required("IFSC Code is required."),
   panCardNumber: yup.string().min(3, "Minimum 3 characters").required("Pan Card Number is required."),

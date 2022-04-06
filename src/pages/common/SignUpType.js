@@ -15,7 +15,7 @@ function SignUpType() {
         </p>
       </div>
       <div className="bg-white w-608 h-520 text-center rounded-8 flex flex-col gap-10">
-        <BackArrowBtn className="mt-6 ml-10" onClick={() => window.history.go(-1)} />
+        <BackArrowBtn className="mt-6 ml-10" onClick={() => navigate("/login")} />
         <div className="flex items-center">
           <div className="w-3/6 h-335">
             <img className="m-auto" src="/influancer.svg" alt="Is influancer" />

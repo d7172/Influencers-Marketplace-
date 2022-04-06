@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FormError } from "./PersonalDetails";
 
@@ -11,6 +11,11 @@ function Category({ setSignUpStatus }) {
   //   name: "",
   //   link: "",
   // });
+  useEffect(() => {
+    if (signUpState.personal_details.category.length) {
+      setSelectedCategory([...signUpState.personal_details.category]);
+    }
+  }, []);
 
   function handleSelectCategory(title) {
     const isSelected = selectedCategory.includes(title);

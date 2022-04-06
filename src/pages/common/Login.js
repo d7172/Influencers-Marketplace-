@@ -1,6 +1,6 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginSchema } from "../../utils/formsSchema";
 import { FormError } from "../influencer/SignUp/PersonalDetails";
@@ -14,6 +14,18 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
+  const [credentials, setCredentials] = useState(initForm);
+  const signUpState = useSelector((state) => state.signUpState);
+
+  useEffect(() => {
+    if (signUpState.otp.length) {
+      setCredentials({
+        phone: signUpState.phone.contact_number,
+        otp: signUpState.otp,
+      });
+      setIsLogin(false);
+    }
+  }, []);
   return (
     <div className="bg-background h-full min-h-screen py-4 flex flex-col gap-14 items-center justify-center">
       <div className="text-center flex flex-col gap-5">
@@ -42,7 +54,8 @@ function Login() {
           </div>
         </div>
         <Formik
-          initialValues={initForm}
+          enableReinitialize={true}
+          initialValues={credentials}
           validationSchema={loginSchema}
           onSubmit={(values) => {
             if (!isLogin) {
@@ -92,7 +105,7 @@ function Login() {
                   className={`bg-primary h-48 text-white w-full rounded-3xl mt-20`}
                   onClick={handleSubmit}
                 >
-                  LogIn
+                  {isLogin ? "Login" : "Signup"}
                 </button>
                 <button className="text-sm mt-4 underline color-lightGrey">Resend OTP in 00:34</button>
               </div>

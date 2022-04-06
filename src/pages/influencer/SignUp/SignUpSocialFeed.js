@@ -69,12 +69,13 @@ function SignUpSocialFeed({ setSignUpStatus }) {
           className="w-[400px] rounded-[50px] bg-primary text-white py-2"
           onClick={() => {
             dispatch({ type: "UPDATE_SIGNUP_STATE", data: { social_feeds: [...tempFeeds] } });
-            const temp = { ...signUpState };
+            const temp = { ...signUpState, social_feeds: [...tempFeeds] };
             delete temp.profile_pic;
             delete temp.cover_pic;
             delete temp.pan_card;
             delete temp.aadhar_card_back;
             delete temp.aadhar_card_front;
+            delete temp.category;
 
             const data = new FormData();
             data.append("req_params", temp);
@@ -83,6 +84,7 @@ function SignUpSocialFeed({ setSignUpStatus }) {
             data.append("pan_card", signUpState.pan_card);
             data.append("aadhar_card_back", signUpState.aadhar_card_back);
             data.append("aadhar_card_front", signUpState.aadhar_card_front);
+            console.log("data", data);
             dispatch(postSignUp(data));
           }}
         >

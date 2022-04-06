@@ -21,7 +21,7 @@ const initialState = {
     },
     dob: "",
     about_yourself: "",
-    category: ["", ""],
+    category: [],
   },
   address_details: {
     line1: "",

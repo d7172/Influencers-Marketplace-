@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Dropdown from "../../../components/Dropdown";
 import { contactInfoSchema } from "../../../utils/formsSchema";
 import { FormError, imageSvg } from "./PersonalDetails";
@@ -29,12 +29,44 @@ const initForm = {
 function SignUpContactInfo({ setSignUpStatus }) {
   const dispatch = useDispatch();
   const [cities, setCities] = useState([]);
+  const [contactInfo, setContactInfo] = useState(initForm);
+  const signUpState = useSelector((state) => state.signUpState);
+  console.log(signUpState);
+
+  useEffect(() => {
+    const { address_details, profession_details, bank_detials, kyc_details } = signUpState;
+    if (address_details.line1.length) {
+      setContactInfo({
+        address: address_details.line1,
+        city: address_details.city,
+        state: address_details.state,
+        pinCode: address_details.pincode,
+        avgUserEngagement: profession_details.avg_user_engagement,
+        basicChargesPerPost: profession_details.basic_charges_per_post,
+        influencerExperience: profession_details.influencer_experience,
+        profileTitle: profession_details.profile_title,
+        bankName: bank_detials.bank_name,
+        accountNumber: bank_detials.account_number,
+        confirmAccountNumber: bank_detials.account_number,
+        IFSCCode: bank_detials.ifsc_code,
+        panCardNumber: kyc_details.pan_card_number,
+        aadharCardNumber: kyc_details.aadhar_card_number,
+        uploadPanCard: signUpState.pan_card,
+        uploadAadharFront: signUpState.aadhar_card_front,
+        uploadAadharBack: signUpState.aadhar_card_back,
+      });
+      console.log(window.localStorage.getItem("stateCode"));
+      setCities(City.getCitiesOfState("IN", window.localStorage.getItem("stateCode")));
+    }
+  }, []);
 
   return (
     <Formik
-      initialValues={initForm}
+      enableReinitialize={true}
+      initialValues={contactInfo}
       validationSchema={contactInfoSchema}
       onSubmit={(values, { resetForm }) => {
+        console.log("adfadff");
         const data = {
           address_details: {
             line1: values.address,
@@ -95,7 +127,8 @@ function SignUpContactInfo({ setSignUpStatus }) {
                   <Dropdown
                     className="w-390"
                     dropdownStyle="w-390"
-                    label={cities.length ? (values.city.length ? values.city : "City") : "Please select a state first."}
+                    // label={cities.length ? (values.city.length ? values.city : "City") : "Please select a state first."}
+                    label={values.city.length ? values.city : cities.length ? "City" : "Please select a state first."}
                     options={cities}
                     optionsLabel="name"
                     onChange={(val) => {
@@ -115,6 +148,7 @@ function SignUpContactInfo({ setSignUpStatus }) {
                     options={State.getStatesOfCountry("IN")}
                     optionsLabel="name"
                     onChange={(props) => {
+                      window.localStorage.setItem("stateCode", props.isoCode);
                       setCities(City.getCitiesOfState("IN", props.isoCode));
                       setFieldValue("city", "");
                       setFieldValue("state", props.name);
@@ -158,7 +192,13 @@ function SignUpContactInfo({ setSignUpStatus }) {
               <div>
                 <label className="block text-gray-700 text-sm mb-2">Average User Engagement</label>
                 <div>
-                  <Dropdown className="w-390" dropdownStyle="w-390" label="Less than 1 %" options={[]} />
+                  <Dropdown
+                    className="w-390"
+                    dropdownStyle="w-390"
+                    label={values.avgUserEngagement.length ? values.avgUserEngagement : "Avg User Engagement"}
+                    options={avgUserEngagementOptions}
+                    onChange={(prop) => setFieldValue("avgUserEngagement", prop.label)}
+                  />
                 </div>
                 {errors.avgUserEngagement && touched.avgUserEngagement && (
                   <FormError>{errors.avgUserEngagement}</FormError>
@@ -183,7 +223,13 @@ function SignUpContactInfo({ setSignUpStatus }) {
               <div>
                 <label className="block text-gray-700 text-sm mb-2">Influencer Experience</label>
                 <div>
-                  <Dropdown className="w-390" dropdownStyle="w-390" label="Lest than 1 year" options={[]} />
+                  <Dropdown
+                    className="w-390"
+                    dropdownStyle="w-390"
+                    label={values.influencerExperience.length ? values.influencerExperience : "Influencer Experience"}
+                    options={InfluencerExperienceOptions}
+                    onChange={(prop) => setFieldValue("influencerExperience", prop.label)}
+                  />
                 </div>
                 {errors.influencerExperience && touched.influencerExperience && (
                   <FormError>{errors.influencerExperience}</FormError>
@@ -192,7 +238,13 @@ function SignUpContactInfo({ setSignUpStatus }) {
               <div>
                 <label className="block text-gray-700 text-sm mb-2">Profile Title</label>
                 <div>
-                  <Dropdown className="w-390" dropdownStyle="w-390" label="Lead Gen Expert" options={[]} />
+                  <Dropdown
+                    className="w-390"
+                    dropdownStyle="w-390"
+                    label={values.profileTitle.length ? values.profileTitle : "Profile Title"}
+                    options={profileTitleOptions}
+                    onChange={(prop) => setFieldValue("profileTitle", prop.label)}
+                  />
                 </div>
                 {errors.profileTitle && touched.profileTitle && <FormError>{errors.profileTitle}</FormError>}
               </div>
@@ -394,3 +446,18 @@ function SignUpContactInfo({ setSignUpStatus }) {
 }
 
 export default SignUpContactInfo;
+
+const avgUserEngagementOptions = [
+  { label: "Less Than 1%" },
+  { label: "Between 1% To 3%" },
+  { label: "Greater Than 3%" },
+];
+
+const profileTitleOptions = [{ label: "Leads Generation Exxport" }, { label: "Social Media Expert" }];
+
+const InfluencerExperienceOptions = [
+  { label: "Less Than 1 Year" },
+  { label: "Between 1 Yr To 5 Yrs" },
+  { label: "Between 5 Yrs To 10 Yrs" },
+  { label: "Greater Than 10 Yrs" },
+];

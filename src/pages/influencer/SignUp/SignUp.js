@@ -1,49 +1,35 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import BackArrowBtn from "../../../components/BackArrowBtn";
 import Category from "./Category";
 import PersonalDetails from "./PersonalDetails";
 import SignUpContactInfo from "./SignUpContactInfo";
 import SignUpSocialFeed from "./SignUpSocialFeed";
 
 function SignUp() {
+  const navigate = useNavigate();
   const [signUpstatus, setSignUpStatus] = useState(1);
-  const [signUp, setSignUp] = useState(initSignUp);
 
   const signUpStep = () => {
     switch (signUpstatus) {
       case 1:
-        return (
-          <PersonalDetails
-            signUp={signUp}
-            setSignUp={(data) => setSignUp(data)}
-            setSignUpStatus={(status) => setSignUpStatus(status)}
-          />
-        );
+        return <PersonalDetails setSignUpStatus={(status) => setSignUpStatus(status)} />;
       case 2:
-        return (
-          <Category
-            signUp={signUp}
-            setSignUp={(data) => setSignUp(data)}
-            setSignUpStatus={(status) => setSignUpStatus(status)}
-          />
-        );
+        return <Category setSignUpStatus={(status) => setSignUpStatus(status)} />;
       case 3:
-        return (
-          <SignUpContactInfo
-            signUp={signUp}
-            setSignUp={(data) => setSignUp(data)}
-            setSignUpStatus={(status) => setSignUpStatus(status)}
-          />
-        );
+        return <SignUpContactInfo setSignUpStatus={(status) => setSignUpStatus(status)} />;
       case 4:
-        return (
-          <SignUpSocialFeed
-            signUp={signUp}
-            setSignUp={(data) => setSignUp(data)}
-            setSignUpStatus={(status) => setSignUpStatus(status)}
-          />
-        );
+        return <SignUpSocialFeed setSignUpStatus={(status) => setSignUpStatus(status)} />;
     }
   };
+
+  function backArrowBtnHandler() {
+    if (signUpstatus === 1) {
+      navigate("/signup-type");
+    } else {
+      setSignUpStatus(signUpstatus - 1);
+    }
+  }
 
   return (
     <div className="bg-background h-full min-h-screen pb-24 pt-10 flex flex-col items-center justify-center">
@@ -52,6 +38,7 @@ function SignUp() {
         Log in to your account using email and password provided during registration.
       </p>
       <div className="w-1258 bg-white h-full rounded-8 pb-14">
+        <BackArrowBtn className="absolute mt-10 ml-10" onClick={backArrowBtnHandler} />
         <div className="flex items-center w-390 m-auto my-10">
           <div className="flex items-center relative">
             <div className="rounded-full transition duration-500 ease-in-out h-8 w-8 border-2 border-b-active flex items-center justify-center cursor-pointer">
@@ -126,59 +113,3 @@ function SignUp() {
 }
 
 export default SignUp;
-
-export const initSignUp = {
-  phone: {
-    dail_code: "+91",
-    contact_number: "",
-  },
-  otp: "",
-  type: "",
-  personal_details: {
-    first_name: "",
-    last_name: "",
-    user_name: "",
-    email: "",
-    phone: {
-      dail_code: "+91",
-      contact_number: "",
-    },
-    gender: "male",
-    whats_app: {
-      dail_code: "+91",
-      contact_number: "",
-    },
-    dob: "2022-02-01",
-    about_yourself: "i m influencer",
-    category: ["health", "fitness"],
-  },
-  address_details: {
-    line1: "",
-    line2: "",
-    pincode: "",
-    country: "",
-    state: "",
-    city: "",
-  },
-  profession_details: {
-    avg_user_engagement: "",
-    basic_charges_per_post: 0,
-    influencer_experience: "",
-    profile_title: "",
-  },
-  bank_detials: {
-    bank_name: "",
-    account_number: "",
-    ifsc_code: "",
-  },
-  kyc_details: {
-    pan_card_number: "",
-    aadhar_card_number: "",
-  },
-  social_feeds: [],
-  profile_pic: {},
-  cover_pic: {},
-  pan_card: {},
-  aadhar_card_front: {},
-  aadhar_card_back: {},
-};
