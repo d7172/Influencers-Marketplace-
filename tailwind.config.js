@@ -1,6 +1,6 @@
 module.exports = {
   mode: "jit",
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{html,js}", "./node_modules/tw-elements/dist/js/**/*.js"],
   theme: {
     extend: {
       colors: {
@@ -8,5 +8,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms"), require("tw-elements/dist/plugin")],
 };
