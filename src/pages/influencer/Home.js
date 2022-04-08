@@ -176,8 +176,8 @@ function Home() {
           <img src="/svgs/inf-landing-icon7.svg" alt="" />
         </div>
       </div>
-      <div className="relative flex text-center justify-center w-full max-w-[1600px] h-[950px] m-auto  mt-14">
-        <img className="absolute " src="/images/inf-landing8.svg" alt=" " />
+      <div className="relative flex text-center justify-center min-w-[1350px] m-auto mt-14">
+        <img className="" src="/images/inf-landing8.svg" alt=" " />
         <div className="absolute text-white mt-20 ">
           <h1 className="font-medium text-[40px]">Simplicity meets innovative Brands</h1>
           <p className="mt-6">
