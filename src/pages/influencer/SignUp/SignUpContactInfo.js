@@ -164,10 +164,15 @@ function SignUpContactInfo({ setSignUpStatus }) {
                 <input
                   className="input-field w-390"
                   id="pinCode"
-                  type="number"
+                  type="text"
                   placeholder="ZIP Code"
                   value={values.pinCode}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const numberReg = /^[0-9]*$/;
+                    if (numberReg.test(e.target.value)) {
+                      setFieldValue("pinCode", e.target.value);
+                    }
+                  }}
                 />
                 {errors.pinCode && touched.pinCode && <FormError>{errors.pinCode}</FormError>}
               </div>
@@ -211,10 +216,15 @@ function SignUpContactInfo({ setSignUpStatus }) {
                 <input
                   className="input-field w-390"
                   id="basicChargesPerPost"
-                  type="number"
+                  type="text"
                   placeholder="Charges per post"
                   value={values.basicChargesPerPost}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const numberReg = /^[0-9]*$/;
+                    if (numberReg.test(e.target.value)) {
+                      setFieldValue("basicChargesPerPost", e.target.value);
+                    }
+                  }}
                 />
                 {errors.basicChargesPerPost && touched.basicChargesPerPost && (
                   <FormError>{errors.basicChargesPerPost}</FormError>
@@ -262,7 +272,7 @@ function SignUpContactInfo({ setSignUpStatus }) {
                   className="input-field w-390"
                   id="bankName"
                   type="text"
-                  placeholder="Bank of India"
+                  placeholder="Bank Name"
                   value={values.bankName}
                   onChange={handleChange}
                 />
@@ -275,10 +285,15 @@ function SignUpContactInfo({ setSignUpStatus }) {
                 <input
                   className="input-field w-390"
                   id="accountNumber"
-                  type="number"
+                  type="text"
                   placeholder="Account Number"
                   value={values.accountNumber}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const numberReg = /^[0-9]*$/;
+                    if (numberReg.test(e.target.value)) {
+                      setFieldValue("accountNumber", e.target.value);
+                    }
+                  }}
                 />
                 {errors.accountNumber && touched.accountNumber && <FormError>{errors.accountNumber}</FormError>}
               </div>
@@ -289,10 +304,15 @@ function SignUpContactInfo({ setSignUpStatus }) {
                 <input
                   className="input-field w-390"
                   id="confirmAccountNumber"
-                  type="number"
+                  type="text"
                   placeholder="Account Number"
                   value={values.confirmAccountNumber}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const numberReg = /^[0-9]*$/;
+                    if (numberReg.test(e.target.value)) {
+                      setFieldValue("confirmAccountNumber", e.target.value);
+                    }
+                  }}
                 />
                 {errors.confirmAccountNumber && touched.confirmAccountNumber && (
                   <FormError>{errors.confirmAccountNumber}</FormError>
@@ -328,7 +348,12 @@ function SignUpContactInfo({ setSignUpStatus }) {
                   type="text"
                   placeholder="Pan Card Number"
                   value={values.panCardNumber}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const numberReg = /^[0-9]*$/;
+                    if (numberReg.test(e.target.value)) {
+                      setFieldValue("panCardNumber", e.target.value);
+                    }
+                  }}
                 />
                 {errors.panCardNumber && touched.panCardNumber && <FormError>{errors.panCardNumber}</FormError>}
               </div>
@@ -367,7 +392,12 @@ function SignUpContactInfo({ setSignUpStatus }) {
                   type="text"
                   placeholder="Aadhaar Card Number"
                   value={values.aadharCardNumber}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    const numberReg = /^[0-9]*$/;
+                    if (numberReg.test(e.target.value)) {
+                      setFieldValue("aadharCardNumber", e.target.value);
+                    }
+                  }}
                 />
                 {errors.aadharCardNumber && touched.aadharCardNumber && (
                   <FormError>{errors.aadharCardNumber}</FormError>

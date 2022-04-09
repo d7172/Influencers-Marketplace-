@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import { networkRequest } from "../_shared/api";
 
 export const postSignUp = (payload) => {
@@ -9,9 +10,16 @@ export const postSignUp = (payload) => {
       false,
       payload,
       (res) => {
-        console.log(res);
+        dispatch({
+          type: "SIGN_UP_SUCCESS",
+          data: res,
+        });
       },
-      () => {}
+      () => {
+        dispatch({
+          type: "SIGN_UP_FAIL",
+        });
+      }
     );
   };
 };

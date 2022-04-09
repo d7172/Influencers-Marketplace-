@@ -80,11 +80,16 @@ function Login() {
                   <label className="ml-2">Phone</label>
                   <input
                     id="phone"
-                    type="number"
+                    type="text"
                     className="input-field"
                     placeholder="Input your Phone in here"
                     value={values.phone}
-                    onChange={handleChange}
+                    onChange={(e) => {
+                      const numberReg = /^[0-9]*$/;
+                      if (numberReg.test(e.target.value)) {
+                        setFieldValue("phone", e.target.value);
+                      }
+                    }}
                   />
                   {errors.phone && touched.phone && <FormError>{errors.phone}</FormError>}
                 </div>
@@ -96,7 +101,7 @@ function Login() {
                     className="input-field"
                     placeholder="Input your OTP in here"
                     value={values.otp}
-                    onChange={handleChange}
+                    onChange={handleChange("otp")}
                   />
                   {errors.otp && touched.otp && <FormError>{errors.otp}</FormError>}
                 </div>

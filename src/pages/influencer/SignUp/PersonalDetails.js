@@ -151,10 +151,15 @@ function PersonalDetails({ setSignUpStatus }) {
                   <input
                     className="input-field w-390"
                     id="phone"
-                    type="number"
+                    type="text"
                     placeholder="Phone Number"
                     value={values.phone}
-                    onChange={handleChange("phone")}
+                    onChange={(e) => {
+                      const numberReg = /^[0-9]*$/;
+                      if (numberReg.test(e.target.value)) {
+                        setFieldValue("phone", e.target.value);
+                      }
+                    }}
                   />
                   {errors.phone && touched.phone && <FormError>{errors.phone}</FormError>}
                 </div>
@@ -188,10 +193,15 @@ function PersonalDetails({ setSignUpStatus }) {
                     <input
                       className="input-field w-390"
                       id="phone"
-                      type="number"
+                      type="text"
                       placeholder="Phone Number"
                       value={values.whatsapp}
-                      onChange={handleChange("whatsapp")}
+                      onChange={(e) => {
+                        const numberReg = /^[0-9]*$/;
+                        if (numberReg.test(e.target.value)) {
+                          setFieldValue("whatsapp", e.target.value);
+                        }
+                      }}
                     />
                     {errors.whatsapp && touched.whatsapp && <FormError>{errors.whatsapp}</FormError>}
                   </div>
