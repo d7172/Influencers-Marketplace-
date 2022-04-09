@@ -22,6 +22,9 @@ const initForm = {
 export const FormError = ({ children }) => {
   return <p className="text-red-500 text-xs italic mt-1">{children}</p>;
 };
+export const ImgUpload = ({ children }) => {
+  return <p className="text-[13px] mt-1 text-green-600">Added {children}</p>;
+};
 
 function PersonalDetails({ setSignUpStatus }) {
   const dispatch = useDispatch();
@@ -245,6 +248,7 @@ function PersonalDetails({ setSignUpStatus }) {
                     </div>
                   </div>
                   {errors.profile && touched.profile && <FormError>{errors.profile}</FormError>}
+                  {values.profile.name && <ImgUpload>{values.profile.name}</ImgUpload>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Cover Picture</label>
@@ -268,6 +272,7 @@ function PersonalDetails({ setSignUpStatus }) {
                       <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                     </div>
                   </div>
+                  {values.cover.name && <ImgUpload>{values.cover.name}</ImgUpload>}
                 </div>
               </div>
               <div className="mt-10">

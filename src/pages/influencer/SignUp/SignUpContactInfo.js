@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Dropdown from "../../../components/Dropdown";
 import { contactInfoSchema } from "../../../utils/formsSchema";
-import { FormError, imageSvg } from "./PersonalDetails";
+import { FormError, imageSvg, ImgUpload } from "./PersonalDetails";
 import { Country, State, City } from "country-state-city";
 
 const initForm = {
@@ -348,12 +348,7 @@ function SignUpContactInfo({ setSignUpStatus }) {
                   type="text"
                   placeholder="Pan Card Number"
                   value={values.panCardNumber}
-                  onChange={(e) => {
-                    const numberReg = /^[0-9]*$/;
-                    if (numberReg.test(e.target.value)) {
-                      setFieldValue("panCardNumber", e.target.value);
-                    }
-                  }}
+                  onChange={handleChange("panCardNumber")}
                 />
                 {errors.panCardNumber && touched.panCardNumber && <FormError>{errors.panCardNumber}</FormError>}
               </div>
@@ -380,6 +375,7 @@ function SignUpContactInfo({ setSignUpStatus }) {
                   </div>
                 </div>
                 {errors.uploadPanCard && touched.uploadPanCard && <FormError>{errors.uploadPanCard}</FormError>}
+                {values.uploadPanCard.name && <ImgUpload>{values.uploadPanCard.name}</ImgUpload>}
               </div>
 
               <div>
@@ -428,6 +424,7 @@ function SignUpContactInfo({ setSignUpStatus }) {
                 {errors.uploadAadharFront && touched.uploadAadharFront && (
                   <FormError>{errors.uploadAadharFront}</FormError>
                 )}
+                {values.uploadAadharFront.name && <ImgUpload>{values.uploadAadharFront.name}</ImgUpload>}
               </div>
 
               <div className="ml-[470px]">
@@ -457,6 +454,7 @@ function SignUpContactInfo({ setSignUpStatus }) {
                 {errors.uploadAadharBack && touched.uploadAadharBack && (
                   <FormError>{errors.uploadAadharBack}</FormError>
                 )}
+                {values.uploadAadharBack.name && <ImgUpload>{values.uploadAadharBack.name}</ImgUpload>}
               </div>
             </div>
             <div className="mt-14 flex justify-center cursor-pointer">

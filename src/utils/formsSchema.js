@@ -57,8 +57,16 @@ export const contactInfoSchema = yup.object().shape({
     .oneOf([yup.ref("accountNumber"), null], "Account Number must match")
     .required("Confirm Account Number is required."),
   IFSCCode: yup.string().min(3, "Minimum 3 characters").required("IFSC Code is required."),
-  panCardNumber: yup.string().min(3, "Minimum 3 characters").required("Pan Card Number is required."),
-  aadharCardNumber: yup.string().min(3, "Minimum 3 characters").required("AAdhaar Card Number is required."),
+  panCardNumber: yup
+    .string()
+    .min(11, "Must be exactly 11 characters")
+    .max(11, "Must be exactly 11 characters")
+    .required("Pan Card Number is required."),
+  aadharCardNumber: yup
+    .string()
+    .min(12, "Must be exactly 12 characters")
+    .max(12, "Must be exactly 12 characters")
+    .required("AAdhaar Card Number is required."),
   uploadPanCard: yup.mixed().test("fileSize", "The file is too large", (value) => {
     if (!value.name) return false;
     return value.size <= 2000000;
