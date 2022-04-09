@@ -82,7 +82,7 @@ function SignUp() {
                 className={`rounded-full transition duration-500 ease-in-out h-5 w-5 ${
                   signUpstatus >= 3 && "bg-primary"
                 }`}
-                onClick={() => setSignUpStatus(3)}
+                // onClick={() => setSignUpStatus(3)}
               />
             </div>
           </div>
