@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <div className="w-full min-w-screen h-full pb-20">
       <div className="bg-[#381069] w-full h-full min-h-[95vh]">
@@ -10,7 +12,10 @@ function Home() {
             <h1 className="text-[64px] mt-7 leading-[70px]">
               A digital agency <br /> for the digital age
             </h1>
-            <button className="bg-[#FF0049] rounded-full w-[313px] h-[50px] mt-14 cursor-pointer">
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-[#FF0049] rounded-full w-[313px] h-[50px] mt-14 cursor-pointer"
+            >
               Are you influancer ? Join now
             </button>
           </div>
@@ -107,7 +112,10 @@ function Home() {
                 Lorem ipsum dolor si amet, an dus situ sint pertinacia consti tuto, mir dignsius quo great.
               </p>
             </div>
-            <button className="bg-[#FF0049] rounded-full w-[313px] h-[50px] text-white cursor-pointer">
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-[#FF0049] rounded-full w-[313px] h-[50px] text-white cursor-pointer"
+            >
               Are you influancer ? Join now
             </button>
           </div>
@@ -127,7 +135,10 @@ function Home() {
           <span className="text-white">New times require new ways of</span> working. This is how we create <br />{" "}
           <span className="text-white">fresh produ</span>cts for you.
         </p>
-        <button className="absolute top-[66%] bg-[#FF0049] rounded-full w-[313px] h-[50px] text-white cursor-pointer">
+        <button
+          onClick={() => navigate("/login")}
+          className="absolute top-[66%] bg-[#FF0049] rounded-full w-[313px] h-[50px] text-white cursor-pointer"
+        >
           Are you influancer ? Join now
         </button>
         <div className="absolute flex items-center justify-between px-6 rounded-[25px] bottom-[-15%] w-[1300px] h-[236px] bg-black">
@@ -319,7 +330,10 @@ function Home() {
           <h1 className="text-[48px] leading-[60px] text-white">
             Ready to launch with <br /> your next Brand?
           </h1>
-          <button className="bg-[#FF0049] text-white rounded-full w-[313px] h-[50px] cursor-pointer">
+          <button
+            onClick={() => navigate("/login")}
+            className="bg-[#FF0049] text-white rounded-full w-[313px] h-[50px] cursor-pointer"
+          >
             Are you influancer ? Join now
           </button>
         </div>
