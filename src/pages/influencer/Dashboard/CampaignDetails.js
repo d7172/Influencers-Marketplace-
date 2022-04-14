@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignBudget from "../../../components/CampaignBudget";
 import CampaignDeliverables from "../../../components/CampaignDeliverables";
 import CampaignRequirement from "../../../components/CampaignRequirement";
 import CampaignUploadDocuments from "../../../components/CampaignUploadDocuments";
 import MyDialog from "../../../components/MyDialog";
+import PalceBid from "../../../components/PalceBid";
 import ResonForRejction from "../../../components/ResonForRejction";
 
 function CampaignDetails() {
+  const [placeBid, setPlaceBid] = useState(false);
+  const [rejectBid, setRejectBid] = useState(false);
   return (
     <div className="mt-6 px-6 pb-10">
-      <MyDialog isOpen={false} close={() => {}} className="rounded-8">
-        {/* <ResonForRejction /> */}
-        <CampaignUploadDocuments />
+      <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
+        {/* <CampaignUploadDocuments /> */}
+        <PalceBid close={() => setPlaceBid(false)} />
+      </MyDialog>
+      <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
+        <ResonForRejction close={() => setRejectBid(false)} />
       </MyDialog>
       <Breadcrumbs />
       <div className="ml-4">
@@ -65,8 +71,16 @@ function CampaignDetails() {
         </div>
         <hr className="my-8" />
         <div>
-          <button className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10">Accept</button>
-          <button className="text-[#3751FF] border-[#3751FF] rounded-full bg-white border-2 w-[171px] h-[54px]">
+          <button
+            onClick={() => setPlaceBid(true)}
+            className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
+          >
+            Accept
+          </button>
+          <button
+            onClick={() => setRejectBid(true)}
+            className="text-[#3751FF] border-[#3751FF] rounded-full bg-white border-2 w-[171px] h-[54px]"
+          >
             Reject
           </button>
         </div>
