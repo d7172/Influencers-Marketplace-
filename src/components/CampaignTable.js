@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function CampaignTable() {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col max-w-[1280px]">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -62,7 +64,10 @@ function CampaignTable() {
                   <td className="text-sm max-w-[170px] text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer">
                     Quick Bid
                   </td>
-                  <td className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer ">
+                  <td
+                    onClick={() => navigate("/influencer/campaign/campaign-pool/1")}
+                    className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
+                  >
                     View Details
                   </td>
                 </tr>
@@ -95,7 +100,10 @@ function CampaignTable() {
                   <td className="text-sm max-w-[170px] text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer">
                     Quick Bid
                   </td>
-                  <td className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer ">
+                  <td
+                    onClick={() => navigate("/influencer/campaign/campaign-pool/1")}
+                    className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
+                  >
                     View Details
                   </td>
                 </tr>
@@ -128,7 +136,10 @@ function CampaignTable() {
                   <td className="text-sm max-w-[170px] text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer">
                     Quick Bid
                   </td>
-                  <td className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer ">
+                  <td
+                    onClick={() => navigate("/influencer/campaign/campaign-pool/1")}
+                    className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
+                  >
                     View Details
                   </td>
                 </tr>
