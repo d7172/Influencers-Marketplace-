@@ -13,8 +13,17 @@
 }
 
 @layer utilities {
+  .min-h-campaignPool {
+    min-height: calc(100vh - 450px);
+  }
+  .min-w-infNavbar {
+    min-width: calc(100vw - 345px);
+  }
   .bg-light-transparent {
     background: rgba(0, 0, 0, 0.11);
+  }
+  .box-shadow-sidebar {
+    box-shadow: 18px 4px 35px rgba(0, 0, 0, 0.05);
   }
   .box-shadow-social {
     box-shadow: 0px 4px 4px rgba(135, 146, 161, 0.08), 0px 14px 25px rgba(135, 146, 161, 0.06);
