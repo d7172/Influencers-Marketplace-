@@ -20,7 +20,7 @@ function SignUpType() {
           <div className="w-3/6 h-335">
             <img className="m-auto" src="/influancer.svg" alt="Is influancer" />
             <h1 className="py-4 text-xl text-color">Are you Influencers?</h1>
-            <p className="w-238 leading-5 text-gray-500 text-sm">
+            <p className="w-[238px] m-auto leading-5 text-gray-500 text-sm">
               Log in to your account using email and password provided.
             </p>
             <button
@@ -36,7 +36,7 @@ function SignUpType() {
           <div className="w-3/6 h-335">
             <img className="m-auto" src="/brand.svg" alt="Is influancer" />
             <h1 className="py-4 text-xl text-color">Are you Brand?</h1>
-            <p className="w-238 leading-5 text-gray-500 text-sm">
+            <p className="w-[238px] m-auto leading-5 text-gray-500 text-sm">
               Log in to your account using email and password provided.
             </p>
             <button
