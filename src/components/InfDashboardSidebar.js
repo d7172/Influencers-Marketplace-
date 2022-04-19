@@ -36,7 +36,7 @@ function InfDashboardSidebar() {
             className="text-[18px] font-[600] w-[180px]"
             label="Campaign"
             content={() => (
-              <div className=" py-4 px-5 flex flex-col gap-4 items-start">
+              <div className=" py-4 px-2 flex flex-col gap-4 items-start">
                 <Link
                   to="/influencer/campaign/campaign-pool"
                   className={`text-[18px] ${isCampaignPool ? "text-[#3751FF]" : "text-[#969BA0]"}`}

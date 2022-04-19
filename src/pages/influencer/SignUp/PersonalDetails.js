@@ -208,7 +208,7 @@ function PersonalDetails({ setSignUpStatus }) {
                     />
                     {errors.whatsapp && touched.whatsapp && <FormError>{errors.whatsapp}</FormError>}
                   </div>
-                  <div>
+                  <div className="datepicker">
                     <label className="block text-gray-700 text-sm mb-2">
                       Date Of Birth<span className="text-red-500">*</span>{" "}
                     </label>

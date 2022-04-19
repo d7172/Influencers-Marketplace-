@@ -6,7 +6,7 @@ function Dropdown({ label = "Options", options, className, dropdownStyle, onChan
   return (
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button
-        className={`inline-flex items-center text-gray-500 relative h-48 px-4 py-2 text-sm rounded-8 border bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${className}`}
+        className={`${className} inline-flex items-center text-gray-500 relative h-[48px] px-4 py-2 text-sm rounded-8 border bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 `}
       >
         {label}
         <ChevronDownIcon
@@ -25,7 +25,7 @@ function Dropdown({ label = "Options", options, className, dropdownStyle, onChan
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className={`absolute right-0 w-390 mt-2 max-h-[200px] overflow-auto origin-top-right bg-white divide-y z-[100] divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${dropdownStyle}`}
+          className={`${dropdownStyle} absolute right-0 w-[390px] mt-2 max-h-[200px] overflow-auto origin-top-right bg-white divide-y z-[100] divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none `}
         >
           <div className="px-1 py-1 ">
             {options.map((props) => (

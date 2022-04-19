@@ -13,6 +13,9 @@
 }
 
 @layer utilities {
+  .shadow-dateRange {
+    box-shadow: 4px 4px 10px rgba(196, 196, 196, 0.25);
+  }
   .min-h-campaignPool {
     min-height: calc(100vh - 450px);
   }
