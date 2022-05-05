@@ -1,12 +1,19 @@
 import React from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import MyDialog from "./MyDialog";
+import PalceBid from "./PalceBid";
 
 function CampaignTable() {
+  const [placeBid, setPlaceBid] = useState(false);
   const infCampaignPool = useSelector((state) => state.infCampaignPool);
   const navigate = useNavigate();
   return (
     <div className="flex flex-col max-w-[1280px]">
+      <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
+        <PalceBid close={() => setPlaceBid(false)} />
+      </MyDialog>
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-x-auto">
@@ -83,7 +90,10 @@ function CampaignTable() {
 
                         {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
                       </td>
-                      <td className="text-sm max-w-[170px] text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer">
+                      <td
+                        onClick={() => setPlaceBid(true)}
+                        className="text-sm max-w-[170px] text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer"
+                      >
                         Quick Bid
                       </td>
                       <td

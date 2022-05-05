@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Dropdown from "../../../components/Dropdown";
 import Pagination from "../../../components/Pagination";
+import { getInfBidData } from "../../../store/infBid/action";
 
 function Bids() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const payload = {
+      influencer_id: 1,
+    };
+    const data = new FormData();
+    data.append("data", JSON.stringify(payload));
+    dispatch(getInfBidData(data));
+  }, []);
   return (
     <div className="ml-10">
       <Breadcrumbs options={[{ title: "Bids" }, { title: "Active Bid" }]} />

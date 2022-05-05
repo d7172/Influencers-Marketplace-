@@ -4,6 +4,7 @@ import { signUp } from "./SignUp/reducer";
 import { infCampaignPool } from "./InfCampaignPool/reducer";
 import { infCampaignActive } from "./infCampaignActive/reducer";
 import { infCampaignAssigned } from "./infCampaignAssigned/reducer";
+import { infBids } from "./infBid/reducer";
 
 const reducers = combineReducers({
   signUpState,
@@ -11,6 +12,7 @@ const reducers = combineReducers({
   infCampaignPool,
   infCampaignActive,
   infCampaignAssigned,
+  infBids,
 });
 
 export default reducers;
