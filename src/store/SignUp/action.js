@@ -1,4 +1,3 @@
-import { data } from "autoprefixer";
 import { networkRequest } from "../_shared/api";
 
 export const postSignUp = (payload) => {

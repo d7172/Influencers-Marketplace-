@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Dropdown from "../../../components/Dropdown";
+import { getCampaignActiveData } from "../../../store/infCampaignActive/action";
 
 function ActiveCampaign() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const payload = {
+      category: "beauty",
+    };
+    const data = new FormData();
+    data.append("data", JSON.stringify(payload));
+    dispatch(getCampaignActiveData(data));
+  }, []);
   return (
     <div className="ml-10">
       <Breadcrumbs options={[{ title: "Bids" }, { title: "Active Bid" }]} />
@@ -30,6 +41,7 @@ export default ActiveCampaign;
 
 function ActiveCampaignTable() {
   const navigate = useNavigate();
+
   return (
     <div className="mt-6 pr-4">
       <div className="flex gap-10 border-b-2 pb-2.5 text-[18px] font-[500]">

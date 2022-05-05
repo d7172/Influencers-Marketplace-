@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignBudget from "../../../components/CampaignBudget";
 import CampaignDeliverables from "../../../components/CampaignDeliverables";
@@ -9,8 +11,11 @@ import PalceBid from "../../../components/PalceBid";
 import ResonForRejction from "../../../components/ResonForRejction";
 
 function CampaignDetails() {
+  const { id } = useParams();
   const [placeBid, setPlaceBid] = useState(false);
   const [rejectBid, setRejectBid] = useState(false);
+  const infCampaignPools = useSelector((state) => state.infCampaignPool);
+  const campaignDetails = infCampaignPools.results.filter((i) => i.id == id)[0];
   return (
     <div className="mt-6 px-6 pb-10">
       <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
@@ -24,7 +29,7 @@ function CampaignDetails() {
       <div className="ml-4">
         <div className="mt-6">
           <h1 className="text-[32px] font-[600]">Campaign id</h1>
-          <p className="text-[18px] font-[500] text-[#969BA0]  ">#00001</p>
+          <p className="text-[18px] font-[500] text-[#969BA0]  ">{campaignDetails.id} </p>
         </div>
         <div className="mt-6">
           <p className="text-[#969BA0] text-[16px]">Brand Description</p>
@@ -36,9 +41,9 @@ function CampaignDetails() {
           </p>
         </div>
         <hr className="my-8" />
-        <CampaignRequirement />
+        <CampaignRequirement campaignDetails={campaignDetails} />
         <hr className="my-8" />
-        <CampaignBudget />
+        <CampaignBudget campaignDetails={campaignDetails} />
         <hr className="my-8" />
         <CampaignDeliverables />
         <hr className="my-8" />
@@ -46,9 +51,7 @@ function CampaignDetails() {
           <p className="text-[#969BA0] text-[16px]">Note from Brand</p>
           <h1 className="text-[18px] font-[500] mt-1 ">Cardboard paper style</h1>
           <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <br />{" "}
-            publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
-            <br /> demonstrate the visual form of a document or a typeface without relying
+            {campaignDetails.note_from_brand}
           </p>
         </div>
         <hr className="my-8" />
@@ -64,10 +67,7 @@ function CampaignDetails() {
         <hr className="my-8" />
         <div>
           <h1>Terms & Conditions</h1>
-          <p className="text-[14px] text-[#969BA0] my-2">lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-          <p className="text-[14px] text-[#969BA0] my-2">sed do eiusmod tempor incididunt ut </p>
-          <p className="text-[14px] text-[#969BA0] my-2">labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
-          <p className="text-[14px] text-[#969BA0] my-2">exercitation ullam covoluptate velit esse cillum</p>
+          <p className="text-[14px] text-[#969BA0] my-2">{campaignDetails.terms_and_condition} </p>
         </div>
         <hr className="my-8" />
         <div>
