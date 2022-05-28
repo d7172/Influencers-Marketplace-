@@ -15,6 +15,10 @@ import Statement from "./pages/influencer/Dashboard/Statement";
 import Support from "./pages/influencer/Dashboard/Support";
 import Home from "./pages/influencer/Home";
 import SignUp from "./pages/influencer/SignUp/SignUp";
+import SignIn from "./pages/admin/SignIn/SignIn";
+import SignUpAdmin from "./pages/admin/SignUp/SignUp";
+import AdminDashboardCompositeComponent from "./AdminDashboardCompositeComponent";
+import DashboardAdmin from "./pages/admin/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -46,6 +50,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup-type" element={<SignUpType />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/admin/signin" element={<SignIn />} />
+          <Route path="/admin/signup" element={<SignUpAdmin />} />
+          <Route path="/admin" element={<AdminDashboardCompositeComponent />}>
+            <Route path="/admin" element={<Navigate replace to="/admin/dashboard" />} />
+            <Route path="/admin/dashboard" element={<DashboardAdmin />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
