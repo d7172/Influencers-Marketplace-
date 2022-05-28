@@ -1,8 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Cart as ChartJS } from "chart.js/auto";
+import { useDispatch, useSelector } from "react-redux";
+import { getTransitionEarningData } from "../../../store/infTransitionEarning/action";
+
+let transitionEarningState = [];
 
 function Earning() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const payload = {};
+    const data = new FormData();
+    data.append("data", JSON.stringify(payload));
+    dispatch(getTransitionEarningData(data));
+  }, []);
+  transitionEarningState = useSelector((state) => state?.infTransitionEarning?.results);
+
   const [barData, setBarData] = useState({
     labels: data.map((data) => data.month),
     datasets: [
@@ -41,38 +54,44 @@ function Earning() {
   return (
     <div className="pb-20">
       <div className="flex px-8 gap-10 justify-between mt-6">
-        {/* 1 */}
-        <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar">
-          <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">123</h1>
-            <p className=" text-[12px] font-[400] text-[#969BA0]">Total Completed campaign</p>
-          </div>
-          <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon1.svg" alt="im g" />
-        </div>
-        {/* 2 */}
-        <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
-          <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">02</h1>
-            <p className=" text-[12px] font-[400] text-[#969BA0]">Pending</p>
-          </div>
-          <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon2.svg" alt="im g" />
-        </div>
-        {/* 3 */}
-        <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
-          <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">&#8377; 12,600</h1>
-            <p className=" text-[12px] font-[400] text-[#969BA0]">Earning of the month</p>
-          </div>
-          <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon3.svg" alt="im g" />
-        </div>
-        {/* 4 */}
-        <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
-          <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">&#8377; 120,600</h1>
-            <p className=" text-[12px] font-[400] text-[#969BA0]">Earning till date</p>
-          </div>
-          <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon4.svg" alt="im g" />
-        </div>
+        {transitionEarningState?.map((transEarning, id) => {
+          return (
+            <React.Fragment key={id}>
+              {/* 1 */}
+              <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar">
+                <div className="w-[150px]">
+                  <h1 className="text-[24px] font-[600]">123{transEarning?.total_amount}</h1>
+                  <p className=" text-[12px] font-[400] text-[#969BA0]">Total Completed campaign</p>
+                </div>
+                <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon1.svg" alt="im g" />
+              </div>
+              {/* 2 */}
+              <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
+                <div className="w-[150px]">
+                  <h1 className="text-[24px] font-[600]">{transEarning?.pending_amt}</h1>
+                  <p className=" text-[12px] font-[400] text-[#969BA0]">Pending</p>
+                </div>
+                <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon2.svg" alt="im g" />
+              </div>
+              {/* 3 */}
+              <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
+                <div className="w-[150px]">
+                  <h1 className="text-[24px] font-[600]">&#8377; {transEarning?.this_month_transition}</h1>
+                  <p className=" text-[12px] font-[400] text-[#969BA0]">Earning of the month</p>
+                </div>
+                <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon3.svg" alt="im g" />
+              </div>
+              {/* 4 */}
+              <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
+                <div className="w-[150px]">
+                  <h1 className="text-[24px] font-[600]">&#8377; {transEarning?.earning_till_date}</h1>
+                  <p className=" text-[12px] font-[400] text-[#969BA0]">Earning till date</p>
+                </div>
+                <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon4.svg" alt="im g" />
+              </div>
+            </React.Fragment>
+          );
+        })}
       </div>
       <div className="w-[1000px] h-[600px] ml-10 mt-6">
         <h1 className="text-[28px] font-[600] mb-4">Earning Summary </h1>

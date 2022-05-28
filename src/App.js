@@ -1,6 +1,11 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import AdminDashboardCompositeComponent from "./AdminDashboardCompositeComponent";
 import InfDashboardCompositeComponent from "./InfDashboardCompositeComponent";
 import InfluencerCompositeComponent from "./InfluencerCompositeComponent";
+import InfActiveUser from "./pages/Admin/InfActiveUser";
+import InfNewUser from "./pages/Admin/InfNewUser";
+import InfProfile from "./pages/Admin/InfProfile";
+import InfRejectedUser from "./pages/Admin/InfRejectedUser";
 import Login from "./pages/common/Login";
 import SignUpType from "./pages/common/SignUpType";
 import ActiveCampaign from "./pages/influencer/Dashboard/ActiveCampaign";
@@ -24,6 +29,22 @@ function App() {
           <Route path="/" element={<InfluencerCompositeComponent />}>
             <Route path="/" element={<Home />} />
           </Route>
+
+          {/* admin routes */}
+          <Route path="/admin" element={<AdminDashboardCompositeComponent />}>
+            <Route path="/admin" element={<Navigate replace to="/admin/dashboard" />} />
+            <Route path="/admin/dashboard" element={<Navigate replace to="/admin/dashboard" />} />
+            <Route path="/admin/influencer/new-user" element={<InfNewUser />} />
+            <Route path="/admin/influencer/active-user" element={<InfActiveUser />} />
+            <Route path="/admin/influencer/rejected-user" element={<InfRejectedUser />} />
+            <Route path="/admin/influencer/active-user/:id" element={<InfProfile />} />
+            <Route path="/admin/brand/new-user" />
+            <Route path="/admin/brand/active-user" />
+            <Route path="/admin/brand/rejected-user" />
+            <Route path="/admin/active-bids" />
+          </Route>
+
+          {/* influencer  routes */}
           <Route path="/influencer" element={<InfDashboardCompositeComponent />}>
             <Route path="/influencer" element={<Navigate replace to="/influencer/dashboard" />} />
             <Route path="/influencer/dashboard" element={<Dashboard />} />
@@ -43,6 +64,8 @@ function App() {
 
             <Route path="/influencer/support" element={<Support />} />
           </Route>
+
+          {/* Login SignUp */}
           <Route path="/login" element={<Login />} />
           <Route path="/signup-type" element={<SignUpType />} />
           <Route path="/signup" element={<SignUp />} />

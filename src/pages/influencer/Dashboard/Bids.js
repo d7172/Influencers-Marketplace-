@@ -31,7 +31,7 @@ function Bids() {
           />
           <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
         </div>
-        <CampaignSearchBar />
+        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
       </div>
       <BidTable />
     </div>

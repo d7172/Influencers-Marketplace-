@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import DateRange from "../../../components/DateRange";
 import Pagination from "../../../components/Pagination";
+import { getTransitionStatementData } from "../../../store/infTransitionStatement/action";
+import moment from "moment";
+
+let transitionStatementState = [];
 
 function Statement() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const payload = {};
+    const data = new FormData();
+    data.append("data", JSON.stringify(payload));
+    dispatch(getTransitionStatementData(data));
+  }, []);
+  transitionStatementState = useSelector((state) => state?.infTransitionStatement?.results);
+
   return (
     <div className="ml-10">
       <div className="flex items-center pr-8 mt-8">
         <Breadcrumbs options={[{ title: "Transition" }, { title: "Statement" }]} />
-        <CampaignSearchBar />
+        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
       </div>
       <div className="flex justify-between items-center mt-8">
         <DateRange />
@@ -55,27 +69,31 @@ function StatementTable() {
                 </tr>
               </thead>
               <tbody>
-                <tr className="">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                    #00001
-                  </td>
-                  <td className="text-sm flex gap-4 items-center justify-center min-w-[250px] max-w-[250px] overflow-hidden text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
-                    Enjoy the video and music
-                  </td>
-                  <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    2/5/2020
-                  </td>
-                  <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    Fashion, DIY
-                  </td>
-                  <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    &#8377; 5,553
-                  </td>
-                  <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    &#8377; 5,553
-                  </td>
-                </tr>
+                {transitionStatementState?.map((transStatement, id) => {
+                  return (
+                    <tr className="" key={id}>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
+                        {transStatement?.campaign_id}
+                      </td>
+                      <td className="text-sm flex gap-4 items-center justify-center min-w-[250px] max-w-[250px] overflow-hidden text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
+                        {transStatement?.campaign_title}
+                      </td>
+                      <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {moment(transStatement?.date).format("DD/MM/YYYY")}
+                      </td>
+                      <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        {transStatement?.campaign_category}
+                      </td>
+                      <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        &#8377;{transStatement?.total_amt}
+                      </td>
+                      <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                        &#8377;{transStatement?.received_amt}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
