@@ -3,6 +3,7 @@ import AdminDashboardCompositeComponent from "./AdminDashboardCompositeComponent
 import InfDashboardCompositeComponent from "./InfDashboardCompositeComponent";
 import InfluencerCompositeComponent from "./InfluencerCompositeComponent";
 import InfActiveUser from "./pages/Admin/InfActiveUser";
+import InfDetails from "./pages/Admin/InfDetails";
 import InfNewUser from "./pages/Admin/InfNewUser";
 import InfProfile from "./pages/Admin/InfProfile";
 import InfRejectedUser from "./pages/Admin/InfRejectedUser";
@@ -34,10 +35,13 @@ function App() {
           <Route path="/admin" element={<AdminDashboardCompositeComponent />}>
             <Route path="/admin" element={<Navigate replace to="/admin/dashboard" />} />
             <Route path="/admin/dashboard" element={<Navigate replace to="/admin/dashboard" />} />
-            <Route path="/admin/influencer/new-user" element={<InfNewUser />} />
-            <Route path="/admin/influencer/active-user" element={<InfActiveUser />} />
-            <Route path="/admin/influencer/rejected-user" element={<InfRejectedUser />} />
-            <Route path="/admin/influencer/active-user/:id" element={<InfProfile />} />
+            <Route path="/admin/influencer/new-user" element={<InfNewUser route={"new-user"} />} />
+            <Route path="/admin/influencer/active-user" element={<InfActiveUser route={"active-user"} />} />
+            <Route path="/admin/influencer/rejected-user" element={<InfRejectedUser route={"rejected-user"} />} />
+            <Route path="/admin/influencer/active-user/:id" element={<InfProfile route={"active-user"} />} />
+            <Route path="/admin/influencer/activeUser/:id" element={<InfDetails route={"active-user"} />} />
+            <Route path="/admin/influencer/new-user/:id" element={<InfProfile route={"new-user"} />} />
+            <Route path="/admin/influencer/rejected-user/:id" element={<InfProfile route={"rejected-user"} />} />
             <Route path="/admin/brand/new-user" />
             <Route path="/admin/brand/active-user" />
             <Route path="/admin/brand/rejected-user" />

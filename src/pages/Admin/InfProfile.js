@@ -2,17 +2,20 @@ import { Formik } from "formik";
 import React from "react";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Dropdown from "../../components/Dropdown";
+import { categoryList } from "../influencer/SignUp/Category";
 
-function InfProfile() {
+function InfProfile({ route }) {
   return (
     <>
       <div className=" w-full min-w-infNavbar px-8 items-center justify-between">
         <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
-          <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Active User" }, { title: "0001" }]} />
+          <Breadcrumbs options={[{ title: "influencer" }, { title: route }, { title: "0001" }]} />
         </div>
-        <div className=" gap-4 px-4 w-[100%] h-[50vh] mt-[5px] bg-[white]">
-          <div className="mt-[15px] ">Personal Details</div>
-          <div className="block mb-[15px]">Lorem ipsum dolor sit amet, consectetur</div>
+        <div className=" gap-4 px-4 w-[100%] h-[100vh] mt-[5px] bg-[white]">
+          <div className="mt-8 text-[16px] font-[600] w-[180px]">Personal Details</div>
+          <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
+            Lorem ipsum dolor sit amet, consectetur
+          </div>
           <Formik
             enableReinitialize={true}
             onSubmit={(values) => {
@@ -110,8 +113,7 @@ function InfProfile() {
                               label: "Female",
                             },
                           ]}
-                          value={"Male"}
-                          onChange={(val) => setFieldValue("gender", val.label)}
+                          onChange={(val) => console.log(val.label)}
                         />
                       </div>
                     </div>
@@ -185,21 +187,63 @@ function InfProfile() {
               );
             }}
           </Formik>
-          <div className="mt-[15px] ">Category Details</div>
-          <div className="block mb-[15px]">Lorem ipsum dolor sit amet, consectetur</div>
+          <div className="mt-8 text-[16px] font-[600] w-[180px]">Category Details</div>
+          <div className="block mb-[15px] text-[12px] font-[400] text-gray-600">
+            Lorem ipsum dolor sit amet, consectetur
+          </div>
 
           <div className="flex w-full min-w-infNavbar items-center">
             <div className="flex gap-4 px-4 w-[191px] justify-center items-center h-[61px] bg-[#F1F1F1]">
               Fashion & Style
             </div>
-            <div className="flex gap-4 px-8 m-8 w-[191px] justify-center items-center h-[61px] bg-[#F1F1F1]">
+            <div className="flex gap-4 px-8 mx-8 w-[191px] justify-center items-center h-[61px] bg-[#F1F1F1]">
               Travel & Holidays
             </div>
             <div className="flex gap-4 px-4 w-[191px] justify-center items-center h-[61px] bg-[#F1F1F1]">Parenting</div>
           </div>
+          <div className="mt-8 flex cursor-pointer">
+            <Formik
+              enableReinitialize={true}
+              onSubmit={(values) => {
+                console.log("handle submit");
+              }}
+            >
+              {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
+                return (
+                  <div className="">
+                    <div className="flex flex-wrap gap-10 items-center justify-between">
+                      <div>
+                        <label className="block text-gray-700 mb-2" htmlFor="category">
+                          Add Category Details
+                        </label>
+                        <div className="justify-between">
+                          <Dropdown
+                            className="w-390"
+                            label={"category"}
+                            options={categoryList.map((cat) => cat.title)}
+                            onChange={(val) => console.log(val)}
+                          />
+                          <button
+                            type="button"
+                            className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
+                            onClick={() => {}}
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }}
+            </Formik>
+            <div className=" flex mt-14 cursor-pointer"></div>
+          </div>
 
-          <div className="mt-[15px] ">Contact Details</div>
-          <div className="block mb-[15px]">Lorem ipsum dolor sit amet, consectetur</div>
+          <div className="mt-8 text-[16px] font-[600] w-[180px]">Contact Details</div>
+          <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
+            Lorem ipsum dolor sit amet, consectetur
+          </div>
           <Formik
             enableReinitialize={true}
             onSubmit={(values) => {
@@ -268,8 +312,10 @@ function InfProfile() {
             }}
           </Formik>
 
-          <div className="mt-[15px] ">Other Information</div>
-          <div className="block mb-[15px]">Lorem ipsum dolor sit amet, consectetur</div>
+          <div className="mt-8 text-[16px] font-[600] w-[180px]">Other Information</div>
+          <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
+            Lorem ipsum dolor sit amet, consectetur
+          </div>
           <Formik
             enableReinitialize={true}
             onSubmit={(values) => {
@@ -325,8 +371,10 @@ function InfProfile() {
             }}
           </Formik>
 
-          <div className="mt-[15px] ">Bank Account Details</div>
-          <div className="block mb-[15px]">Lorem ipsum dolor sit amet, consectetur</div>
+          <div className="mt-8 text-[16px] font-[600] w-[180px]">Bank Account Details</div>
+          <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
+            Lorem ipsum dolor sit amet, consectetur
+          </div>
           <Formik
             enableReinitialize={true}
             onSubmit={(values) => {
@@ -395,8 +443,10 @@ function InfProfile() {
             }}
           </Formik>
 
-          <div className="mt-[15px] ">KYC Details</div>
-          <div className="block mb-[15px]">Lorem ipsum dolor sit amet, consectetur</div>
+          <div className="mt-8 text-[16px] font-[600] w-[180px]">KYC Details</div>
+          <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
+            Lorem ipsum dolor sit amet, consectetur
+          </div>
           <Formik
             enableReinitialize={true}
             onSubmit={(values) => {
@@ -464,8 +514,10 @@ function InfProfile() {
             }}
           </Formik>
 
-          <div className="mt-[15px] ">Social Account</div>
-          <div className="block mb-[15px]">Lorem ipsum dolor sit amet, consectetur</div>
+          <div className="mt-8 text-[16px] font-[600] w-[180px]">Social Account</div>
+          <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
+            Lorem ipsum dolor sit amet, consectetur
+          </div>
           <Formik
             enableReinitialize={true}
             onSubmit={(values) => {
@@ -509,33 +561,71 @@ function InfProfile() {
             }}
           </Formik>
 
-          <div className="m-[15px] flex">
-            <div className={`items-center justify-center gap-3 w-fit px-7 py-2 cursor-pointer`}>
-              <img className="w-[60px] h-[60px]" src={`/svgs/facebook.svg`} alt={"facebook"} />
-              <label className="block text-gray-700 text-sm mb-2" htmlFor="Instagram">
+          <div className="mt-8 flex items-center">
+            <div className={`items-center gap-3 w-fit pr-7 py-2 cursor-pointer`}>
+              <img className="w-[60px] h-[60px] items-center" src={`/svgs/facebook.svg`} alt={"facebook"} />
+              <label className="block text-gray-700 text-[16px] font-[700] mb-2" htmlFor="Instagram">
                 Facebook
               </label>
-              <label className="block text-gray-700 text-sm mb-2" htmlFor="Connected">
+              <label className="block text-gray-700 text-[16px] font-[700] mb-2" htmlFor="Connected">
                 Connected
               </label>
-              <label className="block text-gray-700 text-sm mb-2" htmlFor="Followers">
+              <label className="block text-gray-700 text-[16px] font-[700] mb-2" htmlFor="Followers">
                 Followers
               </label>
-              <label className="block text-gray-700 text-sm mb-2">12.2k</label>
+              <label className="block text-gray-700 text-[16px] font-[700] mb-2">12.2k</label>
             </div>
-            <div className={`items-center justify-center gap-3 w-fit px-7 py-2 cursor-pointer`}>
+            <div className={` gap-3 w-fit px-7 py-2 cursor-pointer`}>
               <img className="w-[60px] h-[60px]" src={`/svgs/instagram.svg`} alt={"instagram"} />
-              <label className="block text-gray-700 text-sm mb-2" htmlFor="Instagram">
+              <label className="block text-gray-700 text-[16px] font-[700] mb-2" htmlFor="Instagram">
                 Instagram
               </label>
-              <label className="block text-gray-700 text-sm mb-2" htmlFor="Connected">
+              <label className="block text-[16px] font-[700] text-gray-700 mb-2" htmlFor="Connected">
                 Connected
               </label>
-              <label className="block text-gray-700 text-sm mb-2" htmlFor="Followers">
+              <label className="block text-gray-700 text-[16px] font-[700] mb-2" htmlFor="Followers">
                 Followers
               </label>
-              <label className="block text-gray-700 items-center text-sm mb-2">12.2k</label>
+              <label className="block text-gray-700 text-[16px] font-[700] items-center mb-2">12.2k</label>
             </div>
+          </div>
+
+          <div className="mt-8 flex cursor-pointer">
+            <Formik
+              enableReinitialize={true}
+              onSubmit={(values) => {
+                console.log("handle submit");
+              }}
+            >
+              {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
+                return (
+                  <div className="">
+                    <div className="flex flex-wrap gap-10 items-center justify-between">
+                      <div>
+                        <label className="block text-gray-700 mb-2" htmlFor="socialDetails">
+                          Add Social Details
+                        </label>
+                        <div className="justify-between">
+                          <Dropdown
+                            className="w-390"
+                            label={"socialDetails"}
+                            options={categoryList.map((cat) => cat.title)}
+                            onChange={(val) => console.log(val)}
+                          />
+                          <button
+                            type="button"
+                            className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
+                            onClick={() => {}}
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }}
+            </Formik>
           </div>
 
           <div className="flex justify-end">
@@ -545,7 +635,11 @@ function InfProfile() {
               </button>
             </div>
             <div className="m-14 cursor-pointer">
-              <button type="button" className="w-[150px] rounded-[50px] bg-[#FFFFFF] py-2" onClick={() => {}}>
+              <button
+                type="button"
+                className="w-[150px] rounded-[50px] bg-[#FFFFFF] py-2 box-shadow-button"
+                onClick={() => {}}
+              >
                 Reject
               </button>
             </div>

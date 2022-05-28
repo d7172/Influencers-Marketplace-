@@ -4,10 +4,10 @@ import CampaignSearchBar from "../../components/CampaignSearchBar";
 import Pagination from "../../components/Pagination";
 import AdminUserTable from "../../components/AdminUserTable";
 
-function InfNewUser() {
+function InfNewUser({ route }) {
   const tableData = [
     {
-      userId: "#0001",
+      userId: "0001",
       name: "Barbara Searcy",
       number: "+91 9874561231",
       email: "test@gmail.com",
@@ -21,7 +21,7 @@ function InfNewUser() {
 
         <CampaignSearchBar placeHolder={"Search here by userID"} />
       </div>
-      <AdminUserTable tableData={tableData} />
+      <AdminUserTable tableData={tableData} route={route} />
       <div className="absolute bottom-[-100px] right-0">
         <Pagination />
       </div>
