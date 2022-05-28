@@ -41,21 +41,6 @@ export const personalDetailsSchema = yup.object().shape({
   }),
 });
 
-export const signupSchema = yup.object().shape({
-  email: yup.string().email("Must be a valid email").max(255).required("Email is required"),
-  phone: yup
-    .number()
-    .min(999999999, "Minimum 10 characters")
-    .max(9999999999, "Max 10 characters")
-    .required("Mobile number is required"),
-  otp: yup
-    .string()
-    .min(6, "Must be exactly 6 characters")
-    .max(6, "Must be exactly 6 characters")
-    .required("OTP is required."),
-  name: yup.string().min(3, "Minimum 3 characters").required("name is required."),
-});
-
 export const contactInfoSchema = yup.object().shape({
   address: yup.string().min(3, "Minimum 3 characters").required("Address is required."),
   city: yup.string().required("City is required."),
