@@ -20,10 +20,10 @@ function AdminDashboardSidebar() {
   const isBrandNewUser = location?.pathname === "/admin/brand/new-user";
   const isBrandActiveUser = location?.pathname === "/admin/brand/active-user";
   const isBrandRejectedUser = location?.pathname === "/admin/brand/rejected-user";
-  const isCampaignPool = location?.pathname === "/admin/campaign/campaign-pool";
+  const isNewCampaign = location?.pathname === "/admin/campaign/new-campaign";
   const isAssignedCampaign = location?.pathname === "/admin/campaign/assigned-campaign";
   const isActiveCampaign = location?.pathname === "/admin/campaign/active-campaign";
-  const isCompletedCampaign = location?.pathname === "/admin/campaign/completed-campaign";
+  const isRejectedCampaign = location?.pathname === "/admin/campaign/rejected-campaign";
 
   return (
     <div className="min-w-[308px] h-inherit min-h-screen box-shadow-sidebar">
@@ -111,10 +111,10 @@ function AdminDashboardSidebar() {
             content={() => (
               <div className=" py-4 px-2 flex flex-col gap-4 items-start">
                 <Link
-                  to="/admin/campaign/campaign-pool"
-                  className={`text-[18px] ${isCampaignPool ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                  to="/admin/campaign/new-campaign"
+                  className={`text-[18px] ${isNewCampaign ? "text-[#3751FF]" : "text-[#969BA0]"}`}
                 >
-                  Campaign Pool
+                  New Campaign
                 </Link>
                 <Link
                   to="/admin/campaign/assigned-campaign"
@@ -129,10 +129,10 @@ function AdminDashboardSidebar() {
                   Active Campaign
                 </Link>
                 <Link
-                  to="/admin/campaign/completed-campaign"
-                  className={`text-[18px] ${isCompletedCampaign ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                  to="/admin/campaign/rejected-campaign"
+                  className={`text-[18px] ${isRejectedCampaign ? "text-[#3751FF]" : "text-[#969BA0]"}`}
                 >
-                  Completed Campaign
+                  Rejected Campaign
                 </Link>
               </div>
             )}

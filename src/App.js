@@ -2,11 +2,16 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import AdminDashboardCompositeComponent from "./AdminDashboardCompositeComponent";
 import InfDashboardCompositeComponent from "./InfDashboardCompositeComponent";
 import InfluencerCompositeComponent from "./InfluencerCompositeComponent";
-import InfActiveUser from "./pages/Admin/InfActiveUser";
-import InfDetails from "./pages/Admin/InfDetails";
-import InfNewUser from "./pages/Admin/InfNewUser";
-import InfProfile from "./pages/Admin/InfProfile";
-import InfRejectedUser from "./pages/Admin/InfRejectedUser";
+import AdmActiveCampaign from "./pages/Admin/Campaign/ActiveCampaign";
+import AdmAssignCampaign from "./pages/Admin/Campaign/AssignCampaign";
+import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
+import AdmRejectedCampaign from "./pages/Admin/Campaign/RejectedCampaign";
+import AdminDashBoard from "./pages/Admin/DashBoard";
+import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
+import InfDetails from "./pages/Admin/Influencer/InfDetails";
+import InfNewUser from "./pages/Admin/Influencer/InfNewUser";
+import InfProfile from "./pages/Admin/Influencer/InfProfile";
+import InfRejectedUser from "./pages/Admin/Influencer/InfRejectedUser";
 import Login from "./pages/common/Login";
 import SignUpType from "./pages/common/SignUpType";
 import ActiveCampaign from "./pages/influencer/Dashboard/ActiveCampaign";
@@ -34,7 +39,7 @@ function App() {
           {/* admin routes */}
           <Route path="/admin" element={<AdminDashboardCompositeComponent />}>
             <Route path="/admin" element={<Navigate replace to="/admin/dashboard" />} />
-            <Route path="/admin/dashboard" element={<Navigate replace to="/admin/dashboard" />} />
+            <Route path="/admin/dashboard" element={<AdminDashBoard />} />
             <Route path="/admin/influencer/new-user" element={<InfNewUser route={"new-user"} />} />
             <Route path="/admin/influencer/active-user" element={<InfActiveUser route={"active-user"} />} />
             <Route path="/admin/influencer/rejected-user" element={<InfRejectedUser route={"rejected-user"} />} />
@@ -42,10 +47,21 @@ function App() {
             <Route path="/admin/influencer/activeUser/:id" element={<InfDetails route={"active-user"} />} />
             <Route path="/admin/influencer/new-user/:id" element={<InfProfile route={"new-user"} />} />
             <Route path="/admin/influencer/rejected-user/:id" element={<InfProfile route={"rejected-user"} />} />
-            <Route path="/admin/brand/new-user" />
-            <Route path="/admin/brand/active-user" />
-            <Route path="/admin/brand/rejected-user" />
-            <Route path="/admin/active-bids" />
+            <Route path="/admin/brand/new-user" element={<Navigate replace to="/admin/dashboard" />} />
+            <Route path="/admin/brand/active-user" element={<Navigate replace to="/admin/dashboard" />} />
+            <Route path="/admin/brand/rejected-user" element={<Navigate replace to="/admin/dashboard" />} />
+            <Route path="/admin/active-bids" element={<Navigate replace to="/admin/dashboard" />} />
+
+            <Route path="/admin/campaign/new-campaign" element={<AdmNewCampaign route={"new-campaign"} />} />
+            <Route
+              path="/admin/campaign/assigned-campaign"
+              element={<AdmAssignCampaign route={"assigned-campaign"} />}
+            />
+            <Route path="/admin/campaign/active-campaign" element={<AdmActiveCampaign route={"active-campaign"} />} />
+            <Route
+              path="/admin/campaign/rejected-campaign"
+              element={<AdmRejectedCampaign route={"rejected-campaign"} />}
+            />
           </Route>
 
           {/* influencer  routes */}

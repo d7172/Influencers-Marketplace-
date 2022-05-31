@@ -1,8 +1,8 @@
 import { Formik } from "formik";
 import React from "react";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import Dropdown from "../../components/Dropdown";
-import { categoryList } from "../influencer/SignUp/Category";
+import Breadcrumbs from "../../../components/Breadcrumbs";
+import Dropdown from "../../../components/Dropdown";
+import { categoryList } from "../../influencer/SignUp/Category";
 
 function InfProfile({ route }) {
   return (
@@ -191,7 +191,6 @@ function InfProfile({ route }) {
           <div className="block mb-[15px] text-[12px] font-[400] text-gray-600">
             Lorem ipsum dolor sit amet, consectetur
           </div>
-
           <div className="flex w-full min-w-infNavbar items-center">
             <div className="flex gap-4 px-4 w-[191px] justify-center items-center h-[61px] bg-[#F1F1F1]">
               Fashion & Style
@@ -201,44 +200,47 @@ function InfProfile({ route }) {
             </div>
             <div className="flex gap-4 px-4 w-[191px] justify-center items-center h-[61px] bg-[#F1F1F1]">Parenting</div>
           </div>
-          <div className="mt-8 flex cursor-pointer">
-            <Formik
-              enableReinitialize={true}
-              onSubmit={(values) => {
-                console.log("handle submit");
-              }}
-            >
-              {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
-                return (
-                  <div className="">
-                    <div className="flex flex-wrap gap-10 items-center justify-between">
-                      <div>
-                        <label className="block text-gray-700 mb-2" htmlFor="category">
-                          Add Category Details
-                        </label>
-                        <div className="justify-between">
-                          <Dropdown
-                            className="w-390"
-                            label={"category"}
-                            options={categoryList.map((cat) => cat.title)}
-                            onChange={(val) => console.log(val)}
-                          />
-                          <button
-                            type="button"
-                            className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                            onClick={() => {}}
-                          >
-                            Add
-                          </button>
+
+          {route === "active-user" && (
+            <div className="mt-8 flex cursor-pointer">
+              <Formik
+                enableReinitialize={true}
+                onSubmit={(values) => {
+                  console.log("handle submit");
+                }}
+              >
+                {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
+                  return (
+                    <div className="">
+                      <div className="flex flex-wrap gap-10 items-center justify-between">
+                        <div>
+                          <label className="block text-gray-700 mb-2" htmlFor="category">
+                            Add Category Details
+                          </label>
+                          <div className="justify-between">
+                            <Dropdown
+                              className="w-390"
+                              label={"category"}
+                              options={categoryList.map((cat) => cat.title)}
+                              onChange={(val) => console.log(val)}
+                            />
+                            <button
+                              type="button"
+                              className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
+                              onClick={() => {}}
+                            >
+                              Add
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              }}
-            </Formik>
-            <div className=" flex mt-14 cursor-pointer"></div>
-          </div>
+                  );
+                }}
+              </Formik>
+              <div className=" flex mt-14 cursor-pointer"></div>
+            </div>
+          )}
 
           <div className="mt-8 text-[16px] font-[600] w-[180px]">Contact Details</div>
           <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
@@ -590,43 +592,45 @@ function InfProfile({ route }) {
             </div>
           </div>
 
-          <div className="mt-8 flex cursor-pointer">
-            <Formik
-              enableReinitialize={true}
-              onSubmit={(values) => {
-                console.log("handle submit");
-              }}
-            >
-              {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
-                return (
-                  <div className="">
-                    <div className="flex flex-wrap gap-10 items-center justify-between">
-                      <div>
-                        <label className="block text-gray-700 mb-2" htmlFor="socialDetails">
-                          Add Social Details
-                        </label>
-                        <div className="justify-between">
-                          <Dropdown
-                            className="w-390"
-                            label={"socialDetails"}
-                            options={categoryList.map((cat) => cat.title)}
-                            onChange={(val) => console.log(val)}
-                          />
-                          <button
-                            type="button"
-                            className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                            onClick={() => {}}
-                          >
-                            Add
-                          </button>
+          {route === "active-user" && (
+            <div className="mt-8 flex cursor-pointer">
+              <Formik
+                enableReinitialize={true}
+                onSubmit={(values) => {
+                  console.log("handle submit");
+                }}
+              >
+                {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
+                  return (
+                    <div className="">
+                      <div className="flex flex-wrap gap-10 items-center justify-between">
+                        <div>
+                          <label className="block text-gray-700 mb-2" htmlFor="socialDetails">
+                            Add Social Details
+                          </label>
+                          <div className="justify-between">
+                            <Dropdown
+                              className="w-390"
+                              label={"socialDetails"}
+                              options={categoryList.map((cat) => cat.title)}
+                              onChange={(val) => console.log(val)}
+                            />
+                            <button
+                              type="button"
+                              className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
+                              onClick={() => {}}
+                            >
+                              Add
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              }}
-            </Formik>
-          </div>
+                  );
+                }}
+              </Formik>
+            </div>
+          )}
 
           <div className="flex justify-end">
             <div className="mt-14 cursor-pointer">

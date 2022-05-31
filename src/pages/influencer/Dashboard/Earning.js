@@ -60,7 +60,7 @@ function Earning() {
               {/* 1 */}
               <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar">
                 <div className="w-[150px]">
-                  <h1 className="text-[24px] font-[600]">123{transEarning?.total_amount}</h1>
+                  <h1 className="text-[24px] font-[600]">{transEarning?.total_amount}</h1>
                   <p className=" text-[12px] font-[400] text-[#969BA0]">Total Completed campaign</p>
                 </div>
                 <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon1.svg" alt="im g" />

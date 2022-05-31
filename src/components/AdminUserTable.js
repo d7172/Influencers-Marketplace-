@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 function AdminUserTable({ tableData, route }) {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ function AdminUserTable({ tableData, route }) {
                 </tr>
               </thead>
               <tbody>
+                {console.log(tableData, "data in table compo")}
                 {tableData?.map((data) => {
                   return (
                     <tr className="">
@@ -39,20 +41,20 @@ function AdminUserTable({ tableData, route }) {
                           className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer"
                           onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
                         >
-                          {data?.userId}
+                          {data?.id}
                         </td>
                       )}
                       <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                        {data?.name}
+                        {data.first_name}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {data?.number}
+                        {data?.contact_number}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {data?.email}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {data?.activeSince}
+                        {moment(data?.created_at).format("DD/MM/YYYY")}
                       </td>
                       <td
                         onClick={() => navigate(`/admin/influencer/${route}/0001`)}

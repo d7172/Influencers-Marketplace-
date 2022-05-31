@@ -1,8 +1,8 @@
 import React from "react";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import CampaignSearchBar from "../../components/CampaignSearchBar";
-import Pagination from "../../components/Pagination";
-import AdminUserTable from "../../components/AdminUserTable";
+import Breadcrumbs from "../../../components/Breadcrumbs";
+import CampaignSearchBar from "../../../components/CampaignSearchBar";
+import Pagination from "../../../components/Pagination";
+import AdminUserTable from "../../../components/AdminUserTable";
 
 function InfActiveUser({ route }) {
   const tableData = [

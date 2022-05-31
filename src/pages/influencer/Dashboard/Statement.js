@@ -4,7 +4,7 @@ import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import DateRange from "../../../components/DateRange";
 import Pagination from "../../../components/Pagination";
-import { getTransitionStatementData } from "../../../store/infTransitionStatement/action";
+import { DownloadTransStatementData, getTransitionStatementData } from "../../../store/infTransitionStatement/action";
 import moment from "moment";
 
 let transitionStatementState = [];
@@ -17,8 +17,16 @@ function Statement() {
     data.append("data", JSON.stringify(payload));
     dispatch(getTransitionStatementData(data));
   }, []);
-  transitionStatementState = useSelector((state) => state?.infTransitionStatement?.results);
 
+  const downloadStatement = () => {
+    const payload = {};
+    const data = new FormData();
+    data.append("data", JSON.stringify(payload));
+    DownloadTransStatementData(data);
+  };
+  transitionStatementState = useSelector((state) => state?.infTransitionStatement?.results);
+  let transitionState = useSelector((state) => console.log(state, "state"));
+  console.log(transitionState);
   return (
     <div className="ml-10">
       <div className="flex items-center pr-8 mt-8">
@@ -27,7 +35,9 @@ function Statement() {
       </div>
       <div className="flex justify-between items-center mt-8">
         <DateRange />
-        <button className="underline text-[#2979FF] text-[16px]">Download Statement </button>
+        <button className="underline text-[#2979FF] text-[16px]" onClick={downloadStatement}>
+          Download Statement{" "}
+        </button>
       </div>
       <StatementTable />
       <div className="absolute bottom-4 right-6">

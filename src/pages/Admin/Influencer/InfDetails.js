@@ -1,5 +1,5 @@
 import React from "react";
-import Breadcrumbs from "../../components/Breadcrumbs";
+import Breadcrumbs from "../../../components/Breadcrumbs";
 
 function InfDetails({ route }) {
   return (
@@ -67,7 +67,7 @@ function InfDetails({ route }) {
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/10-todo (1).svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Rejected Campaigning</div>
-                <div className="mt-2 text-[18px] font-[600] w-[180px]">3.5%</div>
+                <div className="mt-2 text-[18px] font-[600] w-[180px]">35</div>
               </div>
             </div>
           </div>
