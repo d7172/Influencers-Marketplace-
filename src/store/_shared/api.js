@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "https://influencer-portal-api-v5.herokuapp.com/home/api/";
+export const BASE_URL = "https://influencer-portal-api-v3.herokuapp.com/home/api/";
 
 const request = (api, method, header = null, data, onSuccess, onFailure) => {
   const axiosConfig = {
