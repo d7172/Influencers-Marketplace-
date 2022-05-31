@@ -5,7 +5,7 @@ import InfNavbar from "./pages/influencer/Dashboard/InfNavbar";
 
 function InfDashboardCompositeComponent() {
   return (
-    <div className="flex h-full">
+    <div className="flex h-full justify-between">
       <InfDashboardSidebar />
       <div>
         <InfNavbar />

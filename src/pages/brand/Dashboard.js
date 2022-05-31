@@ -1,6 +1,6 @@
 import React from "react";
 
-function InfluencerDashboard() {
+function BrandDashboard() {
   return (
     <div className=" w-[1200px] ">
       <div className="flex px-8 gap-10 justify-between mt-6">
@@ -41,4 +41,4 @@ function InfluencerDashboard() {
   );
 }
 
-export default InfluencerDashboard;
+export default BrandDashboard;

@@ -1,8 +1,9 @@
-import React from "react";
+import React from 'react'
 
-function InfluencerDashboard() {
+function Earnings() {
   return (
-    <div className=" w-[1200px] ">
+    <div>
+        <div className=" w-[1200px] ">
       <div className="flex px-8 gap-10 justify-between mt-6">
         {/* 1 */}
         <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar">
@@ -38,7 +39,8 @@ function InfluencerDashboard() {
         </div>
       </div>
     </div>
-  );
+    </div>
+  )
 }
 
-export default InfluencerDashboard;
+export default Earnings

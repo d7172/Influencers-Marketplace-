@@ -23,7 +23,7 @@ function CampaignPool() {
         <CampaignSearchBar />
       </div>
       <CampaignTable />
-      <div className="absolute bottom-[-100px] right-0">
+      <div className="absolute bottom-[-100px] right-0 w-full">
         <Pagination />
       </div>
     </div>
