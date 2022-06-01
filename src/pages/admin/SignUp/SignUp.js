@@ -2,13 +2,15 @@ import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { postSignUp } from "../../../store/SignUpAdmin/action";
 import { loginSchema } from "../../../utils/formsSchema";
 import { FormError } from "../../influencer/SignUp/PersonalDetails";
 
 const initForm = {
   phone: "",
   otp: "",
-  name: "",
+  first_name: "",
+  last_name: "",
   email: "",
 };
 
@@ -20,16 +22,12 @@ function SignUp() {
   const signUpState = useSelector((state) => state.signUpState);
 
   useEffect(() => {
-    if (signUpState.otp.length) {
-      setCredentials({
-        phone: signUpState.phone.contact_number,
-        otp: signUpState.otp,
-        name: signUpState.name,
-        email: signUpState.email,
-      });
-      setIsLogin(false);
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (userInfo && userInfo.admin_type) {
+      navigate("/admin/dashboard");
     }
-  }, []);
+  }, [localStorage.getItem("userInfo")]);
+
   return (
     <div className="bg-background h-full min-h-screen py-4 flex flex-col gap-14 items-center justify-center">
       <div className="text-center flex flex-col gap-5">
@@ -44,19 +42,27 @@ function SignUp() {
           initialValues={credentials}
           validationSchema={loginSchema}
           onSubmit={(values) => {
-            if (!isLogin) {
-              dispatch({
-                type: "UPDATE_SIGNUP_STATE",
-                data: {
-                  phone: {
-                    dail_code: "+91",
-                    contact_number: values.phone.toString(),
-                  },
-                  otp: values.otp,
-                },
-              });
-              navigate("/signup-type");
-            }
+            dispatch({
+              type: "UPDATE_SIGNUP_ADMIN_STATE",
+              data: {
+                phone: values.phone.toString(),
+                otp: values.otp,
+                first_name: values.first_name,
+                last_name: values.last_name,
+                email: values.email,
+              },
+            });
+            dispatch(
+              postSignUp({
+                phone: values.phone.toString(),
+                otp: values.otp,
+                first_name: values.first_name,
+                last_name: values.last_name,
+                email: values.email,
+                admin_type: "superadmin",
+                extra: {},
+              })
+            );
           }}
         >
           {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
@@ -104,16 +110,28 @@ function SignUp() {
                   {errors.email && touched.email && <FormError>{errors.email}</FormError>}
                 </div>
                 <div className="flex flex-col text-left mt-10">
-                  <label className="ml-2">Name</label>
+                  <label className="ml-2">First Name</label>
                   <input
-                    id="name"
+                    id="first_name"
                     type="name"
                     className="input-field"
-                    placeholder="Input your name in here"
-                    value={values.name}
-                    onChange={handleChange("name")}
+                    placeholder="Input your first name in here"
+                    value={values.first_name}
+                    onChange={handleChange("first_name")}
                   />
-                  {errors.email && touched.email && <FormError>{errors.email}</FormError>}
+                  {errors.first_name && touched.first_name && <FormError>{errors.first_name}</FormError>}
+                </div>
+                <div className="flex flex-col text-left mt-10">
+                  <label className="ml-2">last Name</label>
+                  <input
+                    id="last_name"
+                    type="name"
+                    className="input-field"
+                    placeholder="Input your last name in here"
+                    value={values.last_name}
+                    onChange={handleChange("last_name")}
+                  />
+                  {errors.last_name && touched.last_name && <FormError>{errors.last_name}</FormError>}
                 </div>
                 <button
                   type="button"

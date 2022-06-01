@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "https://influencer-portal-api-v5.herokuapp.com/home/api/";
+export const BASE_URL = "https://influencer-portal-api-v3.herokuapp.com/home/api/";
 
 const request = (api, method, header = null, data, onSuccess, onFailure) => {
   const axiosConfig = {
@@ -37,6 +37,8 @@ const request = (api, method, header = null, data, onSuccess, onFailure) => {
 
 export function networkRequest(url, method, header = true, payload = null, onSuccess, onFailure) {
   if (header === "JSON") {
+    console.log("payload1" + payload);
+
     const headers = { "Content-Type": "application/x-www-form-urlencoded" };
     return request(url, method, headers, payload, onSuccess, onFailure);
   }
@@ -44,6 +46,7 @@ export function networkRequest(url, method, header = true, payload = null, onSuc
   //   const headers = {
   //     Authorization: localStorage.getItem("token"),
   //   };
+  console.log("payload2" + payload);
 
   return request(url, method, false, payload, onSuccess, onFailure);
 }

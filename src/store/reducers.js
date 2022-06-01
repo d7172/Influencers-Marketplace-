@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { signUpState } from "./SignUp/localSignUp";
 import { signUp } from "./SignUp/reducer";
+import { signIn } from "./SignInAdmin/reducer";
 import { infCampaignPool } from "./InfCampaignPool/reducer";
 import { infCampaignActive } from "./infCampaignActive/reducer";
 import { infCampaignAssigned } from "./infCampaignAssigned/reducer";
@@ -9,6 +10,7 @@ import { infBids } from "./infBid/reducer";
 const reducers = combineReducers({
   signUpState,
   signUp,
+  userLogin: signIn,
   infCampaignPool,
   infCampaignActive,
   infCampaignAssigned,

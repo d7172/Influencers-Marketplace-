@@ -19,8 +19,20 @@ import SignIn from "./pages/admin/SignIn/SignIn";
 import SignUpAdmin from "./pages/admin/SignUp/SignUp";
 import AdminDashboardCompositeComponent from "./AdminDashboardCompositeComponent";
 import DashboardAdmin from "./pages/admin/Dashboard/Dashboard";
-
+import { useState, useEffect } from "react";
+import Protected from "./ProtectedRoute";
+import { useSelector } from "react-redux";
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo && userInfo.admin_type) {
+      setIsLoggedIn(true);
+    }
+  }, [userInfo]);
+
   return (
     <div className="h-full min-h-full">
       <BrowserRouter>
@@ -52,9 +64,30 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/admin/signin" element={<SignIn />} />
           <Route path="/admin/signup" element={<SignUpAdmin />} />
-          <Route path="/admin" element={<AdminDashboardCompositeComponent />}>
-            <Route path="/admin" element={<Navigate replace to="/admin/dashboard" />} />
-            <Route path="/admin/dashboard" element={<DashboardAdmin />} />
+          <Route
+            path="/admin"
+            element={
+              <Protected isLoggedIn={isLoggedIn}>
+                <AdminDashboardCompositeComponent />
+              </Protected>
+            }
+          >
+            <Route
+              path="/admin"
+              element={
+                <Protected isLoggedIn={isLoggedIn}>
+                  <Navigate replace to="/admin/dashboard" />{" "}
+                </Protected>
+              }
+            />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <Protected isLoggedIn={isLoggedIn}>
+                  <DashboardAdmin />
+                </Protected>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

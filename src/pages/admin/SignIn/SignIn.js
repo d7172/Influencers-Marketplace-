@@ -2,6 +2,7 @@ import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { postSignIn } from "../../../store/SignInAdmin/action";
 import { loginSchema } from "../../../utils/formsSchema";
 import { FormError } from "../../influencer/SignUp/PersonalDetails";
 
@@ -26,6 +27,15 @@ function SignIn() {
       setIsLogin(false);
     }
   }, []);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo && userInfo.admin_type) {
+      navigate("/admin/dashboard");
+    }
+  }, [userInfo]);
   return (
     <div className="bg-background h-full min-h-screen py-4 flex flex-col gap-14 items-center justify-center">
       <div className="text-center flex flex-col gap-5">
@@ -40,19 +50,26 @@ function SignIn() {
           initialValues={credentials}
           validationSchema={loginSchema}
           onSubmit={(values) => {
-            if (!isLogin) {
-              dispatch({
-                type: "UPDATE_SIGNUP_STATE",
-                data: {
-                  phone: {
-                    dail_code: "+91",
-                    contact_number: values.phone.toString(),
-                  },
-                  otp: values.otp,
+            dispatch({
+              type: "UPDATE_SIGNIN_ADMIN_STATE",
+              data: {
+                phone: {
+                  dail_code: "+91",
+                  contact_number: values.phone.toString(),
                 },
-              });
-              navigate("/signup-type");
-            }
+                otp: values.otp,
+              },
+            });
+
+            dispatch(
+              postSignIn({
+                phone: {
+                  dail_code: "+91",
+                  contact_number: values.phone.toString(),
+                },
+                otp: values.otp,
+              })
+            );
           }}
         >
           {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
