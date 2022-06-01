@@ -45,6 +45,55 @@ function CampaignPool() {
         project_duration_in_days: 1,
         category: "Fashion, DIY",
         social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+      },
+      {
+        id: "00004",
+        title: "Enjoy the videos and music",
+        project_duration_in_days: 1,
+        category: "Fashion, DIY",
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+      },
+      {
+        id: "00004",
+        title: "Enjoy the videos and music",
+        project_duration_in_days: 1,
+        category: "Fashion, DIY",
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+      },
+      {
+        id: "00004",
+        title: "Enjoy the videos and music",
+        project_duration_in_days: 1,
+        category: "Fashion, DIY",
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+      },
+      {
+        id: "00004",
+        title: "Enjoy the videos and music",
+        project_duration_in_days: 1,
+        category: "Fashion, DIY",
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+      },
+      {
+        id: "00004",
+        title: "Enjoy the videos and music",
+        project_duration_in_days: 1,
+        category: "Fashion, DIY",
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+      },
+      {
+        id: "00004",
+        title: "Enjoy the videos and music",
+        project_duration_in_days: 1,
+        category: "Fashion, DIY",
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+      },
+      {
+        id: "00004",
+        title: "Enjoy the videos and music",
+        project_duration_in_days: 1,
+        category: "Fashion, DIY",
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
       }
     ]
   }

@@ -20,7 +20,7 @@ function DetailsTable({ campaignId ,columnData, rowData }) {
                                 <td className='pl-4 py-4 whitespace-nowrap text-sm max-w-[170px]  font-medium text-[#3751FF] underline'>{data.userId}</td>
                                 <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">{data.infName}</td>
                                 <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">{data.infBidNum}</td>
-                                <td className=' pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative' onClick={() => navigate(`/brand/admin/active-bids/${campaignId}`)}>View details</td>
+                                <td className=' pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative' onClick={() => navigate(`/admin/active-bids/${campaignId}`)}>View details</td>
                             </tr>
                         )
                     })}
