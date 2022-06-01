@@ -12,7 +12,7 @@ function InfActiveUser({ route }) {
   useEffect(() => {
     dispatch(getInfActiveUserData());
   }, []);
-  tableData = useSelector((state) => state?.infActiveUser?.results);
+  tableData = useSelector((state) => state?.infActiveUser?.results.map((r) => r?.influencerDetail));
   return (
     <div className="max-w-[1280px] pt-6 relative">
       <div className="flex items-center px-8">

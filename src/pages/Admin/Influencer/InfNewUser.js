@@ -16,7 +16,6 @@ function InfNewUser({ route }) {
 
   return (
     <div className="max-w-[1280px] pt-6 relative">
-      {console.log(tableData, "table data")}
       <div className="flex items-center px-8">
         <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Influencer" }, { title: "New User" }]} />
 

@@ -4,6 +4,9 @@ import moment from "moment";
 
 function AdminUserTable({ tableData, route }) {
   const navigate = useNavigate();
+  {
+    console.log(route, "route");
+  }
   return (
     <div className="flex flex-col max-w-[1280px]">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -51,7 +54,7 @@ function AdminUserTable({ tableData, route }) {
                         {data?.contact_number || data?.number}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {data?.email}
+                        {data?.email || "test@gmail.com"}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {moment(data?.created_at).format("DD/MM/YYYY") || data?.activeSince}
