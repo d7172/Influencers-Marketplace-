@@ -3,24 +3,23 @@ import AdminDashboardCompositeComponent from "./AdminDashboardCompositeComponent
 import InfDashboardCompositeComponent from "./InfDashboardCompositeComponent";
 import BrandDashboardCompositeComponent from "./BrandDashboardCompositeComponent";
 import InfluencerCompositeComponent from "./InfluencerCompositeComponent";
-import AdmActiveCampaign from "./pages/Admin/Campaign/ActiveCampaign";
-import AdmAssignCampaign from "./pages/Admin/Campaign/AssignCampaign";
-import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
-import AdmRejectedCampaign from "./pages/Admin/Campaign/RejectedCampaign";
-import AdminDashBoard from "./pages/Admin/DashBoard";
-import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
-import InfDetails from "./pages/Admin/Influencer/InfDetails";
-import InfNewUser from "./pages/Admin/Influencer/InfNewUser";
-import InfProfile from "./pages/Admin/Influencer/InfProfile";
-import InfRejectedUser from "./pages/Admin/Influencer/InfRejectedUser";
+import AdmActiveCampaign from "./pages/admin/Campaign/ActiveCampaign";
+import AdmAssignCampaign from "./pages/admin/Campaign/AssignCampaign";
+import AdmNewCampaign from "./pages/admin/Campaign/NewCampaign";
+import AdmRejectedCampaign from "./pages/admin/Campaign/RejectedCampaign";
+import InfActiveUser from "./pages/admin/Influencer/InfActiveUser";
+import InfDetails from "./pages/admin/Influencer/InfDetails";
+import InfNewUser from "./pages/admin/Influencer/InfNewUser";
+import InfProfile from "./pages/admin/Influencer/InfProfile";
+import InfRejectedUser from "./pages/admin/Influencer/InfRejectedUser";
 import Login from "./pages/common/Login";
 import SignUpType from "./pages/common/SignUpType";
 import ActiveCampaign from "./pages/influencer/Dashboard/ActiveCampaign";
 import ActiveCampaignDetails from "./pages/influencer/Dashboard/ActiveCampaignDetails";
 import AssignedCampaign from "./pages/influencer/Dashboard/AssignedCampaign";
 import Bids from "./pages/influencer/Dashboard/Bids";
-import AdminActiveBids from "./pages/Admin/ActiveBids/Bids";
-import AdminBidDetails from "./pages/Admin/ActiveBids/BidDetails";
+import AdminActiveBids from "./pages/admin/ActiveBids/Bids";
+import AdminBidDetails from "./pages/admin/ActiveBids/BidDetails";
 import CampaignDetails from "./pages/influencer/Dashboard/CampaignDetails";
 import BrandCampaignDetails from "./pages/brand/CampaignDetails";
 import CampaignPool from "./pages/influencer/Dashboard/CampaignPool";
@@ -36,7 +35,7 @@ import Home from "./pages/influencer/Home";
 import SignUp from "./pages/influencer/SignUp/SignUp";
 import SignIn from "./pages/admin/SignIn/SignIn";
 import SignUpAdmin from "./pages/admin/SignUp/SignUp";
-import DashboardAdmin from "./pages/admin/Dashboard/Dashboard";
+import AdminDashBoard from "./pages/admin/Dashboard/Dashboard";
 import { useState, useEffect } from "react";
 import Protected from "./ProtectedRoute";
 import { useSelector } from "react-redux";
@@ -44,15 +43,14 @@ import NewCampaign from "./pages/brand/NewCampaign";
 import BrandActiveCampaign from "./pages/brand/ActiveCampaign";
 import BrandAssignedCampaign from "./pages/brand/AssignedCampaign";
 import RejectedCampaign from "./pages/brand/RejectedCampaign";
-import Earnings from "./pages/Admin/Transaction/Earnings";
-import Payments from "./pages/Admin/Transaction/Payments";
-import BrandPaymentOngoing from "./pages/Admin/Transaction/BrandPaymentOngoing";
-
-import AdminNewCampaign from "./pages/Admin/NewCampaign/NewCampaign";
-import AdminActiveCampaign from "./pages/Admin/ActiveCampaign/ActiveCampaign";
-import AdminAssignedCampaign from "./pages/Admin/AssignedCampaign/AssignedCampaign";
-import AdminRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
-import AdminRejectedCampaignDetails from "./pages/Admin/RejectedCampaign/RejectedCampaignDetails";
+import Earnings from "./pages/admin/Transaction/Earnings";
+import Payments from "./pages/admin/Transaction/Payments";
+import BrandPaymentOngoing from "./pages/admin/Transaction/BrandPaymentOngoing";
+import AdminNewCampaign from "./pages/admin/NewCampaign/NewCampaign";
+import AdminActiveCampaign from "./pages/admin/ActiveCampaign/ActiveCampaign";
+import AdminAssignedCampaign from "./pages/admin/AssignedCampaign/AssignedCampaign";
+import AdminRejectedCampaign from "./pages/admin/RejectedCampaign/RejectedCampaign";
+import AdminRejectedCampaignDetails from "./pages/admin/RejectedCampaign/RejectedCampaignDetails";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -74,9 +72,30 @@ function App() {
           </Route>
 
           {/* admin routes */}
-          <Route path="/admin" element={<AdminDashboardCompositeComponent />}>
-            <Route path="/admin" element={<Navigate replace to="/admin/dashboard" />} />
-            <Route path="/admin/dashboard" element={<AdminDashBoard />} />
+          <Route
+            path="/admin"
+            element={
+              <Protected isLoggedIn={isLoggedIn}>
+                <AdminDashboardCompositeComponent />
+              </Protected>
+            }
+          >
+            <Route
+              path="/admin"
+              element={
+                <Protected isLoggedIn={isLoggedIn}>
+                  <Navigate replace to="/admin/dashboard" />
+                </Protected>
+              }
+            />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <Protected isLoggedIn={isLoggedIn}>
+                  <AdminDashBoard />
+                </Protected>
+              }
+            />
             <Route path="/admin/influencer/new-user" element={<InfNewUser route={"new-user"} />} />
             <Route path="/admin/influencer/active-user" element={<InfActiveUser route={"active-user"} />} />
             <Route path="/admin/influencer/rejected-user" element={<InfRejectedUser route={"rejected-user"} />} />
@@ -129,31 +148,6 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/admin/signin" element={<SignIn />} />
           <Route path="/admin/signup" element={<SignUpAdmin />} />
-          <Route
-            path="/admin"
-            element={
-              <Protected isLoggedIn={isLoggedIn}>
-                <AdminDashboardCompositeComponent />
-              </Protected>
-            }
-          >
-            <Route
-              path="/admin"
-              element={
-                <Protected isLoggedIn={isLoggedIn}>
-                  <Navigate replace to="/admin/dashboard" />{" "}
-                </Protected>
-              }
-            />
-            <Route
-              path="/admin/dashboard"
-              element={
-                <Protected isLoggedIn={isLoggedIn}>
-                  <DashboardAdmin />
-                </Protected>
-              }
-            />
-          </Route>
         </Routes>
       </BrowserRouter>
     </div>
