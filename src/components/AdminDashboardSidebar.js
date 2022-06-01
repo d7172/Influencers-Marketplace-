@@ -3,41 +3,186 @@ import { Link, useLocation } from "react-router-dom";
 import CustomDisclosure from "./Disclouser";
 import Disclosure from "./Disclouser";
 
-function InfDashboardSidebar() {
+function AdminDashboardSidebar() {
   const location = useLocation();
   const isDashboard = location?.pathname === "/admin/dashboard";
-  const isAllUsers = location?.pathname === "/admin/users";
-  const isCms = location?.pathname === "/admin/cms";
+  const isCampaign = location?.pathname.startsWith("/admin/campaign");
+  const isInfluencer = location?.pathname.startsWith("/admin/influencer");
+  const isBrand = location?.pathname.startsWith("/admin/brand");
+  const isActiveBids = location?.pathname.startsWith("/admin/active-bids");
+  const isTransaction = location?.pathname.startsWith("/admin/transaction");
+  const isEarning = location?.pathname === "/admin/transaction/earning";
+  const isPayments = location?.pathname === "/admin/transaction/payments";
+  const isStatement = location?.pathname === "/admin/transaction/statement";
+  const isInfNewUser = location?.pathname === "/admin/influencer/new-user";
+  const isInfActiveUser = location?.pathname === "/admin/influencer/active-user";
+  const isInfRejectedUser = location?.pathname === "/admin/influencer/rejected-user";
+  const isBrandNewUser = location?.pathname === "/admin/brand/new-user";
+  const isBrandActiveUser = location?.pathname === "/admin/brand/active-user";
+  const isBrandRejectedUser = location?.pathname === "/admin/brand/rejected-user";
+  const isNewCampaign = location?.pathname === "/admin/campaign/new-campaign";
+  const isAssignedCampaign = location?.pathname === "/admin/campaign/assigned-campaign";
+  const isActiveCampaign = location?.pathname === "/admin/campaign/active-campaign";
+  const isRejectedCampaign = location?.pathname === "/admin/campaign/rejected-campaign";
 
   return (
     <div className="min-w-[308px] h-inherit min-h-screen box-shadow-sidebar">
       <h1 className="text-[#1E266D] text-[32px] text-center my-4 font-[500]">
-        Influencer<span className="text-red-500">:</span>{" "}
+        Admin<span className="text-red-500">:</span>{" "}
       </h1>
       <div className="flex flex-col gap-0">
-        <Link to="/influencer/dashboard" className="flex gap-6 items-center">
+        <Link to="/admin/dashboard" className="flex gap-6 items-center">
           <div className={`w-[20px] h-[55px] ${isDashboard ? "bg-[#3751FF]" : "bg-white"} `} />
           {dashboardSvg(isDashboard ? "#3751FF" : "#969BA0")}
           <h1 className={`text-[18px] font-[600]  ${isDashboard ? "text-[#3751FF]" : "text-[#969BA0]"} `}>Dashboard</h1>
         </Link>
-
-        <Link to="/admin/users" className="flex gap-6 items-center">
-          <div className={`w-[20px] h-[55px] ${isAllUsers ? "bg-[#3751FF]" : "bg-white"} `} />
-          {BidSvg(isAllUsers ? "#3751FF" : "#969BA0")}
-          <h1 className={`text-[18px] font-[600]  ${isAllUsers ? "text-[#3751FF]" : "text-[#969BA0]"} `}>All users</h1>
+        <div className="flex gap-6 mt-4">
+          <div className={`w-[20px] h-[55px] ${isInfluencer ? "bg-[#3751FF]" : "bg-white"} `} />
+          {CampaignSvg(isCampaign ? "#3751FF" : "#969BA0")}
+          <CustomDisclosure
+            inActiveColor="text-[#969BA0]"
+            activeColor="text-[#3751FF]"
+            className="text-[18px] font-[600] w-[180px]"
+            label="Influencers list"
+            content={() => (
+              <div className=" py-4 px-2 flex flex-col gap-4 items-start">
+                <Link
+                  to="/admin/influencer/new-user"
+                  className={`text-[18px] ${isInfNewUser ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  New Users
+                </Link>
+                <Link
+                  to="/admin/influencer/active-user"
+                  className={`text-[18px] ${isInfActiveUser ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Active Users
+                </Link>
+                <Link
+                  to="/admin/influencer/rejected-user"
+                  className={`text-[18px] ${isInfRejectedUser ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Rejected Users
+                </Link>
+              </div>
+            )}
+          />
+        </div>
+        <div className="flex gap-6 mt-4">
+          <div className={`w-[20px] h-[55px] ${isBrand ? "bg-[#3751FF]" : "bg-white"} `} />
+          {CampaignSvg(isCampaign ? "#3751FF" : "#969BA0")}
+          <CustomDisclosure
+            inActiveColor="text-[#969BA0]"
+            activeColor="text-[#3751FF]"
+            className="text-[18px] font-[600] w-[180px]"
+            label="Brand list"
+            content={() => (
+              <div className=" py-4 px-2 flex flex-col gap-4 items-start">
+                <Link
+                  to="/admin/brand/new-user"
+                  className={`text-[18px] ${isBrandNewUser ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  New Users
+                </Link>
+                <Link
+                  to="/admin/brand/active-user"
+                  className={`text-[18px] ${isBrandActiveUser ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Active Users
+                </Link>
+                <Link
+                  to="/admin/brand/rejected-user"
+                  className={`text-[18px] ${isBrandRejectedUser ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Rejected Users
+                </Link>
+              </div>
+            )}
+          />
+        </div>
+        <div className="flex gap-6 mt-4">
+          <div className={`w-[20px] h-[55px] ${isCampaign ? "bg-[#3751FF]" : "bg-white"} `} />
+          {CampaignSvg(isCampaign ? "#3751FF" : "#969BA0")}
+          <CustomDisclosure
+            inActiveColor="text-[#969BA0]"
+            activeColor="text-[#3751FF]"
+            className="text-[18px] font-[600] w-[180px]"
+            label="Campaign"
+            content={() => (
+              <div className=" py-4 px-2 flex flex-col gap-4 items-start">
+                <Link
+                  to="/admin/campaign/new-campaign"
+                  className={`text-[18px] ${isNewCampaign ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  New Campaign
+                </Link>
+                <Link
+                  to="/admin/campaign/assigned-campaign"
+                  className={`text-[18px] ${isAssignedCampaign ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Assigned Campaign
+                </Link>
+                <Link
+                  to="/admin/campaign/active-campaign"
+                  className={`text-[18px] ${isActiveCampaign ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Active Campaign
+                </Link>
+                <Link
+                  to="/admin/campaign/rejected-campaign"
+                  className={`text-[18px] ${isRejectedCampaign ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Rejected Campaign
+                </Link>
+              </div>
+            )}
+          />
+        </div>
+        <Link to="/admin/active-bids" className="flex gap-6 items-center">
+          <div className={`w-[20px] h-[55px] ${isActiveBids ? "bg-[#3751FF]" : "bg-white"} `} />
+          {dashboardSvg(isActiveBids ? "#3751FF" : "#969BA0")}
+          <h1 className={`text-[18px] font-[600]  ${isActiveBids ? "text-[#3751FF]" : "text-[#969BA0]"} `}>
+            Active Bids
+          </h1>
         </Link>
-
-        <Link to="/admin/cms" className="flex gap-6 items-center">
-          <div className={`w-[20px] h-[55px] ${isCms ? "bg-[#3751FF]" : "bg-white"} `} />
-          {supportSvg(isCms ? "#3751FF" : "#969BA0")}
-          <h1 className={`text-[18px] font-[600]  ${isCms ? "text-[#3751FF]" : "text-[#969BA0]"} `}>CMS</h1>
-        </Link>
+        <div className="flex gap-6 mt-4">
+          <div className={`w-[20px] h-[55px] ${isTransaction ? "bg-[#3751FF]" : "bg-white"} `} />
+          {transactionSvg(isTransaction ? "#3751FF" : "#969BA0")}
+          <CustomDisclosure
+            inActiveColor="text-[#969BA0]"
+            activeColor="text-[#3751FF]"
+            className="text-[18px] font-[600] w-[180px]"
+            label="Transaction"
+            content={() => (
+              <div className=" py-4 px-2 flex flex-col gap-4 items-start">
+                <Link
+                  to="/admin/transaction/earning"
+                  className={`text-[18px] ${isEarning ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Earning
+                </Link>
+                <Link
+                  to="/admin/transaction/payments"
+                  className={`text-[18px] ${isPayments ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Payments
+                </Link>
+                <Link
+                  to="/admin/transaction/statement"
+                  className={`text-[18px] ${isStatement ? "text-[#3751FF]" : "text-[#969BA0]"}`}
+                >
+                  Statement
+                </Link>
+              </div>
+            )}
+          />
+        </div>
       </div>
     </div>
   );
 }
 
-export default InfDashboardSidebar;
+export default AdminDashboardSidebar;
 
 const dashboardSvg = (fill) => (
   <svg width="28" height="28" viewBox="0 0 24 28" fill={fill} xmlns="http://www.w3.org/2000/svg">
@@ -48,29 +193,21 @@ const dashboardSvg = (fill) => (
     />
   </svg>
 );
-
-const BidSvg = (fill) => (
-  <svg width="22" height="24" viewBox="0 0 22 24" fill={fill} xmlns="http://www.w3.org/2000/svg">
+const transactionSvg = (fill) => (
+  <svg width="28" height="28" viewBox="0 0 22 28" className="mt-2" fill={fill} xmlns="http://www.w3.org/2000/svg">
     <path
-      d="M20.3334 23.9998H17.6667C17.3131 23.9998 16.9739 23.8593 16.7239 23.6093C16.4738 23.3592 16.3334 23.0201 16.3334 22.6665C16.3334 22.3129 16.4738 21.9737 16.7239 21.7237C16.9739 21.4736 17.3131 21.3332 17.6667 21.3332H19V17.1732C18.9956 16.8017 18.9107 16.4357 18.7514 16.1002C18.592 15.7647 18.3619 15.4676 18.0769 15.2294C17.7919 14.9913 17.4586 14.8176 17.1001 14.7205C16.7416 14.6233 16.3663 14.6049 16 14.6665L11.8934 18.3465C11.6484 18.5676 11.3301 18.69 11 18.69C10.67 18.69 10.3517 18.5676 10.1067 18.3465L6.00004 14.6665C5.63375 14.6049 5.25845 14.6233 4.89995 14.7205C4.54145 14.8176 4.20823 14.9913 3.92319 15.2294C3.63815 15.4676 3.40805 15.7647 3.2487 16.1002C3.08935 16.4357 3.00452 16.8017 3.00004 17.1732V21.3332H12.3334C12.687 21.3332 13.0261 21.4736 13.2762 21.7237C13.5262 21.9737 13.6667 22.3129 13.6667 22.6665C13.6667 23.0201 13.5262 23.3592 13.2762 23.6093C13.0261 23.8593 12.687 23.9998 12.3334 23.9998H1.66671C1.31309 23.9998 0.973947 23.8593 0.723899 23.6093C0.47385 23.3592 0.333374 23.0201 0.333374 22.6665V17.1732C0.336397 16.3643 0.526148 15.5671 0.887839 14.8436C1.24953 14.1202 1.77339 13.49 2.4186 13.0022C3.06381 12.5144 3.81294 12.1822 4.60761 12.0315C5.40228 11.8807 6.22102 11.9155 7.00004 12.1332C7.19078 12.1962 7.3674 12.2959 7.52004 12.4265L11 15.5465L14.4667 12.4265C14.6233 12.2943 14.8046 12.1946 15 12.1332C15.7791 11.9155 16.5978 11.8807 17.3925 12.0315C18.1871 12.1822 18.9363 12.5144 19.5815 13.0022C20.2267 13.49 20.7505 14.1202 21.1122 14.8436C21.4739 15.5671 21.6637 16.3643 21.6667 17.1732V22.6665C21.6667 23.0201 21.5262 23.3592 21.2762 23.6093C21.0261 23.8593 20.687 23.9998 20.3334 23.9998Z"
-      fill="#969BA0"
-    />
-    <path
-      d="M11 13.3333C9.6815 13.3333 8.39257 12.9423 7.29624 12.2098C6.19991 11.4773 5.34543 10.4361 4.84085 9.21789C4.33626 7.99972 4.20424 6.65927 4.46148 5.36607C4.71871 4.07286 5.35365 2.88497 6.286 1.95262C7.21835 1.02027 8.40624 0.385336 9.69944 0.128101C10.9926 -0.129134 12.3331 0.00288856 13.5513 0.507473C14.7694 1.01206 15.8106 1.86654 16.5432 2.96287C17.2757 4.0592 17.6667 5.34813 17.6667 6.66667C17.6667 8.43478 16.9643 10.1305 15.7141 11.3807C14.4638 12.631 12.7682 13.3333 11 13.3333V13.3333ZM11 2.66667C10.2089 2.66667 9.43556 2.90127 8.77776 3.34079C8.11997 3.78032 7.60728 4.40503 7.30453 5.13594C7.00177 5.86684 6.92256 6.67111 7.0769 7.44703C7.23124 8.22296 7.61221 8.93569 8.17162 9.4951C8.73103 10.0545 9.44376 10.4355 10.2197 10.5898C10.9956 10.7442 11.7999 10.6649 12.5308 10.3622C13.2617 10.0594 13.8864 9.54675 14.3259 8.88895C14.7654 8.23115 15 7.4578 15 6.66667C15 5.6058 14.5786 4.58839 13.8285 3.83824C13.0783 3.0881 12.0609 2.66667 11 2.66667Z"
-      fill="#969BA0"
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M13.8026 21.4947C16.8373 20.3587 19.0013 17.4294 19.0013 14C19.0013 11.792 18.1039 9.79203 16.6559 8.34403C16.1359 7.82403 16.1359 6.97871 16.6559 6.45871C17.1773 5.93871 18.0213 5.93871 18.5426 6.45871C20.4733 8.38938 21.6679 11.056 21.6679 14C21.6679 18.644 18.6933 22.5987 14.5466 24.0614L15.7613 24.904C16.3653 25.324 16.5159 26.1547 16.0959 26.76C15.6773 27.364 14.8453 27.5147 14.2413 27.0947L10.2413 24.32C9.6386 23.9027 9.48659 23.076 9.90126 22.4707L12.5679 18.58C12.9839 17.972 13.8146 17.8174 14.4213 18.2334C15.0279 18.6494 15.1826 19.48 14.7666 20.0867L13.8026 21.4947ZM7.48659 3.92671L6.26126 3.10937C5.64926 2.70137 5.48259 1.87203 5.89059 1.26003C6.29993 0.648034 7.12793 0.4827 7.73993 0.8907L11.7399 3.55737C12.3533 3.96537 12.5186 4.79338 12.1106 5.40671L9.44393 9.40671C9.0346 10.0187 8.20659 10.184 7.59459 9.77603C6.98259 9.36803 6.81593 8.53871 7.22393 7.92671L8.16393 6.51871C5.14659 7.66404 3.00126 10.5827 3.00126 14C3.00126 16.208 3.89726 18.2067 5.34526 19.656C5.86526 20.176 5.86526 21.02 5.34526 21.5414C4.82526 22.0614 3.97993 22.0614 3.45993 21.5414C1.52926 19.6107 0.334595 16.944 0.334595 14C0.334595 9.34403 3.32393 5.38004 7.48659 3.92671V3.92671Z"
     />
   </svg>
 );
-
-const supportSvg = (fill) => (
-  <svg width="22" height="24" viewBox="0 0 22 24" fill={fill} xmlns="http://www.w3.org/2000/svg">
+const CampaignSvg = (fill) => (
+  <svg width="29" height="29" viewBox="0 0 28 22" fill={fill} className="mt-2" xmlns="http://www.w3.org/2000/svg">
     <path
-      d="M20.3334 23.9998H17.6667C17.3131 23.9998 16.9739 23.8593 16.7239 23.6093C16.4738 23.3592 16.3334 23.0201 16.3334 22.6665C16.3334 22.3129 16.4738 21.9737 16.7239 21.7237C16.9739 21.4736 17.3131 21.3332 17.6667 21.3332H19V17.1732C18.9956 16.8017 18.9107 16.4357 18.7514 16.1002C18.592 15.7647 18.3619 15.4676 18.0769 15.2294C17.7919 14.9913 17.4586 14.8176 17.1001 14.7205C16.7416 14.6233 16.3663 14.6049 16 14.6665L11.8934 18.3465C11.6484 18.5676 11.3301 18.69 11 18.69C10.67 18.69 10.3517 18.5676 10.1067 18.3465L6.00004 14.6665C5.63375 14.6049 5.25845 14.6233 4.89995 14.7205C4.54145 14.8176 4.20823 14.9913 3.92319 15.2294C3.63815 15.4676 3.40805 15.7647 3.2487 16.1002C3.08935 16.4357 3.00452 16.8017 3.00004 17.1732V21.3332H12.3334C12.687 21.3332 13.0261 21.4736 13.2762 21.7237C13.5262 21.9737 13.6667 22.3129 13.6667 22.6665C13.6667 23.0201 13.5262 23.3592 13.2762 23.6093C13.0261 23.8593 12.687 23.9998 12.3334 23.9998H1.66671C1.31309 23.9998 0.973947 23.8593 0.723899 23.6093C0.47385 23.3592 0.333374 23.0201 0.333374 22.6665V17.1732C0.336397 16.3643 0.526148 15.5671 0.887839 14.8436C1.24953 14.1202 1.77339 13.49 2.4186 13.0022C3.06381 12.5144 3.81294 12.1822 4.60761 12.0315C5.40228 11.8807 6.22102 11.9155 7.00004 12.1332C7.19078 12.1962 7.3674 12.2959 7.52004 12.4265L11 15.5465L14.4667 12.4265C14.6233 12.2943 14.8046 12.1946 15 12.1332C15.7791 11.9155 16.5978 11.8807 17.3925 12.0315C18.1871 12.1822 18.9363 12.5144 19.5815 13.0022C20.2267 13.49 20.7505 14.1202 21.1122 14.8436C21.4739 15.5671 21.6637 16.3643 21.6667 17.1732V22.6665C21.6667 23.0201 21.5262 23.3592 21.2762 23.6093C21.0261 23.8593 20.687 23.9998 20.3334 23.9998Z"
-      fill="#969BA0"
-    />
-    <path
-      d="M11 13.3333C9.6815 13.3333 8.39257 12.9423 7.29624 12.2098C6.19991 11.4773 5.34543 10.4361 4.84085 9.21789C4.33626 7.99972 4.20424 6.65927 4.46148 5.36607C4.71871 4.07286 5.35365 2.88497 6.286 1.95262C7.21835 1.02027 8.40624 0.385336 9.69944 0.128101C10.9926 -0.129134 12.3331 0.00288856 13.5513 0.507473C14.7694 1.01206 15.8106 1.86654 16.5432 2.96287C17.2757 4.0592 17.6667 5.34813 17.6667 6.66667C17.6667 8.43478 16.9643 10.1305 15.7141 11.3807C14.4638 12.631 12.7682 13.3333 11 13.3333V13.3333ZM11 2.66667C10.2089 2.66667 9.43556 2.90127 8.77776 3.34079C8.11997 3.78032 7.60728 4.40503 7.30453 5.13594C7.00177 5.86684 6.92256 6.67111 7.0769 7.44703C7.23124 8.22296 7.61221 8.93569 8.17162 9.4951C8.73103 10.0545 9.44376 10.4355 10.2197 10.5898C10.9956 10.7442 11.7999 10.6649 12.5308 10.3622C13.2617 10.0594 13.8864 9.54675 14.3259 8.88895C14.7654 8.23115 15 7.4578 15 6.66667C15 5.6058 14.5786 4.58839 13.8285 3.83824C13.0783 3.0881 12.0609 2.66667 11 2.66667Z"
-      fill="#969BA0"
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M27.3343 5.66646C27.3343 2.72126 24.9462 0.333374 22.0007 0.333374C17.5606 0.333374 10.439 0.333374 6.00015 0.333374C3.05471 0.333374 0.666626 2.72126 0.666626 5.66646V16.3326C0.666626 19.2778 3.05471 21.6657 6.00015 21.6657H22.0007C24.9462 21.6657 27.3343 19.2778 27.3343 16.3326V5.66646ZM24.6675 16.3326H3.33339C3.33339 17.8059 4.52677 18.9992 6.00015 18.9992H22.0007C23.4728 18.9992 24.6675 17.8059 24.6675 16.3326ZM3.33339 12.3328V13.6661H24.6675V12.3328H3.33339ZM24.6675 9.66627V5.66646C24.6675 4.19453 23.4728 2.99991 22.0007 2.99991C17.5606 2.99991 10.439 2.99991 6.00015 2.99991C4.52677 2.99991 3.33339 4.19453 3.33339 5.66646V9.66627H24.6675Z"
     />
   </svg>
 );
