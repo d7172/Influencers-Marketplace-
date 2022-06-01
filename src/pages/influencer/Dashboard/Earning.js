@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
-// import { Cart as ChartJS } from "chart.js/auto";
+import { Cart as ChartJS } from "chart.js/auto";
 
 function Earning() {
   const [barData, setBarData] = useState({

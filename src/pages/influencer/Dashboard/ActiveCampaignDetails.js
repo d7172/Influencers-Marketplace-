@@ -14,7 +14,8 @@ function CampaignDetails() {
   // const { id } = useParams();
   const [placeBid, setPlaceBid] = useState(false);
   const [rejectBid, setRejectBid] = useState(false);
-  const infCampaignPools = useSelector((state) => state.infCampaignPool);
+  const [uploadDocsuments, setUploadDocsuments] = useState(false);
+  //   const infCampaignPools = useSelector((state) => state.infCampaignPool);
   // const campaignDetails = infCampaignPools.results.filter((i) => i.id == id)[0];
   const campaignDetails = {
     from_date: "24/2/2021",
@@ -38,11 +39,28 @@ function CampaignDetails() {
       <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
         <ResonForRejction close={() => setRejectBid(false)} />
       </MyDialog>
-      <Breadcrumbs />
+      <MyDialog isOpen={uploadDocsuments} close={() => setUploadDocsuments(false)} className="rounded-8">
+        <CampaignUploadDocuments close={() => setUploadDocsuments(false)} />
+      </MyDialog>
+      <Breadcrumbs options={[{ title: "Campaign" }, { title: "Assigned Campaign" }, { title: "#00001" }]} />
       <div className="ml-4">
-        <div className="mt-6">
-          <h1 className="text-[32px] font-[600]">Campaign id</h1>
-          <p className="text-[18px] font-[500] text-[#969BA0]  ">#00001 </p>
+        <div className="flex justify-between items-start" >
+          <div className="mt-6">
+            <h1 className="text-[32px] font-[600]">Campaign id</h1>
+            <p className="text-[18px] font-[500] text-[#969BA0]  ">#00001 </p>
+          </div>
+          <div className="mt-6">
+            <h1 className="text-[28px] font-[600]">Submited for Approval</h1>
+            <p className="text-[18px] font-[500] text-[#969BA0]  ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, voluptatem? </p>
+          </div>
+          <div className="mt-6">
+            <button className="flex justify-between items-center text-[#3751FF] bg-[#DCE6FF] px-4 py-2" onClick={() => setUploadDocsuments(true)}>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+              Click here
+            </button>
+          </div>
         </div>
         <div className="mt-6">
           <p className="text-[#969BA0] text-[16px]">Brand Description</p>
@@ -83,19 +101,19 @@ function CampaignDetails() {
           <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campaignDetails.terms_and_condition} </p>
         </div>
         <hr className="my-8" />
-        <div>
-          <button
-            onClick={() => setPlaceBid(true)}
-            className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
-          >
-            Accept
-          </button>
-          <button
-            onClick={() => setRejectBid(true)}
-            className="text-[#3751FF] border-[#3751FF] rounded-full bg-white border-2 w-[171px] h-[54px]"
-          >
-            Reject
-          </button>
+        <div className="flex justify-between items-start">
+          <div className="mt-6">
+            <h1 className="text-[28px] font-[600]">Submited for Approval</h1>
+            <p className="text-[18px] font-[500] text-[#969BA0]  ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates, voluptatem? </p>
+          </div>
+          <div className="mt-6">
+            <button className="flex justify-between items-center text-[#3751FF] bg-[#DCE6FF] px-4 py-2" onClick={() => setUploadDocsuments(true)}>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+              Click here
+            </button>
+          </div>
         </div>
       </div>
     </div>

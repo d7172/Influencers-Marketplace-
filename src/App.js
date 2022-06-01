@@ -5,12 +5,11 @@ import InfluencerCompositeComponent from "./InfluencerCompositeComponent";
 import Login from "./pages/common/Login";
 import SignUpType from "./pages/common/SignUpType";
 import ActiveCampaign from "./pages/influencer/Dashboard/ActiveCampaign";
+import ActiveCampaignDetails from "./pages/influencer/Dashboard/ActiveCampaignDetails";
 import AssignedCampaign from "./pages/influencer/Dashboard/AssignedCampaign";
 import Bids from "./pages/influencer/Dashboard/Bids";
 import AdminActiveBids from './pages/Admin/ActiveBids/Bids';
 import AdminBidDetails from './pages/Admin/ActiveBids/BidDetails';
-import AdminRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
-import AdminRejectedCampaignDetails from "./pages/Admin/RejectedCampaign/RejectedCampaignDetails";
 import CampaignDetails from "./pages/influencer/Dashboard/CampaignDetails";
 import BrandCampaignDetails from "./pages/brand/CampaignDetails";
 import CampaignPool from "./pages/influencer/Dashboard/CampaignPool";
@@ -29,6 +28,14 @@ import BrandActiveCampaign from "./pages/brand/ActiveCampaign";
 import BrandAssignedCampaign from "./pages/brand/AssignedCampaign";
 import RejectedCampaign from "./pages/brand/RejectedCampaign";
 import Earnings from "./pages/Admin/Transaction/Earnings";
+import Payments from "./pages/Admin/Transaction/Payments";
+import BrandPaymentOngoing from "./pages/Admin/Transaction/BrandPaymentOngoing";
+
+import AdminNewCampaign from "./pages/Admin/NewCampaign/NewCampaign";
+import AdminActiveCampaign from "./pages/Admin/ActiveCampaign/ActiveCampaign";
+import AdminAssignedCampaign from "./pages/Admin/AssignedCampaign/AssignedCampaign";
+import AdminRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
+import AdminRejectedCampaignDetails from "./pages/Admin/RejectedCampaign/RejectedCampaignDetails";
 
 function App() {
   return (
@@ -46,6 +53,7 @@ function App() {
             <Route path="/influencer/campaign/campaign-pool/:id" element={<CampaignDetails />} />
             <Route path="/influencer/campaign/assigned-campaign" element={<AssignedCampaign />} />
             <Route path="/influencer/campaign/active-campaign" element={<ActiveCampaign />} />
+            <Route path="/influencer/campaign/active-campaign/00001" element={<ActiveCampaignDetails />} />
             <Route path="/influencer/campaign/completed-campaign" element={<CompletedCampaign />} />
             <Route path="/influencer/bids" element={<Bids />} />
             <Route
@@ -78,10 +86,15 @@ function App() {
             <Route path="/brand/support" element={<Support />} />
             <Route path="/brand/admin/active-bids" element={<AdminActiveBids />} />
             <Route path="/brand/admin/active-bids/:id" element={<AdminBidDetails />} />
+            <Route path="/brand/admin/new-campaign" element={<AdminNewCampaign/>}/>
+            <Route path="/brand/admin/assigned-campaign" element={<AdminAssignedCampaign/>}/>
+            <Route path="/brand/admin/active-campaign" element={<AdminActiveCampaign/>}/>
             <Route path="/brand/admin/rejected-campaign" element={<AdminRejectedCampaign/>}/>
             <Route path="/brand/admin/rejected-campaign/:id" element={<AdminRejectedCampaignDetails/>}/>
             <Route path="/brand/admin/transaction" element={<Navigate replace to="/brand/admin/transaction/earnings" />}/>
             <Route path="/brand/admin/transaction/earnings" element={<Earnings/>}/>
+            <Route path="/brand/admin/transaction/payments" element={<Payments/>}/>
+            <Route path="/brand/admin/transaction/ongoing-payment" element={<BrandPaymentOngoing/>}/>
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup-type" element={<SignUpType />} />
