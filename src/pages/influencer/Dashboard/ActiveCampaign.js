@@ -76,7 +76,7 @@ function ActiveCampaignTable() {
             <label className="text-[14px] text-[#3751FF] font-[400] ml-2.5">Submit for Approval</label>
           </div>
           <div
-            onClick={() => navigate("/influencer/campaign/campaign-pool/1")}
+            onClick={() => navigate("/influencer/campaign/active-campaign/00001")}
             className="text-[#3751FF] font-[500]  underline cursor-pointer "
           >
             View Details

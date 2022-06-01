@@ -1,16 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MyDialog from "./MyDialog";
 import PalceBid from "./PalceBid";
 
-function CampaignTable() {
+function CampaignTable({data}) {
   const [placeBid, setPlaceBid] = useState(false);
-  const infCampaignPool = useSelector((state) => state.infCampaignPool);
+  const infCampaignPool = data;
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col max-w-[1280px]">
+    <div className="flex flex-col max-w-[1280px] overflow-hidden">
       <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
         <PalceBid close={() => setPlaceBid(false)} />
       </MyDialog>
@@ -47,26 +47,26 @@ function CampaignTable() {
                 {infCampaignPool.results.map((pool, i) => {
                   return (
                     <tr className="">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
+                      <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[150px] font-medium text-gray-900">
                         #{pool.id}
                       </td>
-                      <td className="text-sm flex gap-4 items-center justify-center min-w-[250px] max-w-[250px] overflow-hidden text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
                         {pool.title}
                       </td>
-                      <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         2/5/2022
                       </td>
-                      <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         {pool.project_duration_in_days} Day
                       </td>
-                      <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         {pool.category}
                       </td>
-                      <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         &#8377; 5,553
                       </td>
-                      <td className="text-[16px] max-w-[170px] min-w-[170px] flex  relative text-gray-900  font-light px-6 py-4 whitespace-nowrap">
+                      <td className="text-[16px] max-w-[150px] min-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
                         <img
                           className="absolute z-40 w-[20px] "
                           src={`/svgs/${pool.social_platform[0]}.svg`}
@@ -92,13 +92,13 @@ function CampaignTable() {
                       </td>
                       <td
                         onClick={() => setPlaceBid(true)}
-                        className="text-sm max-w-[170px] text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer"
+                        className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer"
                       >
                         Quick Bid
                       </td>
                       <td
                         onClick={() => navigate(`/influencer/campaign/campaign-pool/${pool.id}`)}
-                        className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
+                        className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View Details
                       </td>

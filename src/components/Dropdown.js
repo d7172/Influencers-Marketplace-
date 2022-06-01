@@ -4,7 +4,8 @@ import React, { Fragment } from "react";
 
 function Dropdown({ label = "Options", options, className, dropdownStyle, onChange, optionsLabel = "label" }) {
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    // <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className={`relative inline-block text-left ${dropdownStyle}`}>
       <Menu.Button
         className={`${className} inline-flex items-center text-gray-500 relative h-[48px] px-4 py-2 text-sm rounded-8 border bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 `}
       >
