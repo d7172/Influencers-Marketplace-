@@ -10,16 +10,13 @@ function InfNewUser({ route }) {
   let tableData = [];
   const dispatch = useDispatch();
   useEffect(() => {
-    const payload = {
-      influencer_id: 2,
-    };
-
     dispatch(getInfNewUserData());
   }, []);
-  tableData = useSelector((state) => console.log(state?.infNewUser?.results, "ne wuser"));
+  tableData = useSelector((state) => state?.infNewUser?.results);
 
   return (
     <div className="max-w-[1280px] pt-6 relative">
+      {console.log(tableData, "table data")}
       <div className="flex items-center px-8">
         <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Influencer" }, { title: "New User" }]} />
 

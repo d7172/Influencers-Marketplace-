@@ -15,3 +15,15 @@ export const infTransitionEarning = (state = init, action) => {
       return state;
   }
 };
+export const infLatestTransition = (state = init, action) => {
+  switch (action.type) {
+    case "INF_LATEST_TRANSITION_SUCCESS":
+      return action.data;
+
+    case "INF_LATEST_TRANSITION_FAIL":
+      return init;
+
+    default:
+      return state;
+  }
+};

@@ -6,7 +6,7 @@ import { infCampaignActive } from "./infCampaignActive/reducer";
 import { infCampaignAssigned } from "./infCampaignAssigned/reducer";
 import { infBids } from "./infBid/reducer";
 import { infTransitionStatement, infTransitionDownloadStatement } from "./infTransitionStatement/reducer";
-import { infTransitionEarning } from "./infTransitionEarning/reducer";
+import { infTransitionEarning, infLatestTransition } from "./infTransitionEarning/reducer";
 import { infNewUser } from "./Admin/Influencer/NewUser/reducer";
 import { infActiveUser } from "./Admin/Influencer/ActiveUser/reducer";
 import { infRejectedUser } from "./Admin/Influencer/RejectedUser/reducer";
@@ -24,6 +24,7 @@ const reducers = combineReducers({
   infNewUser,
   infActiveUser,
   infRejectedUser,
+  infLatestTransition,
 });
 
 export default reducers;

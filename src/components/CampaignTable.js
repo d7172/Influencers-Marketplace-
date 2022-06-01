@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import MyDialog from "./MyDialog";
 import PalceBid from "./PalceBid";
 
-function CampaignTable() {
+function CampaignTable({ data }) {
   const [placeBid, setPlaceBid] = useState(false);
-  const infCampaignPool = useSelector((state) => state.infCampaignPool);
+  const infCampaignPool = data;
   const navigate = useNavigate();
   return (
     <div className="flex flex-col max-w-[1280px]">

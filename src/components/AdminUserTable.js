@@ -45,16 +45,16 @@ function AdminUserTable({ tableData, route }) {
                         </td>
                       )}
                       <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                        {data.first_name}
+                        {data.first_name || data?.name}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {data?.contact_number}
+                        {data?.contact_number || data?.number}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {data?.email}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {moment(data?.created_at).format("DD/MM/YYYY")}
+                        {moment(data?.created_at).format("DD/MM/YYYY") || data?.activeSince}
                       </td>
                       <td
                         onClick={() => navigate(`/admin/influencer/${route}/0001`)}

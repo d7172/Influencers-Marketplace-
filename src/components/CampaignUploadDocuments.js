@@ -2,10 +2,10 @@ import React from "react";
 import { imageSvg } from "../pages/influencer/SignUp/PersonalDetails";
 import CloseBtn from "./CloseBtn";
 
-function CampaignUploadDocuments() {
+function CampaignUploadDocuments({ close }) {
   return (
     <div className="w-[500px] flex justify-center items-center flex-col pb-10">
-      <CloseBtn onClick={() => {}} className="absolute right-5 top-7" />
+      <CloseBtn onClick={close} className="absolute right-5 top-7" />
       <h1 className="text-[28px] font-[500] mb-2 ">Upload Document</h1>
       <p className="w-390 text-gray-500 text-sm">
         Log in to your account using email and password provided during registration.

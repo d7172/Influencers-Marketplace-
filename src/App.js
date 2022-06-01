@@ -15,6 +15,7 @@ import InfRejectedUser from "./pages/Admin/Influencer/InfRejectedUser";
 import Login from "./pages/common/Login";
 import SignUpType from "./pages/common/SignUpType";
 import ActiveCampaign from "./pages/influencer/Dashboard/ActiveCampaign";
+import ActiveCampaignDetails from "./pages/influencer/Dashboard/ActiveCampaignDetails";
 import AssignedCampaign from "./pages/influencer/Dashboard/AssignedCampaign";
 import Bids from "./pages/influencer/Dashboard/Bids";
 import CampaignDetails from "./pages/influencer/Dashboard/CampaignDetails";
@@ -73,6 +74,7 @@ function App() {
             <Route path="/influencer/campaign/campaign-pool/:id" element={<CampaignDetails />} />
             <Route path="/influencer/campaign/assigned-campaign" element={<AssignedCampaign />} />
             <Route path="/influencer/campaign/active-campaign" element={<ActiveCampaign />} />
+            <Route path="/influencer/campaign/active-campaign/00001" element={<ActiveCampaignDetails />} />
             <Route path="/influencer/campaign/completed-campaign" element={<CompletedCampaign />} />
             <Route path="/influencer/bids" element={<Bids />} />
             <Route
