@@ -19,43 +19,42 @@ function AssignedCampaign() {
   }, []);
 
   const infCampaignPool = {
-
     results: [
       {
         id: "00001",
         title: "Enjoy the videos and music",
         project_duration_in_days: 1,
         category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
       },
       {
         id: "00002",
         title: "Enjoy the videos and music",
         project_duration_in_days: 1,
         category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
       },
       {
         id: "00003",
         title: "Enjoy the videos and music",
         project_duration_in_days: 1,
         category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
       },
       {
         id: "00004",
         title: "Enjoy the videos and music",
         project_duration_in_days: 1,
         category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"]
-      }
-    ]
-  }
+        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
+      },
+    ],
+  };
   return (
     <div className="max-w-[1280px] pt-6 relative">
       <div className="flex items-center px-8">
         <Breadcrumbs options={[{ title: "Campaign" }, { title: "Assigned Campaign" }]} />
-        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+        <CampaignSearchBar />
       </div>
       <CampaignTable data={infCampaignPool} />
       <div className="absolute bottom-[-100px] right-0">
@@ -66,7 +65,7 @@ function AssignedCampaign() {
 }
 
 export default AssignedCampaign;
-function CampaignTable({data}) {
+function CampaignTable({ data }) {
   const infCampaignPool = data;
   const navigate = useNavigate();
   return (
@@ -165,6 +164,5 @@ function CampaignTable({data}) {
         </div>
       </div>
     </div>
-  )
-
+  );
 }

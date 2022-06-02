@@ -14,6 +14,11 @@ import InfProfile from "./pages/admin/Influencer/InfProfile";
 import InfRejectedUser from "./pages/admin/Influencer/InfRejectedUser";
 import Login from "./pages/common/Login";
 import SignUpType from "./pages/common/SignUpType";
+import AdminActiveBids from "./pages/Admin/ActiveBids/Bids";
+import AdminBidDetails from "./pages/Admin/ActiveBids/BidDetails";
+import Earnings from "./pages/Admin/Transaction/Earnings";
+import Payments from "./pages/Admin/Transaction/Payments";
+import BrandPaymentOngoing from "./pages/Admin/Transaction/BrandPaymentOngoing";
 import ActiveCampaign from "./pages/influencer/Dashboard/ActiveCampaign";
 import ActiveCampaignDetails from "./pages/influencer/Dashboard/ActiveCampaignDetails";
 import AssignedCampaign from "./pages/influencer/Dashboard/AssignedCampaign";
@@ -111,11 +116,11 @@ function App() {
             <Route path="/admin/influencer/activeUser/:id" element={<InfDetails route={"active-user"} />} />
             <Route path="/admin/influencer/new-user/:id" element={<InfProfile route={"new-user"} />} />
             <Route path="/admin/influencer/rejected-user/:id" element={<InfProfile route={"rejected-user"} />} />
+            <Route path="/admin/active-bids" element={<AdminActiveBids />} />
+            <Route path="/admin/active-bids/:id" element={<AdminBidDetails />} />
             <Route path="/admin/brand/new-user" element={<Navigate replace to="/admin/dashboard" />} />
             <Route path="/admin/brand/active-user" element={<Navigate replace to="/admin/dashboard" />} />
             <Route path="/admin/brand/rejected-user" element={<Navigate replace to="/admin/dashboard" />} />
-            <Route path="/admin/active-bids" element={<Navigate replace to="/admin/dashboard" />} />
-
             <Route path="/admin/campaign/new-campaign" element={<AdmNewCampaign route={"new-campaign"} />} />
             <Route
               path="/admin/campaign/assigned-campaign"
@@ -126,6 +131,10 @@ function App() {
               path="/admin/campaign/rejected-campaign"
               element={<AdmRejectedCampaign route={"rejected-campaign"} />}
             />
+            <Route path="/admin/transaction" element={<Navigate replace to="/admin/transaction/earning" />} />
+            <Route path="/admin/transaction/earning" element={<Earnings />} />
+            <Route path="/admin/transaction/payments" element={<Payments />} />
+            <Route path="/admin/transaction/statement" element={<BrandPaymentOngoing />} />
           </Route>
 
           {/* influencer  routes */}

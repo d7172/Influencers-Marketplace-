@@ -1,7 +1,7 @@
 import { networkRequest } from "../../../_shared/api";
 
-export const getInfNewUserData = (payload) => {
-  const url = "influencer-user-list/?status=0";
+export const getNewCampaignData = (payload) => {
+  const url = "campaign-all-list/?status=0";
   return (dispatch) => {
     networkRequest(
       url,
@@ -9,10 +9,10 @@ export const getInfNewUserData = (payload) => {
       "JSON",
       payload,
       (res) => {
-        dispatch({ type: "INF_NEW_USER_SUCCESS", data: res });
+        dispatch({ type: "NEW_CAMPAIGN_SUCCESS", data: res });
       },
       () => {
-        dispatch({ type: "INF_NEW_USER_FAIL" });
+        dispatch({ type: "NEW_CAMPAIGN_FAIL" });
       }
     );
   };

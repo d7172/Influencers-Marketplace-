@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MyDialog from "./MyDialog";
 import PalceBid from "./PalceBid";
 
-function CampaignTable({data}) {
+function CampaignTable({ data }) {
   const [placeBid, setPlaceBid] = useState(false);
   const infCampaignPool = data;
   const navigate = useNavigate();

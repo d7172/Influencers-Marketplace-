@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Cart as ChartJS } from "chart.js/auto";
+import { useDispatch, useSelector } from "react-redux";
+import { getAdminEarningData } from "../../../store/Admin/Transactions/Earnings/action";
 
 function Earning() {
+  let tableData = [];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAdminEarningData());
+  }, []);
+  tableData = useSelector((state) => state?.AdminEarning?.results);
+
   const [barData, setBarData] = useState({
     labels: data.map((data) => data.month),
     datasets: [
@@ -52,7 +61,7 @@ function Earning() {
         {/* 2 */}
         <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
           <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">02</h1>
+            <h1 className="text-[24px] font-[600]">{tableData[0]?.peding_amount}</h1>
             <p className=" text-[12px] font-[400] text-[#969BA0]">Pending</p>
           </div>
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon2.svg" alt="im g" />
@@ -60,7 +69,7 @@ function Earning() {
         {/* 3 */}
         <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
           <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">&#8377; 12,600</h1>
+            <h1 className="text-[24px] font-[600]">&#8377; {tableData[0]?.current_month}</h1>
             <p className=" text-[12px] font-[400] text-[#969BA0]">Earning of the month</p>
           </div>
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon3.svg" alt="im g" />
@@ -68,7 +77,7 @@ function Earning() {
         {/* 4 */}
         <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
           <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">&#8377; 120,600</h1>
+            <h1 className="text-[24px] font-[600]">&#8377; {tableData[0]?.earning_till_date}</h1>
             <p className=" text-[12px] font-[400] text-[#969BA0]">Earning till date</p>
           </div>
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon4.svg" alt="im g" />

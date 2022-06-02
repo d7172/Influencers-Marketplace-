@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Pagination from "../../../components/Pagination";
 import AdminUserTable from "../../../components/AdminUserTable";
+import { useDispatch, useSelector } from "react-redux";
+import { getInfActiveUserData } from "../../../store/Admin/Influencer/ActiveUser/action";
 
 function InfActiveUser({ route }) {
-  const tableData = [
-    {
-      userId: "0001",
-      name: "Nicole greene",
-      number: "+91 9874561231",
-      email: "Test@domain.com",
-      activeSince: "2019",
-    },
-  ];
+  let tableData = [];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getInfActiveUserData());
+  }, []);
+  tableData = useSelector((state) => state?.infActiveUser?.results.map((r) => r?.influencerDetail));
   return (
     <div className="max-w-[1280px] pt-6 relative">
       <div className="flex items-center px-8">

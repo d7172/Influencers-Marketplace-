@@ -1,15 +1,24 @@
 import { SearchIcon } from "@heroicons/react/solid";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 // import { useState } from "react";
 // import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import DetailsTable from "./DetailsTable";
+import { useDispatch, useSelector } from "react-redux";
+import { getActiveBidsData } from "../../../store/Admin/ActiveBids/action";
 // import MyDialog from "./MyDialog";
 // import PalceBid from "./PalceBid";
 
 function Bids() {
   // const [placeBid, setPlaceBid] = useState(false);
+  let tableData = [];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getActiveBidsData());
+  }, []);
+  tableData = useSelector((state) => state?.AdminActiveBids?.results);
+
   const rowData = [
     {
       campaignId: "0001",
@@ -26,56 +35,55 @@ function Bids() {
       numOfBids: 10,
       category: "Fashion, DIY",
       amount: "5553",
-    }];
-  const columnData = ["Campaign Id", "Brand Name", "Campaign Title", "Total Number of Bids", "Category", "Social Platform", "Amount"];
+    },
+  ];
+  const columnData = [
+    "Campaign Id",
+    "Brand Name",
+    "Campaign Title",
+    "Total Number of Bids",
+    "Category",
+    "Social Platform",
+    "Amount",
+  ];
   const infTableCol = ["User ID", "Influencer Name", "Influencer Bids Number"];
   const infTableRow = [
     {
       userId: "00001",
       infName: "Steven Sloan",
-      infBidNum: "01"
+      infBidNum: "01",
     },
     {
       userId: "00002",
       infName: "Steven Sloan",
-      infBidNum: "01"
+      infBidNum: "01",
     },
     {
       userId: "00003",
       infName: "Steven Sloan",
-      infBidNum: "01"
+      infBidNum: "01",
     },
     {
       userId: "00004",
       infName: "Steven Sloan",
-      infBidNum: "01"
+      infBidNum: "01",
     },
     {
       userId: "00005",
       infName: "Steven Sloan",
-      infBidNum: "01"
+      infBidNum: "01",
     },
     {
       userId: "00006",
       infName: "Steven Sloan",
-      infBidNum: "01"
-    }
-  ]
+      infBidNum: "01",
+    },
+  ];
   const navigate = useNavigate();
-  const [detailsTable, setDetailsTable] = useState(0);
+  const [detailsTable, setDetailsTable] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  const handleIndex = (index, currState) => {
-    console.log("handleIndex");
-    (activeIndex !== index) && setActiveIndex(index);
-    (currState !== 1) ? setActiveIndex(1) : setDetailsTable(0);
-  };
-  function showTable() {
-    // console.log("handlestabke");
-    ((detailsTable) ? (setDetailsTable(false)) : (setDetailsTable(true)));
-    // (detailsTable) && setDetailsTable(false)
-    // console.log(detailsTable);
-  }
+  const handleIndex = (index) => activeIndex !== index && setActiveIndex(index);
   return (
     <div className="flex flex-col max-w-[1280px]">
       {/* <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
@@ -95,66 +103,78 @@ function Bids() {
             <table className="min-w-full">
               <thead className="border-b">
                 <tr className="flex">
-                  <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left">Campaign Id</th>
-                  <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left">Brand Name</th>
-                  <th scope="col" className="text-[18px] w-[200px] font-[500] text-gray-900 pl-4 py-4 text-left">Campaign Title</th>
-                  <th scope="col" className="text-[18px] w-[190px] font-[500] text-gray-900 pl-4 py-4 text-left">Total Number of Bids</th>
-                  <th scope="col" className="text-[18px] w-[130px] font-[500] text-gray-900 pl-4 py-4 text-left">Category</th>
-                  <th scope="col" className="text-[18px] w-[180px] font-[500] text-gray-900 pl-4 py-4 text-left">Social Platform</th>
-                  <th scope="col" className="text-[18px] w-[100px] font-[500] text-gray-900 pl-4 py-4 text-left">Amount</th>
+                  <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    Campaign Id
+                  </th>
+                  <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    Brand Name
+                  </th>
+                  <th scope="col" className="text-[18px] w-[200px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    Campaign Title
+                  </th>
+                  <th scope="col" className="text-[18px] w-[190px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    Total Number of Bids
+                  </th>
+                  <th scope="col" className="text-[18px] w-[130px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    Category
+                  </th>
+                  <th scope="col" className="text-[18px] w-[180px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    Social Platform
+                  </th>
+                  <th scope="col" className="text-[18px] w-[100px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    Amount
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {rowData.map((data, i) => {
+                {tableData?.map((data, i) => {
                   return (
                     <>
                       <tr key={i} className="bg-[#F2F2F2] flex">
                         <td className="pl-4 py-4 whitespace-nowrap text-sm w-[140px]  font-medium text-[#3751FF] underline">
-                          <Link to={`/brand/campaign/new-campaign/${data.campaignId}`}><p className="cursor-pointer">#{data.campaignId}</p></Link>
+                          <Link to={`/admin/campaign/new-campaign/${data.id}`}>
+                            <p className="cursor-pointer">#{data?.campaign_details?.id}</p>
+                          </Link>
                         </td>
                         <td className="text-sm w-[140px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                          {data.brandName}
+                          {data?.campaign_details?.brandName}
                         </td>
                         <td className="text-sm w-[200px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                          {data.campaignTitle}
+                          {data?.campaign_details?.title}
                         </td>
-                        <td className="text-sm w-[190px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                          {data.numOfBids}
+                        <td className="text-sm w-[190px] text-gray-900 font-light pl-8 py-4 whitespace-nowrap">
+                          {data?.campaign_details?.number_of_bids}
                         </td>
                         <td className="text-sm w-[130px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                          {data.category}
+                          {data?.campaign_details?.category}
                         </td>
                         <td className="text-[16px] w-[180px] min-w-[170px] flex  relative text-gray-900  font-light pl-4 py-4 whitespace-nowrap">
-                          <img
-                            className="absolute z-40 w-[20px] "
-                            src="/svgs/facebook.svg"
-                            alt="face"
-                          />
-                          <img
-                            className="absolute z-40 w-[20px] "
-                            src="/svgs/instagram.svg"
-                            alt="face"
-                          />
-                          <img
-                            className="absolute z-40 w-[20px] "
-                            src="/svgs/linkedin.svg"
-                            alt="face"
-                          />
-                          <img
-                            className="absolute z-40 w-[20px] "
-                            src="/svgs/youtube.svg"
-                            alt="face"
-                          />
+                          <img className="absolute z-40 w-[20px] " src="/svgs/facebook.svg" alt="face" />
+                          <img className="absolute z-40 w-[20px] " src="/svgs/instagram.svg" alt="face" />
+                          <img className="absolute z-40 w-[20px] " src="/svgs/linkedin.svg" alt="face" />
+                          <img className="absolute z-40 w-[20px] " src="/svgs/youtube.svg" alt="face" />
                           +2 more
                         </td>
                         <td className="text-sm w-[100px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                          &#8377;{data.amount}
+                          &#8377;{data?.campaign_details?.amount}
                         </td>
                         <td className=" pl-4 py-4 whitespace-nowrap w-[100px] underline cursor-pointer relative">
-                          <button className="text-sm text-[#3751FF] font-[500]" onClick={() => { handleIndex(i) ; showTable()}}>View details</button>
+                          <button className="text-sm text-[#3751FF] font-[500]" onClick={() => handleIndex(i)}>
+                            View details
+                          </button>
                         </td>
                       </tr>
-                      {((activeIndex === i) && (detailsTable)) && (<tr> <DetailsTable key={i} campaignId={data.campaignId} columnData={infTableCol} rowData={infTableRow} /></tr>)}
+                      {activeIndex === i && (
+                        <tr>
+                          {" "}
+                          <DetailsTable
+                            key={i}
+                            campaignId={data.campaignId}
+                            columnData={infTableCol}
+                            rowData={data?.bid_details}
+                          />
+                        </tr>
+                      )}
                     </>
                   );
                 })}

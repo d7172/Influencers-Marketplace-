@@ -50,14 +50,14 @@ function AdminCampaignTable({ tableData, route }) {
                         className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer"
                         onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
                       >
-                        {data?.campaignId}
+                        {data?.id}
                       </td>
 
                       <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
                         {data?.brandName}
                       </td>
                       <td className="text-sm max-w-[190px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        {data?.campaignTitle}
+                        {data?.title}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {data?.category}
@@ -93,7 +93,7 @@ function AdminCampaignTable({ tableData, route }) {
                         </td>
                       ) : (
                         <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          {data?.status}
+                          {data?.status_camp}
                         </td>
                       )}
 

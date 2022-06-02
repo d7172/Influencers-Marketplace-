@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Cart as ChartJS } from "chart.js/auto";
 import { useDispatch, useSelector } from "react-redux";
-import { getTransitionEarningData } from "../../../store/infTransitionEarning/action";
+import { getTransitionEarningData, getLatestTransitionData } from "../../../store/infTransitionEarning/action";
 
 let transitionEarningState = [];
+let latestTransactionState = [];
 
 function Earning() {
   const dispatch = useDispatch();
@@ -13,8 +14,16 @@ function Earning() {
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
     dispatch(getTransitionEarningData(data));
+    dispatch(getLatestTransitionData(data));
   }, []);
   transitionEarningState = useSelector((state) => state?.infTransitionEarning?.results);
+  latestTransactionState = useSelector((state) =>
+    state?.infLatestTransition?.results?.map((data) => {
+      return data?.campaign_details;
+    })
+  );
+
+  const monthlyData = transitionEarningState?.map((data) => data.monthly?.map((data) => data));
 
   const [barData, setBarData] = useState({
     labels: data.map((data) => data.month),

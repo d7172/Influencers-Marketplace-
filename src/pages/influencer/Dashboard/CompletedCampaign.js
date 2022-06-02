@@ -44,8 +44,8 @@ function CompletedCampaign() {
   return (
     <div className="max-w-[1280px] pt-6 relative">
       <div className="flex items-center px-8">
-        <Breadcrumbs options={[{ title: "Bids" }, { title: "Completed Campaign" }]} />
-        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+        <Breadcrumbs options={[{ title: "Campaign" }, { title: "Completed Campaign" }]} />
+        <CampaignSearchBar />
       </div>
       <CampaignTable data={infCampaignPool} />
       <div className="absolute bottom-[-100px] right-0">

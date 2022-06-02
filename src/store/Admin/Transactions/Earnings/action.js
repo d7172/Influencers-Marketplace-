@@ -1,7 +1,7 @@
 import { networkRequest } from "../../../_shared/api";
 
-export const getInfNewUserData = (payload) => {
-  const url = "influencer-user-list/?status=0";
+export const getAdminEarningData = (payload) => {
+  const url = "admin-earning/";
   return (dispatch) => {
     networkRequest(
       url,
@@ -9,10 +9,10 @@ export const getInfNewUserData = (payload) => {
       "JSON",
       payload,
       (res) => {
-        dispatch({ type: "INF_NEW_USER_SUCCESS", data: res });
+        dispatch({ type: "ADMIN_EARNING_SUCCESS", data: res });
       },
       () => {
-        dispatch({ type: "INF_NEW_USER_FAIL" });
+        dispatch({ type: "ADMIN_EARNING_FAIL" });
       }
     );
   };
