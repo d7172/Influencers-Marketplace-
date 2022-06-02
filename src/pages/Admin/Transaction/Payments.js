@@ -1,10 +1,12 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import DateRange from '../../../components/DateRange';
 import Pagination from "../../../components/Pagination";
 
 function Payments() {
     const [brand, setBrand] = useState(true);
+    const navigate = useNavigate();
     return (
         <>
             <div className="flex flex-col px-8 pt-4">
@@ -14,7 +16,7 @@ function Payments() {
                     <div className='flex gap-4 items-center'>
                         <div><p>Select</p></div>
                         <div>
-                            <button className='px-4 py-2 rounded-lg shadow' onClick={()=>setBrand(true)}>Brand</button>
+                            <button className='px-4 py-2 rounded-lg shadow focus:shadow' onClick={()=>setBrand(true)}>Brand</button>
                         </div>
                         <div>
                             <button className='px-4 py-2 rounded-lg shadow' onClick={()=>setBrand(false)}>Influencers</button>
@@ -68,7 +70,7 @@ function Payments() {
                                                 1
                                             </td>
                                             <td
-                                                onClick={(() => { })}
+                                                onClick={(() => navigate(`/admin/transaction/payments/00001`))}
                                                 className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
                                             >
                                                 View Details

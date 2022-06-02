@@ -4,6 +4,7 @@ import { personalDetailsSchema } from "../../utils/formsSchema";
 import Dropdown from "../../components/Dropdown";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 const initForm = {
     firstName: "",
@@ -30,7 +31,7 @@ export const ImgUpload = ({ children }) => {
     return <p className="text-[13px] mt-1 text-green-600">Added {children}</p>;
 };
 
-function CampaignDetails({ setSignUpStatus }) {
+function CampaignDetails({ setSignUpStatus, route }) {
     const dispatch = useDispatch();
     const [personalDetails, setPersonalDetails] = useState(initForm);
     const signUpState = useSelector((state) => state.signUpState);
@@ -56,6 +57,9 @@ function CampaignDetails({ setSignUpStatus }) {
     }, []);
     return (
         <div className="px-8 py-5" >
+            <div className="bg-[#F2F2F2] w-full py-4 px-8 mb-4" >
+                <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Campaign" }, { title: "New Campiagn" }]} />
+            </div>
             <h1 className="text-start text-2xl font-bold mb-2">Campaign Details</h1>
             <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">
                 Lorem ipsum dolor sit amet, consectetur
@@ -153,11 +157,20 @@ function CampaignDetails({ setSignUpStatus }) {
                                             label={values.gender.length ? values.gender : "Shout Out Campaing"}
                                             options={[
                                                 {
-                                                    label: "Shout Out Campaing",
+                                                    lable: "Shout Out Campaing"
                                                 },
                                                 {
-                                                    label: "Shout Out Campaing",
+                                                    label: "Giveaway Campaing",
                                                 },
+                                                {
+                                                    label: "Affiliate Campaing",
+                                                },
+                                                {
+                                                    label: "Video Creation Campaing",  
+                                                },
+                                                {
+                                                    lable: "Product Review"
+                                                }
                                             ]}
                                             onChange={(val) => setFieldValue("gender", val.label)}
                                         />
@@ -175,11 +188,17 @@ function CampaignDetails({ setSignUpStatus }) {
                                             label={values.gender.length ? values.gender : "Lead Genration"}
                                             options={[
                                                 {
-                                                    label: "Lead Genration",
+                                                    label: "CPC",
                                                 },
                                                 {
-                                                    label: "Lead Genration",
+                                                    label: "Brand Awareness",
                                                 },
+                                                {
+                                                    label: "Lead Generation",
+                                                },
+                                                {
+                                                    label: "Reach",
+                                                }
                                             ]}
                                             onChange={(val) => setFieldValue("gender", val.label)}
                                         />
@@ -571,7 +590,7 @@ function CampaignDetails({ setSignUpStatus }) {
                                 />
                                 {errors.aboutYourself && touched.aboutYourself && <FormError>{errors.aboutYourself}</FormError>}
                             </div>
-                            
+
                             <div className="mt-14 flex ">
                                 <button
                                     type="button"

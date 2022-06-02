@@ -22,6 +22,7 @@ import AdminActiveBids from "./pages/admin/ActiveBids/Bids";
 import AdminBidDetails from "./pages/admin/ActiveBids/BidDetails";
 import CampaignDetails from "./pages/influencer/Dashboard/CampaignDetails";
 import BrandCampaignDetails from "./pages/brand/CampaignDetails";
+import AdmCampaignDetails from "./pages/brand/CampaignDetails";
 import CampaignPool from "./pages/influencer/Dashboard/CampaignPool";
 import CompletedCampaign from "./pages/influencer/Dashboard/CompletedCampaign";
 import InfluencerDashboard from "./pages/influencer/Dashboard/Dashboard";
@@ -51,6 +52,13 @@ import AdminActiveCampaign from "./pages/admin/ActiveCampaign/ActiveCampaign";
 import AdminAssignedCampaign from "./pages/admin/AssignedCampaign/AssignedCampaign";
 import AdminRejectedCampaign from "./pages/admin/RejectedCampaign/RejectedCampaign";
 import AdminRejectedCampaignDetails from "./pages/admin/RejectedCampaign/RejectedCampaignDetails";
+// import Earnings from "./pages/Admin/Transaction/Earnings";
+// import Payments from "./pages/Admin/Transaction/Payments";
+import AdmRejectedCampaignDetails from "./pages/Admin/RejectedCampaign/RejectedCampaignDetails";
+import AdmPayment from "./pages/Admin/Transaction/Payments";
+import AdmEarning from "./pages/Admin/Transaction/Earnings";
+import AdmStatement from "./pages/Admin/Transaction/Statements";
+// import AdmPaymentOngoing from "./pages/Admin/Transaction/AdmPaymentOngoing"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -142,7 +150,36 @@ function App() {
             <Route path="/influencer/support" element={<Support />} />
           </Route>
 
-          {/* Login SignUp */}
+          {/* Brand routes */}
+          <Route path="/brand" element={<BrandDashboardCompositeComponent />}>
+            <Route path="/brand" element={<Navigate replace to="/brand/dashboard" />} />
+            <Route path="/brand/dashboard" element={<BrandDashboard />} />
+            <Route path="/brand/campaign" element={<Navigate replace to="/brand/campaign/new-campaign" />} />
+            {/* <Route path="/brand/campaign/campaign-pool" element={<CampaignPool />}></Route>
+            <Route path="/brand/campaign/campaign-pool/:id" element={<CampaignDetails />} /> */}
+            <Route path="/brand/campaign/new-campaign" element={<NewCampaign />}></Route>
+            <Route path="/brand/campaign/new-campaign/:id" element={<BrandCampaignDetails />} />
+            <Route path="/brand/campaign/assigned-campaign" element={<BrandAssignedCampaign />} />
+            <Route path="/brand/campaign/active-campaign" element={<BrandActiveCampaign />} />
+            <Route path="/brand/campaign/rejected-campaign" element={<RejectedCampaign />} />
+
+            <Route path="/brand/transactions" element={<Navigate replace to="/brand/transactions/earning" />} />
+            <Route path="/brand/transactions/earning" element={<Earning />} />
+            <Route path="/brand/transactions/statement" element={<Statement />} />
+
+            <Route path="/brand/support" element={<Support />} />
+            {/* <Route path="/brand/admin/active-bids" element={<AdminActiveBids />} />
+            <Route path="/brand/admin/active-bids/:id" element={<AdminBidDetails />} />
+            <Route path="/brand/admin/new-campaign" element={<AdmNewCampaign/>}/>
+            <Route path="/brand/admin/assigned-campaign" element={<AdminAssignedCampaign/>}/>
+            <Route path="/brand/admin/active-campaign" element={<AdminActiveCampaign/>}/>
+            <Route path="/brand/admin/rejected-campaign" element={<AdmRejectedCampaign/>}/>
+            <Route path="/brand/admin/rejected-campaign/:id" element={<AdmRejectedCampaignDetails/>}/>
+            <Route path="/brand/admin/transaction" element={<Navigate replace to="/brand/admin/transaction/earnings" />}/>
+            <Route path="/brand/admin/transaction/earnings" element={<Earnings/>}/>
+            <Route path="/brand/admin/transaction/payments" element={<Payments/>}/>
+            <Route path="/brand/admin/transaction/ongoing-payment" element={<BrandPaymentOngoing/>}/> */}
+          </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/signup-type" element={<SignUpType />} />
           <Route path="/signup" element={<SignUp />} />

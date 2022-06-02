@@ -48,7 +48,8 @@ function NewCampaign() {
                             className="outline-none border-0 w-full bg-[#F1F1F1] "
                         />
                     </div>
-                    <div className='  border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white'>
+                    <div className='  border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white'
+                    onClick={()=>navigate("/admin/campaign/new-campaign/add")}>
                         <button>+ Add New Campaign</button>
                     </div>
                 </div>
@@ -115,7 +116,7 @@ function NewCampaign() {
                                                             {data.status}
                                                         </td>
                                                         <td
-                                                            onClick={() => navigate(`/brand/campaign/new-campaign/${data.campaignId}`)}
+                                                            onClick={() => navigate(`/admin/campaign/new-campaign/${data.campaignId}`)}
                                                             className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
                                                         >
                                                             View Details

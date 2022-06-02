@@ -62,10 +62,20 @@ function Bids() {
     }
   ]
   const navigate = useNavigate();
-  const [detailsTable, setDetailsTable] = useState(false);
+  const [detailsTable, setDetailsTable] = useState(0);
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  const handleIndex = (index) => (activeIndex !== index) && setActiveIndex(index);
+  const handleIndex = (index, currState) => {
+    console.log("handleIndex");
+    (activeIndex !== index) && setActiveIndex(index);
+    (currState !== 1) ? setActiveIndex(1) : setDetailsTable(0);
+  };
+  function showTable() {
+    // console.log("handlestabke");
+    ((detailsTable) ? (setDetailsTable(false)) : (setDetailsTable(true)));
+    // (detailsTable) && setDetailsTable(false)
+    // console.log(detailsTable);
+  }
   return (
     <div className="flex flex-col max-w-[1280px]">
       {/* <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
@@ -141,10 +151,10 @@ function Bids() {
                           &#8377;{data.amount}
                         </td>
                         <td className=" pl-4 py-4 whitespace-nowrap w-[100px] underline cursor-pointer relative">
-                          <button className="text-sm text-[#3751FF] font-[500]" onClick={()=>handleIndex(i)}>View details</button>
+                          <button className="text-sm text-[#3751FF] font-[500]" onClick={() => { handleIndex(i) ; showTable()}}>View details</button>
                         </td>
                       </tr>
-                      {(activeIndex===i) && <tr> <DetailsTable key={i} campaignId={data.campaignId} columnData={infTableCol} rowData={infTableRow} /></tr>}
+                      {((activeIndex === i) && (detailsTable)) && (<tr> <DetailsTable key={i} campaignId={data.campaignId} columnData={infTableCol} rowData={infTableRow} /></tr>)}
                     </>
                   );
                 })}
