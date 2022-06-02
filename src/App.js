@@ -26,8 +26,11 @@ import Home from "./pages/influencer/Home";
 import SignUp from "./pages/influencer/SignUp/SignUp";
 import NewCampaign from "./pages/brand/NewCampaign";
 import BrandActiveCampaign from "./pages/brand/ActiveCampaign";
+import BrandActiveCampaignDetials from "./pages/brand/ActiveCampaignDetails";
 import BrandAssignedCampaign from "./pages/brand/AssignedCampaign";
-import RejectedCampaign from "./pages/brand/RejectedCampaign";
+import BrandAssignedCampaignDetails from "./pages/brand/AssignedCampaignDetails";
+import BrandRejectedCampaign from "./pages/brand/RejectedCampaign";
+import BrandRejectedCampaignDetail from "./pages/brand/RejectedCampaignDetails";
 // import Earnings from "./pages/Admin/Transaction/Earnings";
 // import Payments from "./pages/Admin/Transaction/Payments";
 import BrandPaymentOngoing from "./pages/Admin/Transaction/BrandPaymentOngoing";
@@ -108,9 +111,13 @@ function App() {
             <Route path="/brand/campaign/campaign-pool/:id" element={<CampaignDetails />} /> */}
             <Route path="/brand/campaign/new-campaign" element={<NewCampaign />}></Route>
             <Route path="/brand/campaign/new-campaign/:id" element={<BrandCampaignDetails />} />
+            <Route path="/brand/campaign/new-campaign/add" element={<BrandCampaignDetails />} />
             <Route path="/brand/campaign/assigned-campaign" element={<BrandAssignedCampaign />} />
+            <Route path="/brand/campaign/assigned-campaign/:id" element={<BrandAssignedCampaignDetails />} />
             <Route path="/brand/campaign/active-campaign" element={<BrandActiveCampaign />} />
-            <Route path="/brand/campaign/rejected-campaign" element={<RejectedCampaign />} />
+            <Route path="/brand/campaign/active-campaign/:id" element={<BrandActiveCampaignDetials />} />
+            <Route path="/brand/campaign/rejected-campaign" element={<BrandRejectedCampaign />} />
+            <Route path="/brand/campaign/rejected-campaign/:id" element={<BrandRejectedCampaignDetail />} />
 
             <Route path="/brand/transactions" element={<Navigate replace to="/brand/transactions/earning" />}/>
             <Route path="/brand/transactions/earning" element={<Earning />} />

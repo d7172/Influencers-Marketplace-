@@ -594,7 +594,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                             <div className="mt-14 flex ">
                                 <button
                                     type="button"
-                                    className="rounded-[50px] bg-primary text-white px-4 py-2"
+                                    className="rounded-[50px] bg-[#3751FF] text-white px-8 py-2 "
                                     onClick={handleSubmit}
                                 >
                                     Submit Campaing

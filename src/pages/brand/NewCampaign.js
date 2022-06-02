@@ -2,6 +2,7 @@ import React from 'react'
 import { SearchIcon } from "@heroicons/react/solid";
 import BrandCampaignTable from '../../components/BrandCampaignTable';
 import Pagination from '../../components/Pagination';
+import { useNavigate } from 'react-router-dom';
 // import Breadcrumbs from '../../components/Breadcrumbs';
 // import facebookIcon from '../../../public/svgs/facebook.svg'
 // import instagramIcon from '../../../public/svgs/instagram.svg'
@@ -29,6 +30,7 @@ function NewCampaign() {
             status: "Approved"
         }
     ]
+    const navigate = useNavigate();
     const campaignColumns = ["Campaign Id", "Brand name", "Campaign Title", "Category", "Amount", "Social Platform", "Status"]
     return (
         <>
@@ -43,12 +45,12 @@ function NewCampaign() {
                         />
                     </div>
                     <div className='  border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white'>
-                        <button>+ Add New Campaign</button>
+                        <button onClick={()=>navigate(`/brand/campaign/new-campaign/add`)}>+ Add New Campaign</button>
                     </div>
                 </div>
 
                 <div className='p-4'>
-                    <BrandCampaignTable campaignData={campaignData} campaignColumns={campaignColumns} />
+                    <BrandCampaignTable campaignData={campaignData} campaignColumns={campaignColumns} campaignType={"new-campaign"}/>
                 </div>
                 <div className="absolute bottom-[-100px] right-0 w-full p-4">
                     <Pagination />
