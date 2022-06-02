@@ -7,11 +7,7 @@ import Pagination from "../../../components/Pagination";
 // import { getCampaignPoolData } from "../../../store/InfCampaignPool/action";
 
 function CampaignPool() {
-<<<<<<< HEAD
-  const dispatch = useDispatch();
-=======
   // const dispatch = useDispatch();
->>>>>>> c8058c9d846bf2801371b3df93565735c242dade
   // useEffect(() => {
   //   const payload = {
   //     category: "fashion",
@@ -50,58 +46,6 @@ function CampaignPool() {
         category: "Fashion, DIY",
         social_platform: ["facebook", "instagram", "linkedin", "youtube"],
       },
-<<<<<<< HEAD
-      {
-        id: "00004",
-        title: "Enjoy the videos and music",
-        project_duration_in_days: 1,
-        category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
-      },
-      {
-        id: "00004",
-        title: "Enjoy the videos and music",
-        project_duration_in_days: 1,
-        category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
-      },
-      {
-        id: "00004",
-        title: "Enjoy the videos and music",
-        project_duration_in_days: 1,
-        category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
-      },
-      {
-        id: "00004",
-        title: "Enjoy the videos and music",
-        project_duration_in_days: 1,
-        category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
-      },
-      {
-        id: "00004",
-        title: "Enjoy the videos and music",
-        project_duration_in_days: 1,
-        category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
-      },
-      {
-        id: "00004",
-        title: "Enjoy the videos and music",
-        project_duration_in_days: 1,
-        category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
-      },
-      {
-        id: "00004",
-        title: "Enjoy the videos and music",
-        project_duration_in_days: 1,
-        category: "Fashion, DIY",
-        social_platform: ["facebook", "instagram", "linkedin", "youtube"],
-      },
-=======
->>>>>>> c8058c9d846bf2801371b3df93565735c242dade
     ],
   };
   return (
@@ -111,11 +55,7 @@ function CampaignPool() {
         <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
       </div>
       <CampaignTable data={infCampaignPool} />
-<<<<<<< HEAD
-      <div className="absolute bottom-[-100px] right-0 w-full">
-=======
       <div className="absolute bottom-[-100px] right-0">
->>>>>>> c8058c9d846bf2801371b3df93565735c242dade
         <Pagination />
       </div>
     </div>
