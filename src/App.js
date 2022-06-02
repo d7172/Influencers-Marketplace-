@@ -14,11 +14,11 @@ import InfProfile from "./pages/admin/Influencer/InfProfile";
 import InfRejectedUser from "./pages/admin/Influencer/InfRejectedUser";
 import Login from "./pages/common/Login";
 import SignUpType from "./pages/common/SignUpType";
-import AdminActiveBids from "./pages/Admin/ActiveBids/Bids";
-import AdminBidDetails from "./pages/Admin/ActiveBids/BidDetails";
-import Earnings from "./pages/Admin/Transaction/Earnings";
-import Payments from "./pages/Admin/Transaction/Payments";
-import BrandPaymentOngoing from "./pages/Admin/Transaction/BrandPaymentOngoing";
+import AdminActiveBids from "./pages/admin/ActiveBids/Bids";
+import AdminBidDetails from "./pages/admin/ActiveBids/BidDetails";
+import Earnings from "./pages/admin/Transaction/Earnings";
+import Payments from "./pages/admin/Transaction/Payments";
+import BrandPaymentOngoing from "./pages/admin/Transaction/BrandPaymentOngoing";
 import ActiveCampaign from "./pages/influencer/Dashboard/ActiveCampaign";
 import ActiveCampaignDetails from "./pages/influencer/Dashboard/ActiveCampaignDetails";
 import AssignedCampaign from "./pages/influencer/Dashboard/AssignedCampaign";
@@ -52,13 +52,13 @@ import AdminActiveCampaign from "./pages/admin/ActiveCampaign/ActiveCampaign";
 import AdminAssignedCampaign from "./pages/admin/AssignedCampaign/AssignedCampaign";
 import AdminRejectedCampaign from "./pages/admin/RejectedCampaign/RejectedCampaign";
 import AdminRejectedCampaignDetails from "./pages/admin/RejectedCampaign/RejectedCampaignDetails";
-// import Earnings from "./pages/Admin/Transaction/Earnings";
-// import Payments from "./pages/Admin/Transaction/Payments";
-import AdmRejectedCampaignDetails from "./pages/Admin/RejectedCampaign/RejectedCampaignDetails";
-import AdmPayment from "./pages/Admin/Transaction/Payments";
-import AdmEarning from "./pages/Admin/Transaction/Earnings";
-import AdmStatement from "./pages/Admin/Transaction/Statements";
-// import AdmPaymentOngoing from "./pages/Admin/Transaction/AdmPaymentOngoing"
+// import Earnings from "./pages/admin/Transaction/Earnings";
+// import Payments from "./pages/admin/Transaction/Payments";
+import AdmRejectedCampaignDetails from "./pages/admin/RejectedCampaign/RejectedCampaignDetails";
+import AdmPayment from "./pages/admin/Transaction/Payments";
+import AdmEarning from "./pages/admin/Transaction/Earnings";
+import AdmStatement from "./pages/admin/Transaction/Statements";
+// import AdmPaymentOngoing from "./pages/admin/Transaction/AdmPaymentOngoing"
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -189,6 +189,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/admin/signin" element={<SignIn />} />
           <Route path="/admin/signup" element={<SignUpAdmin />} />
+          <Route path="/admin/campaign/new-campaign/add" element={<AdmCampaignDetails route={"new-campaign"} />} />
         </Routes>
       </BrowserRouter>
     </div>
