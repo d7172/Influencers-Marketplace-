@@ -2,9 +2,16 @@ import React, { useState } from 'react'
 import Breadcrumbs from '../../../components/Breadcrumbs'
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import DateRange from '../../../components/DateRange';
+import Dropdown from '../Dropdowns';
 // import Dropdown from '../../../components/Dropdown';
 
 function Statements() {
+    const [category, setCategory] = useState("Brand");
+    const [brand, setBrand] = useState("");
+    const [influencer, setInfluencer] = useState("");
+    const handleCategory = (props) => { setCategory(props.lable) }
+    const handleBrand = (props) => { setBrand(props.lable) }
+    const handleInfluencer = (props) => { setInfluencer(props.lable) }
     return (
         <>
             <div className="max-w-[1280px] pt-6 relative">
@@ -19,68 +26,56 @@ function Statements() {
                 </div>
                 <div className='flex justify-between px-6' >
                     <div className='flex gap-2'>
-                        <div className='flex items-center ' >
+                        <div className='flex items-center'>
                             <p className='text-[#939393] pr-2 text-sm ' >Select Category</p>
-                            <div className="flex justify-center">
-                                <div>
-                                    <div className="dropdown relative">
-                                        <button
-                                            className="dropdown-toggle px-6 py-2.5 bg-white font-medium text-xs leading-tight uppercase rounded shadow-md focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out flex items-center whitespace-nowrap" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Brand
-                                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" className="w-2 ml-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                                                <path
-                                                    fill="currentColor"
-                                                    d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                        <ul
-                                            className=" dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2 px-4 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1">
-                                            <li>
-                                                <a className=" dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">Brand</a>
-                                            </li>
-                                            <li>
-                                                <a className=" dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100">Brand</a>
-                                            </li>
-                                            <li>
-                                                <a className=" dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 ">Brand</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            <Dropdown
+                                lable={category.length ? category : "Brand"}
+                                options={[
+                                    {
+                                        lable: "Brand"
+                                    },
+                                    {
+                                        lable: "Influencer"
+                                    }]}
+                                func={handleCategory}
+                            />
                         </div>
-                        <div className='flex items-center '>
-                            <p className='text-[#939393] pr-2 text-sm ' >Select Brand</p>
-                            <div className="flex justify-center">
-                                <div>
-                                    <div className="dropdown relative">
-                                        <button
-                                            className="dropdown-toggle px-6 py-2.5 bg-white font-medium text-xs leading-tight uppercase rounded shadow-md focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out flex items-center whitespace-nowrap" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            BoAt
-                                            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-down" className="w-2 ml-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
-                                                <path
-                                                    fill="currentColor"
-                                                    d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
-                                                ></path>
-                                            </svg>
-                                        </button>
-                                        <ul
-                                            className=" dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2 px-4 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none" aria-labelledby="dropdownMenuButton1">
-                                            <li>
-                                                <a className=" dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#">BoAt</a>
-                                            </li>
-                                            <li>
-                                                <a className=" dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100" href="#">BoAt</a>
-                                            </li>
-                                            <li>
-                                                <a className=" dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 " href="#">BoAt</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                        {(category === "Brand") && (
+                            <div className='flex items-center'>
+                                <p className='text-[#939393] pr-2 text-sm ' >Select Brand</p>
+                                <Dropdown
+                                    lable={brand.length ? brand : "BoAt"}
+                                    options={[
+                                        {
+                                            lable: "BoAt"
+                                        },
+                                        {
+                                            lable: "JBL"
+                                        }
+                                    ]}
+                                    func={handleBrand}
+                                />
                             </div>
-                        </div>
+                        )}
+                        {(category === "Influencer") && (
+                            <div className='flex items-center'>
+                                <p className='text-[#939393] pr-2 text-sm ' >Select Influencer</p>
+                                <Dropdown
+                                    lable={influencer.length ? influencer : "Jhon Deo"}
+                                    options={[
+                                        {
+                                            lable: "Jhon Deo"
+                                        },
+                                        {
+                                            lable: "Barbara Searcy"
+                                        },
+                                        {
+                                            lable: "Steven Sloan"
+                                        }]}
+                                    func={handleInfluencer}
+                                />
+                            </div>
+                        )}
                         <div>
                             <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
                         </div>
@@ -207,7 +202,7 @@ function DetailsTable({ campaignId, columnData, rowData }) {
                             <td className='pl-4 py-4 whitespace-nowrap text-sm max-w-[170px]  font-medium text-[#3751FF] underline'>{data.userId}</td>
                             <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">{data.infName}</td>
                             <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">{data.infBidNum}</td>
-                            <td className=' pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative' onClick={() => {}}>View details</td>
+                            <td className=' pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative' onClick={() => { }}>View details</td>
                         </tr>
                     )
                 })}

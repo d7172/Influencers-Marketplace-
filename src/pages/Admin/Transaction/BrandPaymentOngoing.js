@@ -113,11 +113,14 @@ function BrandPaymentOngoing() {
                         </button>
                     </div>
                 </MyDialog>
-                <h1 className="text-start text-2xl font-bold mt-6 mb-2">BoAt</h1>
-                <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">
-                    #000001
-                </p>
-                <div className="mt-8">
+                {/* <div>
+                    <h1 className="text-start text-2xl font-bold mt-6 mb-2">BoAt</h1>
+                    <p className="w-390 inline-block text-[#3751FF] underline text-sm text-start m-auto mb-4">
+                        #000001
+                    </p>
+                </div>
+
+                {/* <div className="mt-8">
                     <h1 className="text-[#00000099] text-[16px] font-bold ">Brand Descripation</h1>
                     <h1 className="mb-2 text-start text-xl font-bold ">Cardboard paper style</h1>
                     <p className=" w-[77%] my-4 text-[14px] font-[500] text-[#93939399] ">
@@ -125,11 +128,27 @@ function BrandPaymentOngoing() {
                         is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without
                         relying on meaningful content. Lorem ipsum
                     </p>
+                </div> */}
+                <div>
+                    <h1 className="text-start text-2xl font-bold mt-6 mb-2">Jhon Deo</h1>
+                    <p className="w-390 inline-block text-[#3751FF] underline text-sm text-start m-auto mb-4">
+                        #000001
+                    </p>
+                </div>
+                <div className="mt-8">
+                    <h1 className="text-[16px] font-bold mb-2">Brand of Influencers</h1>
+                    <p className=" w-[77%] mb-4 text-[14px] font-[500] text-[#93939399] ">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing eli
+                    </p>
+                </div>
+                <div className="flex">
+                    <button className="px-8 my-4 py-2 mr-4 border-dashed border-2 text-[#3751FF] border-[#3751FF]" >BoAt</button>
+                    <button className="px-8 my-4 py-2 mr-4 border-dashed border-2 text-[#979797] border-[#979797]" >JBL</button>
                 </div>
                 <div className="flex mt-8">
                     <div className={`w-[258px] h-[184px] top-[393px] mr-4 left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${active}]`}>
                         <p><span className="bg-[#3751FF] rounded-full w-3"></span>On going</p>
-                        <h1 className="text-[18px] font-[500] text-[#000000] my-2">Campaign : 1</h1>
+                        <h1 className="text-[18px] font-[500] my-2">Campaign : 1</h1>
                         <div className={`text-[${active}] border-[${active}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}>
                             <h1>&#8377;5553</h1>
                         </div>
@@ -137,7 +156,7 @@ function BrandPaymentOngoing() {
                     </div>
                     <div className="flex gap-20">
                         <div className={`w-[258px] h-[184px] top-[393px] mr-4 left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${inactive}] `}>
-                            <h1 className="text-[18px] font-[500] text-[#000000] my-2 ">Campaign : 2</h1>
+                            <h1 className="text-[18px] font-[500] my-2 ">Campaign : 2</h1>
                             <div className={`text-[${inactive}] border-[${inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}>
                                 <h1>&#8377;5553</h1>
                             </div>
@@ -146,7 +165,7 @@ function BrandPaymentOngoing() {
                     </div>
                     <div className="flex gap-20">
                         <div className={`w-[258px] h-[184px] top-[393px] mr-4 left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${inactive}] `}>
-                            <h1 className="text-[18px] font-[500] text-[#000000] my-2 ">Campaign : 3</h1>
+                            <h1 className="text-[18px] font-[500] my-2 ">Campaign : 3</h1>
                             <div className={`text-[${inactive}] border-[${inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}>
                                 <h1>&#8377;5553</h1>
                             </div>
@@ -155,7 +174,7 @@ function BrandPaymentOngoing() {
                     </div>
                     <div className="flex gap-20">
                         <div className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${inactive}] `}>
-                            <h1 className="text-[18px] font-[500] text-[#000000] my-2 ">Campaign : 4</h1>
+                            <h1 className="text-[18px] font-[500] my-2 ">Campaign : 4</h1>
                             <div className={`text-[${inactive}] border-[${inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}>
                                 <h1>&#8377;5553</h1>
                             </div>
