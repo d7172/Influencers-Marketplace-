@@ -47,6 +47,7 @@ function CampaignDetails({ route }) {
             amount: [500, 500],
             documentsLinks: ["link1", "link2"]
         }]
+        console.log(route);
     return (
         <div>
             <div className='w-full bg-[#F2F2F2] py-4 px-8'>
@@ -125,33 +126,32 @@ function CampaignDetails({ route }) {
                     <hr className="my-8" />
                     <CampaignRequirement campaignDetails={campaignDetails} />
                     <hr className="my-8" />
-                    {(route === "assigned-campaign") &&
-                        <div className="mt-6">
-                            <h1 className="text-[32px] font-[600]">Quotation Phase</h1>
-                            <p className=" text-[14px] mt-1 leading-[21px] text-[#969BA0]">Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
-                            <div className='flex' >
-                                <div className='mr-6'>
-                                    <p>Quotion</p>
-                                    <p>1.</p>
-                                    <button className='px-6 py-4 border-dashed border-[#969BA0] text-[#969BA0]'>&#8377;5553</button>
-                                    <p className='underline text-[#969BA0]'>Quotion rejected</p>
-                                    <p className='underline text-[#969BA0]' >Click here</p>
-                                </div>
-                                <div className='mr-6'>
-                                    <p>Quotion</p>
-                                    <p>2.</p>
-                                    <button className='px-6 py-4 border-dashed border-[#969BA0] text-[#3751FF]'>&#8377;5553</button>
-                                    <p className='underline text-[#3751FF]' >Click here</p>
-                                </div>
-                                <div className='mr-6'>
-                                    <p>Quotion</p>
-                                    <p>3.</p>
-                                    <button className='px-6 py-4 border-dashed border-[#969BA0] text-[#969BA0]'>&#8377;5553</button>
-                                    <p className='underline text-[#969BA0]' >Click here</p>
-                                </div>
+                    { (route === "assigned-campaign") && <div className="my-6">
+                        <h1 className="text-[26px] font-[600]">Quotation Phase</h1>
+                        <p className=" text-[14px] mt-1 leading-[21px] text-[#969BA0]">Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
+                        <div className='flex' >
+                            <div className='mr-6 flex flex-col px-2 gap-2 py-4 text-center'>
+                                <p className='font-bold'>Quotion</p>
+                                <p className='font-bold'>1.</p>
+                                <button className='px-6 border-2 py-2 border-dashed border-[#969BA0] text-[#969BA0]'>&#8377;5553</button>
+                                <p className='underline text-[#969BA0]'>Quotion rejected</p>
+                                <p className='underline text-[#969BA0]' >Click here</p>
+                            </div>
+                            <div className='mr-6 flex flex-col px-2 gap-2 py-4 text-center'>
+                                <p className='font-bold'>Quotion</p>
+                                <p className='font-bold'>2.</p>
+                                <button className='px-6 border-2 py-2 border-dashed border-[#969BA0] text-[#3751FF]'>&#8377;5553</button>
+                                <p className='underline text-[#3751FF]' >Click here</p>
+                            </div>
+                            <div className='mr-6 flex flex-col px-2 gap-2 py-4 text-center'>
+                                <p className='font-bold'>Quotion</p>
+                                <p className='font-bold'>3.</p>
+                                <button className='px-6 border-2 py-2 border-dashed border-[#969BA0] text-[#969BA0]'>&#8377;5553</button>
+                                <p className='underline text-[#969BA0]' >Click here</p>
                             </div>
                         </div>
-                    }
+                    </div>}
+
                     {(route !== "active-campaign") && <CampaignBudget campaignDetails={campaignDetails} />}
                     <hr className="my-8" />
                     <BrandCampaignDeliverables route={route} setDialog={setDialog} deliverableDetails={deliverableDetails} />

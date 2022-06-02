@@ -110,7 +110,7 @@ function App() {
             <Route path="/brand/campaign/new-campaign/add" element={<AddNewCampaign />} />
 
             <Route path="/brand/campaign/assigned-campaign" element={<BrandAssignedCampaign />} />
-            <Route path="/brand/campaign/assigned-campaign/:id" element={<BrandCampaignDetails route={"assigned-campign"} />} />
+            <Route path="/brand/campaign/assigned-campaign/:id" element={<BrandCampaignDetails route={"assigned-campaign"} />} />
 
             <Route path="/brand/campaign/active-campaign" element={<BrandActiveCampaign />} />
             <Route path="/brand/campaign/active-campaign/:id" element={<BrandCampaignDetails route={"active-campaign"} />} />
