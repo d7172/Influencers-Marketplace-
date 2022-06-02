@@ -1,6 +1,6 @@
 import React from "react";
 
-function AdminNav() {
+function AdminNavbar() {
   return (
     <div className="flex w-full min-w-infNavbar px-8 items-center justify-between">
       <h1 className="text-[28px] font-[600]">Dashboard</h1>
@@ -25,7 +25,7 @@ function AdminNav() {
   );
 }
 
-export default AdminNav;
+export default AdminNavbar;
 
 const bellSvg = (
   <svg

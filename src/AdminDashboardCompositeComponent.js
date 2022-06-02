@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import AdminDashboardSidebar from "./components/AdminDashboardSidebar";
-import AdminNavbar from "./pages/admin/Dashboard/AdminNav";
+import AdminNavbar from "./pages/Admin/AdminNavbar";
 
 function AdminDashboardCompositeComponent() {
   return (

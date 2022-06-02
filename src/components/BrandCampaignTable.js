@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MyDialog from "./MyDialog";
 import PalceBid from "./PalceBid";
 
-function BrandCampaignTable({ campaignData, campaignColumns }) {
+function BrandCampaignTable({ campaignData, campaignColumns, campaignType }) {
   const [placeBid, setPlaceBid] = useState(false);
   const navigate = useNavigate();
   return (
@@ -52,6 +52,7 @@ function BrandCampaignTable({ campaignData, campaignColumns }) {
                       <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
                         #{data.campaignId}
                       </td>
+                      {}
                       <td className="text-sm w-auto text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {data.brandName}
                       </td>
@@ -91,7 +92,7 @@ function BrandCampaignTable({ campaignData, campaignColumns }) {
                         {data.status}
                       </td>
                       <td
-                        onClick={() => navigate(`/brand/campaign/new-campaign/${data.campaignId}`)}
+                        onClick={() => navigate(`/brand/campaign/${campaignType}/${data.campaignId}`)}
                         className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View Details

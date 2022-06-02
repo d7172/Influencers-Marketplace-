@@ -3,7 +3,7 @@ import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import DateRange from "../../../components/DateRange";
 import Pagination from "../../../components/Pagination";
 
-function Payments() {
+function AdmPayments() {
   const [brand, setBrand] = useState(true);
   return (
     <>
@@ -102,4 +102,4 @@ function Payments() {
   );
 }
 
-export default Payments;
+export default AdmPayments;

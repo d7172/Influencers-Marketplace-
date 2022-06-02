@@ -4,7 +4,7 @@ import { Cart as ChartJS } from "chart.js/auto";
 import { useDispatch, useSelector } from "react-redux";
 import { getAdminEarningData } from "../../../store/Admin/Transactions/Earnings/action";
 
-function Earning() {
+function AdmEarning() {
   let tableData = [];
   const dispatch = useDispatch();
   useEffect(() => {
@@ -180,7 +180,7 @@ function Earning() {
   );
 }
 
-export default Earning;
+export default AdmEarning;
 
 const data = [
   {
