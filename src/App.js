@@ -3,8 +3,8 @@ import AdminDashboardCompositeComponent from "./AdminDashboardCompositeComponent
 import InfDashboardCompositeComponent from "./InfDashboardCompositeComponent";
 import BrandDashboardCompositeComponent from "./BrandDashboardCompositeComponent";
 import InfluencerCompositeComponent from "./InfluencerCompositeComponent";
-import AdmActiveCampaign from "./pages/Admin/ActiveCampaign/ActiveCampaign";
-import AdmAssignCampaign from "./pages/Admin/AssignedCampaign/AssignedCampaign";
+import AdmActiveCampaign from "./pages/Admin/Campaign/ActiveCampaign";
+import AdmAssignCampaign from "./pages/Admin/Campaign/AssignCampaign";
 import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
 import AdmRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
 import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
@@ -42,7 +42,7 @@ import SignIn from "../src/pages/Admin/SignIn/SignIn";
 import SignUpAdmin from "../src/pages/Admin/SignUp/SignUp";
 import DashBoard from "./pages/Admin/Dashboard/Dashboard";
 import AdmCampaignDetails from "./pages/brand/CampaignDetails";
-import AdmAssignedCampaign from "./pages/Admin/AssignedCampaign/AssignedCampaign.js";
+// import AdmAssignedCampaign from "./pages/Admin/AssignedCampaign/AssignedCampaign.js";
 import AdmRejectedCampaignDetails from "./pages/Admin/RejectedCampaign/RejectedCampaignDetails";
 import AdmEarning from "./pages/Admin/Transaction/Earnings";
 import { useEffect, useState } from "react";
@@ -109,17 +109,17 @@ function App() {
             <Route path="/admin/brand/active-user" element={<Navigate replace to="/admin/dashboard" />} />
             <Route path="/admin/brand/rejected-user" element={<Navigate replace to="/admin/dashboard" />} />
             <Route path="/admin/campaign/new-campaign" element={<AdmNewCampaign route={"new-campaign"} />} />
-            <Route path="/admin/campaign/new-campaign/add" element={<AddNewCampaign route={"new-campaign"} />} />
-            <Route path="/admin/campaign/new-campaign/:id" element={<AddNewCampaign route={"new-campaign"} />} />
+            <Route path="/admin/campaign/new-campaign/add" element={<AddNewCampaign route={"admin"} />} />
+            <Route path="/admin/campaign/new-campaign/:id" element={<AddNewCampaign route={"admin"} />} />
             <Route
               path="/admin/campaign/assigned-campaign"
               element={<AdmAssignCampaign route={"assigned-campaign"} />}
             />
             <Route path="/admin/campaign/active-campaign" element={<AdmActiveCampaign route={"active-campaign"} />} />
-            <Route
+            {/* <Route
               path="/admin/campaign/assigned-campaign"
               element={<AdmAssignedCampaign route={"assigned-campaign"} />}
-            />
+            /> */}
             <Route
               path="/admin/campaign/rejected-campaign"
               element={<AdmRejectedCampaign route={"rejected-campaign"} />}
@@ -168,8 +168,8 @@ function App() {
             <Route path="/brand/campaign/campaign-pool/:id" element={<CampaignDetails />} /> */}
 
             <Route path="/brand/campaign/new-campaign" element={<BrandNewCampaign />}></Route>
-            <Route path="/brand/campaign/new-campaign/:id" element={<AddNewCampaign />} />
-            <Route path="/brand/campaign/new-campaign/add" element={<AddNewCampaign />} />
+            <Route path="/brand/campaign/new-campaign/:id" element={<AddNewCampaign route={"brand"}/>} />
+            <Route path="/brand/campaign/new-campaign/add" element={<AddNewCampaign route={"brand"} />} />
 
             <Route path="/brand/campaign/assigned-campaign" element={<BrandAssignedCampaign />} />
             <Route

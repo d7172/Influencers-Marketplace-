@@ -604,7 +604,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                                     <button
                                         type="button"
                                         className="rounded-[50px] text-[#969BA0] px-4 py-2 underline"
-                                        onClick={() => navigate(`/brand/campaign/new-campaign`)}
+                                        onClick={() => navigate(`/${route}/campaign/new-campaign`)}
                                     >
                                         Cancle
                                     </button>

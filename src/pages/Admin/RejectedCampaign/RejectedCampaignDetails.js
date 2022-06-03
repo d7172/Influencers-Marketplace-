@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CloseBtn from "../../../components/CloseBtn";
 import MyDialog from "../../../components/MyDialog";
 
 // import ResonForRejction from "../../../components/ResonForRejction";
 
-function RejectedCampaignDetails() {
+function RejectedCampaignDetails({route}) {
   const active = "#3751FF"
   const inactive = "#969BA0"
   const requirementDetails = [
@@ -70,6 +71,7 @@ function RejectedCampaignDetails() {
   ]
   let bidTotal = 0;
   const [dialog, setDialog] = useState(false);
+  const navigate = useNavigate();
   // const [reason, setReason] = useState("");
   return (
     <>
@@ -243,6 +245,7 @@ function RejectedCampaignDetails() {
             </button>
             <button
               type="button"
+              onClick={()=>navigate(`/admin/campaign/${route}`)}
               className="rounded-[50px] text-[#969BA0] px-4 py-2 underline"
             >
               Cancle

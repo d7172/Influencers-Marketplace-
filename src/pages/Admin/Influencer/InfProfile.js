@@ -1,16 +1,23 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import Dropdown from "../../../components/Dropdown";
 import { categoryList } from "../../influencer/SignUp/Category";
+import ResonForRejction from "../../../components/ResonForRejction";
+import MyDialog from "../../../components/MyDialog";
+
 
 function InfProfile({ route }) {
+  const [rejectBid, setRejectBid] = useState(false);
   return (
     <>
       <div className=" w-full min-w-infNavbar px-8 items-center justify-between">
         <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
           <Breadcrumbs options={[{ title: "influencer" }, { title: route }, { title: "0001" }]} />
         </div>
+        <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
+          <ResonForRejction close={() => setRejectBid(false)} />
+        </MyDialog>
         <div className=" gap-4 px-4 w-[100%] h-[100vh] mt-[5px] bg-[white]">
           <div className="mt-8 text-[16px] font-[600] w-[180px]">Personal Details</div>
           <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
@@ -227,7 +234,7 @@ function InfProfile({ route }) {
                             <button
                               type="button"
                               className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                              onClick={() => {}}
+                              onClick={() => { }}
                             >
                               Add
                             </button>
@@ -618,7 +625,7 @@ function InfProfile({ route }) {
                             <button
                               type="button"
                               className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                              onClick={() => {}}
+                              onClick={() => { }}
                             >
                               Add
                             </button>
@@ -634,17 +641,19 @@ function InfProfile({ route }) {
 
           <div className="flex justify-end">
             <div className="mt-14 cursor-pointer">
-              <button type="button" className="w-[150px] rounded-[50px] bg-primary text-white py-2" onClick={() => {}}>
-                Approve
+              <button type="button" className="w-[150px] rounded-[50px] bg-primary text-white py-2" onClick={() => { }}>
+                {(route === 'new-user') && `Approve`}
+                {(route === 'active-user') && `Save`}
+                {(route === 'rejected-user') && `Re Active`}
               </button>
             </div>
             <div className="m-14 cursor-pointer">
               <button
                 type="button"
                 className="w-[150px] rounded-[50px] bg-[#FFFFFF] py-2 box-shadow-button"
-                onClick={() => {}}
+                onClick={() => setRejectBid(true)}
               >
-                Reject
+                {(route === "new-user") ? `Reject` : `Cancle`}
               </button>
             </div>
           </div>

@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import MyDialog from "../../../components/MyDialog";
 // import CloseBtn from "../../../components/CloseBtn";
 import ResonForRejction from "../../../components/ResonForRejction";
+import Breadcrumbs from '../../../components/Breadcrumbs';
+
 
 // import { useNavigate } from "react-router-dom";
-// import Breadcrumbs from '../../../components/Breadcrumbs';
 function BidDetails() {
   const active = "#3751FF";
   const inactive = "#969BA0";
@@ -73,6 +74,9 @@ function BidDetails() {
   // const [reason, setReason] = useState("");
   return (
     <div className="ml-10">
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Active Bids" }, { title: "ASteven Sloan" }, { title: "00001" }]} />
+      </div>
       <div className="px-8 py-5">
         <MyDialog isOpen={dialog} close={() => setDialog(false)} className="rounded-8">
           <ResonForRejction close={() => setDialog(false)} />

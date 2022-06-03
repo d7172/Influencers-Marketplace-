@@ -89,6 +89,7 @@ function RejectedCampaign() {
                               </svg>
                             )}
                             items={["Reassigned to Influencers", "Delete"]}
+                            itemStyle={"cursor-pointer"}
                           />
                         </td>
                       </tr>

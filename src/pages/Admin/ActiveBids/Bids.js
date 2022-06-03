@@ -83,7 +83,10 @@ function Bids() {
   const [detailsTable, setDetailsTable] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  const handleIndex = (index) => activeIndex !== index && setActiveIndex(index);
+  const handleIndex = (index) => {
+    activeIndex !== index && setActiveIndex(index)
+    setDetailsTable(!detailsTable);
+  };
   return (
     <div className="flex flex-col max-w-[1280px]">
       {/* <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
@@ -164,7 +167,7 @@ function Bids() {
                           </button>
                         </td>
                       </tr>
-                      {activeIndex === i && (
+                      {((activeIndex === i) && (detailsTable)) && (
                         <tr>
                           {" "}
                           <DetailsTable

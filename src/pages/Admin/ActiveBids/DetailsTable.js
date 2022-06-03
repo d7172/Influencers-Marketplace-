@@ -28,7 +28,7 @@ function DetailsTable({ campaignId, columnData, rowData }) {
                 </td>
                 <td
                   className=" pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative"
-                  onClick={() => navigate(`/brand/admin/active-bids/${campaignId}`)}
+                  onClick={() => navigate(`/admin/active-bids/${campaignId}`)}
                 >
                   View details
                 </td>
