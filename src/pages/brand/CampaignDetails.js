@@ -104,7 +104,7 @@ function CampaignDetails({ route }) {
                 <div className="ml-4">
                     <div className='flex w-full justify-between'>
                         <div className="mt-6">
-                            <h1 className="text-[32px] font-[600]">Campaign id</h1>
+                            <h1 className="text-[32px] font-bold">Campaign id</h1>
                             <p className="text-[18px] font-[500] text-[#969BA0]  ">#00001 </p>
                         </div>
                         {(route === "rejected-campaign") && <div>
@@ -115,8 +115,8 @@ function CampaignDetails({ route }) {
                         </div>}
                     </div>
                     <div className="mt-6">
-                        <p className="text-[#969BA0] text-[16px]">Brand Description</p>
-                        <h1 className="text-[18px] font-[500] mt-1 ">Cardboard paper style</h1>
+                        <p className="text-[#969BA0] text-[16px] font-bold">Brand Description</p>
+                        <h1 className="text-[18px] mt-1  font-bold">Cardboard paper style</h1>
                         <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut publishing and
                             graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document
@@ -127,7 +127,7 @@ function CampaignDetails({ route }) {
                     <CampaignRequirement campaignDetails={campaignDetails} />
                     <hr className="my-8" />
                     { (route === "assigned-campaign") && <div className="my-6">
-                        <h1 className="text-[26px] font-[600]">Quotation Phase</h1>
+                        <h1 className="text-[22px] font-bold">Quotation Phase</h1>
                         <p className=" text-[14px] mt-1 leading-[21px] text-[#969BA0]">Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
                         <div className='flex' >
                             <div className='mr-6 flex flex-col px-2 gap-2 py-4 text-center'>
@@ -152,7 +152,7 @@ function CampaignDetails({ route }) {
                         </div>
                     </div>}
 
-                    {(route !== "active-campaign") && <CampaignBudget campaignDetails={campaignDetails} />}
+                    {(route !== "assigned-campaign") && <CampaignBudget campaignDetails={campaignDetails} />}
                     <hr className="my-8" />
                     <BrandCampaignDeliverables route={route} setDialog={setDialog} deliverableDetails={deliverableDetails} />
                     <hr className="my-8" />
