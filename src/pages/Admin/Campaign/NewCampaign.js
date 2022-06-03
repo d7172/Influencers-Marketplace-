@@ -5,6 +5,7 @@ import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Pagination from "../../../components/Pagination";
 import { getNewCampaignData } from "../../../store/Admin/Campaign/NewUser/action";
+import { useNavigate } from "react-router-dom";
 
 const AdmNewCampaign = ({ route }) => {
   let tableData = [];
@@ -13,6 +14,7 @@ const AdmNewCampaign = ({ route }) => {
     dispatch(getNewCampaignData());
   }, []);
   tableData = useSelector((state) => state?.AdminNewCampaign?.results);
+  const navigate = useNavigate();
   return (
     <div className="pt-4 relative">
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -20,6 +22,9 @@ const AdmNewCampaign = ({ route }) => {
       </div>
       <div className="flex items-center py-4 px-8">
         <CampaignSearchBar placeHolder={"Search here"} />
+          <div className='border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white' onClick={()=>navigate("/admin/campaign/new-campaign/add")}>
+                        <button> + Add New Campaign </button>
+          </div>
       </div>
       <div className="flex items-center py-4 px-8">
         <AdminCampaignTable tableData={tableData} route={route} />
