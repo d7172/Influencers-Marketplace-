@@ -7,7 +7,7 @@ function InfDetails({ route }) {
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
         <Breadcrumbs options={[{ title: "influencer" }, { title: route }, { title: "0001" }]} />
       </div>
-      <div className="flex flex-col boxShadow gap-6 ml-10 pt-4 relative bg-white">
+      <div className="flex flex-col boxShadow px-4 relative ml-4">
         <div className="mt-4 text-[16px] font-[600] w-[180px]">Influencers Profile</div>
         <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
           Lorem ipsum dolor sit amet, consectetur

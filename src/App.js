@@ -9,7 +9,7 @@ import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
 import AdmRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
 import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
 import InfDetails from "./pages/Admin/Influencer/InfDetails";
-import InfNewUser from "./pages/Admin/Influencer/InfActiveUser";
+import InfNewUser from "./pages/Admin/Influencer/InfNewUser";
 import InfProfile from "./pages/Admin/Influencer/InfProfile";
 import InfRejectedUser from "./pages/Admin/Influencer/InfRejectedUser";
 import Login from "./pages/common/Login";
@@ -168,7 +168,7 @@ function App() {
             <Route path="/brand/campaign/campaign-pool/:id" element={<CampaignDetails />} /> */}
 
             <Route path="/brand/campaign/new-campaign" element={<BrandNewCampaign />}></Route>
-            <Route path="/brand/campaign/new-campaign/:id" element={<AddNewCampaign route={"brand"}/>} />
+            <Route path="/brand/campaign/new-campaign/:id" element={<AddNewCampaign route={"brand"} />} />
             <Route path="/brand/campaign/new-campaign/add" element={<AddNewCampaign route={"brand"} />} />
 
             <Route path="/brand/campaign/assigned-campaign" element={<BrandAssignedCampaign />} />
