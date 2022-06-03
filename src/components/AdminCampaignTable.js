@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function AdminCampaignTable({ tableData, route }) {
+function AdminCampaignTable({ tableData, mainRoute,route }) {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col max-w-[1280px]">
@@ -98,7 +98,7 @@ function AdminCampaignTable({ tableData, route }) {
                       )}
 
                       <td
-                        onClick={() => navigate(`/admin/influencer/${route}/0001`)}
+                        onClick={() => navigate(`/admin/${mainRoute}/${route}/0001`)}
                         className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View Details

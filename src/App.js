@@ -5,7 +5,7 @@ import BrandDashboardCompositeComponent from "./BrandDashboardCompositeComponent
 import InfluencerCompositeComponent from "./InfluencerCompositeComponent";
 import AdmActiveCampaign from "./pages/Admin/ActiveCampaign/ActiveCampaign";
 import AdmAssignCampaign from "./pages/Admin/AssignedCampaign/AssignedCampaign";
-import AdmNewCampaign from "./pages/Admin/NewCampaign/NewCampaign";
+import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
 import AdmRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
 import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
 import InfDetails from "./pages/Admin/Influencer/InfDetails";
@@ -109,6 +109,8 @@ function App() {
             <Route path="/admin/brand/active-user" element={<Navigate replace to="/admin/dashboard" />} />
             <Route path="/admin/brand/rejected-user" element={<Navigate replace to="/admin/dashboard" />} />
             <Route path="/admin/campaign/new-campaign" element={<AdmNewCampaign route={"new-campaign"} />} />
+            <Route path="/admin/campaign/new-campaign/add" element={<AddNewCampaign route={"new-campaign"} />} />
+            <Route path="/admin/campaign/new-campaign/:id" element={<AddNewCampaign route={"new-campaign"} />} />
             <Route
               path="/admin/campaign/assigned-campaign"
               element={<AdmAssignCampaign route={"assigned-campaign"} />}
