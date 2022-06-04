@@ -14,7 +14,7 @@ const initForm = {
   email: "",
 };
 
-function SignUp() {
+function SignUpAdmin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(false);
@@ -148,4 +148,4 @@ function SignUp() {
     </div>
   );
 }
-export default SignUp;
+export default SignUpAdmin;
