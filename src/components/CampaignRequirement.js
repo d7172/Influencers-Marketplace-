@@ -28,7 +28,7 @@ function CampaignRequirement({ campaignDetails }) {
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Gender</h1>
-          <p className="text-[18px] font-[600] ">Male</p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.gender}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Country</h1>

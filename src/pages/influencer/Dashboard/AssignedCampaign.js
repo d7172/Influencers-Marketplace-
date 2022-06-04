@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 // import CampaignTable from "../../../components/CampaignTable";
 import Pagination from "../../../components/Pagination";
 import { useNavigate } from "react-router-dom";
 import { getCampaignAssignedData } from "../../../store/infCampaignAssigned/action";
+
+let tableData = [];
 
 function AssignedCampaign() {
   const dispatch = useDispatch();
@@ -18,6 +20,9 @@ function AssignedCampaign() {
     dispatch(getCampaignAssignedData(data));
   }, []);
 
+  tableData = useSelector((state) => state?.infCampaignAssigned?.results);
+
+  console.log(tableData, "tabledata");
   const infCampaignPool = {
     results: [
       {
@@ -56,7 +61,7 @@ function AssignedCampaign() {
         <Breadcrumbs options={[{ title: "Campaign" }, { title: "Assigned Campaign" }]} />
         <CampaignSearchBar />
       </div>
-      <CampaignTable data={infCampaignPool} />
+      <CampaignTable data={tableData} />
       <div className="absolute bottom-[-100px] right-0">
         <Pagination />
       </div>
@@ -66,7 +71,6 @@ function AssignedCampaign() {
 
 export default AssignedCampaign;
 function CampaignTable({ data }) {
-  const infCampaignPool = data;
   const navigate = useNavigate();
   return (
     <div className="flex flex-col max-w-[1280px] overflow-hidden">
@@ -103,54 +107,39 @@ function CampaignTable({ data }) {
                 </tr>
               </thead>
               <tbody>
-                {infCampaignPool.results.map((pool, i) => {
+                {tableData?.map((data, i) => {
                   return (
                     <tr className="">
                       <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[150px] font-medium text-gray-900">
-                        #{pool.id}
+                        #{data?.id}
                       </td>
                       <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
-                        {pool.title}
+                        {data?.title}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         2/5/2022
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                        {pool.project_duration_in_days} Day
+                        {data?.project_duration_in_days} Day
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                        {pool.category}
+                        {data?.category}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                        &#8377; 5,553
+                        &#8377; {data?.amount}
                       </td>
                       <td className="text-[16px] max-w-[150px] min-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
                         <img
                           className="absolute z-40 w-[20px] "
-                          src={`/svgs/${pool.social_platform[0]}.svg`}
+                          src={`/svgs/${data?.social_platform[0]}.svg`}
                           alt="face"
                         />
-                        {/* <img
-                          className="absolute z-30 left-[34px] w-[20px] h-[20px]"
-                          src="/svgs/instagram.svg"
-                          alt="face"
-                        />
-                        <img
-                          className="absolute z-20 left-[44px] w-[20px] h-[20px]"
-                          src="/svgs/youtube.svg"
-                          alt="face"
-                        />
-                        <img
-                          className="absolute z-10 left-[55px] w-[20px] h-[20px]"
-                          src="/svgs/linkedin.svg"
-                          alt="face"
-                        /> */}
 
                         {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
                       </td>
                       <td
-                        onClick={() => navigate(`/influencer/campaign/campaign-pool/${pool.id}`)}
+                        onClick={() => navigate(`/influencer/campaign/campaign-pool/${data?.id}`)}
                         className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View Details

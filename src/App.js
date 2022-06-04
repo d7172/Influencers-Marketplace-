@@ -142,7 +142,7 @@ function App() {
             <Route path="/influencer" element={<Navigate replace to="/influencer/dashboard" />} />
             <Route path="/influencer/dashboard" element={<InfluencerDashboard />} />
             <Route path="/influencer/campaign" element={<Navigate replace to="/influencer/campaign/campaign-pool" />} />
-            <Route path="/influencer/campaign/campaign-pool" element={<CampaignPool />}></Route>
+            <Route path="/influencer/campaign/campaign-pool" element={<CampaignPool />} />
             <Route path="/influencer/campaign/campaign-pool/:id" element={<CampaignDetails />} />
             <Route path="/influencer/campaign/assigned-campaign" element={<AssignedCampaign />} />
             <Route path="/influencer/campaign/active-campaign" element={<ActiveCampaign />} />

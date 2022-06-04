@@ -1,24 +1,30 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Dropdown from "../../../components/Dropdown";
 import { getCampaignActiveData } from "../../../store/infCampaignActive/action";
 
+let tableData = [];
+
 function ActiveCampaign() {
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = {
-      category: "beauty",
+      category: "fashion",
+      status: "active",
+      influencer_id: 2,
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getCampaignActiveData(data));
+    dispatch(getCampaignActiveData(payload));
   }, []);
+
+  tableData = useSelector((state) => state?.infCampaignActive?.results);
   return (
     <div className="ml-10">
-      <Breadcrumbs options={[{ title: "Bids" }, { title: "Active Bid" }]} />
+      <Breadcrumbs options={[{ title: "campaign" }, { title: "Active campaign" }]} />
       <div className="flex justify-between mt-2">
         <div className="flex gap-4 items-center">
           <label className="text-[12px] text-[#939393]">Sort By Status</label>
@@ -52,68 +58,39 @@ function ActiveCampaignTable() {
         <h1 className="w-[125px]">Number of bids</h1>
         <h1 className="">Bid Status</h1>
       </div>
-      <div>
-        <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">
-          <div className=" w-[95px] font-medium">#00001</div>
-          <div className="flex gap-4 items-center justify-center w-[220px] overflow-hidden">
-            <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
-            Enjoy the video and music
+      {tableData?.map((data) => {
+        <div>
+          <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">
+            <div className=" w-[95px] font-medium">{data.id}</div>
+            <div className="flex gap-4 items-center justify-center w-[220px] overflow-hidden">
+              <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
+              {data.title}
+            </div>
+            <div className="w-[80px] ml-1.5">&#8377; {data.amount}</div>
+            <div className="relative w-[130px]  ">
+              <img className="absolute z-40 w-[20px] " src="/svgs/facebook.svg" alt="face" />
+              <img className="absolute z-30 left-[14px] w-[20px] h-[20px]" src="/svgs/instagram.svg" alt="face" />
+              <img className="absolute z-20 left-[24px] w-[20px] h-[20px]" src="/svgs/youtube.svg" alt="face" />
+              <img className="absolute z-10 left-[35px] w-[20px] h-[20px]" src="/svgs/linkedin.svg" alt="face" />
+              <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1>
+            </div>
+            <div className="w-[125px] font-medium">{data?.total_bid}</div>
+            <div className="w-[125px] font-medium text-[#2BC155]">pending for Approval</div>
           </div>
-          <div className="w-[80px] ml-1.5">&#8377; 5,553</div>
-          <div className="relative w-[130px]  ">
-            <img className="absolute z-40 w-[20px] " src="/svgs/facebook.svg" alt="face" />
-            <img className="absolute z-30 left-[14px] w-[20px] h-[20px]" src="/svgs/instagram.svg" alt="face" />
-            <img className="absolute z-20 left-[24px] w-[20px] h-[20px]" src="/svgs/youtube.svg" alt="face" />
-            <img className="absolute z-10 left-[35px] w-[20px] h-[20px]" src="/svgs/linkedin.svg" alt="face" />
-            <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1>
+          <div className="mt-4 flex justify-between">
+            <div>
+              <input type="checkbox" className="w-[16px]" />
+              <label className="text-[14px] text-[#3751FF] font-[400] ml-2.5">Submit for Approval</label>
+            </div>
+            <div
+              onClick={() => navigate(`/influencer/campaign/active-campaign/${data.id}`)}
+              className="text-[#3751FF] font-[500]  underline cursor-pointer "
+            >
+              View Details
+            </div>
           </div>
-          <div className="w-[125px] font-medium">02</div>
-          <div className="w-[125px] font-medium text-[#2BC155]">pending for Approval</div>
-        </div>
-        <div className="mt-4 flex justify-between">
-          <div>
-            <input type="checkbox" className="w-[16px]" />
-            <label className="text-[14px] text-[#3751FF] font-[400] ml-2.5">Submit for Approval</label>
-          </div>
-          <div
-            onClick={() => navigate("/influencer/campaign/active-campaign/00001")}
-            className="text-[#3751FF] font-[500]  underline cursor-pointer "
-          >
-            View Details
-          </div>
-        </div>
-      </div>
-      <div className="mt-8">
-        <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">
-          <div className=" w-[95px] font-medium">#00001</div>
-          <div className="flex gap-4 items-center justify-center w-[220px] overflow-hidden">
-            <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
-            Enjoy the video and music
-          </div>
-          <div className="w-[80px] ml-1.5">&#8377; 5,553</div>
-          <div className="relative w-[130px]  ">
-            <img className="absolute z-40 w-[20px] " src="/svgs/facebook.svg" alt="face" />
-            <img className="absolute z-30 left-[14px] w-[20px] h-[20px]" src="/svgs/instagram.svg" alt="face" />
-            <img className="absolute z-20 left-[24px] w-[20px] h-[20px]" src="/svgs/youtube.svg" alt="face" />
-            <img className="absolute z-10 left-[35px] w-[20px] h-[20px]" src="/svgs/linkedin.svg" alt="face" />
-            <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1>
-          </div>
-          <div className="w-[125px] font-medium">02</div>
-          <div className="w-[125px] font-medium text-[#2BC155]">pending for Approval</div>
-        </div>
-        <div className="mt-4 flex justify-between">
-          <div>
-            <input type="checkbox" className="w-[16px]" />
-            <label className="text-[14px] text-[#3751FF] font-[400] ml-2.5">Submit for Approval</label>
-          </div>
-          <div
-            onClick={() => navigate("/influencer/campaign/campaign-pool/1")}
-            className="text-[#3751FF] font-[500]  underline cursor-pointer "
-          >
-            View Details
-          </div>
-        </div>
-      </div>
+        </div>;
+      })}
     </div>
   );
 }
