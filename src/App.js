@@ -38,7 +38,7 @@ import BrandActiveCampaign from "./pages/brand/ActiveCampaign";
 import BrandAssignedCampaign from "./pages/brand/AssignedCampaign";
 import BrandRejectedCampaign from "./pages/brand/RejectedCampaign";
 import AddNewCampaign from "./pages/brand/AddNewCampaign";
-import SignInAdmin from "../src/pages/Admin/SignIn/SignIn";
+import SignIn from "../src/pages/Admin/SignIn/SignIn";
 import SignUpAdmin from "../src/pages/Admin/SignUp/SignUp";
 import DashBoard from "./pages/Admin/Dashboard/Dashboard";
 import AdmCampaignDetails from "./pages/brand/CampaignDetails";
@@ -198,7 +198,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup-type" element={<SignUpType />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/admin/signin" element={<SignInAdmin />} />
+          <Route path="/admin/signin" element={<SignIn />} />
           <Route path="/admin/signup" element={<SignUpAdmin />} />
           <Route path="/admin/campaign/new-campaign/add" element={<AdmCampaignDetails route={"new-campaign"} />} />
         </Routes>
