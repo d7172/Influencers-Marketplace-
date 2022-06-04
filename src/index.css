@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@layer components {
+  .input-field {
+    @apply shadow appearance-none border-[1.5px] border-neutral-200 rounded h-48  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-blue-300;
+  }
+  .drag-drop {
+    @apply relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500;
+  }
+}
+
+@layer utilities {
+  .shadow-dateRange {
+    box-shadow: 4px 4px 10px rgba(196, 196, 196, 0.25);
+  }
+  .min-h-campaignPool {
+    min-height: calc(100vh - 450px);
+  }
+  .min-w-infNavbar {
+    min-width: calc(100vw - 345px);
+  }
+  .bg-light-transparent {
+    background: rgba(0, 0, 0, 0.11);
+  }
+  .box-shadow-sidebar {
+    box-shadow: 18px 4px 35px rgba(0, 0, 0, 0.05);
+  }
+  .box-shadow-social {
+    box-shadow: 0px 4px 4px rgba(135, 146, 161, 0.08), 0px 14px 25px rgba(135, 146, 161, 0.06);
+  }
+  .box-shadow-button {
+    box-shadow: 0px 3px 6px rgba(62, 73, 84, 0.04);
+  }
+  .text-color {
+    color: #1e266d;
+  }
+  .color-lightGrey {
+    color: #969ba0;
+  }
+  .bg-primary {
+    background: #3751ff;
+  }
+  .color-primary {
+    color: #3751ff;
+  }
+  .rounded-8 {
+    border-radius: 8px;
+  }
+  .fill-active {
+    fill: #3751ff;
+  }
+  .border-b-active {
+    border-color: #3751ff;
+  }
+  .border-b-inactive {
+    border-color: #e5e5e5;
+  }
+  .leading-50 {
+    line-height: 50px;
+  }
+  .bg-dark-transparent {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .w-1258 {
+    width: 1258px;
+  }
+  .w-608 {
+    width: 608px;
+  }
+  .w-390 {
+    width: 390px;
+  }
+  .w-400 {
+    width: 400px;
+  }
+  .w-120 {
+    width: 120px;
+  }
+  .w-168 {
+    width: 168px;
+  }
+  .h-520 {
+    height: 510px;
+  }
+  .h-485 {
+    height: 485px;
+  }
+  .h-335 {
+    height: 335px;
+  }
+  .h-52 {
+    height: 52px;
+  }
+  .h-48 {
+    height: 48px;
+  }
+  .h-40 {
+    height: 40px;
+  }
+  .min-h-1225 {
+    min-height: 1225px;
+  }
+}
+.boxShadow{
+  box-shadow: 4px 8px 64px rgba(196, 196, 196, 0.16);
+}
+.platformsSVG{
+  width: 60px;
+  height: 60px;
+}
+.industrySVG{
+  width: 50px;
+  height: 50px;
+}
+.campaignDetailsSVG-shadow{
+  box-shadow: 0px 3px 10px 2px #f2f2f2;
+}
+.tooltip-show{
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+.tooltip-hide{
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+}
