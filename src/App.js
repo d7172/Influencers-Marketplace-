@@ -40,7 +40,7 @@ import BrandRejectedCampaign from "./pages/brand/RejectedCampaign";
 import AddNewCampaign from "./pages/brand/AddNewCampaign";
 import SignIn from "./pages/Admin/AdmSignIn/SignIn";
 import SignUpAdmin from "./pages/Admin/AdmSignUp/SignUp";
-import DashBoard from "./pages/Admin/Dashboard/Dashboard";
+import DashBoard from "./pages/Admin/AdmDashboard/Dashboard";
 import AdmCampaignDetails from "./pages/brand/CampaignDetails";
 // import AdmAssignedCampaign from "./pages/Admin/AssignedCampaign/AssignedCampaign.js";
 import AdmRejectedCampaignDetails from "./pages/Admin/RejectedCampaign/RejectedCampaignDetails";
