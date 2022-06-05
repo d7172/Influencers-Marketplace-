@@ -47,50 +47,86 @@ export default ActiveCampaign;
 
 function ActiveCampaignTable() {
   const navigate = useNavigate();
-
+  console.log(tableData, "table data");
   return (
     <div className="mt-6 pr-4">
-      <div className="flex gap-10 border-b-2 pb-2.5 text-[18px] font-[500]">
-        <h1 className="w-[110px]">Campaign ID</h1>
-        <h1 className="w-[220px]">Campaign Title</h1>
-        <h1 className="w-[80px]">Amount</h1>
-        <h1 className="w-[130px]">Social Platform</h1>
-        <h1 className="w-[125px]">Number of bids</h1>
-        <h1 className="">Bid Status</h1>
+      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+          <div className="overflow-x-auto">
+            <table className="min-w-full">
+              <thead className="border-b">
+                <tr>
+                  <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
+                    Campaign ID
+                  </th>
+                  <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
+                    Campaign Title
+                  </th>
+                  <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
+                    From
+                  </th>
+                  <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
+                    Duration
+                  </th>
+                  <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
+                    Category
+                  </th>
+                  <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
+                    Amount
+                  </th>
+                  <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
+                    Social Platform
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableData?.map((data, i) => {
+                  return (
+                    <tr className="">
+                      <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[150px] font-medium text-gray-900">
+                        {data?.id}
+                      </td>
+                      <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
+                        <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
+                        {data?.title}
+                      </td>
+                      <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
+                        {data?.from_date}
+                      </td>
+                      <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
+                        {data?.project_duration_in_days}
+                      </td>
+                      <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
+                        {data?.category}
+                      </td>
+                      <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
+                        &#8377; {data?.amount}
+                      </td>
+
+                      <td className="text-[16px] max-w-[150px] min-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
+                        <img
+                          className="absolute z-40 w-[20px] "
+                          src={`/svgs/${data?.social_platform[0]}.svg`}
+                          alt="face"
+                        />
+
+                        {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
+                      </td>
+
+                      <td
+                        onClick={() => navigate(`/influencer/campaign/active-campaign/${data?.id}`)}
+                        className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer "
+                      >
+                        View Details
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      {tableData?.map((data) => {
-        <div>
-          <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">
-            <div className=" w-[95px] font-medium">{data.id}</div>
-            <div className="flex gap-4 items-center justify-center w-[220px] overflow-hidden">
-              <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
-              {data.title}
-            </div>
-            <div className="w-[80px] ml-1.5">&#8377; {data.amount}</div>
-            <div className="relative w-[130px]  ">
-              <img className="absolute z-40 w-[20px] " src="/svgs/facebook.svg" alt="face" />
-              <img className="absolute z-30 left-[14px] w-[20px] h-[20px]" src="/svgs/instagram.svg" alt="face" />
-              <img className="absolute z-20 left-[24px] w-[20px] h-[20px]" src="/svgs/youtube.svg" alt="face" />
-              <img className="absolute z-10 left-[35px] w-[20px] h-[20px]" src="/svgs/linkedin.svg" alt="face" />
-              <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1>
-            </div>
-            <div className="w-[125px] font-medium">{data?.total_bid}</div>
-            <div className="w-[125px] font-medium text-[#2BC155]">pending for Approval</div>
-          </div>
-          <div className="mt-4 flex justify-between">
-            <div>
-              <input type="checkbox" className="w-[16px]" />
-              <label className="text-[14px] text-[#3751FF] font-[400] ml-2.5">Submit for Approval</label>
-            </div>
-            <div
-              onClick={() => navigate(`/influencer/campaign/active-campaign/${data.id}`)}
-              className="text-[#3751FF] font-[500]  underline cursor-pointer "
-            >
-              View Details
-            </div>
-          </div>
-        </div>;
-      })}
     </div>
   );
 }

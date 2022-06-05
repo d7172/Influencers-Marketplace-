@@ -42,7 +42,7 @@ function AdminUserTable({ tableData, route }) {
                       {route === "active-user" && (
                         <td
                           className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer"
-                          onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
+                          onClick={() => navigate(`/admin/influencer/activeUser/${data?.id}`)}
                         >
                           {data?.id}
                         </td>
@@ -60,7 +60,7 @@ function AdminUserTable({ tableData, route }) {
                         {moment(data?.created_at).format("DD/MM/YYYY") || data?.activeSince}
                       </td>
                       <td
-                        onClick={() => navigate(`/admin/influencer/${route}/0001`)}
+                        onClick={() => navigate(`/admin/influencer/${route}/${data?.id}`)}
                         className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View profile

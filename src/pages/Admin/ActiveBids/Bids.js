@@ -19,33 +19,6 @@ function Bids() {
   }, []);
   tableData = useSelector((state) => state?.AdminActiveBids?.results);
 
-  const rowData = [
-    {
-      campaignId: "0001",
-      brandName: "Perfect Status",
-      campaignTitle: "Enjoy the videos and music",
-      numOfBids: 10,
-      category: "Fashion, DIY",
-      amount: "5553",
-    },
-    {
-      campaignId: "0002",
-      brandName: "Perfect Status",
-      campaignTitle: "Enjoy the videos and music",
-      numOfBids: 10,
-      category: "Fashion, DIY",
-      amount: "5553",
-    },
-  ];
-  const columnData = [
-    "Campaign Id",
-    "Brand Name",
-    "Campaign Title",
-    "Total Number of Bids",
-    "Category",
-    "Social Platform",
-    "Amount",
-  ];
   const infTableCol = ["User ID", "Influencer Name", "Influencer Bids Number"];
   const infTableRow = [
     {
@@ -84,7 +57,7 @@ function Bids() {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const handleIndex = (index) => {
-    activeIndex !== index && setActiveIndex(index)
+    activeIndex !== index && setActiveIndex(index);
     setDetailsTable(!detailsTable);
   };
   return (
@@ -112,7 +85,7 @@ function Bids() {
                   <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left">
                     Brand Name
                   </th>
-                  <th scope="col" className="text-[18px] w-[200px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                  <th scope="col" className="text-[18px] w-[220px] font-[500] text-gray-900 pl-4 py-4 text-left">
                     Campaign Title
                   </th>
                   <th scope="col" className="text-[18px] w-[190px] font-[500] text-gray-900 pl-4 py-4 text-left">
@@ -136,16 +109,16 @@ function Bids() {
                       <tr key={i} className="bg-[#F2F2F2] flex">
                         <td className="pl-4 py-4 whitespace-nowrap text-sm w-[140px]  font-medium text-[#3751FF] underline">
                           <Link to={`/admin/campaign/new-campaign/${data.id}`}>
-                            <p className="cursor-pointer">#{data?.campaign_details?.id}</p>
+                            <p className="cursor-pointer">{data?.campaign_details?.id}</p>
                           </Link>
                         </td>
                         <td className="text-sm w-[140px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                          {data?.campaign_details?.brandName}
+                          {data?.campaign_details?.brand_name}
                         </td>
                         <td className="text-sm w-[200px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
                           {data?.campaign_details?.title}
                         </td>
-                        <td className="text-sm w-[190px] text-gray-900 font-light pl-8 py-4 whitespace-nowrap">
+                        <td className="text-sm w-[220px] text-gray-900 font-light pl-10 py-4 whitespace-nowrap">
                           {data?.campaign_details?.number_of_bids}
                         </td>
                         <td className="text-sm w-[130px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
@@ -167,15 +140,10 @@ function Bids() {
                           </button>
                         </td>
                       </tr>
-                      {((activeIndex === i) && (detailsTable)) && (
+                      {activeIndex === i && detailsTable && (
                         <tr>
                           {" "}
-                          <DetailsTable
-                            key={i}
-                            campaignId={data.campaignId}
-                            columnData={infTableCol}
-                            rowData={data?.bid_details}
-                          />
+                          <DetailsTable key={i} campaignId={data.campaignId} columnData={infTableCol} rowData={data} />
                         </tr>
                       )}
                     </>

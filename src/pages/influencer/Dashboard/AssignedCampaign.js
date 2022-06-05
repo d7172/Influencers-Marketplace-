@@ -139,7 +139,7 @@ function CampaignTable({ data }) {
                         {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
                       </td>
                       <td
-                        onClick={() => navigate(`/influencer/campaign/campaign-pool/${data?.id}`)}
+                        onClick={() => navigate(`/influencer/campaign/assigned-campaign/${data?.id}`)}
                         className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View Details

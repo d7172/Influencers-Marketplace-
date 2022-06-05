@@ -7,10 +7,10 @@ function InfDashboardSidebar() {
   const location = useLocation();
   const isDashboard = location?.pathname === "/influencer/dashboard";
   const isCampaign = location?.pathname.startsWith("/influencer/campaign");
-  const isCampaignPool = location?.pathname === "/influencer/campaign/campaign-pool";
-  const isAssignedCampaign = location?.pathname === "/influencer/campaign/assigned-campaign";
-  const isActiveCampaign = location?.pathname === "/influencer/campaign/active-campaign";
-  const isCompletedCampaign = location?.pathname === "/influencer/campaign/completed-campaign";
+  const isCampaignPool = location?.pathname.includes("/influencer/campaign/campaign-pool");
+  const isAssignedCampaign = location?.pathname.includes("/influencer/campaign/assigned-campaign");
+  const isActiveCampaign = location?.pathname.includes("/influencer/campaign/active-campaign");
+  const isCompletedCampaign = location?.pathname.includes("/influencer/campaign/completed-campaign");
   const isBids = location?.pathname === "/influencer/bids";
   const isTransaction = location?.pathname.startsWith("/influencer/transactions");
   const isEarning = location?.pathname === "/influencer/transactions/earning";

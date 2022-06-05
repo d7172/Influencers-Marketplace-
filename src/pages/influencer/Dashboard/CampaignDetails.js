@@ -11,7 +11,7 @@ import MyDialog from "../../../components/MyDialog";
 import PalceBid from "../../../components/PalceBid";
 import ResonForRejction from "../../../components/ResonForRejction";
 
-function CampaignDetails() {
+function CampaignDetails({ route }) {
   const { id } = useParams();
   const [placeBid, setPlaceBid] = useState(false);
   const [rejectBid, setRejectBid] = useState(false);
@@ -27,7 +27,7 @@ function CampaignDetails() {
       <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
         <ResonForRejction close={() => setRejectBid(false)} />
       </MyDialog>
-      <Breadcrumbs />
+      <Breadcrumbs options={[{ title: "campaign" }, { title: route }, { title: campDetails?.id }]} />
       <div className="ml-4">
         <div className="mt-6">
           <h1 className="text-[32px] font-[600]">Campaign id</h1>

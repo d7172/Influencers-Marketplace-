@@ -14,16 +14,16 @@ function AdminDashboardSidebar() {
   const isEarning = location?.pathname === "/admin/transaction/earning";
   const isPayments = location?.pathname === "/admin/transaction/payments";
   const isStatement = location?.pathname === "/admin/transaction/statement";
-  const isInfNewUser = location?.pathname === "/admin/influencer/new-user";
-  const isInfActiveUser = location?.pathname === "/admin/influencer/active-user";
-  const isInfRejectedUser = location?.pathname === "/admin/influencer/rejected-user";
-  const isBrandNewUser = location?.pathname === "/admin/brand/new-user";
-  const isBrandActiveUser = location?.pathname === "/admin/brand/active-user";
-  const isBrandRejectedUser = location?.pathname === "/admin/brand/rejected-user";
-  const isNewCampaign = location?.pathname === "/admin/campaign/new-campaign";
-  const isAssignedCampaign = location?.pathname === "/admin/campaign/assigned-campaign";
-  const isActiveCampaign = location?.pathname === "/admin/campaign/active-campaign";
-  const isRejectedCampaign = location?.pathname === "/admin/campaign/rejected-campaign";
+  const isInfNewUser = location?.pathname.includes("/admin/influencer/new-user");
+  const isInfActiveUser = location?.pathname.includes("/admin/influencer/active-user");
+  const isInfRejectedUser = location?.pathname.includes("/admin/influencer/rejected-user");
+  const isBrandNewUser = location?.pathname.includes("/admin/brand/new-user");
+  const isBrandActiveUser = location?.pathname.includes("/admin/brand/active-user");
+  const isBrandRejectedUser = location?.pathname.includes("/admin/brand/rejected-user");
+  const isNewCampaign = location?.pathname.includes("/admin/campaign/new-campaign");
+  const isAssignedCampaign = location?.pathname.includes("/admin/campaign/assigned-campaign");
+  const isActiveCampaign = location?.pathname.includes("/admin/campaign/active-campaign");
+  const isRejectedCampaign = location?.pathname.includes("/admin/campaign/rejected-campaign");
 
   return (
     <div className="min-w-[308px] h-inherit min-h-screen box-shadow-sidebar">
