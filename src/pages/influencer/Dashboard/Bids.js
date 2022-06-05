@@ -83,7 +83,8 @@ function BidTable() {
                 <div className="text-[#3751FF] border-[#3751FF] font-bold border-2 border-dashed w-[110px] h-[40px] flex items-center justify-center">
                   <h1>&#8377; {bid?.influencer_bid_amount}</h1>
                 </div>
-                <h1 className="text-[#3751FF] underline mt-4">View Details</h1>
+                <h1 className="text-[#2BC155] mt-4"><div className="w-[12px] h-[12px] inline-block rounded-full bg-[#2BC155]" ></div> Pendnig</h1>
+                <h1 className="text-[#3751FF] underline mt-4 cursor-pointer">View Details</h1>
               </div>
               {/* <div className="w-[140px] flex flex-col items-center justify-center border-r-2 pr-4">
                 <h1 className="text-[18px] font-[500]">Bid Number</h1>

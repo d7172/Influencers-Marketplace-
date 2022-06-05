@@ -5,7 +5,7 @@ export default function MyDialog({ isOpen, close, children, className }) {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="fixed bg-dark-transparent inset-0 z-10 overflow-y-auto" onClose={close}>
+        <Dialog as="div" className="fixed bg-dark-transparent inset-0 z-50 overflow-y-auto" onClose={close}>
           <div className="min-h-screen px-4 text-center">
             <Transition.Child
               as={Fragment}
