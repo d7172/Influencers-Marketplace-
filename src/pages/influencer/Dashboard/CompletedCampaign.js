@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 // import CampaignTable from "../../../components/CampaignTable";
 import Pagination from "../../../components/Pagination";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getCampaignCompletedData } from "../../../store/infCampaignCompleted/action";
 // import MyDialog from "../../../components/MyDialog";
 // import PalceBid from "../../../components/PalceBid";
 
+let tableData = [];
 function CompletedCampaign() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const payload = {
+      category: "beauty",
+    };
+    const data = new FormData();
+    data.append("data", JSON.stringify(payload));
+    dispatch(getCampaignCompletedData());
+  }, []);
+
+  tableData = useSelector((state) => state?.infCampaignCompleted?.results);
+  console.log(tableData, "table data");
   const infCampaignPool = {
     results: [
       {
@@ -95,24 +110,24 @@ function CampaignTable({ data }) {
                 </tr>
               </thead>
               <tbody>
-                {infCampaignPool.results.map((pool, i) => {
+                {tableData?.map((data, i) => {
                   return (
                     <tr className="">
                       <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[150px] font-medium text-gray-900">
-                        #{pool.id}
+                        #{data?.id}
                       </td>
                       <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
-                        {pool.title}
+                        {data?.title}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         2/5/2022
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                        {pool.project_duration_in_days} Day
+                        {data?.project_duration_in_days} Day
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                        {pool.category}
+                        {data?.category}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         &#8377; 5,553
@@ -120,7 +135,7 @@ function CampaignTable({ data }) {
                       <td className="text-[16px] max-w-[150px] min-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
                         <img
                           className="absolute z-40 w-[20px] "
-                          src={`/svgs/${pool.social_platform[0]}.svg`}
+                          src={`/svgs/${data?.social_platform[0]}.svg`}
                           alt="face"
                         />
                         {/* <img
@@ -142,7 +157,7 @@ function CampaignTable({ data }) {
                         {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
                       </td>
                       <td
-                        onClick={() => navigate(`/influencer/campaign/campaign-pool/${pool.id}`)}
+                        onClick={() => navigate(`/influencer/campaign/campaign-pool/${data?.id}`)}
                         className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View Details

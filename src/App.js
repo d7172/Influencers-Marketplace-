@@ -10,7 +10,7 @@ import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
 import AdmRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
 import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
 import InfDetails from "./pages/Admin/Influencer/InfDetails";
-import InfNewUser from "./pages/Admin/Influencer/InfActiveUser";
+import InfNewUser from "./pages/Admin/Influencer/InfNewUser";
 import InfProfile from "./pages/Admin/Influencer/InfProfile";
 import InfRejectedUser from "./pages/Admin/Influencer/InfRejectedUser";
 import Login from "./pages/common/Login";
@@ -39,7 +39,7 @@ import BrandActiveCampaign from "./pages/brand/ActiveCampaign";
 import BrandAssignedCampaign from "./pages/brand/AssignedCampaign";
 import BrandRejectedCampaign from "./pages/brand/RejectedCampaign";
 import AddNewCampaign from "./pages/brand/AddNewCampaign";
-import SignIn from "../src/pages/Admin/SignIn/SignIn";
+import SignInAdmin from "../src/pages/Admin/SignIn/SignIn";
 import SignUpAdmin from "../src/pages/Admin/SignUp/SignUp";
 import DashBoard from "./pages/Admin/Dashboard/Dashboard";
 import AdmCampaignDetails from "./pages/brand/CampaignDetails";
@@ -136,7 +136,7 @@ function App() {
             <Route path="/influencer" element={<Navigate replace to="/influencer/dashboard" />} />
             <Route path="/influencer/dashboard" element={<InfluencerDashboard />} />
             <Route path="/influencer/campaign" element={<Navigate replace to="/influencer/campaign/campaign-pool" />} />
-            <Route path="/influencer/campaign/campaign-pool" element={<CampaignPool />}></Route>
+            <Route path="/influencer/campaign/campaign-pool" element={<CampaignPool />} />
             <Route path="/influencer/campaign/campaign-pool/:id" element={<CampaignDetails />} />
             <Route path="/influencer/campaign/assigned-campaign" element={<AssignedCampaign />} />
             <Route path="/influencer/campaign/active-campaign" element={<ActiveCampaign />} />
@@ -162,7 +162,7 @@ function App() {
             <Route path="/brand/campaign/campaign-pool/:id" element={<CampaignDetails />} /> */}
 
             <Route path="/brand/campaign/new-campaign" element={<BrandNewCampaign />}></Route>
-            <Route path="/brand/campaign/new-campaign/:id" element={<AddNewCampaign route={"brand"}/>} />
+            <Route path="/brand/campaign/new-campaign/:id" element={<AddNewCampaign route={"brand"} />} />
             <Route path="/brand/campaign/new-campaign/add" element={<AddNewCampaign route={"brand"} />} />
 
             <Route path="/brand/campaign/assigned-campaign" element={<BrandAssignedCampaign />} />
@@ -192,7 +192,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup-type" element={<SignUpType />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/admin/signin" element={<SignIn />} />
+          <Route path="/admin/signin" element={<SignInAdmin />} />
           <Route path="/admin/signup" element={<SignUpAdmin />} />
           <Route path="/admin/campaign/new-campaign/add" element={<AdmCampaignDetails route={"new-campaign"} />} />
         </Routes>

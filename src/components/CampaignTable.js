@@ -44,11 +44,11 @@ function CampaignTable({ data }) {
                 </tr>
               </thead>
               <tbody>
-                {infCampaignPool.results.map((pool, i) => {
+                {infCampaignPool?.map((pool, i) => {
                   return (
                     <tr className="">
                       <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[150px] font-medium text-gray-900">
-                        #{pool.id}
+                        {pool.id}
                       </td>
                       <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />

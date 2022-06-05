@@ -14,6 +14,7 @@ function InfNewUser({ route }) {
   }, []);
   tableData = useSelector((state) => state?.infNewUser?.results);
 
+  console.log(tableData, "tabledata");
   return (
     <div className="max-w-[1280px] pt-6 relative">
       <div className="flex items-center px-8">

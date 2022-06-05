@@ -5,6 +5,7 @@ import { signIn } from "./SignInAdmin/reducer";
 import { infCampaignPool } from "./InfCampaignPool/reducer";
 import { infCampaignActive } from "./infCampaignActive/reducer";
 import { infCampaignAssigned } from "./infCampaignAssigned/reducer";
+import { infCampaignCompleted } from "./infCampaignCompleted/reducer";
 import { infBids } from "./infBid/reducer";
 import { infTransitionStatement, infTransitionDownloadStatement } from "./infTransitionStatement/reducer";
 import { infTransitionEarning, infLatestTransition } from "./infTransitionEarning/reducer";
@@ -16,6 +17,8 @@ import { AdminNewCampaign } from "./Admin/Campaign/NewUser/reducer";
 import { AdminActiveCampaign } from "./Admin/Campaign/ActiveUser/reducer";
 import { AdminRejectedCampaign } from "./Admin/Campaign/RejectedUser/reducer";
 import { AdminEarning } from "./Admin/Transactions/Earnings/reducer";
+import { categories } from "./Categories/reducer";
+import { placeBid } from "./infPlaceBid/reducer";
 
 const reducers = combineReducers({
   signUpState,
@@ -24,6 +27,7 @@ const reducers = combineReducers({
   infCampaignPool,
   infCampaignActive,
   infCampaignAssigned,
+  infCampaignCompleted,
   infTransitionStatement,
   infBids,
   infTransitionEarning,
@@ -37,6 +41,8 @@ const reducers = combineReducers({
   AdminRejectedCampaign,
   AdminActiveCampaign,
   AdminEarning,
+  categories,
+  placeBid,
 });
 
 export default reducers;
