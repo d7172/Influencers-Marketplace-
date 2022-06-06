@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function AdminCampaignTable({ tableData, mainRoute,route }) {
+function AdminCampaignTable({ tableData, mainRoute, route }) {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col max-w-[1280px]">
@@ -20,18 +20,28 @@ function AdminCampaignTable({ tableData, mainRoute,route }) {
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     Campaign title
                   </th>
+                  {route === "admin/assigned-campaign" && (
+                    <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
+                      Days Remaining
+                    </th>
+                  )}
+                  {route === "admin/assigned-campaign" && (
+                    <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
+                      Campaign Date
+                    </th>
+                  )}
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     Category
                   </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     Amount
                   </th>
-                  {route !== "rejected-campaign" && (
+                  {route !== "admin/rejected-campaign" && route !== "admin/assigned-campaign" && (
                     <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                       Social Platform
                     </th>
                   )}
-                  {route === "active-campaign" ? (
+                  {route === "admin/active-campaign" ? (
                     <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                       Assigned Influencers
                     </th>
@@ -48,7 +58,7 @@ function AdminCampaignTable({ tableData, mainRoute,route }) {
                     <tr className="" key={id}>
                       <td
                         className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer"
-                        onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
+                        onClick={() => navigate(`/admin/influencer/active-user/${data?.id}`)}
                       >
                         {data?.id}
                       </td>

@@ -1,7 +1,7 @@
 import { networkRequest } from "../../_shared/api";
 
 export const getActiveBidsData = (payload) => {
-  const url = "admin-bid-details/?status=complete";
+  const url = "admin-bid-details/?status=active";
   return (dispatch) => {
     networkRequest(
       url,

@@ -16,25 +16,23 @@ function DetailsTable({ campaignId, columnData, rowData }) {
           </tr>
         </thead>
         <tbody>
-          {rowData.map((data, index) => {
-            return (
-              <tr key={index}>
-                <td className="pl-4 py-4 whitespace-nowrap text-sm max-w-[170px]  font-medium text-[#3751FF] underline">
-                  {data.userId}
-                </td>
-                <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">{data.infName}</td>
-                <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                  {data.infBidNum}
-                </td>
-                <td
-                  className=" pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative"
-                  onClick={() => navigate(`/admin/active-bids/${campaignId}`)}
-                >
-                  View details
-                </td>
-              </tr>
-            );
-          })}
+          <tr key={rowData?.bid_details[0]?.id}>
+            <td className="pl-4 py-4 whitespace-nowrap text-sm max-w-[170px]  font-medium text-[#3751FF] underline">
+              {rowData?.influencer_details?.id}
+            </td>
+            <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
+              {rowData?.influencer_details?.first_name}
+            </td>
+            <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
+              {rowData?.bid_details[0]?.id}
+            </td>
+            <td
+              className=" pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative"
+              onClick={() => navigate(`/admin/active-bids/${campaignId}`)}
+            >
+              View details
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

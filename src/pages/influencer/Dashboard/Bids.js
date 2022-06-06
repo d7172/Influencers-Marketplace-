@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../../../components/Breadcrumbs";
@@ -44,6 +44,13 @@ export default Bids;
 
 function BidTable() {
   const navigate = useNavigate();
+  const [detailsTable, setDetailsTable] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  const handleIndex = (index) => {
+    activeIndex !== index && setActiveIndex(index);
+    setDetailsTable(!detailsTable);
+  };
   return (
     <div className="mt-6 pr-4">
       <div className="flex gap-10 border-b-2 pb-2.5 text-[18px] font-[500]">
@@ -52,9 +59,8 @@ function BidTable() {
         <h1 className="w-[80px]">Amount</h1>
         <h1 className="w-[130px]">Social Platform</h1>
         <h1 className="w-[125px]">Number of bids</h1>
-        <h1 className="">Bid Status</h1>
       </div>
-      {infBids?.map((bid) => {
+      {infBids?.map((bid, id) => {
         return (
           <>
             <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">
@@ -68,32 +74,31 @@ function BidTable() {
                 <img className="absolute z-40 w-[20px] " src="/svgs/facebook.svg" alt="face" />
               </div>
               <div className="w-[125px] font-medium">{infBids?.length}</div>
-              <div className="w-[125px] font-medium text-[#2BC155]">{bid?.campaign_details?.status_camp}</div>
-              <div
-                onClick={() => navigate("/influencer/campaign/campaign-pool/1")}
-                className=" text-[#3751FF] font-[500]  underline cursor-pointer "
-              >
+              <div onClick={() => handleIndex(id)} className=" text-[#3751FF] font-[500]  underline cursor-pointer ">
                 View Details
               </div>
             </div>
-            <div className="flex mt-4 gap-4">
-              <div className="w-[140px] flex flex-col items-center justify-center border-r-2 pr-4">
-                <h1 className="text-[18px] font-[500]">Bid Number</h1>
-                <h1 className="text-[18px] font-[500] mb-1">1.</h1>
-                <div className="text-[#3751FF] border-[#3751FF] font-bold border-2 border-dashed w-[110px] h-[40px] flex items-center justify-center">
-                  <h1>&#8377; {bid?.influencer_bid_amount}</h1>
+            {activeIndex === id && detailsTable && (
+              <div className="flex mt-4 gap-4">
+                <div className="w-[140px] flex flex-col items-center justify-center border-r-2 pr-4">
+                  <h1 className="text-[18px] font-[500]">Bid Number</h1>
+                  <h1 className="text-[18px] font-[500] mb-1">1.</h1>
+                  <div className="text-[#3751FF] border-[#3751FF] font-bold border-2 border-dashed w-[110px] h-[40px] flex items-center justify-center">
+                    <h1>&#8377; {bid?.influencer_bid_amount}</h1>
+                  </div>
+                  <h1 className="text-[#2BC155] mt-4">
+                    <div className="w-[12px] h-[12px] inline-block rounded-full bg-[#2BC155]"></div>
+                    {bid?.campaign_details?.status_camp}
+                  </h1>
+                  <h1
+                    className="text-[#3751FF] underline mt-4 cursor-pointer"
+                    onClick={() => navigate(`/influencer/campaign/campaign-pool/${bid?.campaign_details?.id}`)}
+                  >
+                    View Details
+                  </h1>
                 </div>
-                <h1 className="text-[#3751FF] underline mt-4">View Details</h1>
               </div>
-              {/* <div className="w-[140px] flex flex-col items-center justify-center border-r-2 pr-4">
-                <h1 className="text-[18px] font-[500]">Bid Number</h1>
-                <h1 className="text-[18px] font-[500] mb-1">2.</h1>
-                <div className="text-[#3751FF] border-[#3751FF] font-bold border-2 border-dashed w-[110px] h-[40px] flex items-center justify-center">
-                  <h1>&#8377; 5553</h1>
-                </div>
-                <h1 className="text-[#3751FF] underline mt-4">View Details</h1>
-              </div> */}
-            </div>
+            )}
           </>
         );
       })}

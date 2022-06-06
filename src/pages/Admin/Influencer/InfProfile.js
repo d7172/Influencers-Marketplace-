@@ -1,14 +1,23 @@
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import Dropdown from "../../../components/Dropdown";
 import { categoryList } from "../../influencer/SignUp/Category";
 import ResonForRejction from "../../../components/ResonForRejction";
 import MyDialog from "../../../components/MyDialog";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getCategoriesData } from "../../../store/Categories/action";
 
 function InfProfile({ route }) {
   const [rejectBid, setRejectBid] = useState(false);
+  let categoryData = [];
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategoriesData());
+  }, []);
+
+  categoryData = useSelector((state) => state?.categories);
   return (
     <>
       <div className=" w-full min-w-infNavbar px-8 items-center justify-between">
@@ -228,13 +237,14 @@ function InfProfile({ route }) {
                             <Dropdown
                               className="w-390"
                               label={"category"}
-                              options={categoryList.map((cat) => cat.title)}
+                              options={categoryData}
                               onChange={(val) => console.log(val)}
+                              optionsLabel={"name"}
                             />
                             <button
                               type="button"
                               className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                              onClick={() => { }}
+                              onClick={() => {}}
                             >
                               Add
                             </button>
@@ -619,13 +629,13 @@ function InfProfile({ route }) {
                             <Dropdown
                               className="w-390"
                               label={"socialDetails"}
-                              options={categoryList.map((cat) => cat.title)}
+                              options={[]}
                               onChange={(val) => console.log(val)}
                             />
                             <button
                               type="button"
                               className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                              onClick={() => { }}
+                              onClick={() => {}}
                             >
                               Add
                             </button>
@@ -641,10 +651,10 @@ function InfProfile({ route }) {
 
           <div className="flex justify-end">
             <div className="mt-14 cursor-pointer">
-              <button type="button" className="w-[150px] rounded-[50px] bg-primary text-white py-2" onClick={() => { }}>
-                {(route === 'new-user') && `Approve`}
-                {(route === 'active-user') && `Save`}
-                {(route === 'rejected-user') && `Re Active`}
+              <button type="button" className="w-[150px] rounded-[50px] bg-primary text-white py-2" onClick={() => {}}>
+                {route === "new-user" && `Approve`}
+                {route === "active-user" && `Save`}
+                {route === "rejected-user" && `Re Active`}
               </button>
             </div>
             <div className="m-14 cursor-pointer">
@@ -653,7 +663,7 @@ function InfProfile({ route }) {
                 className="w-[150px] rounded-[50px] bg-[#FFFFFF] py-2 box-shadow-button"
                 onClick={() => setRejectBid(true)}
               >
-                {(route === "new-user") ? `Reject` : `Cancle`}
+                {route === "new-user" ? `Reject` : `Cancle`}
               </button>
             </div>
           </div>

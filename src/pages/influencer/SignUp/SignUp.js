@@ -12,13 +12,13 @@ function SignUp() {
 
   const signUpStep = () => {
     switch (signUpstatus) {
-      case 4:
+      case 1:
         return <PersonalDetails setSignUpStatus={(status) => setSignUpStatus(status)} />;
       case 2:
         return <Category setSignUpStatus={(status) => setSignUpStatus(status)} />;
       case 3:
         return <SignUpContactInfo setSignUpStatus={(status) => setSignUpStatus(status)} />;
-      case 1:
+      case 4:
         return <SignUpSocialFeed setSignUpStatus={(status) => setSignUpStatus(status)} />;
     }
   };

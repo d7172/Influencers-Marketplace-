@@ -24,7 +24,7 @@ const AdmActiveCampaign = ({ route }) => {
         <CampaignSearchBar placeHolder={"Search here"} />
       </div>
       <div className="flex items-center py-4 px-8">
-        <AdminCampaignTable tableData={tableData} route={route} />
+        <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} />
       </div>
       <div className="absolute bottom-[-100px] right-0">
         <Pagination />
