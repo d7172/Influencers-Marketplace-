@@ -17,8 +17,12 @@ function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [credentials, setCredentials] = useState(initForm);
   const signUpState = useSelector((state) => state.signUpState);
-
+  const loginState = useSelector((state) => state.login);
   useEffect(() => {
+    if (loginState?.status_code === 200) {
+      navigate("/influencer/dashboard");
+    }
+
     if (signUpState.otp.length) {
       setCredentials({
         phone: signUpState.phone.contact_number,
@@ -59,25 +63,38 @@ function Login() {
           initialValues={credentials}
           validationSchema={loginSchema}
           onSubmit={(values) => {
-            dispatch({
-              type: "UPDATE_SIGNUP_STATE",
-              data: {
+            if (!isLogin) {
+              dispatch({
+                type: "UPDATE_SIGNUP_STATE",
+                data: {
+                  phone: {
+                    dail_code: "+91",
+                    contact_number: values.phone.toString(),
+                  },
+                  otp: values.otp,
+                },
+              });
+              navigate("/signup-type");
+            } else {
+              dispatch({
+                type: "LOGIN_SUCCESS",
+                data: {
+                  phone: {
+                    dail_code: "+91",
+                    contact_number: values.phone.toString(),
+                  },
+                  otp: values.otp,
+                },
+              });
+              const data = {
                 phone: {
                   dail_code: "+91",
                   contact_number: values.phone.toString(),
                 },
                 otp: values.otp,
-              },
-            });
-            const data = {
-              phone: {
-                dail_code: "+91",
-                contact_number: values.phone.toString(),
-              },
-              otp: values.otp,
-            };
-            dispatch(postLogin(data));
-            navigate("/influencer/dashboard");
+              };
+              dispatch(postLogin(data, navigate));
+            }
           }}
         >
           {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {

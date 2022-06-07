@@ -1,6 +1,6 @@
 import { networkRequest } from "../_shared/api";
 
-export const postLogin = (payload) => {
+export const postLogin = (payload, navigate) => {
   const url = "influencer-login/";
   return (dispatch) => {
     networkRequest(
@@ -9,6 +9,12 @@ export const postLogin = (payload) => {
       false,
       payload,
       (res) => {
+        if (res?.status_code === 200 && res?.status === "success") {
+          localStorage.setItem("userInfo", JSON.stringify(res));
+          navigate("/influencer/dashboard");
+        } else {
+          alert("wrong credentials");
+        }
         dispatch({
           type: "LOGIN_SUCCESS",
           data: res,
