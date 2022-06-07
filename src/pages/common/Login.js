@@ -2,6 +2,7 @@ import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { postLogin } from "../../store/Login/action";
 import { loginSchema } from "../../utils/formsSchema";
 import { FormError } from "../influencer/SignUp/PersonalDetails";
 
@@ -21,7 +22,7 @@ function Login() {
     if (signUpState.otp.length) {
       setCredentials({
         phone: signUpState.phone.contact_number,
-        otp: signUpState.otp,
+        otp: signUpState.phone.otp,
       });
       setIsLogin(false);
     }
@@ -58,19 +59,25 @@ function Login() {
           initialValues={credentials}
           validationSchema={loginSchema}
           onSubmit={(values) => {
-            if (!isLogin) {
-              dispatch({
-                type: "UPDATE_SIGNUP_STATE",
-                data: {
-                  phone: {
-                    dail_code: "+91",
-                    contact_number: values.phone.toString(),
-                  },
-                  otp: values.otp,
+            dispatch({
+              type: "UPDATE_SIGNUP_STATE",
+              data: {
+                phone: {
+                  dail_code: "+91",
+                  contact_number: values.phone.toString(),
                 },
-              });
-              navigate("/signup-type");
-            }
+                otp: values.otp,
+              },
+            });
+            const data = {
+              phone: {
+                dail_code: "+91",
+                contact_number: values.phone.toString(),
+              },
+              otp: values.otp,
+            };
+            dispatch(postLogin(data));
+            navigate("/influencer/dashboard");
           }}
         >
           {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {

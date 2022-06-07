@@ -23,6 +23,7 @@ function Category({ setSignUpStatus }) {
       const temp = selectedCategory;
       const index = temp.indexOf(title);
       temp.splice(index, 1);
+      console.log("temp", temp);
       setSelectedCategory([...temp]);
     } else if (selectedCategory.length < 5) {
       setSelectedCategory([...selectedCategory, title]);
@@ -41,7 +42,7 @@ function Category({ setSignUpStatus }) {
               className={`flex items-center justify-center gap-3 w-fit px-7 py-2 border-2 rounded-[4px] cursor-pointer ${
                 isSelected && "border-b-active"
               }`}
-              onClick={() => handleSelectCategory(title)}
+              onClick={() => handleSelectCategory(title, console.log("click", title))}
             >
               <img className="w-[30px] h-[30px]" src={`/svgs/${svg}.svg`} alt={title} />
               <h3>{title}</h3>

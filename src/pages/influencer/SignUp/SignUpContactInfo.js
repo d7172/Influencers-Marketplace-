@@ -33,18 +33,21 @@ function SignUpContactInfo({ setSignUpStatus }) {
   const signUpState = useSelector((state) => state.signUpState);
   console.log(signUpState);
 
+  const { first_name, last_name, user_name, email, phone, gender, whats_app, dob, about_yourself, category } =
+    signUpState.personal_details;
+
   useEffect(() => {
-    const { address_details, profession_details, bank_detials, kyc_details } = signUpState;
+    const { address_details, personal_details, bank_detials, kyc_details } = signUpState;
     if (address_details.line1.length) {
       setContactInfo({
         address: address_details.line1,
         city: address_details.city,
         state: address_details.state,
         pinCode: address_details.pincode,
-        avgUserEngagement: profession_details.avg_user_engagement,
-        basicChargesPerPost: profession_details.basic_charges_per_post,
-        influencerExperience: profession_details.influencer_experience,
-        profileTitle: profession_details.profile_title,
+        avgUserEngagement: personal_details.avg_user_engagement,
+        basicChargesPerPost: personal_details.basic_charges_per_post,
+        influencerExperience: personal_details.influencer_experience,
+        profileTitle: personal_details.profile_title,
         bankName: bank_detials.bank_name,
         accountNumber: bank_detials.account_number,
         confirmAccountNumber: bank_detials.account_number,
@@ -64,9 +67,8 @@ function SignUpContactInfo({ setSignUpStatus }) {
     <Formik
       enableReinitialize={true}
       initialValues={contactInfo}
-      validationSchema={contactInfoSchema}
+      // validationSchema={contactInfoSchema}
       onSubmit={(values, { resetForm }) => {
-        console.log("adfadff");
         const data = {
           address_details: {
             line1: values.address,
@@ -76,7 +78,17 @@ function SignUpContactInfo({ setSignUpStatus }) {
             state: values.state,
             city: values.city,
           },
-          profession_details: {
+          personal_details: {
+            first_name: first_name,
+            last_name: last_name,
+            user_name: user_name,
+            email,
+            phone: phone,
+            gender,
+            whats_app: { contact_number: whats_app.contact_number },
+            dob: dob,
+            category: category,
+            about_yourself: about_yourself,
             avg_user_engagement: values.avgUserEngagement,
             basic_charges_per_post: values.basicChargesPerPost,
             influencer_experience: values.influencerExperience,
