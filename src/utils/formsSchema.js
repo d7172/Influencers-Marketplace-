@@ -1,11 +1,11 @@
 import * as yup from "yup";
 
 export const loginSchema = yup.object().shape({
-  phone: yup
-    .number()
-    .min(999999999, "Minimum 10 characters")
-    .max(9999999999, "Max 10 characters")
-    .required("Mobile number is required"),
+  // phone: yup
+  //   .number()
+  //   .min(999999999, "Minimum 10 characters")
+  //   .max(9999999999, "Max 10 characters")
+  //   .required("Mobile number is required"),
   otp: yup
     .string()
     .min(6, "Must be exactly 6 characters")
@@ -14,23 +14,23 @@ export const loginSchema = yup.object().shape({
 });
 
 export const personalDetailsSchema = yup.object().shape({
-  firstName: yup.string().min(3, "Minimum 3 characters").required("First name is required."),
-  lastName: yup.string().min(3, "Minimum 3 characters").required("Last name is required."),
-  userName: yup.string().min(3, "Minimum 3 characters").required("User name is required."),
+  first_name: yup.string().min(3, "Minimum 3 characters").required("First name is required."),
+  last_name: yup.string().min(3, "Minimum 3 characters").required("Last name is required."),
+  user_name: yup.string().min(3, "Minimum 3 characters").required("User name is required."),
   email: yup.string().email("Must be a valid email").max(255).required("Email is required"),
-  phone: yup
-    .number()
-    .min(999999999, "Minimum 10 characters")
-    .max(9999999999, "Max 10 characters")
-    .required("Mobile number is required"),
+  // phone: yup
+  //   .number()
+  //   .min(999999999, "Minimum 10 characters")
+  //   .max(9999999999, "Max 10 characters")
+  //   .required("Mobile number is required"),
   gender: yup.string().required("Gender is required."),
-  whatsapp: yup
-    .number()
-    .min(999999999, "Minimum 10 characters")
-    .max(9999999999, "Max 10 characters")
-    .required("WhastsApp number is required"),
-  DOB: yup.string().required("DOB is required."),
-  aboutYourself: yup.string().required("About Yourself is required."),
+  // whatsapp: yup
+  //   .number()
+  //   .min(999999999, "Minimum 10 characters")
+  //   .max(9999999999, "Max 10 characters")
+  //   .required("WhastsApp number is required"),
+  dob: yup.string().required("DOB is required."),
+  about_yourself: yup.string().required("About Yourself is required."),
   profile: yup.mixed().test("fileSize", "The file is too large", (value) => {
     if (!value.name) return false;
     return value.size <= 2000000;
@@ -43,11 +43,11 @@ export const personalDetailsSchema = yup.object().shape({
 
 export const signupSchema = yup.object().shape({
   email: yup.string().email("Must be a valid email").max(255).required("Email is required"),
-  phone: yup
-    .number()
-    .min(999999999, "Minimum 10 characters")
-    .max(9999999999, "Max 10 characters")
-    .required("Mobile number is required"),
+  // phone: yup
+  //   .number()
+  //   .min(999999999, "Minimum 10 characters")
+  //   .max(9999999999, "Max 10 characters")
+  //   .required("Mobile number is required"),
   otp: yup
     .string()
     .min(6, "Must be exactly 6 characters")

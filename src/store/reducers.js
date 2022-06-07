@@ -19,10 +19,12 @@ import { AdminRejectedCampaign } from "./Admin/Campaign/RejectedUser/reducer";
 import { AdminEarning } from "./Admin/Transactions/Earnings/reducer";
 import { categories } from "./Categories/reducer";
 import { placeBid } from "./infPlaceBid/reducer";
+import { login } from "./Login/reducer";
 
 const reducers = combineReducers({
   signUpState,
   signUp,
+  login,
   userLogin: signIn,
   infCampaignPool,
   infCampaignActive,

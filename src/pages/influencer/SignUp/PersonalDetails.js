@@ -6,15 +6,15 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 const initForm = {
-  firstName: "",
-  lastName: "",
-  userName: "",
+  first_name: "",
+  last_name: "",
+  user_name: "",
   email: "",
   phone: "",
   gender: "",
-  whatsapp: "",
-  DOB: "",
-  aboutYourself: "",
+  whats_app: "",
+  dob: "",
+  about_yourself: "",
   profile: {},
   cover: {},
 };
@@ -36,15 +36,15 @@ function PersonalDetails({ setSignUpStatus }) {
       signUpState.personal_details;
     if (first_name.length) {
       setPersonalDetails({
-        firstName: first_name,
-        lastName: last_name,
-        userName: user_name,
+        first_name: first_name,
+        last_name: last_name,
+        user_name: user_name,
         email,
         phone: phone.contact_number,
         gender,
-        whatsapp: whats_app.contact_number,
-        DOB: dob,
-        aboutYourself: about_yourself,
+        whats_app: { contact_number: whats_app.contact_number },
+        dob: dob,
+        about_yourself: about_yourself,
         profile: signUpState.profile_pic,
         cover: signUpState.cover_pic,
       });
@@ -59,13 +59,13 @@ function PersonalDetails({ setSignUpStatus }) {
       <Formik
         enableReinitialize={true}
         initialValues={personalDetails}
-        validationSchema={personalDetailsSchema}
+        // validationSchema={personalDetailsSchema}
         onSubmit={(values) => {
           const data = {
             personal_details: {
-              first_name: values.firstName,
-              last_name: values.lastName,
-              user_name: values.userName,
+              first_name: values.first_name,
+              last_name: values.last_name,
+              user_name: values.user_name,
               email: values.email,
               phone: {
                 dail_code: "+91",
@@ -74,10 +74,10 @@ function PersonalDetails({ setSignUpStatus }) {
               gender: values.gender,
               whats_app: {
                 dail_code: "+91",
-                contact_number: values.whatsapp,
+                contact_number: values.whats_app,
               },
-              dob: values.DOB,
-              about_yourself: values.aboutYourself,
+              dob: values.dob,
+              about_yourself: values.about_yourself,
               category: [...signUpState.personal_details.category],
             },
             profile_pic: values.profile,
@@ -100,10 +100,10 @@ function PersonalDetails({ setSignUpStatus }) {
                     id="firstName"
                     type="text"
                     placeholder="First Name"
-                    value={values.firstName}
-                    onChange={handleChange("firstName")}
+                    value={values.first_name}
+                    onChange={handleChange("first_name")}
                   />
-                  {errors.firstName && touched.firstName && <FormError>{errors.firstName}</FormError>}
+                  {errors.first_name && touched.first_name && <FormError>{errors.first_name}</FormError>}
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
@@ -114,10 +114,10 @@ function PersonalDetails({ setSignUpStatus }) {
                     id="lastName"
                     type="text"
                     placeholder="Last Name"
-                    value={values.lastName}
-                    onChange={handleChange("lastName")}
+                    value={values.last_name}
+                    onChange={handleChange("last_name")}
                   />
-                  {errors.lastName && touched.lastName && <FormError>{errors.lastName}</FormError>}
+                  {errors.last_name && touched.last_name && <FormError>{errors.last_name}</FormError>}
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
@@ -128,10 +128,10 @@ function PersonalDetails({ setSignUpStatus }) {
                     id="userName"
                     type="text"
                     placeholder="User Name"
-                    value={values.userName}
-                    onChange={handleChange("userName")}
+                    value={values.user_name}
+                    onChange={handleChange("user_name")}
                   />
-                  {errors.userName && touched.userName && <FormError>{errors.userName}</FormError>}
+                  {errors.user_name && touched.user_name && <FormError>{errors.user_name}</FormError>}
                 </div>
                 <div>
                   <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
@@ -178,12 +178,15 @@ function PersonalDetails({ setSignUpStatus }) {
                       options={[
                         {
                           label: "Male",
+                          value: "M",
                         },
                         {
                           label: "Female",
+                          value: "F",
                         },
                       ]}
-                      onChange={(val) => setFieldValue("gender", val.label)}
+                      optionsLabel={"label"}
+                      onChange={(val) => setFieldValue("gender", val.value)}
                     />
                     {errors.gender && touched.gender && <FormError>{errors.gender}</FormError>}
                   </div>
@@ -198,15 +201,15 @@ function PersonalDetails({ setSignUpStatus }) {
                       id="phone"
                       type="text"
                       placeholder="Phone Number"
-                      value={values.whatsapp}
+                      value={values.whats_app}
                       onChange={(e) => {
                         const numberReg = /^[0-9]*$/;
                         if (numberReg.test(e.target.value)) {
-                          setFieldValue("whatsapp", e.target.value);
+                          setFieldValue("whats_app", e.target.value);
                         }
                       }}
                     />
-                    {errors.whatsapp && touched.whatsapp && <FormError>{errors.whatsapp}</FormError>}
+                    {errors.whats_app && touched.whats_app && <FormError>{errors.whats_app}</FormError>}
                   </div>
                   <div className="datepicker">
                     <label className="block text-gray-700 text-sm mb-2">
@@ -215,10 +218,10 @@ function PersonalDetails({ setSignUpStatus }) {
                     <input
                       type="date"
                       className="input-field text-gray-500"
-                      value={values.DOB}
-                      onChange={(e) => setFieldValue("DOB", e.target.value)}
+                      value={values.dob}
+                      onChange={(e) => setFieldValue("dob", e.target.value)}
                     />
-                    {errors.DOB && touched.DOB && <FormError>{errors.DOB}</FormError>}
+                    {errors.dob && touched.dob && <FormError>{errors.dob}</FormError>}
                   </div>
                 </div>
               </div>
@@ -284,10 +287,10 @@ function PersonalDetails({ setSignUpStatus }) {
                   id="exampleFormControlTextarea1"
                   rows="3"
                   placeholder="Your message"
-                  value={values.aboutYourself}
-                  onChange={(e) => setFieldValue("aboutYourself", e.target.value)}
+                  value={values.about_yourself}
+                  onChange={(e) => setFieldValue("about_yourself", e.target.value)}
                 />
-                {errors.aboutYourself && touched.aboutYourself && <FormError>{errors.aboutYourself}</FormError>}
+                {errors.about_yourself && touched.about_yourself && <FormError>{errors.about_yourself}</FormError>}
               </div>
               <div className="mt-14 flex justify-center cursor-pointer">
                 <button

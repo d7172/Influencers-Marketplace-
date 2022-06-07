@@ -2,9 +2,10 @@ const initialState = {
   phone: {
     dail_code: "+91",
     contact_number: "",
+    otp: "",
   },
   otp: "",
-  type: "",
+  // type: "",
   personal_details: {
     first_name: "",
     last_name: "",
@@ -22,6 +23,10 @@ const initialState = {
     dob: "",
     about_yourself: "",
     category: [],
+    avg_user_engagement: "",
+    basic_charges_per_post: 0,
+    influencer_experience: "",
+    profile_title: "",
   },
   address_details: {
     line1: "",
@@ -31,12 +36,7 @@ const initialState = {
     state: "",
     city: "",
   },
-  profession_details: {
-    avg_user_engagement: "",
-    basic_charges_per_post: 0,
-    influencer_experience: "",
-    profile_title: "",
-  },
+
   bank_detials: {
     bank_name: "",
     account_number: "",

@@ -95,7 +95,7 @@ function SignUpSocialFeed({ setSignUpStatus }) {
             delete temp.category;
 
             const data = new FormData();
-            data.append("req_params", JSON.stringify(temp));
+            data.append("data", JSON.stringify(temp));
             data.append("profile_pic", signUpState.profile_pic);
             data.append("cover_pic", signUpState.cover_pic);
             data.append("pan_card", signUpState.pan_card);
