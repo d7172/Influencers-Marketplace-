@@ -1,6 +1,6 @@
 import React from 'react'
 
-function BrandCampaignDeliverables({ mainRoute, route, setPaymentDialog, setDocumentPhaseDialog, deliverableDetails }) {
+function BrandCampaignDeliverables({ mainRoute, setDocReqDialog, route, setPaymentDialog, setDocumentPhaseDialog, deliverableDetails }) {
     let bidTotal = 0;
     return (
         <div>
@@ -38,7 +38,7 @@ function BrandCampaignDeliverables({ mainRoute, route, setPaymentDialog, setDocu
                                                 <td className='flex flex-col gap-4 w-[75px] mr-8'>
                                                     {data.documentsLinks.map((data) => {
                                                         return (
-                                                            ((data === "link") ? (<a className='underline text-[#3751FF] cursor-pointer'>Click here</a>) : (<a className='underline text-[#3751FF] cursor-pointer'>Request to upload Document</a>))
+                                                            ((data === "link") ? (<a className='underline text-[#3751FF] cursor-pointer'>Click here</a>) : (<a className='underline text-[#3751FF] cursor-pointer' onClick={()=>setDocReqDialog(true)} >Request to upload Document</a>))
                                                         )
                                                     })
                                                     }
