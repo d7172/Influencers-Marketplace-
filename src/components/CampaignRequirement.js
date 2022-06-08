@@ -11,20 +11,20 @@ function CampaignRequirement({ campaignDetails }) {
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">From</h1>
           <p className="text-[18px] font-[600] tracking-[3px]">
-            {campaignDetails.from_date} - {campaignDetails.to_date}
+            {campaignDetails?.from_date} - {campaignDetails?.to_date}
           </p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Duration</h1>
-          <p className="text-[18px] font-[600]">{campaignDetails.project_duration_in_days} Days</p>
+          <p className="text-[18px] font-[600]">{campaignDetails?.project_duration_in_days} Days</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Category</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails.category}</p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.category}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Age Group</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails.age_group[0]} Years</p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.age_group[0]} Years</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Gender</h1>
@@ -44,11 +44,11 @@ function CampaignRequirement({ campaignDetails }) {
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Number of Followers</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails.number_of_followers}</p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.number_of_followers}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Number of Influencer</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails.number_of_influencer} </p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.number_of_influencer} </p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Promotion Goal</h1>

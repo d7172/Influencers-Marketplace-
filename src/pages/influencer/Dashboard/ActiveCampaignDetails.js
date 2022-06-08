@@ -85,7 +85,7 @@ function CampaignDetails() {
           <p className="text-[#969BA0] text-[16px]">Note from Brand</p>
           <h1 className="text-[18px] font-[500] mt-1 ">Cardboard paper style</h1>
           <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
-            {campaignDetails.note_from_brand}
+            {campaignDetails?.note_from_brand}
           </p>
         </div>
         <hr className="my-8" />
@@ -101,7 +101,7 @@ function CampaignDetails() {
         <hr className="my-8" />
         <div>
           <h1>Terms & Conditions</h1>
-          <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campaignDetails.terms_and_condition} </p>
+          <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campaignDetails?.terms_and_condition} </p>
         </div>
         <hr className="my-8" />
         <div className="flex justify-between items-start">
