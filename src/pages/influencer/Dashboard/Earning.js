@@ -8,13 +8,16 @@ let transitionEarningState = [];
 let latestTransactionState = [];
 
 function Earning() {
+  const loggedInUserData = useSelector((state) => state?.login?.data[0]);
   const dispatch = useDispatch();
   useEffect(() => {
-    const payload = {};
+    const payload = {
+      influencer_id: loggedInUserData?.id,
+    };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getTransitionEarningData(data));
-    dispatch(getLatestTransitionData(data));
+    dispatch(getTransitionEarningData(payload));
+    dispatch(getLatestTransitionData(payload));
   }, []);
   transitionEarningState = useSelector((state) => state?.infTransitionEarning?.results);
   latestTransactionState = useSelector((state) =>

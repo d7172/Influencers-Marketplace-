@@ -10,12 +10,15 @@ import moment from "moment";
 let transitionStatementState = [];
 
 function Statement() {
+  const loggedInUserData = useSelector((state) => state?.login?.data[0]);
   const dispatch = useDispatch();
   useEffect(() => {
-    const payload = {};
+    const payload = {
+      influencer_id: loggedInUserData?.id,
+    };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getTransitionStatementData(data));
+    dispatch(getTransitionStatementData(payload));
   }, []);
 
   const downloadStatement = () => {

@@ -8,11 +8,12 @@ import { getCampaignPoolData } from "../../../store/InfCampaignPool/action";
 // import { getCampaignPoolData } from "../../../store/InfCampaignPool/action";
 
 function CampaignPool() {
+  const loggedInUserData = useSelector((state) => state?.login?.data[0]);
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = {
-      category: "fashion",
-      influencer_id: 1,
+      category: loggedInUserData?.category,
+      influencer_id: loggedInUserData?.id,
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));

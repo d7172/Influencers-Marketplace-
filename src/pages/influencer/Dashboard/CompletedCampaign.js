@@ -12,14 +12,16 @@ import { getCampaignCompletedData } from "../../../store/infCampaignCompleted/ac
 
 let tableData = [];
 function CompletedCampaign() {
+  const loggedInUserData = useSelector((state) => state?.login?.data[0]);
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = {
-      category: "beauty",
+      category: loggedInUserData?.category,
+      influencer_id: loggedInUserData.id,
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getCampaignCompletedData());
+    dispatch(getCampaignCompletedData(payload));
   }, []);
 
   tableData = useSelector((state) => state?.infCampaignCompleted?.results);

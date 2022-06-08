@@ -1,7 +1,7 @@
 import { networkRequest } from "../_shared/api";
 
 export const getTransitionEarningData = (payload) => {
-  const url = "influencer-earning/?influencer_id=2";
+  const url = `influencer-earning/?influencer_id=${payload.influencer_id}`;
   return (dispatch) => {
     networkRequest(
       url,
@@ -18,7 +18,7 @@ export const getTransitionEarningData = (payload) => {
   };
 };
 export const getLatestTransitionData = (payload) => {
-  const url = "influencer-latest-transaction-list/?influencer_id=2";
+  const url = `influencer-latest-transaction-list/?influencer_id=${payload.influencer_id}`;
   return (dispatch) => {
     networkRequest(
       url,

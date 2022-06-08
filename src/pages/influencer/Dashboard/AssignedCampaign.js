@@ -10,10 +10,11 @@ import { getCampaignAssignedData } from "../../../store/infCampaignAssigned/acti
 let tableData = [];
 
 function AssignedCampaign() {
+  const loggedInUserData = useSelector((state) => state?.login?.data[0]);
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = {
-      influencer_id: 1,
+      influencer_id: loggedInUserData?.id,
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));

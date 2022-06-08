@@ -9,12 +9,14 @@ import { getCampaignActiveData } from "../../../store/infCampaignActive/action";
 let tableData = [];
 
 function ActiveCampaign() {
+  const loggedInUserData = useSelector((state) => state?.login?.data[0]);
+  console.log(loggedInUserData, "logged in user");
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = {
-      category: "fashion",
+      category: loggedInUserData.category || "beauty",
       status: "active",
-      influencer_id: 2,
+      influencer_id: loggedInUserData.id,
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
@@ -80,6 +82,7 @@ function ActiveCampaignTable() {
                 </tr>
               </thead>
               <tbody>
+                {console.log(tableData, "data")}
                 {tableData?.map((data, i) => {
                   return (
                     <tr className="">
@@ -106,7 +109,7 @@ function ActiveCampaignTable() {
                       <td className="text-[16px] max-w-[150px] min-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
                         <img
                           className="absolute z-40 w-[20px] "
-                          src={`/svgs/${data?.social_platform[0]}.svg`}
+                          // src={`/svgs/${data?.social_platform[0]}.svg`}
                           alt="face"
                         />
 
