@@ -62,7 +62,7 @@ function CampaignDetails({ route }) {
         <hr className="my-8" />
         <div>
           <h1>Terms & Conditions</h1>
-          <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campDetails.terms_and_condition} </p>
+          <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campDetails?.terms_and_condition} </p>
         </div>
         <hr className="my-8" />
         <div>
