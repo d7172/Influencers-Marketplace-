@@ -8,8 +8,9 @@ import { getCampaignPoolData } from "../../../store/InfCampaignPool/action";
 // import { getCampaignPoolData } from "../../../store/InfCampaignPool/action";
 
 function CampaignPool() {
-  const loggedInUserData = useSelector((state) => state?.login?.data[0]);
+  const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   const dispatch = useDispatch();
+  console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   useEffect(() => {
     const payload = {
       category: loggedInUserData?.category,

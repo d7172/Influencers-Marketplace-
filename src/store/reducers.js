@@ -13,10 +13,10 @@ import { infNewUser } from "./Admin/Influencer/NewUser/reducer";
 import { infActiveUser } from "./Admin/Influencer/ActiveUser/reducer";
 import { infRejectedUser } from "./Admin/Influencer/RejectedUser/reducer";
 import { AdminActiveBids } from "./Admin/ActiveBids/reducer";
-import { AdminNewCampaign } from "./Admin/Campaign/NewUser/reducer";
+import { AdminNewCampaign, AdminAddNewCampaign } from "./Admin/Campaign/NewCampaign/reducer";
 import { AdminActiveCampaign } from "./Admin/Campaign/ActiveCampaign/reducer";
 import { AdminAssignCampaign } from "./Admin/Campaign/AssignCampaign/reducer";
-import { AdminRejectedCampaign } from "./Admin/Campaign/RejectedUser/reducer";
+import { AdminRejectedCampaign } from "./Admin/Campaign/RejectedCampaign/reducer";
 import { AdminEarning } from "./Admin/Transactions/Earnings/reducer";
 import { categories } from "./Categories/reducer";
 import { placeBid } from "./infPlaceBid/reducer";
@@ -47,6 +47,7 @@ const reducers = combineReducers({
   AdminEarning,
   categories,
   placeBid,
+  AdminAddNewCampaign,
 });
 
 export default reducers;

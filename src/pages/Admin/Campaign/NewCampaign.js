@@ -4,7 +4,7 @@ import AdminCampaignTable from "../../../components/AdminCampaignTable";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Pagination from "../../../components/Pagination";
-import { getNewCampaignData } from "../../../store/Admin/Campaign/NewUser/action";
+import { getNewCampaignData } from "../../../store/Admin/Campaign/NewCampaign/action";
 import { useNavigate } from "react-router-dom";
 
 const AdmNewCampaign = ({ route }) => {
@@ -22,9 +22,12 @@ const AdmNewCampaign = ({ route }) => {
       </div>
       <div className="flex items-center p-4 justify-between w-full mb-5">
         <CampaignSearchBar placeHolder={"Search here"} />
-          <div className='border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white' onClick={()=>navigate("/admin/campaign/new-campaign/add")}>
-                        <button> + Add New Campaign </button>
-          </div>
+        <div
+          className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
+          onClick={() => navigate("/admin/campaign/new-campaign/add")}
+        >
+          <button> + Add New Campaign </button>
+        </div>
       </div>
       <div className="flex items-center py-4 px-8">
         <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} />

@@ -17,3 +17,21 @@ export const getNewCampaignData = (payload) => {
     );
   };
 };
+
+export const addNewCampaignData = (payload) => {
+  const url = "campaign/";
+  return (dispatch) => {
+    networkRequest(
+      url,
+      "GET",
+      "JSON",
+      payload,
+      (res) => {
+        dispatch({ type: "NEW_CAMPAIGN_ADDED_SUCCESS", data: res });
+      },
+      () => {
+        dispatch({ type: "NEW_CAMPAIGN_ADDED_FAIL" });
+      }
+    );
+  };
+};
