@@ -12,8 +12,10 @@ import { getCampaignActiveData } from "../../../store/infCampaignActive/action";
 let tableData = [];
 
 function ActiveCampaign() {
-  const loggedInUserData = useSelector((state) => state?.login?.data[0]);
-  console.log(loggedInUserData, "logged in user");
+  // const loggedInUserData = useSelector((state) => state?.login?.data[0]);
+  const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
+  console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
+  // console.log(loggedInUserData, "logged in user");
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = {
