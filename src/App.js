@@ -149,7 +149,7 @@ function App() {
 
           {/* influencer  routes */}
           <Route path="/influencer" element={<InfDashboardCompositeComponent />}>
-            <Route path="/influencer" element={<Navigate replace to="/influencer/dashboard" />} />
+            <Route path="/influencer" element={<Navigate replace to="/login" />} />
             <Route path="/influencer/dashboard" element={<InfluencerDashboard />} />
             <Route path="/influencer/campaign" element={<Navigate replace to="/influencer/campaign/campaign-pool" />} />
             <Route path="/influencer/campaign/campaign-pool" element={<CampaignPool />} />
