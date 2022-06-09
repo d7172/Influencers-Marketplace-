@@ -71,6 +71,7 @@ function BidDetails() {
   ];
   let bidTotal = 0;
   const [dialog, setDialog] = useState(false);
+  const [bidTab, setBidTab] = useState(1);
   // const [reason, setReason] = useState("");
   return (
     <div className="ml-10">
@@ -85,40 +86,40 @@ function BidDetails() {
         <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">#000001</p>
         <div className="flex mt-8 gap-20">
           <div
-            className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${active}]`}
+            className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${bidTab===1?active:inactive}]`} onClick={()=>setBidTab(1)}
           >
             <h1 className="text-[18px] font-[500] text-[#000000] my-2">Bid Number :1</h1>
             <div
-              className={`text-[${active}] border-[${active}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
+              className={`text-[${bidTab===1?active:inactive}] border-[${bidTab===1?active:inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
             >
               <h1>&#8377;5553</h1>
             </div>
-            <h1 className={`text-[${active}] underline mt-4 cursor-pointer`}>Click here</h1>
+            <h1 className={`text-[${bidTab===1?active:inactive}] underline mt-4 cursor-pointer`}>Click here</h1>
           </div>
           <div className="flex gap-20">
             <div
-              className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${inactive}] `}
+              className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${bidTab===2?active:inactive}] `} onClick={()=>setBidTab(2)}
             >
               <h1 className="text-[18px] font-[500] text-[#000000] my-2 ">Bid Number :2</h1>
               <div
-                className={`text-[${inactive}] border-[${inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
+                className={`text-[${bidTab===2?active:inactive}] border-[${bidTab===2?active:inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
               >
                 <h1>&#8377;5553</h1>
               </div>
-              <h1 className={`text-[${inactive}] underline mt-4 cursor-pointer`}>Click here</h1>
+              <h1 className={`text-[${bidTab===2?active:inactive}] underline mt-4 cursor-pointer`}>Click here</h1>
             </div>
           </div>
           <div className="flex gap-20">
             <div
-              className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${inactive}] `}
+              className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${bidTab===3?active:inactive}] `} onClick={()=>setBidTab(3)}
             >
               <h1 className="text-[18px] font-[500] text-[#000000] my-2 ">Bid Number :3</h1>
               <div
-                className={`text-[${inactive}] border-[${inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
+                className={`text-[${bidTab===3?active:inactive}] border-[${bidTab===3?active:inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
               >
                 <h1>&#8377;5553</h1>
               </div>
-              <h1 className={`text-[${inactive}] underline mt-4 cursor-pointer`}>Click here</h1>
+              <h1 className={`text-[${bidTab===3?active:inactive}] underline mt-4 cursor-pointer`}>Click here</h1>
             </div>
           </div>
         </div>

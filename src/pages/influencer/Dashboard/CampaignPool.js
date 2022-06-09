@@ -13,7 +13,7 @@ function CampaignPool() {
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   useEffect(() => {
     const payload = {
-      category: loggedInUserData?.category,
+      category: loggedInUserData?.category.toLowerCase(),
       influencer_id: loggedInUserData?.id,
     };
     const data = new FormData();

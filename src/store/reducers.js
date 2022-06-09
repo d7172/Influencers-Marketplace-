@@ -12,6 +12,7 @@ import { infTransitionEarning, infLatestTransition } from "./infTransitionEarnin
 import { infNewUser } from "./Admin/Influencer/NewUser/reducer";
 import { infActiveUser } from "./Admin/Influencer/ActiveUser/reducer";
 import { infRejectedUser } from "./Admin/Influencer/RejectedUser/reducer";
+import { BrandActiveUser } from "./Admin/Brand/ActiveUser/reducer";
 import { AdminActiveBids } from "./Admin/ActiveBids/reducer";
 import { AdminNewCampaign, AdminAddNewCampaign } from "./Admin/Campaign/NewCampaign/reducer";
 import { AdminActiveCampaign } from "./Admin/Campaign/ActiveCampaign/reducer";
@@ -39,6 +40,7 @@ const reducers = combineReducers({
   infActiveUser,
   infRejectedUser,
   infLatestTransition,
+  BrandActiveUser,
   AdminActiveBids,
   AdminNewCampaign,
   AdminRejectedCampaign,

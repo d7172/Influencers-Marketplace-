@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { useNavigate } from "react-router-dom";
+import { getBrandActiveUserData } from "../../store/Admin/Brand/ActiveUser/action";
 
 const initForm = {
   title: "",
@@ -23,12 +24,12 @@ const initForm = {
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
-  social_platform: "",
+  social_platform: [],
   minimum_facebook_reach: "",
   minimum_facebook_engagement: "",
   number_of_days: "",
   facebook_deliverables: "",
-  industry: "",
+  industry: [],
   payout_type: "",
   budget_type: "",
   budget_per_influencer: "",
@@ -36,7 +37,7 @@ const initForm = {
   note_from_brand: "",
   note_from_admin: "",
   terms_and_condition: "",
-  brand: [],
+  brand: { id: null, name: "" },
   country: "",
   state: "",
 };
@@ -85,7 +86,33 @@ function CampaignDetails({ setSignUpStatus, route }) {
   const [personalDetails, setPersonalDetails] = useState(initForm);
   const signUpState = useSelector((state) => state.signUpState);
   const navigate = useNavigate();
-  useEffect(() => {}, []);
+  // let activeBrands = [
+  //   {
+  //     id: 1,
+  //     name: "Mama"
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "BoAt"
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "JBL"
+  //   },
+  // ];
+  let activeBrands = [];
+  useEffect(() => {
+    dispatch(getBrandActiveUserData());
+  }, []);
+
+  activeBrands = useSelector((state) => state?.BrandActiveUser?.results.map((r) => { return { id: r?.id, name: r?.first_name } }));
+  // console.log(activeBrands.map((data) => {
+  //   return (
+  //     {
+  //       label: data
+  //     }
+  //   )
+  // }));
   return (
     <>
       <div className="bg-[#F2F2F2] w-full py-4 px-8 mb-4">
@@ -151,16 +178,18 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-168"
                         className="w-168"
-                        label={values.brand.length ? values.brand : "brand"}
-                        options={[
-                          {
-                            label: "Male",
-                          },
-                          {
-                            label: "Female",
-                          },
-                        ]}
-                        onChange={(val) => setFieldValue("brand", val.label)}
+                        // label={values.brand.name.length ? values.brand.name : "Brand"}
+                        label={values.brand.name.length ? values.brand.name : "Brand"}
+                        options={activeBrands.map((data) => {
+                          return (
+                            {
+                              label: data.name,
+                              id: data.id
+                            }
+                          )
+                        })
+                        }
+                        onChange={(val) => setFieldValue("brand", { id: val.id, name: val.label })}
                       />
                       {errors.brand && touched.brand && <FormError>{errors.brand}</FormError>}
                     </div>
@@ -189,9 +218,6 @@ function CampaignDetails({ setSignUpStatus, route }) {
                         label={values.campain_strategy.length ? values.campain_strategy : "Shout Out Campaing"}
                         options={[
                           {
-                            lable: "Shout Out Campaing",
-                          },
-                          {
                             label: "Giveaway Campaing",
                           },
                           {
@@ -201,7 +227,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                             label: "Video Creation Campaing",
                           },
                           {
-                            lable: "Product Review",
+                            label: "Product Review",
                           },
                         ]}
                         onChange={(val) => setFieldValue("campain_strategy", val.label)}
@@ -259,17 +285,18 @@ function CampaignDetails({ setSignUpStatus, route }) {
                   </div>
                   <div className="w-[30%] mr-16">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                      Age Group<span className="text-red-500">*</span>
+                      Age Group: <p className="text-gray-700 inline-block text-sm mt-4">{values?.age_group}</p>
+                      <span className="text-red-500">*</span>
                     </label>
                     <div className="flex">
                       <input
-                        className="input-field w-390"
+                        className="w-390"
                         id="age_group"
                         type="range"
-                        min="10"
-                        max="50"
+                        min={10}
+                        max={50}
                         value={values.age_group}
-                        onChange={handleChange("age_group")}
+                        onChange={(val) => setFieldValue("age_group", val.target.value)}
                       />
                       {errors.age_group && touched.age_group && <FormError>{errors.age_group}</FormError>}
                     </div>
@@ -434,33 +461,37 @@ function CampaignDetails({ setSignUpStatus, route }) {
                 </div>
                 <div className="grid grid-cols-5 gap-16 ">
                   {platforms.map((platform, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-center items-center relative campaignDetailsSVG-shadow w-fit p-3 h-fit rounded-[4rem] bg-white "
-                    >
-                      {" "}
-                      <input
-                        id={`${platform}SVG`}
-                        name="platFormcheck"
-                        type="checkbox"
-                        className="absolute top-0 right-[10px]"
-                      />{" "}
-                      <label htmlFor={`${platform}SVG`}>
+                    <div className="flex flex-col items-center">
+                      <div
+                        key={index}
+                        className="flex justify-center items-center mb-2 relative campaignDetailsSVG-shadow w-fit p-3 h-fit rounded-[4rem] bg-white "
+                      >
                         {" "}
-                        <img src={`/svgs/${platform}.svg`} className="platformsSVG" alt="platform" />
-                      </label>{" "}
+                        <input
+                          id={`${platform}SVG`}
+                          name="platFormcheck"
+                          type="checkbox"
+                          className="absolute top-0 right-[10px]"
+                          onChange={() => { values.social_platform.includes(platform) ? values.social_platform.splice(values.social_platform.indexOf(platform), 1) : values.social_platform.push(platform) }}
+                        />{" "}
+                        <label htmlFor={`${platform}SVG`}>
+                          {" "}
+                          <img src={`/svgs/${platform}.svg`} className="platformsSVG" alt="platform" />
+                        </label>{" "}
+                      </div>
+                      <p className="text-sm font-[500]">{(platform.charAt(0).toUpperCase()) + (platform.slice(1))}</p>
                     </div>
                   ))}
                 </div>
                 <div className="my-8 flex items-center gap-10">
                   <div className="flex flex-col w-full">
                     <lable className="block text-gray-700 text-sm mb-2">Minimum Facebook Reach</lable>
-                    <input type="range" name="max-FB-reach" />
+                    <input type="range" name="max-FB-reach" min={0} max={10} onChange={(val) => setFieldValue("minimum_facebook_reach", val.target.value)} />
                     <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p>
                   </div>
                   <div className="flex flex-col w-full">
                     <lable className="block text-gray-700 text-sm mb-2">Minimum Facebook Engagement</lable>
-                    <input type="range" name="max-FB-reach" />
+                    <input type="range" name="max-FB-reach" min={0} max={10} onChange={(val) => setFieldValue("minimum_facebook_engagement", val.target.value)} />
                     <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p>
                   </div>
                   <div className="w-full">
@@ -520,21 +551,25 @@ function CampaignDetails({ setSignUpStatus, route }) {
                 </div>
                 <div className="grid grid-cols-5 gap-16 ">
                   {industires.map((industry, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-center items-center relative campaignDetailsSVG-shadow w-fit p-3 h-fit rounded-[4rem] bg-white "
-                    >
-                      {" "}
-                      <input
-                        id={`${industry}SVG`}
-                        name="platFormcheck"
-                        type="checkbox"
-                        className="absolute top-0 right-[10px]"
-                      />{" "}
-                      <label htmlFor={`${industry}SVG`}>
+                    <div className="flex flex-col items-center">
+                      <div
+                        key={index}
+                        className="flex justify-center items-center mb-2 relative campaignDetailsSVG-shadow w-fit p-3 h-fit rounded-[4rem] bg-white "
+                      >
                         {" "}
-                        <img src={`/svgs/${industry}.svg`} className="industrySVG" alt="industry" />
-                      </label>{" "}
+                        <input
+                          id={`${industry}SVG`}
+                          name="platFormcheck"
+                          type="checkbox"
+                          className="absolute top-0 right-[10px]"
+                          onChange={() => { values.industry.includes(industry) ? values.industry.splice(values.industry.indexOf(industry), 1) : values.industry.push(industry) }}
+                        />{" "}
+                        <label htmlFor={`${industry}SVG`}>
+                          {" "}
+                          <img src={`/svgs/${industry}.svg`} className="industrySVG" alt="industry" />
+                        </label>{" "}
+                      </div>
+                      <p className="text-sm font-[500]">{(industry.charAt(0).toUpperCase()) + (industry.slice(1))}</p>
                     </div>
                   ))}
                 </div>
@@ -597,7 +632,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.budget_per_influencer.length ? values.gbudget_per_influencerender : "1 - 10k"}
+                        label={values.budget_per_influencer.length ? values.budget_per_influencer : "1 - 10k"}
                         options={[
                           {
                             label: "10k - 20k",
@@ -680,7 +715,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                     type="button"
                     className="rounded-[50px] bg-[#3751FF] text-white px-8 py-2 "
                     onClick={() => {
-                      console.log(values, "values");
+                      console.log({ ...values, brand: values.brand.id }, "values");
                     }}
                   >
                     Submit Campaing
