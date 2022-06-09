@@ -1,7 +1,7 @@
 import { networkRequest } from "../_shared/api";
 
 export const getTransitionStatementData = (payload) => {
-  const url = "influencer-transition-statement/?influencer_id=3";
+  const url = `influencer-transition-statement/?influencer_id=${payload.influencer_id}`;
   return (dispatch) => {
     networkRequest(
       url,

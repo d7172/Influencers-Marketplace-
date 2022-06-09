@@ -1,32 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import AdminCampaignTable from "../../../components/AdminCampaignTable";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignDeliverables from "../../../components/CampaignDeliverables";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Pagination from "../../../components/Pagination";
+import { getAssignCampaignData } from "../../../store/Admin/Campaign/AssignCampaign/action";
 
 const AdmAssignCampaign = ({ route }) => {
-  const tableData = [
-    {
-      id: "0001",
-      brandName: "Perfect Status",
-      title: "Enjoy the videos and music",
-      days_remaining: "03",
-      campaign_date: "2 / 5 / 2021",
-      category: "Fashion, DIY",
-      amount: "5553"
-    },
-    {
-      id: "0002",
-      brandName: "Perfect Status",
-      title: "Enjoy the videos and music",
-      days_remaining: "03",
-      campaign_date: "2 / 5 / 2021",
-      category: "Fashion, DIY",
-      amount: "5553"
-    }
-  ];
+  let tableData = [];
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAssignCampaignData());
+  }, []);
+  tableData = useSelector((state) => state?.AdminAssignCampaign?.results);
   const subTableData = [
     {
       userId: "000001",
@@ -62,6 +52,8 @@ function CampaignTable({ tableData, subTableData }) {
     activeIndex !== index && setActiveIndex(index)
     setDetailsTable(!detailsTable);
   };
+  // console.log(tableData[0].campaigndetails);
+  // console.log(tableData[0].influencerdetails);
   return (
     <div className="flex flex-col w-full">
       <div className="overflow-x-hidden sm:-mx-6 lg:-mx-8">
@@ -101,26 +93,26 @@ function CampaignTable({ tableData, subTableData }) {
                         <td className="text-sm text-[#3751FF] w-[132px] font-[500] pl-6 py-4 whitespace-nowrap underline  cursor-pointer"
                         // onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
                         >
-                          {data?.id}
+                          {data?.campaigndetails.id}
                         </td>
 
                         <td className="text-sm w-[135px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          {data?.brandName}
+                          Perfect Status
                         </td>
-                        <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          {data?.title}
+                        <td className="text-sm flex text-left gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
+                          {data?.campaigndetails.title}
                         </td>
                         <td className="pl-6 py-4 whitespace-nowrap text-sm w-[170px] font-medium text-gray-900">
-                          {data?.days_remaining}
+                          {data?.campaigndetails.project_duration_in_days}
                         </td>
                         <td className="text-sm w-[170px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          {data?.campaign_date}
+                          {data?.campaigndetails.from_date}
                         </td>
                         <td className="text-sm w-[125px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          {data?.category}
+                          {data?.campaigndetails.category}
                         </td>
                         <td className="text-sm w-[100px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          &#8377;{data?.amount}
+                          &#8377;{data?.campaigndetails.amount}
                         </td>
                         <td
                           onClick={() => handleIndex(id)}
@@ -129,7 +121,7 @@ function CampaignTable({ tableData, subTableData }) {
                         </td>
                       </tr>
                       {((activeIndex === id) && (detailsTable)) && (
-                        <tr>{" "}<Subtable subTableData={subTableData} /></tr>)}
+                        <tr>{" "}<Subtable subTableData={data.influencerdetails} /></tr>)}
                     </>
                   );
                 })}
@@ -161,13 +153,19 @@ function Subtable({ subTableData }) {
       documentsLinks: ["xyz", "xyz"]
     }];
 
-  let bidTotal = 0;
+  const [bidsDetailsTable, setDetailsTable] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  const handleIndex = (index) => {
+    activeIndex !== index && setActiveIndex(index)
+    setDetailsTable(!bidsDetailsTable);
+  };
   return (
     <>
       <div className="">
         <table className="w-full">
           <thead>
-            <tr>
+            <tr className="flex">
               <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                 User Id
               </th>
@@ -185,63 +183,73 @@ function Subtable({ subTableData }) {
           <tbody>
             {subTableData.map((data, i) => {
               return (
-                <tr key={i}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">{data.userId}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">{data.assigned_inf_name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">{data.inf_completed_camp}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">{data.num_of_bids}</td>
-                  <td className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer ">View Bids</td>
-                </tr>
+                <>
+                  <tr className="flex">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm min-w-[106px] font-medium text-gray-900">{data.id}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm min-w-[268px] font-medium text-gray-900">{data.first_name + " " + data.last_name}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm min-w-[315px] font-medium text-gray-900">02</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm min-w-[172px] font-medium text-gray-900">02</td>
+                    <td className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer " onClick={() => handleIndex(i)}>View Bids</td>
+                  </tr>
+                  {((activeIndex === i) && (bidsDetailsTable)) && (<BidsDetails deliverableDetails={deliverableDetails}/>)}
+                </>
               )
             })}
           </tbody>
         </table>
-        <div className="p-4">
-          <div className="border-2 w-[180px] my-4 justify-between flex border-dashed border-[#3751FF] p-2">
-            <p >Bid Number 1:</p>
-            <p className="text-[#3751FF]">&#8377;5553</p>
-          </div>
-          <div>
-            <div className="mt-8">
-              <h1 className="mb-2 text-start text-lg font-bold" >Social media platform & Deliverables </h1>
-              <p className="w-[77%] mb-4 text-sm font-[400] text-[#93939399]">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-            </div>
-            <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 my-4">
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="flex w-auto mb-4">
-                        <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg mr-8"></th>
-                        <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[137px] mr-8">Social Platform</th>
-                        <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[155px] mr-8">Deliverables</th>
-                        <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[80px] mr-8">Duration</th>
-                        <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[75px] mr-8">Amount</th>
+
+      </div>
+    </>
+  )
+}
+function BidsDetails({deliverableDetails}) {
+  let bidTotal = 0;
+
+  return (
+    <div className="p-4">
+      <div className="border-2 w-[180px] my-4 justify-between flex border-dashed border-[#3751FF] p-2">
+        <p >Bid Number 1:</p>
+        <p className="text-[#3751FF]">&#8377;5553</p>
+      </div>
+      <div>
+        <div className="mt-8">
+          <h1 className="mb-2 text-start text-lg font-bold" >Social media platform & Deliverables </h1>
+          <p className="w-[77%] mb-4 text-sm font-[400] text-[#93939399]">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        </div>
+        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 my-4">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="flex w-auto mb-4">
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg mr-8"></th>
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[137px] mr-8">Social Platform</th>
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[155px] mr-8">Deliverables</th>
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[80px] mr-8">Duration</th>
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[75px] mr-8">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {deliverableDetails.map((data, index) => {
+                    return (
+                      <tr key={index} className="flex mb-8">
+                        <td scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg mr-8"><input type="checkbox" name={`${data.socialPlatform}`} /></td>
+                        <td className="flex items-start w-[137px] mr-8 capitalize"><img src={`/svgs/${data.socialPlatform}.svg`} className="w-[20px] h-[20px] mr-2" />{data.socialPlatform}</td>
+                        <td className="flex flex-col gap-4 w-[155px] mr-8">{data.deliverables.map((data) => { return <p>{data}</p> })}</td>
+                        <td className="flex flex-col gap-4 w-[80px] mr-8">{data.duration.map((data) => { return <p>{data}</p> })}</td>
+                        <td className="flex flex-col gap-4 w-[75px] mr-8 text-[#3751FF]">{data.amount.map((data) => {
+                          bidTotal += data;
+                          return <p>&#8377;{data}</p>
+                        })}</td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {deliverableDetails.map((data, index) => {
-                        return (
-                          <tr key={index} className="flex mb-8">
-                            <td scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg mr-8"><input type="checkbox" name={`${data.socialPlatform}`} /></td>
-                            <td className="flex items-start w-[137px] mr-8 capitalize"><img src={`/svgs/${data.socialPlatform}.svg`} className="w-[20px] h-[20px] mr-2" />{data.socialPlatform}</td>
-                            <td className="flex flex-col gap-4 w-[155px] mr-8">{data.deliverables.map((data) => { return <p>{data}</p> })}</td>
-                            <td className="flex flex-col gap-4 w-[80px] mr-8">{data.duration.map((data) => { return <p>{data}</p> })}</td>
-                            <td className="flex flex-col gap-4 w-[75px] mr-8 text-[#3751FF]">{data.amount.map((data) => {
-                              bidTotal += data;
-                              return <p>&#8377;{data}</p>
-                            })}</td>
-                          </tr>
-                        )
-                      })}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+                    )
+                  })}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

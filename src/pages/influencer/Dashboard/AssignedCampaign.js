@@ -10,10 +10,12 @@ import { getCampaignAssignedData } from "../../../store/infCampaignAssigned/acti
 let tableData = [];
 
 function AssignedCampaign() {
+  const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
+  console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = {
-      influencer_id: 1,
+      influencer_id: loggedInUserData?.id,
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));

@@ -18,7 +18,6 @@ function Bids() {
     dispatch(getActiveBidsData());
   }, []);
   tableData = useSelector((state) => state?.AdminActiveBids?.results);
-
   const infTableCol = ["User ID", "Influencer Name", "Influencer Bids Number"];
   const infTableRow = [
     {
@@ -108,7 +107,7 @@ function Bids() {
                     <>
                       <tr key={i} className="bg-[#F2F2F2] flex">
                         <td className="pl-4 py-4 whitespace-nowrap text-sm w-[140px]  font-medium text-[#3751FF] underline">
-                          <Link to={`/admin/campaign/new-campaign/${data.id}`}>
+                          <Link to={`/admin/campaign/new-campaign/${data?.campaign_details?.id}`}>
                             <p className="cursor-pointer">{data?.campaign_details?.id}</p>
                           </Link>
                         </td>

@@ -1,7 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 
 function InfDetails({ route }) {
+  const activeCampaign = [
+    {
+      id: "00001",
+      title: "Enjoy the video and music",
+      from_date: "2/5/21",
+      number_of_days: "1",
+      category: "Fashion, DIY",
+      amount: "500",
+      social_platform: ["facebook", "instagram"]
+    },
+    {
+      id: "00001",
+      title: "Enjoy the video and music",
+      from_date: "2/5/21",
+      number_of_days: "1",
+      category: "Fashion, DIY",
+      amount: "5050",
+      social_platform: ["facebook"]
+    }
+  ]
+  const completedCampaign = [
+    {
+      id: "00002",
+      title: "Enjoy the video and music",
+      from_date: "2/5/21",
+      number_of_days: "1",
+      category: "Fashion, DIY",
+      amount: "500",
+      social_platform: ["facebook", "instagram"]
+    }
+  ]
+  const rejectedCampaign = [
+    {
+      id: "00003",
+      title: "Enjoy the video and music",
+      from_date: "2/5/21",
+      number_of_days: "1",
+      category: "Fashion, DIY",
+      amount: "500",
+      social_platform: ["facebook", "instagram"]
+    },
+    {
+      id: "00003",
+      title: "Enjoy the video and music",
+      from_date: "2/5/21",
+      number_of_days: "1",
+      category: "Fashion, DIY",
+      amount: "5050",
+      social_platform: ["facebook"]
+    },
+    {
+      id: "00003",
+      title: "Enjoy the video and music",
+      from_date: "2/5/21",
+      number_of_days: "1",
+      category: "Fashion, DIY",
+      amount: "5050",
+      social_platform: ["facebook"]
+    }
+  ]
+  const [campaignTab, setCampaignTab] = useState(1);
+  const activeTabStyle = "border border-[#ffab2d] border-solid bg-[#ffab2d1a]";
+  const [tableData, setTableData] = useState(activeCampaign);
   return (
     <>
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
@@ -44,8 +107,8 @@ function InfDetails({ route }) {
           </div>
         </div>
         <div className="mt-8 flex ">
-          <div className="items-center box-shadow-button">
-            <div className="flex border border-[#ffab2d] border-solid bg-[#ffab2d1a] justify-center ">
+          <div className="items-center  box-shadow-button cursor-pointer" onClick={() => { setCampaignTab(1); setTableData(activeCampaign) }}>
+            <div className={`flex  ${(campaignTab === 1) && (activeTabStyle)} justify-center`}>
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/2-user.svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Total Active Campaign</div>
@@ -53,8 +116,8 @@ function InfDetails({ route }) {
               </div>
             </div>
           </div>
-          <div className="ml-10 px-10 items-center box-shadow-button">
-            <div className="flex justify-center ">
+          <div className="ml-10 items-center  box-shadow-button cursor-pointer" onClick={() => { setCampaignTab(2); setTableData(completedCampaign) }}>
+            <div className={`flex  ${(campaignTab === 2) && (activeTabStyle)}  justify-center `}>
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/47-team.svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Completed Campaign</div>
@@ -62,8 +125,8 @@ function InfDetails({ route }) {
               </div>
             </div>
           </div>
-          <div className="ml-10 px-10 items-center box-shadow-button">
-            <div className="flex justify-center ">
+          <div className="ml-10 items-center  box-shadow-button cursor-pointer" onClick={() => { setCampaignTab(3); setTableData(rejectedCampaign) }}>
+            <div className={`flex  ${(campaignTab === 3) && (activeTabStyle)}  justify-center `}>
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/10-todo (1).svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Rejected Campaigning</div>
@@ -84,7 +147,30 @@ function InfDetails({ route }) {
             <h1 className="w-[60px]">Amount</h1>
             <h1 className="w-[130px]">Social Platform</h1>
           </div>
-          <div>
+          {tableData.map((data, i) => (
+            <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">
+              <div className=" w-[95px] font-medium">{data.id}</div>
+              <div className="flex gap-4 items-center justify-center w-[220px] overflow-hidden">
+                <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
+                {data.title}
+              </div>
+              <div className=" w-[60px] font-medium">{data.from_date}</div>
+              <div className=" w-[60px] font-medium">{data.number_of_days}</div>
+              <div className=" w-[70px] font-medium">{data.category}</div>
+              <div className="w-[60px] ml-1.5">&#8377;{data.amount}</div>
+              <div className="relative w-[130px]  ">
+                <img className="absolute z-40 w-[20px] " src="/svgs/facebook.svg" alt="face" />
+                <img className="absolute z-30 left-[14px] w-[20px] h-[20px]" src="/svgs/instagram.svg" alt="face" />
+                <img className="absolute z-20 left-[24px] w-[20px] h-[20px]" src="/svgs/youtube.svg" alt="face" />
+                <img className="absolute z-10 left-[35px] w-[20px] h-[20px]" src="/svgs/linkedin.svg" alt="face" />
+                <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1>
+              </div>
+              <div onClick={() => { }} className="text-[#3751FF] font-[500]  underline cursor-pointer ">
+                View Details
+              </div>
+            </div>
+          ))}
+          {/* <div>
             <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">
               <div className=" w-[95px] font-medium">#00001</div>
               <div className="flex gap-4 items-center justify-center w-[220px] overflow-hidden">
@@ -102,11 +188,11 @@ function InfDetails({ route }) {
                 <img className="absolute z-10 left-[35px] w-[20px] h-[20px]" src="/svgs/linkedin.svg" alt="face" />
                 <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1>
               </div>
-              <div onClick={() => {}} className="text-[#3751FF] font-[500]  underline cursor-pointer ">
+              <div onClick={() => { }} className="text-[#3751FF] font-[500]  underline cursor-pointer ">
                 View Details
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

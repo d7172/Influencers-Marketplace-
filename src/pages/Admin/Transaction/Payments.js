@@ -10,7 +10,7 @@ function AdmPayments() {
       <div className="flex flex-col px-8 pt-4">
         {/* <Breadcrumbs options={[{ title: "Transaction" }, { title: "Payments" }]} /> */}
         <div>
-          <CampaignSearchBar />
+          <CampaignSearchBar placeHolder={"Search here"}/>
         </div>
         <div className="flex justify-between my-4 px-8">
           <div className="flex gap-4 items-center">

@@ -9,10 +9,12 @@ import { getInfBidData } from "../../../store/infBid/action";
 
 let infBids = [];
 function Bids() {
+  const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
+  console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = {
-      influencer_id: 2,
+      influencer_id: loggedInUserData?.id,
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));

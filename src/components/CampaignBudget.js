@@ -10,15 +10,15 @@ function CampaignBudget({ campaignDetails }) {
       <div className="flex gap-10 mt-6">
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Budget Type</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails.budget_type}</p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.budget_type}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Payout Type</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails.payout_type} </p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.payout_type} </p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Amount</h1>
-          <p className="text-[18px] text-[#3751FF] font-[600] ">&#8377; {campaignDetails.budget_per_influencer}</p>
+          <p className="text-[18px] text-[#3751FF] font-[600] ">&#8377; {campaignDetails?.budget_per_influencer}</p>
         </div>
       </div>
     </div>
