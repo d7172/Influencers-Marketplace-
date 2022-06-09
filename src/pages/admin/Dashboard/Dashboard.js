@@ -182,7 +182,7 @@ const Dashboard = () => {
         {/* 1 */}
         <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar">
           <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">{data5.total_active_user}</h1>
+            <h1 className="text-[24px] font-[600]">{data5?.total_active_user}</h1>
             <p className=" text-[12px] font-[400] text-[#969BA0]">Total Active User ( Influencers & Brands ) </p>
           </div>
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon2.svg" alt="im g" />
@@ -190,7 +190,7 @@ const Dashboard = () => {
         {/* 2 */}
         <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
           <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">{data5.complete_campaign}</h1>
+            <h1 className="text-[24px] font-[600]">{data5?.complete_campaign}</h1>
             <p className=" text-[12px] font-[400] text-[#969BA0]">Number of Campaign Done Till date</p>
           </div>
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon1.svg" alt="im g" />
@@ -198,7 +198,7 @@ const Dashboard = () => {
         {/* 3 */}
         <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
           <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">&#8377; {data5.current_month_earning}</h1>
+            <h1 className="text-[24px] font-[600]">&#8377; {data5?.current_month_earning}</h1>
             <p className=" text-[12px] font-[400] text-[#969BA0]">Earning of the month</p>
           </div>
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon3.svg" alt="im g" />
@@ -206,7 +206,7 @@ const Dashboard = () => {
         {/* 4 */}
         <div className="flex gap-4 items-center justify-center px-2 w-[260px] h-[128px] box-shadow-sidebar ">
           <div className="w-[150px]">
-            <h1 className="text-[24px] font-[600]">&#8377; {data5.till_earning_sum}</h1>
+            <h1 className="text-[24px] font-[600]">&#8377; {data5?.till_earning_sum}</h1>
             <p className=" text-[12px] font-[400] text-[#969BA0]">Earning till date</p>
           </div>
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon4.svg" alt="im g" />
@@ -241,9 +241,9 @@ const Dashboard = () => {
               <Doughnut data={chartData2} options={options2} />
             </div>
             <div className="w-[300px]">
-              <h1 className="text-[24px] font-[600]">{data5.payment_brand_till_date.completed}</h1>
+              <h1 className="text-[24px] font-[600]">{data5?.payment_brand_till_date?.completed}</h1>
               <p className=" text-[12px] font-[400] text-[#969BA0]">Received from brand</p>
-              <h1 className="text-[24px] font-[600]">{data5.payment_brand_till_date.on_progress}</h1>
+              <h1 className="text-[24px] font-[600]">{data5?.payment_brand_till_date?.on_progress}</h1>
               <p className=" text-[12px] font-[400] text-[#969BA0]">Remaining from brand</p>
             </div>
           </div>
@@ -294,7 +294,7 @@ const Dashboard = () => {
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon2.svg" alt="im g" />
           <div className="w-[150px]">
             <p className=" text-[12px] font-[400] text-[#969BA0]">Total Active Influencers </p>
-            <h1 className="text-[24px] font-[600]">{data5.total_active_influencer}</h1>
+            <h1 className="text-[24px] font-[600]">{data5?.total_active_influencer}</h1>
           </div>
         </div>
         {/* 2 */}
@@ -302,7 +302,7 @@ const Dashboard = () => {
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon1.svg" alt="im g" />
           <div className="w-[200px]">
             <p className=" text-[12px] font-[400] text-[#969BA0]">Pending Influencer Approval</p>
-            <h1 className="text-[24px] font-[600]">{data5.total_pending_influencer}</h1>
+            <h1 className="text-[24px] font-[600]">{data5?.total_pending_influencer}</h1>
           </div>
         </div>
       </div>
@@ -312,7 +312,7 @@ const Dashboard = () => {
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon2.svg" alt="im g" />
           <div className="w-[150px]">
             <p className=" text-[12px] font-[400] text-[#969BA0]">Total Active Campaigns </p>
-            <h1 className="text-[24px] font-[600]">{data5.total_active_campaign}</h1>
+            <h1 className="text-[24px] font-[600]">{data5?.total_active_campaign}</h1>
           </div>
         </div>
         {/* 2 */}
@@ -320,7 +320,7 @@ const Dashboard = () => {
           <img className="w-[60px] h-[60px]" src="/svgs/inf-dashboard-icon1.svg" alt="im g" />
           <div className="w-[200px]">
             <p className=" text-[12px] font-[400] text-[#969BA0]">Pending Campaign Approvals</p>
-            <h1 className="text-[24px] font-[600]">{data5.total_pending_campaing}</h1>
+            <h1 className="text-[24px] font-[600]">{data5?.total_pending_campaing}</h1>
           </div>
         </div>
       </div>
