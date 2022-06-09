@@ -9,6 +9,11 @@ function CampaignTable({ data }) {
   const [placeBid, setPlaceBid] = useState(false);
   const infCampaignPool = data;
   const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    console.log(id, "id");
+    setPlaceBid(true);
+  }
   return (
     <div className="flex flex-col max-w-[1280px] overflow-hidden">
       <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
@@ -91,7 +96,7 @@ function CampaignTable({ data }) {
                         {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
                       </td>
                       <td
-                        onClick={() => setPlaceBid(true)}
+                        onClick={() => handleClick(pool.id)}
                         className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer"
                       >
                         Quick Bid

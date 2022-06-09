@@ -10,13 +10,13 @@ export const postPlaceBid = (payload) => {
       payload,
       (res) => {
         dispatch({
-          type: "SIGN_UP_SUCCESS",
+          type: "PLACE_BID_SUCCESS",
           data: res,
         });
       },
       () => {
         dispatch({
-          type: "SIGN_UP_FAIL",
+          type: "PLACE_BID_FAIL",
         });
       }
     );
