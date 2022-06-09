@@ -70,8 +70,8 @@ function Login() {
                   phone: {
                     dail_code: "+91",
                     contact_number: values.phone.toString(),
+                    otp: values.otp,
                   },
-                  otp: values.otp,
                 },
               });
               navigate("/signup-type");
