@@ -27,6 +27,7 @@ function Earning() {
       return data?.campaign_details;
     })
   );
+  console.log(latestTransactionState, "latestTransactionState");
 
   const monthlyData = transitionEarningState?.map((data) => data.monthly?.map((data) => data));
 
@@ -137,63 +138,29 @@ function Earning() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                      #00001
-                    </td>
-                    <td className="text-sm flex gap-4 items-center justify-center min-w-[250px] max-w-[250px] overflow-hidden text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
-                      Enjoy the video and music
-                    </td>
-                    <td className="text-sm max-w-[170px] text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                      &#8377; 5,553
-                    </td>
-                    <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Barter
-                    </td>
-                    <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-4">
-                      <div className="bg-red-500 w-[8px] h-[8px] rounded-full" />
-                      Pending
-                    </td>
-                  </tr>
-                  <tr className="">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                      #00001
-                    </td>
-                    <td className="text-sm flex gap-4 items-center justify-center min-w-[250px] max-w-[250px] overflow-hidden text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
-                      Enjoy the video and music
-                    </td>
-                    <td className="text-sm max-w-[170px] text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                      &#8377; 5,553
-                    </td>
-                    <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Barter
-                    </td>
-                    <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-4">
-                      <div className="bg-red-500 w-[8px] h-[8px] rounded-full" />
-                      Pending
-                    </td>
-                  </tr>
-                  <tr className="">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                      #00001
-                    </td>
-                    <td className="text-sm flex gap-4 items-center justify-center min-w-[250px] max-w-[250px] overflow-hidden text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
-                      Enjoy the video and music
-                    </td>
-                    <td className="text-sm max-w-[170px] text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                      &#8377; 5,553
-                    </td>
-                    <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      Barter
-                    </td>
-                    <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-4">
-                      <div className="bg-green-500 w-[8px] h-[8px] rounded-full" />
-                      Completed
-                    </td>
-                  </tr>
+                  {latestTransactionState?.map((transaction) => {
+                    return (
+                      <tr className="">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
+                          {transaction?.id}
+                        </td>
+                        <td className="text-sm flex gap-4 items-center justify-center min-w-[250px] max-w-[250px] overflow-hidden text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
+                          {transaction?.title}
+                        </td>
+                        <td className="text-sm max-w-[170px] text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
+                          &#8377; {transaction?.amount}
+                        </td>
+                        <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {transaction?.payout_type}
+                        </td>
+                        <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-4">
+                          <div className="bg-red-500 w-[8px] h-[8px] rounded-full" />
+                          {transaction?.status_camp}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
