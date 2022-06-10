@@ -7,7 +7,7 @@ function AdminDashboardCompositeComponent() {
   return (
     <div className="flex h-full">
       <AdminDashboardSidebar />
-      <div>
+      <div className="overflow-hidden" >
         <AdminNavbar />
         <Outlet />
       </div>
