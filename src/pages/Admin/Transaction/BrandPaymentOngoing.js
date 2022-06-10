@@ -88,61 +88,7 @@ function BidDetails() {
           or a typeface without relying on meaningful content. Lorem ipsum
         </p>
       </div>
-      {/* <div className="flex mt-8 gap-20">
-          <div
-            className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${active}]`}
-          >
-            <p>
-              <span className="bg-[#3751FF] rounded-full w-3"></span>On going
-            </p>
-            <h1 className="text-[18px] font-[500] text-[#000000] my-2">Campaign : 1</h1>
-            <div
-              className={`text-[${active}] border-[${active}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
-            >
-              <h1>&#8377;5553</h1>
-            </div>
-            <h1 className={`text-[${active}] underline mt-4 cursor-pointer`}>Click here</h1>
-          </div>
-          <div className="flex gap-20">
-            <div
-              className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${inactive}] `}
-            >
-              <h1 className="text-[18px] font-[500] text-[#000000] my-2 ">Campaign : 2</h1>
-              <div
-                className={`text-[${inactive}] border-[${inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
-              >
-                <h1>&#8377;5553</h1>
-              </div>
-              <h1 className={`text-[${inactive}] underline mt-4 cursor-pointer`}>Click here</h1>
-            </div>
-          </div>
-          <div className="flex gap-20">
-            <div
-              className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${inactive}] `}
-            >
-              <h1 className="text-[18px] font-[500] text-[#000000] my-2 ">Campaign : 3</h1>
-              <div
-                className={`text-[${inactive}] border-[${inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
-              >
-                <h1>&#8377;5553</h1>
-              </div>
-              <h1 className={`text-[${inactive}] underline mt-4 cursor-pointer`}>Click here</h1>
-            </div>
-          </div>
-          <div className="flex gap-20">
-            <div
-              className={`w-[258px] h-[184px] top-[393px] left-[440px] flex flex-col items-center justify-center  pr-4 border-solid border-2 border-[${inactive}] `}
-            >
-              <h1 className="text-[18px] font-[500] text-[#000000] my-2 ">Campaign : 4</h1>
-              <div
-                className={`text-[${inactive}] border-[${inactive}] font-bold border-2 border-dashed w-[165px] h-[42px] top-[473px] left-[485px] flex items-center justify-center`}
-              >
-                <h1>&#8377;5553</h1>
-              </div>
-              <h1 className={`text-[${inactive}] underline mt-4 cursor-pointer`}>Click here</h1>
-            </div>
-          </div>
-        </div> */}
+
       <SimpleSlider />
       <div className="mt-8">
         <h1 className="mb-2 text-start text-xl font-bold ">Campaign Requirement</h1>
@@ -276,12 +222,12 @@ function BidDetails() {
         </div>
       </div>
       <div>
-        <div className="flex p-4 justify-center items-start">
-          <h1>Payment Sent Details by Brand</h1>
-          <div>
+        <div className="flex p items-start my-8">
+          <div className="flex flex-col">
+            <h1 className='font-[600]'>Payment Sent Details by Brand</h1>
             <table>
               <thead>
-                <tr className="flex gap-4 my-4">
+                <tr className="flex my-4 text-left">
                   <th className="w-[200px]">Date</th>
                   <th className="w-[200px]">Amount</th>
                   <th className="w-[200px]">Source</th>
@@ -289,28 +235,20 @@ function BidDetails() {
                 </tr>
               </thead>
               <tbody>
-                {/* {paymentDetailsByBrand.map((data,i)=>{
-                                        return(
-                                            <tr key={i} className="flex gap-4 mb-4">
-                                                <td className="w-200px">{data}</td>
-                                            </tr>
-                                        )
-                                    })} */}
-                <tr>
-                  <td>12 / 2 / 2020</td>
-                  <td>&#8377;5500</td>
-                  <td>Brand</td>
-                  <td>0123456789</td>
+                <tr className="flex my-4">
+                  <td className="w-[200px]">12 / 2 / 2020</td>
+                  <td className="w-[200px]">&#8377;5500</td>
+                  <td className="w-[200px]">Brand</td>
+                  <td className="w-[200px]">0123456789</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div>
-            <h1>Hold Payment: &#8377;4840</h1>
-            <p>( This payment will be released on 26 /11 / 2022 )</p>
+            <h1 className='font-[600]'>Hold Payment: &#8377;4840</h1>
+            <p className='text-sm' >(This payment will be released on 26 /11 / 2022)</p>
           </div>
         </div>
-        <div></div>
       </div>
     </div>
   );

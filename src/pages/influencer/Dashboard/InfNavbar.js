@@ -1,9 +1,9 @@
 import React from "react";
 
-function InfNavbar() {
+function InfNavbar({title}) {
   return (
     <div className="flex w-full min-w-infNavbar px-8 items-center justify-between">
-      <h1 className="text-[28px] font-[600]">Dashboard</h1>
+      <h1 className="text-[28px] font-[600] capitalize ">{title.length > 9 ? title.slice(0, title.indexOf('/')) : title}</h1>
       <div className="flex gap-6 items-center">
         <div className="m-6 inline-flex relative w-fit">
           <div className="absolute  top-[-10px] w-5 h-5 flex items-center justify-center right-[-7px]  p-2.5 text-xs text-white bg-red-600 rounded-full z-10">

@@ -3,7 +3,7 @@ import React from "react";
 function CampaignBudget({ campaignDetails }) {
   return (
     <div>
-      <h1>Campaign Budget & Payment Type</h1>
+      <h1 className="text-[18px] font-[600] mt-4" >Campaign Budget & Payment Type</h1>
       <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit
       </p>
