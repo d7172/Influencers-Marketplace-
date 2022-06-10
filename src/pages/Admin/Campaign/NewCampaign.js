@@ -6,6 +6,7 @@ import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Pagination from "../../../components/Pagination";
 import { getNewCampaignData } from "../../../store/Admin/Campaign/NewCampaign/action";
 import { useNavigate } from "react-router-dom";
+import Dropdown from "../Dropdowns";
 
 const AdmNewCampaign = ({ route }) => {
   let tableData = [];
@@ -28,6 +29,16 @@ const AdmNewCampaign = ({ route }) => {
         >
           <button> + Add New Campaign </button>
         </div>
+      </div>
+      <div className="flex gap-4 items-center ml-4">
+        <label className="text-[12px] text-[#939393]">Sort By Status</label>
+        <Dropdown
+          lable="Pending for Approval"
+          options={[{ lable: "Pending for Approval" }, { lable: "Approved" }]}
+          dropdownStyle="w-[200px]"
+          className="w-[200px] h-[38px]"
+        />
+        <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
       </div>
       <div className="flex items-center py-4 px-8">
         <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} />

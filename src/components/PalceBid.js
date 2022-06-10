@@ -18,22 +18,23 @@ function PalceBid({ close }) {
     dispatch({
       type: "PLACE_BID_SUCCESS",
       data: {
-        "campaign_details":poolId,
-        "influencer":loggedInUserData.id,
-        "influencer_bid_amount":bid,
-        "description":placebiddescription,
+        "campaign_details": poolId,
+        "influencer": loggedInUserData.id,
+        "influencer_bid_amount": bid,
+        "description": placebiddescription,
       },
     });
-    const data = 
-      {
-        "campaign_details":poolId,
-        "influencer":loggedInUserData.id,
-        "influencer_bid_amount":bid,
-        "description":placebiddescription,
+    const data =
+    {
+      "campaign_details": poolId,
+      "influencer": loggedInUserData.id,
+      "influencer_bid_amount": bid,
+      "description": placebiddescription,
     }
     // console.log(data, "data");
     dispatch(postPlaceBid(data));
     // dispatch(placeBid(data, navigate));
+    close();
   }
   return (
     <div className="w-[500px] h-[570px] flex justify-center items-center flex-col">

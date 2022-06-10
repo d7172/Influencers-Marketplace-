@@ -69,10 +69,10 @@ function CampaignDetails({ route, mainRoute }) {
                             <img src="/svgs/what-to-post-on-instagram 1.svg" alt="" className='w-[200px]' />
                         </div>
                         <div className='flex items-center justify-center my-4 w-full'>
-                            <input type="checkbox" name="" id="" onChange={() => setSentBtn(!sendBtn)} className='mr-4' />
+                            <input type="checkbox" name="brandCheck" id="brandCheck" onChange={() => setSentBtn(!sendBtn)} className='mr-4' />
                             <div className='text-left mr-4'>
                                 <p className='text-[#00000099]' >Brand name</p>
-                                <p>BoAt</p>
+                                <label htmlFor='brandCheck' className='cursor-pointer' >BoAt</label>
                             </div>
                             <div className='text-left'>
                                 <p className='text-[#00000099]' >Campaign Id</p>
@@ -212,8 +212,8 @@ function CampaignDetails({ route, mainRoute }) {
                             </div>}
                     </div>
                     <div className="mt-6">
-                        <p className="text-[#969BA0] text-[16px]">Brand Description</p>
-                        <h1 className="text-[18px] font-[500] mt-1 ">Cardboard paper style</h1>
+                        <p className="text-[#969BA0] font-[600] text-[16px]">Brand Description</p>
+                        <h1 className="text-[18px] font-[600]  mt-1 ">Cardboard paper style</h1>
                         <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut publishing and
                             graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document
@@ -254,22 +254,22 @@ function CampaignDetails({ route, mainRoute }) {
                         <div className="my-6">
                             <h1 className="text-[20px] font-[600]">Document Phase</h1>
                             <p className=" mt-1 leading-[21px] text-[#969BA0]">Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
-                            <div className='flex mt-4' >
-                                <div className='mr-6 text-center'>
-                                    <p>Document</p>
-                                    <p>1.</p>
+                            <div className='flex mt-6' >
+                                <div className='mr-8 text-center'>
+                                    <p className='font-[600]'>Document</p>
+                                    <p className='font-[600]'>1.</p>
                                     <p className='underline text-[#969BA0]'>Dcument rejected</p>
-                                    <p className='underline text-[#969BA0]' >Click here</p>
+                                    <p className='underline text-[#969BA0] cursor-pointer' >Click here</p>
                                 </div>
-                                <div className='mr-6 text-center'>
-                                    <p>Document</p>
-                                    <p>2.</p>
-                                    <p className='underline text-[#3751FF]' >Click here</p>
+                                <div className='mr-8 text-center'>
+                                    <p className='font-[600]'>Document</p>
+                                    <p className='font-[600]'>2.</p>
+                                    <p className='underline text-[#3751FF] cursor-pointer' >Click here</p>
                                 </div>
-                                <div className='mr-6 text-center'>
-                                    <p>Document</p>
-                                    <p>3.</p>
-                                    <p className='underline text-[#969BA0]' >Click here</p>
+                                <div className='mr-8 text-center'>
+                                    <p className='font-[600]'>Document</p>
+                                    <p className='font-[600]'>3.</p>
+                                    <p className='underline text-[#969BA0] cursor-pointer' >Click here</p>
                                 </div>
                             </div>
                         </div>

@@ -27,6 +27,7 @@ function Earning() {
       return data?.campaign_details;
     })
   );
+  console.log(latestTransactionState, "latestTransactionState");
 
   const monthlyData = transitionEarningState?.map((data) => data.monthly?.map((data) => data));
 
