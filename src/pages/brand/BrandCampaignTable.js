@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 function BrandCampaignTable({ route, campaignRows }) {
     const navigate = useNavigate();
+    const [sort, setSort] = useState(null);
+    const [tableData, setTableData] = useState(campaignRows);
+
+    const sortAccending = (param)=>{
+        param==='id'?setTableData(tableData.sort((a,b) => a.id - b.id)):setTableData(tableData.sort((a,b) => a.amount - b.amount));
+        setSort(0);
+    };
+    const sortDecending = (param)=>{
+        param==='id'?setTableData(tableData.sort((a,b) => b.id - a.id)):setTableData(tableData.sort((a,b) => b.amount - a.amount));
+        setSort(1);
+    };
     return (
         <div className='p-4'>
             <div className='flex flex-col max-w-[1280px] overflow-hidden' >
@@ -12,8 +23,8 @@ function BrandCampaignTable({ route, campaignRows }) {
                             <table className="min-w-full">
                                 <thead className="border-b">
                                     <tr>
-                                        <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
-                                            Campaign ID
+                                        <th scope="col" className="text-[18px] flex justify-between items-center min-w-[155px] font-[500] text-gray-900 pr-6 py-4 text-left">
+                                            Campaign ID  <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id')} /></span>
                                         </th>
                                         {(route === "new-campaign") && <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
                                             Brand Name
@@ -27,8 +38,8 @@ function BrandCampaignTable({ route, campaignRows }) {
                                         <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                                             Category
                                         </th>
-                                        <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
-                                            Amount
+                                        <th scope="col" className="text-[18px] flex justify-between items-center min-w-[110px] font-[500] text-gray-900 pr-6 py-4 text-left">
+                                            Amount <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('amount')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('amount')} /></span>
                                         </th>
                                         <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                                             Social Platform
@@ -45,14 +56,14 @@ function BrandCampaignTable({ route, campaignRows }) {
                                                 <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[150px] font-medium text-gray-900">
                                                     #{data.id}
                                                 </td>
-                                                { (route==="new-campaign") && <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
+                                                {(route === "new-campaign") && <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                                                     {data.brandName}
                                                 </td>}
                                                 <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                                                     <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
                                                     {data.title}
                                                 </td>
-                                                {(route === "assigned-campaign") &&<td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
+                                                {(route === "assigned-campaign") && <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                                                     {data.date}
                                                 </td>}
                                                 {/* <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">

@@ -20,7 +20,7 @@ function CampaignRequirement({ campaignDetails }) {
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Category</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails?.category}</p>
+          <p className="text-[18px] font-[600] capitalize">{campaignDetails?.category}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Age Group</h1>
@@ -28,15 +28,15 @@ function CampaignRequirement({ campaignDetails }) {
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Gender</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails?.gender}</p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.gender==='M'?'Male':'Female'}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Country</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails?.country}</p>
+          <p className="text-[18px] font-[600] capitalize">{campaignDetails?.country}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">State</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails?.state}</p>
+          <p className="text-[18px] font-[600] capitalize">{campaignDetails?.state}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">City</h1>
@@ -52,7 +52,7 @@ function CampaignRequirement({ campaignDetails }) {
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Promotion Goal</h1>
-          <p className="text-[18px] font-[600] ">Brand promation</p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.promotion_goal}</p>
         </div>
       </div>
     </div>
