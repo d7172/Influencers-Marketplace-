@@ -22,7 +22,7 @@ function CampaignDetails({ route, mainRoute }) {
     const isAdminAssigned = location.pathname.includes("admin/campaign/assigned-campaign");
     const isAdminActive = location.pathname.includes("admin/campaign/active-campaign");
     const isAdminRejected = location.pathname.includes("admin/campaign/rejected-campaign");
-
+ 
     let campaignDetails = [];
     const dispatch = useDispatch();
 
@@ -30,11 +30,11 @@ function CampaignDetails({ route, mainRoute }) {
         isAdminActive && dispatch(getActiveCampaignData());
     }, []);
 
-    campaignDetails = useSelector((state) => {
-        if(isAdminActive) return state?.AdminActiveCampaign?.results?.find(result => result.id == id);
+    let activeCampaignDetails = useSelector((state) => {
+        state?.AdminActiveCampaign?.results?.find(result => result.id == id);
     });
 
-    console.log(campaignDetails);
+    // console.log(activeCampaignDetails, 'activeCampaignDetails');
     // campaignDetails = {
     //     from_date: "24/2/2021",
     //     to_date: "26/2/2021",
