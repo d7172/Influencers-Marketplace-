@@ -22,12 +22,12 @@ function NewCampaign() {
         },
         {
             id: "0002",
-            brandName: "Perfect Status",
-            title: "Enjoy the videos and music",
-            category: "Fashion, DIY",
-            amount: "5553",
-            socialPlatform: ["facebook", "instagram", "linkedin", "youtube"],
-            status: "Approved"
+            brandName: "Mama Earth",
+            title: "Health and Comatic",
+            category: "Healthcare",
+            amount: "7195",
+            socialPlatform: ["facebook", "instagram", "youtube"],
+            status: "Pending for approval"
         },
     ]
     const navigate = useNavigate();

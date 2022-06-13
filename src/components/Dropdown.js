@@ -26,7 +26,7 @@ function Dropdown({ label = "Options", options, className, dropdownStyle, onChan
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className={`${dropdownStyle} absolute right-0 w-[390px] mt-2 max-h-[200px] overflow-auto origin-top-right bg-white divide-y z-[100] divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none `}
+          className={`${dropdownStyle} absolute right-0 mt-2 max-h-[200px] overflow-auto origin-top-right bg-white divide-y z-[100] divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none `}
         >
           <div className="px-1 py-1 ">
             {options.map((props) => (

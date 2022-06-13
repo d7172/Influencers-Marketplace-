@@ -21,16 +21,16 @@ function CampaignPool() {
     dispatch(getCampaignPoolData(data));
   }, []);
 
-  const infCampaignPool = useSelector((state) => state?.infCampaignPool?.results);
+  const infCampaignPool = useSelector((state) => state?.infCampaignPool);
   return (
     <div className="max-w-[1280px] pt-6 relative">
       <div className="flex items-center px-8">
         <Breadcrumbs options={[{ title: "Campaign" }, { title: "CampaignPool" }]} />
         <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
       </div>
-      <CampaignTable data={infCampaignPool} />
+      <CampaignTable data={infCampaignPool?.results} />
       <div className="absolute bottom-[-100px] right-0">
-        <Pagination />
+        <Pagination link={infCampaignPool} />
       </div>
     </div>
   );

@@ -108,7 +108,7 @@ function AdminCampaignTable({ tableData, mainRoute, route }) {
                       )}
 
                       <td
-                        onClick={() => navigate(`/admin/${mainRoute}/${route}/0001`)}
+                        onClick={() => navigate(`/admin/${mainRoute}/${route}/${data?.id}`)}
                         className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View Details

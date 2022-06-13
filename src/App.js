@@ -102,7 +102,7 @@ function App() {
             <Route path="/admin/influencer/active-user/:id" element={<InfProfile route={"active-user"} />} />
             <Route path="/admin/influencer/activeUser/:id" element={<InfDetails route={"active-user"} />} />
             <Route path="/admin/influencer/new-user/:id" element={<InfProfile route={"new-user"} />} />
-            <Route path="/admin/influencer/new-user/add" element={<InfProfile route={"new-user"} />} />
+            {/* <Route path="/admin/influencer/new-user/add" element={<InfProfile route={"new-user"} />} /> */}
             <Route path="/admin/influencer/rejected-user/:id" element={<InfProfile route={"rejected-user"} />} />
             <Route path="/admin/active-bids" element={<AdminActiveBids />} />
             <Route path="/admin/active-bids/:id" element={<AdminBidDetails />} />
@@ -165,7 +165,12 @@ function App() {
             <Route path="/influencer/campaign/active-campaign" element={<ActiveCampaign />} />
             <Route path="/influencer/campaign/active-campaign/:id" element={<ActiveCampaignDetails />} />
             <Route path="/influencer/campaign/completed-campaign" element={<CompletedCampaign />} />
+            <Route
+              path="/influencer/campaign/completed-campaign/:id"
+              element={<CampaignDetails route={"completed campaign"} />}
+            />
             <Route path="/influencer/bids" element={<Bids />} />
+            <Route path="/influencer/bids/active-bids/:id" element={<CampaignDetails route={"active bids"} />} />
             <Route
               path="/influencer/transactions"
               element={<Navigate replace to="/influencer/transactions/earning" />}

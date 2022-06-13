@@ -21,11 +21,13 @@ function BrandDashboardCompositeComponent() {
   }, [location.pathname])
   return (
     <div className="flex h-full">
-      <BrandDashboardSidebar />
-      <div className="w-full overflow-hidden">
+      <aside className="h-screen sticky top-0" >
+        <BrandDashboardSidebar />
+      </aside>
+      <main className="w-full overflow-hidden">
         <BrandNavbar title={title} />
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 }

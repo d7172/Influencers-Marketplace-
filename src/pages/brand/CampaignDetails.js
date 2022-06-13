@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useSelector } from "react-redux";
-// import { useParams } from "react-router-dom";
 
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CampaignBudget from "../../components/CampaignBudget";
@@ -11,23 +10,44 @@ import MyDialog from "../../components/MyDialog";
 // import PalceBid from "../../components/PalceBid";
 // import ResonForRejction from "../../components/ResonForRejction";
 import CloseBtn from '../../components/CloseBtn';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getActiveCampaignData } from '../../store/Admin/Campaign/ActiveCampaign/action';
 // import { useLocation } from 'react-router-dom';
 
 function CampaignDetails({ route, mainRoute }) {
-    const campaignDetails = {
-        from_date: "24/2/2021",
-        to_date: "26/2/2021",
-        project_duration_in_days: "2",
-        category: "Fashion, DIY",
-        age_group: [18, 24],
-        number_of_followers: "1k - 10k",
-        number_of_influencer: "02",
-        budget_type: "Fixed",
-        payout_type: "Barter",
-        budget_per_influencer: 5553,
-        terms_and_condition: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit modi praesentium deserunt ab at esse necessitatibus debitis ad libero iusto enim consequatur eius, deleniti dolorum nemo! Deserunt praesentium, maxime adipisci nisi, magni a autem sint quo voluptas accusamus eligendi aliquid? Delectus quod dolores ipsum eaque, similique veniam quae corrupti, incidunt, iusto laboriosam a! Quidem, minima?"
-    }
+    const location = useLocation();
+    const { id } = useParams();
+    const isAdminAssigned = location.pathname.includes("admin/campaign/assigned-campaign");
+    const isAdminActive = location.pathname.includes("admin/campaign/active-campaign");
+    const isAdminRejected = location.pathname.includes("admin/campaign/rejected-campaign");
+ 
+    let campaignDetails = [];
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        isAdminActive && dispatch(getActiveCampaignData());
+    }, []);
+
+    let activeCampaignDetails = useSelector((state) => {
+        state?.AdminActiveCampaign?.results?.find(result => result.id == id);
+    });
+
+    // console.log(activeCampaignDetails, 'activeCampaignDetails');
+    // campaignDetails = {
+    //     from_date: "24/2/2021",
+    //     to_date: "26/2/2021",
+    //     project_duration_in_days: "2",
+    //     category: "Fashion, DIY",
+    //     age_group: [18, 24],
+    //     number_of_followers: "1k - 10k",
+    //     number_of_influencer: "02",
+    //     budget_type: "Fixed",
+    //     payout_type: "Barter",
+    //     budget_per_influencer: 5553,
+    //     terms_and_condition: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit modi praesentium deserunt ab at esse necessitatibus debitis ad libero iusto enim consequatur eius, deleniti dolorum nemo! Deserunt praesentium, maxime adipisci nisi, magni a autem sint quo voluptas accusamus eligendi aliquid? Delectus quod dolores ipsum eaque, similique veniam quae corrupti, incidunt, iusto laboriosam a! Quidem, minima?"
+    // }
     const [documentPhaseDialog, setDocumentPhaseDialog] = useState(false);
     const [sendBtn, setSentBtn] = useState(true);
     const [reasonDialog, setReasonDialog] = useState(false);
@@ -52,10 +72,13 @@ function CampaignDetails({ route, mainRoute }) {
             amount: [500, 500],
             documentsLinks: ["xyz", "xyz"]
         }]
+
+
+
     return (
         <div>
             <div className='w-full bg-[#F2F2F2] py-4 px-8'>
-                <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Campaign" }, { title: route }, { title: "#00001" }]} />
+                <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Campaign" }, { title: route }, { title: id }]} />
             </div>
             <div className="mt-6 px-6 pb-10">
                 <MyDialog isOpen={documentPhaseDialog} close={() => setDocumentPhaseDialog(false)} className="rounded-8">
@@ -174,7 +197,7 @@ function CampaignDetails({ route, mainRoute }) {
                     <div className='flex w-full justify-between'>
                         <div className="mt-6">
                             <h1 className="text-[32px] font-[600]">Campaign id</h1>
-                            <p className="text-[18px] font-[500] text-[#969BA0]  ">#00001 </p>
+                            <p className="text-[18px] font-[500] text-[#969BA0]  "> {id} </p>
                         </div>
                         {(route === "brand/rejected-campaign") && <div>
                             <h1 className="text-start text-xl font-bold mt-6 mb-1">You Rejected this Campaign</h1>
@@ -258,7 +281,7 @@ function CampaignDetails({ route, mainRoute }) {
                                 <div className='mr-8 text-center'>
                                     <p className='font-[600]'>Document</p>
                                     <p className='font-[600]'>1.</p>
-                                    <p className='underline text-[#969BA0]'>Dcument rejected</p>
+                                    <p className='underline text-[#969BA0]'>Document rejected</p>
                                     <p className='underline text-[#969BA0] cursor-pointer' >Click here</p>
                                 </div>
                                 <div className='mr-8 text-center'>
@@ -283,7 +306,7 @@ function CampaignDetails({ route, mainRoute }) {
                             <p className="text-[#969BA0] text-[16px]">Note from Brand</p>
                             <h1 className="text-[18px] font-[500] mt-1 ">Cardboard paper style</h1>
                             <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
-                                {campaignDetails.note_from_brand}
+                                {campaignDetails?.note_from_brand}
                             </p>
                             <hr className="my-8" />
                         </div>
@@ -300,7 +323,7 @@ function CampaignDetails({ route, mainRoute }) {
                         <hr className="my-8" />
                         <div>
                             <h1>Terms & Conditions</h1>
-                            <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campaignDetails.terms_and_condition} </p>
+                            <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campaignDetails?.terms_and_condition} </p>
                         </div>
                         <hr className="my-8" />
                     </div>}
