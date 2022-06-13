@@ -102,7 +102,7 @@ function App() {
             <Route path="/admin/influencer/active-user/:id" element={<InfProfile route={"active-user"} />} />
             <Route path="/admin/influencer/activeUser/:id" element={<InfDetails route={"active-user"} />} />
             <Route path="/admin/influencer/new-user/:id" element={<InfProfile route={"new-user"} />} />
-            <Route path="/admin/influencer/new-user/add" element={<InfProfile route={"new-user"} />} />
+            {/* <Route path="/admin/influencer/new-user/add" element={<InfProfile route={"new-user"} />} /> */}
             <Route path="/admin/influencer/rejected-user/:id" element={<InfProfile route={"rejected-user"} />} />
             <Route path="/admin/active-bids" element={<AdminActiveBids />} />
             <Route path="/admin/active-bids/:id" element={<AdminBidDetails />} />

@@ -23,12 +23,12 @@ function InfNewUser({ route }) {
       </div>
       <div className="flex items-center p-4 justify-between w-full mb-5">
         <CampaignSearchBar placeHolder={"Search here"} />
-        <div
+        {/* <div
           className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
           onClick={() => navigate("/admin/influencer/new-user/add")}
         >
           <button> + Add New Influencer </button>
-        </div>
+        </div> */}
       </div>
       <AdminUserTable tableData={tableData} route={route} />
       <div className="absolute bottom-[-100px] right-0">
