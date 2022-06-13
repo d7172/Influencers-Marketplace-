@@ -42,7 +42,7 @@ function SignUpType() {
             <button
               onClick={() => {
                 dispatch({ type: "UPDATE_SIGNUP_STATE", data: { type: "brand" } });
-                navigate("/signup");
+                navigate("/brand/signup");
               }}
               className="bg-primary h-40 text-white w-120 rounded-3xl mt-10 "
             >

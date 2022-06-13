@@ -32,6 +32,7 @@ import Support from "./pages/influencer/Dashboard/Support";
 import Home from "./pages/influencer/Home";
 import SignUp from "./pages/influencer/SignUp/SignUp";
 
+import BrandSignUp from "./pages/brand/SignUp/SignUp"
 import BrandDashboard from "./pages/brand/Dashboard";
 import BrandCampaignDetails from "./pages/brand/CampaignDetails";
 import BrandNewCampaign from "./pages/brand/NewCampaign";
@@ -220,6 +221,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup-type" element={<SignUpType />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/brand/signup" element={<BrandSignUp/>} />
           <Route path="/admin/signin" element={<SignInAdmin />} />
           <Route path="/admin/signup" element={<SignUpAdmin />} />
           <Route path="/admin/campaign/new-campaign/add" element={<AdmCampaignDetails route={"new-campaign"} />} />
