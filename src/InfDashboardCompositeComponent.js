@@ -6,7 +6,7 @@ import InfNavbar from "./pages/influencer/Dashboard/InfNavbar";
 function InfDashboardCompositeComponent() {
   const location = useLocation();
   const [title, setTitle] = useState('');
-  
+
   useEffect(() => {
     const path = location.pathname;
 
@@ -14,11 +14,13 @@ function InfDashboardCompositeComponent() {
   }, [location.pathname])
   return (
     <div className="flex h-full justify-between">
-      <InfDashboardSidebar />
-      <div>
+      <aside className="h-screen sticky top-0">
+        <InfDashboardSidebar />
+      </aside>
+      <main>
         <InfNavbar title={title} />
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 }

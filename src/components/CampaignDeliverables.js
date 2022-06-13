@@ -12,7 +12,7 @@ function CampaignDeliverables({ campaignDetails }) {
           <h1 className="w-[125px] ">Social Platform</h1>
           <h1 className="w-[125px]">Deliverables</h1>
           <h1 className="w-[125px]">Duration</h1>
-          <h1 className="w-[125px]">Engagement rate</h1>
+          <h1 className="">Engagement rate</h1>
         </div>
         <div className="flex gap-10 items-start">
           <div className="flex gap-4 w-[125px]">

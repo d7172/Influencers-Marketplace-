@@ -6,7 +6,7 @@ import AdminNavbar from "./pages/Admin/AdminNavbar";
 function AdminDashboardCompositeComponent() {
   const location = useLocation();
   const [title, setTitle] = useState('');
-  
+
   useEffect(() => {
     const path = location.pathname;
 
@@ -15,11 +15,13 @@ function AdminDashboardCompositeComponent() {
 
   return (
     <div className="flex h-full">
-      <AdminDashboardSidebar />
-      <div className="overflow-hidden" >
-        <AdminNavbar title={title}/>
+      <aside className="h-screen sticky top-0">
+        <AdminDashboardSidebar />
+      </aside>
+      <main className="overflow-hidden" >
+        <AdminNavbar title={title} />
         <Outlet />
-      </div>
+      </main>
     </div>
   );
 }

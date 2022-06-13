@@ -94,7 +94,7 @@ function BidTable() {
                   </h1>
                   <h1
                     className="text-[#3751FF] underline mt-4 cursor-pointer"
-                    onClick={() => navigate(`/influencer/campaign/campaign-pool/${bid?.campaign_details?.id}`)}
+                    onClick={() => navigate(`/influencer/bids/active-bids/${bid?.campaign_details?.id}`)}
                   >
                     View Details
                   </h1>

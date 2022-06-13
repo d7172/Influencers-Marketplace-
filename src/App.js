@@ -170,6 +170,7 @@ function App() {
               element={<CampaignDetails route={"completed campaign"} />}
             />
             <Route path="/influencer/bids" element={<Bids />} />
+            <Route path="/influencer/bids/active-bids/:id" element={<CampaignDetails route={"active bids"} />} />
             <Route
               path="/influencer/transactions"
               element={<Navigate replace to="/influencer/transactions/earning" />}
