@@ -13,7 +13,7 @@ function CampaignTable({ data }) {
   const handleClick = (id) => {
     console.log(id, "id");
     setPlaceBid(true);
-  }
+  };
   return (
     <div className="flex flex-col max-w-[1280px] overflow-hidden">
       <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
@@ -60,7 +60,7 @@ function CampaignTable({ data }) {
                         {pool.title}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                        2/5/2022
+                        {pool?.from_date}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         {pool.project_duration_in_days} Day
@@ -69,7 +69,7 @@ function CampaignTable({ data }) {
                         {pool.category}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                        &#8377; 5,553
+                        &#8377; {pool?.amount}
                       </td>
                       <td className="text-[16px] max-w-[150px] min-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
                         <img

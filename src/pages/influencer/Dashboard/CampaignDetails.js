@@ -17,6 +17,8 @@ function CampaignDetails({ route }) {
   const [rejectBid, setRejectBid] = useState(false);
   const infCampaignPools = useSelector((state) => state.infCampaignPool);
   const campDetails = infCampaignPools.results.filter((i) => i.id == id)[0];
+  const infCampaignCompleted = useSelector((state) => state.infCampaignCompleted);
+  const completedCampDetails = infCampaignCompleted.results.filter((i) => i.id == id)[0];
   const infId = useSelector((state) => console.log(state));
   return (
     <div className="mt-6 px-6 pb-10">
@@ -27,59 +29,125 @@ function CampaignDetails({ route }) {
       <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
         <ResonForRejction close={() => setRejectBid(false)} />
       </MyDialog>
-      <Breadcrumbs options={[{ title: "campaign" }, { title: route }, { title: campDetails?.id }]} />
-      <div className="ml-4">
-        <div className="mt-6">
-          <h1 className="text-[32px] font-[600]">Campaign id</h1>
-          <p className="text-[18px] font-[500] text-[#969BA0]  ">{campDetails?.id} </p>
-        </div>
-        <div className="mt-6">
-          <p className="text-[#969BA0] text-[16px]">Brand Description</p>
-          <h1 className="text-[18px] font-[500] mt-1 ">{campDetails?.title}</h1>
-          <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">{campDetails?.about_campaign}</p>
-        </div>
-        <hr className="my-8" />
-        <CampaignRequirement campaignDetails={campDetails} />
-        <hr className="my-8" />
-        <CampaignBudget campaignDetails={campDetails} />
-        <hr className="my-8" />
-        <CampaignDeliverables campaignDetails={campDetails} />
-        <hr className="my-8" />
-        <div className="mt-6">
-          <p className="text-[#969BA0] text-[16px]">Note from Brand</p>
-          <h1 className="text-[18px] font-[500] mt-1 ">{campDetails?.note_from_brand}</h1>
-        </div>
-        <hr className="my-8" />
-        <div className="mt-6">
-          <p className="text-[#969BA0] text-[16px]">Note from Admin</p>
-          <h1 className="text-[18px] font-[500] mt-1 ">Jhon Deo</h1>
-          <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <br />{" "}
-            publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
-            <br /> demonstrate the visual form of a document or a typeface without relying
-          </p>
-        </div>
-        <hr className="my-8" />
-        <div>
-          <h1>Terms & Conditions</h1>
-          <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campDetails?.terms_and_condition} </p>
-        </div>
-        <hr className="my-8" />
-        <div>
-          <button
-            onClick={() => setPlaceBid(true)}
-            className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
-          >
-            Accept
-          </button>
-          <button
-            onClick={() => setRejectBid(true)}
-            className="text-[#3751FF] border-[#3751FF] rounded-full bg-white border-2 w-[171px] h-[54px]"
-          >
-            Reject
-          </button>
-        </div>
-      </div>
+      {campDetails ? (
+        <>
+          <Breadcrumbs options={[{ title: "campaign" }, { title: route }, { title: campDetails?.id }]} />
+          <div className="ml-4">
+            <div className="mt-6">
+              <h1 className="text-[32px] font-[600]">Campaign id</h1>
+              <p className="text-[18px] font-[500] text-[#969BA0]  ">{campDetails?.id} </p>
+            </div>
+            <div className="mt-6">
+              <p className="text-[#969BA0] text-[16px]">Brand Description</p>
+              <h1 className="text-[18px] font-[500] mt-1 ">{campDetails?.title}</h1>
+              <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
+                {campDetails?.about_campaign}
+              </p>
+            </div>
+            <hr className="my-8" />
+            <CampaignRequirement campaignDetails={campDetails} />
+            <hr className="my-8" />
+            <CampaignBudget campaignDetails={campDetails} />
+            <hr className="my-8" />
+            <CampaignDeliverables campaignDetails={campDetails} />
+            <hr className="my-8" />
+            <div className="mt-6">
+              <p className="text-[#969BA0] text-[16px]">Note from Brand</p>
+              <h1 className="text-[18px] font-[500] mt-1 ">{campDetails?.note_from_brand}</h1>
+            </div>
+            <hr className="my-8" />
+            <div className="mt-6">
+              <p className="text-[#969BA0] text-[16px]">Note from Admin</p>
+              <h1 className="text-[18px] font-[500] mt-1 ">Jhon Deo</h1>
+              <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <br />{" "}
+                publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
+                <br /> demonstrate the visual form of a document or a typeface without relying
+              </p>
+            </div>
+            <hr className="my-8" />
+            <div>
+              <h1>Terms & Conditions</h1>
+              <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campDetails?.terms_and_condition} </p>
+            </div>
+            <hr className="my-8" />
+            <div>
+              <button
+                onClick={() => setPlaceBid(true)}
+                className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
+              >
+                Accept
+              </button>
+              <button
+                onClick={() => setRejectBid(true)}
+                className="text-[#3751FF] border-[#3751FF] rounded-full bg-white border-2 w-[171px] h-[54px]"
+              >
+                Reject
+              </button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <Breadcrumbs options={[{ title: "campaign" }, { title: route }, { title: completedCampDetails?.id }]} />
+          <div className="ml-4">
+            <div className="mt-6">
+              <h1 className="text-[32px] font-[600]">Campaign id</h1>
+              <p className="text-[18px] font-[500] text-[#969BA0]  ">{completedCampDetails?.id} </p>
+            </div>
+            <div className="mt-6">
+              <p className="text-[#969BA0] text-[16px]">Brand Description</p>
+              <h1 className="text-[18px] font-[500] mt-1 ">{completedCampDetails?.title}</h1>
+              <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
+                {completedCampDetails?.about_campaign}
+              </p>
+            </div>
+            <hr className="my-8" />
+            <CampaignRequirement campaignDetails={completedCampDetails} />
+            <hr className="my-8" />
+            <CampaignBudget campaignDetails={completedCampDetails} />
+            <hr className="my-8" />
+            <CampaignDeliverables campaignDetails={completedCampDetails} />
+            <hr className="my-8" />
+            <div className="mt-6">
+              <p className="text-[#969BA0] text-[16px]">Note from Brand</p>
+              <h1 className="text-[18px] font-[500] mt-1 ">{completedCampDetails?.note_from_brand}</h1>
+            </div>
+            <hr className="my-8" />
+            <div className="mt-6">
+              <p className="text-[#969BA0] text-[16px]">Note from Admin</p>
+              <h1 className="text-[18px] font-[500] mt-1 ">Jhon Deo</h1>
+              <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <br />{" "}
+                publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
+                <br /> demonstrate the visual form of a document or a typeface without relying
+              </p>
+            </div>
+            <hr className="my-8" />
+            <div>
+              <h1>Terms & Conditions</h1>
+              <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">
+                {completedCampDetails?.terms_and_condition}{" "}
+              </p>
+            </div>
+            <hr className="my-8" />
+            <div>
+              <button
+                onClick={() => alert("are you sure to re-activate this campaign")}
+                className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
+              >
+                Re-Activate
+              </button>
+              <button
+                onClick={() => setRejectBid(true)}
+                className="text-[#3751FF] border-[#3751FF] rounded-full bg-white border-2 w-[171px] h-[54px]"
+              >
+                Reject
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

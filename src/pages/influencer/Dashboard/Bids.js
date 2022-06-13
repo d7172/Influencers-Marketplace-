@@ -75,7 +75,7 @@ function BidTable() {
               <div className="relative w-[130px]  ">
                 <img className="absolute z-40 w-[20px] " src="/svgs/facebook.svg" alt="face" />
               </div>
-              <div className="w-[125px] font-medium">{infBids?.length}</div>
+              <div className="w-[125px] font-medium">1</div>
               <div onClick={() => handleIndex(id)} className=" text-[#3751FF] font-[500]  underline cursor-pointer ">
                 View Details
               </div>

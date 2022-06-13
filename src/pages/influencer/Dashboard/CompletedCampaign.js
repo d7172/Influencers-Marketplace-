@@ -65,7 +65,7 @@ function CompletedCampaign() {
         <Breadcrumbs options={[{ title: "Campaign" }, { title: "Completed Campaign" }]} />
         <CampaignSearchBar />
       </div>
-      <CampaignTable data={infCampaignPool} />
+      <CampaignTable data={tableData} />
       <div className="absolute bottom-[-100px] right-0">
         <Pagination />
       </div>
@@ -117,14 +117,14 @@ function CampaignTable({ data }) {
                   return (
                     <tr className="">
                       <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[150px] font-medium text-gray-900">
-                        #{data?.id}
+                        {data?.id}
                       </td>
                       <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
                         {data?.title}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                        2/5/2022
+                        {data?.from_date}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         {data?.project_duration_in_days} Day
@@ -133,7 +133,7 @@ function CampaignTable({ data }) {
                         {data?.category}
                       </td>
                       <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                        &#8377; 5,553
+                        &#8377;{data?.amount}
                       </td>
                       <td className="text-[16px] max-w-[150px] min-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
                         <img
@@ -160,7 +160,7 @@ function CampaignTable({ data }) {
                         {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
                       </td>
                       <td
-                        onClick={() => navigate(`/influencer/campaign/campaign-pool/${data?.id}`)}
+                        onClick={() => navigate(`/influencer/campaign/completed-campaign/${data?.id}`)}
                         className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View Details

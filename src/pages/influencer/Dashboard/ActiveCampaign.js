@@ -12,7 +12,6 @@ import { getCampaignActiveData } from "../../../store/infCampaignActive/action";
 let tableData = [];
 
 function ActiveCampaign() {
-  // const loggedInUserData = useSelector((state) => state?.login?.data[0]);
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   // console.log(loggedInUserData, "logged in user");
@@ -58,22 +57,38 @@ function ActiveCampaignTable({ tableData }) {
   const [reasonDialog, setReasonDialog] = useState(false);
 
   const handleIndex = (index) => {
-    activeIndex !== index && setActiveIndex(index)
+    activeIndex !== index && setActiveIndex(index);
     setDetailsTable(!detailsTable);
   };
   return (
     <div className="flex flex-col max-w-[1280px] overflow-hidden">
       <MyDialog isOpen={reasonDialog} close={() => setReasonDialog(false)} className="rounded-8">
         <div className="w-[550px] h-[550px] flex justify-center items-center flex-col">
-          <CloseBtn onClick={() => { setReasonDialog(false) }} className="absolute right-5 top-7" />
+          <CloseBtn
+            onClick={() => {
+              setReasonDialog(false);
+            }}
+            className="absolute right-5 top-7"
+          />
           <h1 className="text-[28px] font-[500] mb-2 ">Reason for rejection</h1>
           <p className="w-390 text-gray-500 text-sm text-left">
             Log in to your account using email and password provided during registration.
           </p>
           <div className="text-left mt-14">
-            <p className="block w-[390px] h-auto mt-1 px-3 py-1.5 text-base font-normal border border-solid border-gray-300 rounded">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis quia est necessitatibus dignissimos aliquam optio accusamus dolorem hic amet labore, id, perferendis tenetur pariatur nostrum quidem expedita officia reprehenderit doloremque itaque ea. Ipsam ab saepe nostrum ratione suscipit amet laudantium libero culpa dignissimos nam, nesciunt aperiam cupiditate quos voluptatum, odit consequuntur commodi non quia natus.</p>
+            <p className="block w-[390px] h-auto mt-1 px-3 py-1.5 text-base font-normal border border-solid border-gray-300 rounded">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis quia est necessitatibus dignissimos
+              aliquam optio accusamus dolorem hic amet labore, id, perferendis tenetur pariatur nostrum quidem expedita
+              officia reprehenderit doloremque itaque ea. Ipsam ab saepe nostrum ratione suscipit amet laudantium libero
+              culpa dignissimos nam, nesciunt aperiam cupiditate quos voluptatum, odit consequuntur commodi non quia
+              natus.
+            </p>
           </div>
-          <button onClick={() => { setReasonDialog(false) }} className="bg-[#3751FF] text-white w-[400px] h-[47px] rounded-full mt-10">
+          <button
+            onClick={() => {
+              setReasonDialog(false);
+            }}
+            className="bg-[#3751FF] text-white w-[400px] h-[47px] rounded-full mt-10"
+          >
             Close
           </button>
         </div>
@@ -143,7 +158,9 @@ function ActiveCampaignTable({ tableData }) {
 
                           {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
                         </td>
-                        <td className="text-sm min-w-[110px] max-w-[150px] text-[#2BC155] font-light pl-6 py-4 whitespace-nowrap" >Pending for approval</td>
+                        <td className="text-sm min-w-[110px] max-w-[150px] text-[#2BC155] font-light pl-6 py-4 whitespace-nowrap">
+                          Pending for approval
+                        </td>
                       </tr>
                       <tr className="w-auto flex justify-between items-center">
                         <td>
@@ -157,16 +174,21 @@ function ActiveCampaignTable({ tableData }) {
                           View Details
                         </td>
                       </tr>
-                      {((activeIndex === i) && (detailsTable)) && (<tr> <Details setReasonDialog={setReasonDialog} /> </tr>)}
+                      {activeIndex === i && detailsTable && (
+                        <tr>
+                          {" "}
+                          <Details setReasonDialog={setReasonDialog} />{" "}
+                        </tr>
+                      )}
                     </>
-                  )
+                  );
                 })}
               </tbody>
             </table>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 
@@ -174,21 +196,35 @@ function Details({ setReasonDialog }) {
   const navigate = useNavigate();
 
   return (
-    <div className="flex" >
-      <div className="flex flex-col items-center gap-4 mr-4" >
-        <h1 className="text-[22px] font-bold" >Campaign Number</h1>
-        <h1 className="text-[22px] font-bold" >1.</h1>
-        <h1 className="text-sm text-[#939393]" >(Approval rejected)</h1>
-        <h1 className="underline text-[#3751FF] text-sm cursor-pointer" onClick={() => setReasonDialog(true)} >View Reason</h1>
-        <h1 className="underline text-[#3751FF] text-sm cursor-pointer" onClick={()=>navigate(`/influencer/campaign/active-campaign/00001`)} >Re Apply</h1>
+    <div className="flex">
+      <div className="flex flex-col items-center gap-4 mr-4">
+        <h1 className="text-[22px] font-bold">Campaign Number</h1>
+        <h1 className="text-[22px] font-bold">1.</h1>
+        <h1 className="text-sm text-[#939393]">(Approval rejected)</h1>
+        <h1 className="underline text-[#3751FF] text-sm cursor-pointer" onClick={() => setReasonDialog(true)}>
+          View Reason
+        </h1>
+        <h1
+          className="underline text-[#3751FF] text-sm cursor-pointer"
+          onClick={() => navigate(`/influencer/campaign/active-campaign/00001`)}
+        >
+          Re Apply
+        </h1>
       </div>
-      <div className="flex flex-col items-center gap-4 mr-4" >
-        <h1 className="text-[22px] font-bold" >Campaign Number</h1>
-        <h1 className="text-[22px] font-bold" >2.</h1>
-        <h1 className="text-sm text-[#939393]" >(Approval rejected)</h1>
-        <h1 className="underline text-[#3751FF] text-sm cursor-pointer" onClick={() => setReasonDialog(true)}  >View Reason</h1>
-        <h1 className="underline text-[#3751FF] text-sm cursor-pointer" onClick={()=>navigate(`/influencer/campaign/active-campaign/00001`)} >Re Apply</h1>
+      <div className="flex flex-col items-center gap-4 mr-4">
+        <h1 className="text-[22px] font-bold">Campaign Number</h1>
+        <h1 className="text-[22px] font-bold">2.</h1>
+        <h1 className="text-sm text-[#939393]">(Approval rejected)</h1>
+        <h1 className="underline text-[#3751FF] text-sm cursor-pointer" onClick={() => setReasonDialog(true)}>
+          View Reason
+        </h1>
+        <h1
+          className="underline text-[#3751FF] text-sm cursor-pointer"
+          onClick={() => navigate(`/influencer/campaign/active-campaign/00001`)}
+        >
+          Re Apply
+        </h1>
       </div>
     </div>
-  )
+  );
 }

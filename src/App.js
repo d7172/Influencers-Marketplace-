@@ -165,6 +165,10 @@ function App() {
             <Route path="/influencer/campaign/active-campaign" element={<ActiveCampaign />} />
             <Route path="/influencer/campaign/active-campaign/:id" element={<ActiveCampaignDetails />} />
             <Route path="/influencer/campaign/completed-campaign" element={<CompletedCampaign />} />
+            <Route
+              path="/influencer/campaign/completed-campaign/:id"
+              element={<CampaignDetails route={"completed campaign"} />}
+            />
             <Route path="/influencer/bids" element={<Bids />} />
             <Route
               path="/influencer/transactions"
