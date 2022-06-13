@@ -22,17 +22,9 @@ function CampaignDetails({ route, mainRoute }) {
     const isAdminAssigned = location.pathname.includes("admin/campaign/assigned-campaign");
     const isAdminActive = location.pathname.includes("admin/campaign/active-campaign");
     const isAdminRejected = location.pathname.includes("admin/campaign/rejected-campaign");
- 
-    let campaignDetails = [];
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        isAdminActive && dispatch(getActiveCampaignData());
-    }, []);
-
-    let activeCampaignDetails = useSelector((state) => {
-        state?.AdminActiveCampaign?.results?.find(result => result.id == id);
-    });
+    const AdmActiveCamp = useSelector((state)=>state.AdminActiveCampaign);
+    const AdmActiveCampDetails = AdmActiveCamp.results.filter((i)=> i.id == id)[0];
 
     // console.log(activeCampaignDetails, 'activeCampaignDetails');
     // campaignDetails = {
@@ -74,7 +66,7 @@ function CampaignDetails({ route, mainRoute }) {
         }]
 
 
-
+        console.log(AdmActiveCampDetails);
     return (
         <div>
             <div className='w-full bg-[#F2F2F2] py-4 px-8'>
@@ -244,7 +236,7 @@ function CampaignDetails({ route, mainRoute }) {
                         </p>
                     </div>
                     <hr className="my-8" />
-                    <CampaignRequirement campaignDetails={campaignDetails} />
+                    <CampaignRequirement campaignDetails={AdmActiveCampDetails} />
                     <hr className="my-8" />
                     {(route === "brand/assigned-campaign" || route === "admin/assigned-campaign") &&
                         <div className="mt-6">
@@ -297,7 +289,7 @@ function CampaignDetails({ route, mainRoute }) {
                             </div>
                         </div>
                     }
-                    {(route === "admin/active-campaign" || route === "admin/rejected-campaign" || route === "brand/active-campaign") && <CampaignBudget campaignDetails={campaignDetails} />}
+                    {(route === "admin/active-campaign" || route === "admin/rejected-campaign" || route === "brand/active-campaign") && <CampaignBudget campaignDetails={AdmActiveCampDetails} />}
                     <hr className="my-8" />
                     <BrandCampaignDeliverables route={route} setDocReqDialog={setDocReqDialog} setDocumentPhaseDialog={setDocumentPhaseDialog} setPaymentDialog={setPaymentDialog} deliverableDetails={deliverableDetails} />
                     <hr className="my-8" />
@@ -306,7 +298,7 @@ function CampaignDetails({ route, mainRoute }) {
                             <p className="text-[#969BA0] text-[16px]">Note from Brand</p>
                             <h1 className="text-[18px] font-[500] mt-1 ">Cardboard paper style</h1>
                             <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
-                                {campaignDetails?.note_from_brand}
+                                {AdmActiveCampDetails?.note_from_brand}
                             </p>
                             <hr className="my-8" />
                         </div>
@@ -323,7 +315,7 @@ function CampaignDetails({ route, mainRoute }) {
                         <hr className="my-8" />
                         <div>
                             <h1>Terms & Conditions</h1>
-                            <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campaignDetails?.terms_and_condition} </p>
+                            <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{AdmActiveCampDetails?.terms_and_condition} </p>
                         </div>
                         <hr className="my-8" />
                     </div>}

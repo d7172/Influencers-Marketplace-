@@ -142,7 +142,7 @@ function Bids() {
                       {activeIndex === i && detailsTable && (
                         <tr>
                           {" "}
-                          <DetailsTable key={i} campaignId={data.campaignId} columnData={infTableCol} rowData={data} />
+                          <DetailsTable key={i} campaignId={data?.campaign_details?.id} columnData={infTableCol} rowData={data} />
                         </tr>
                       )}
                     </>

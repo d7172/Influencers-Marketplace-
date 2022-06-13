@@ -32,11 +32,11 @@ function CampaignRequirement({ campaignDetails }) {
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Country</h1>
-          <p className="text-[18px] font-[600] capitalize">{campaignDetails?.country}</p>
+          <p className="text-[18px] font-[600] capitalize">{campaignDetails?.country || campaignDetails?.country_name}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">State</h1>
-          <p className="text-[18px] font-[600] capitalize">{campaignDetails?.state}</p>
+          <p className="text-[18px] font-[600] capitalize">{campaignDetails?.state || campaignDetails?.state_name}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">City</h1>

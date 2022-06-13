@@ -14,6 +14,9 @@ import ResonForRejction from "../../../components/ResonForRejction";
 
 function CampaignDetails({ route }) {
   const { id } = useParams();
+  const isInfCampPool = route === "campaign pool";
+  const isInfCompletedCamp = route === "completed campaign";
+  const isInfBids = route === "active bids";
   const [placeBid, setPlaceBid] = useState(false);
   const [rejectBid, setRejectBid] = useState(false);
   const [reasonDialog, setReasonDialog] = useState(false);
@@ -50,7 +53,7 @@ function CampaignDetails({ route }) {
           </button>
         </div>
       </MyDialog>
-      {campDetails ? (
+      {isInfCampPool ? (
         <>
           <Breadcrumbs options={[{ title: "campaign" }, { title: route }, { title: campDetails?.id }]} />
           <div className="ml-4">
@@ -97,18 +100,18 @@ function CampaignDetails({ route }) {
                 onClick={() => setPlaceBid(true)}
                 className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
               >
-                Accept
+                Place Bid
               </button>
               <button
-                onClick={() => setRejectBid(true)}
+                onClick={() => navigate(`/influencer/campaign/campaign-pool`)}
                 className="text-[#3751FF] border-[#3751FF] rounded-full bg-white border-2 w-[171px] h-[54px]"
               >
-                Reject
+                Cancle
               </button>
             </div>
           </div>
         </>
-      ) : (completedCampDetails ?
+      ) : (isInfCompletedCamp ?
         (<>
           <Breadcrumbs options={[{ title: "campaign" }, { title: route }, { title: completedCampDetails?.id }]} />
           <div className="ml-4">
@@ -152,7 +155,7 @@ function CampaignDetails({ route }) {
               </p>
             </div>
             <hr className="my-8" />
-            <div>
+            {/* <div>
               <button
                 onClick={() => alert("are you sure to re-activate this campaign")}
                 className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
@@ -165,7 +168,7 @@ function CampaignDetails({ route }) {
               >
                 Reject
               </button>
-            </div>
+            </div> */}
           </div>
         </>)
         : (
