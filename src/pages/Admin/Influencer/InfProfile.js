@@ -8,6 +8,7 @@ import MyDialog from "../../../components/MyDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesData } from "../../../store/Categories/action";
 import { personalDetailsSchema } from "../../../utils/formsSchema";
+import { useParams } from "react-router-dom";
 
 const initForm = {
   first_name: "",
@@ -27,8 +28,8 @@ const initForm = {
   influencer_experience: null,
   profile_title: "",
   profile_pic: "",
-  cover_pic: ""
-}
+  cover_pic: "",
+};
 export const FormError = ({ children }) => {
   return <p className="text-red-500 text-xs italic mt-1">{children}</p>;
 };
@@ -37,20 +38,48 @@ export const ImgUpload = ({ children }) => {
 };
 
 function InfProfile({ route }) {
+  const { id } = useParams();
   const [rejectBid, setRejectBid] = useState(false);
   const [personalDetails, setPersonalDetails] = useState(initForm);
   let categoryData = [];
+  const disable = route === "rejected-user";
   const dispatch = useDispatch();
+  categoryData = useSelector((state) => state?.categories);
+  let newUserdata = useSelector((state) => state?.infNewUser);
+  const infNewUser = newUserdata.results.filter((i) => i.id == id)[0];
+  let activeUserdata = useSelector((state) => state?.infActiveUser);
+  const infActiveUser = activeUserdata.results.filter((i) => i?.influencerDetail?.id == id)[0]?.influencerDetail;
+  let rejectedUserData = useSelector((state) => state?.infRejectedUser);
+  const infRejectedUser = rejectedUserData.results.filter((i) => i.id == id)[0];
+
+  const User = {
+    first_name: (infNewUser || infActiveUser || infRejectedUser)?.first_name,
+    last_name: (infNewUser || infActiveUser || infRejectedUser)?.last_name,
+    user_name: (infNewUser || infActiveUser || infRejectedUser)?.user_name,
+    email: (infNewUser || infActiveUser || infRejectedUser)?.email,
+    phone: { dail_code: "+91", contact_number: (infNewUser || infActiveUser || infRejectedUser)?.contact_number },
+    gender: (infNewUser || infActiveUser || infRejectedUser)?.gender === "M" ? "Male" : "Female",
+    whats_app: { dail_code: "+91", contact_number: (infNewUser || infActiveUser || infRejectedUser)?.whatsapp_number },
+    dob: (infNewUser || infActiveUser || infRejectedUser)?.dob,
+    about_yourself: (infNewUser || infActiveUser || infRejectedUser)?.about_yourself,
+    category: (infNewUser || infActiveUser || infRejectedUser)?.category, // arr of strs
+    avg_user_engagement: (infNewUser || infActiveUser || infRejectedUser)?.avg_user_engagement,
+    basic_charges_per_post: (infNewUser || infActiveUser || infRejectedUser)?.basic_charges_per_cost_int,
+    influencer_experience: (infNewUser || infActiveUser || infRejectedUser)?.experience_in_years,
+    profile_title: (infNewUser || infActiveUser || infRejectedUser)?.profile_title,
+    profile_pic: (infNewUser || infActiveUser || infRejectedUser)?.profile_pic,
+    cover_pic: (infNewUser || infActiveUser || infRejectedUser)?.cover_pic,
+  };
 
   useEffect(() => {
+    setPersonalDetails(User);
     dispatch(getCategoriesData());
-  }, []);
+  }, [infNewUser]);
 
-  categoryData = useSelector((state) => state?.categories);
   return (
     <>
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "influencer" }, { title: route }, { title: "0001" }]} />
+        <Breadcrumbs options={[{ title: "influencer" }, { title: route }, { title: id }]} />
       </div>
       <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
         <ResonForRejction close={() => setRejectBid(false)} />
@@ -58,7 +87,6 @@ function InfProfile({ route }) {
 
       <div className=" w-full min-w-infNavbar px-8 items-center justify-between">
         <div className=" gap-4 px-4 w-[100%] mt-[5px] bg-[white]">
-
           <h1 className="text-start text-2xl font-bold mt-4">Personal Details</h1>
           <p className="block mb-[15px] text-[12px]  font-[400] text-gray-700">
             Lorem ipsum dolor sit amet, consectetur
@@ -83,6 +111,7 @@ function InfProfile({ route }) {
                           First Name
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="firstName"
                           type="text"
@@ -96,6 +125,7 @@ function InfProfile({ route }) {
                           Last Name
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="lastName"
                           type="text"
@@ -109,6 +139,7 @@ function InfProfile({ route }) {
                           User Name
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-168"
                           id="userName"
                           type="text"
@@ -122,12 +153,15 @@ function InfProfile({ route }) {
                           Email
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="email"
                           type="text"
                           value={values.email}
                           placeholder="example@gmail.com"
-                          onChange={(e) => { setFieldValue("email", e.target.value) }}
+                          onChange={(e) => {
+                            setFieldValue("email", e.target.value);
+                          }}
                         />
                       </div>
                       <div>
@@ -135,6 +169,7 @@ function InfProfile({ route }) {
                           Phone Number
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="phone"
                           type="text"
@@ -154,6 +189,7 @@ function InfProfile({ route }) {
                         </label>
                         <div>
                           <Dropdown
+                            disabled={disable}
                             dropdownStyle="w-168"
                             className="w-168"
                             label={values.gender.length ? values.gender : "Gender"}
@@ -165,7 +201,9 @@ function InfProfile({ route }) {
                                 label: "Female",
                               },
                             ]}
-                            onChange={(val) => { setFieldValue("gender", val.label) }}
+                            onChange={(val) => {
+                              setFieldValue("gender", val.label);
+                            }}
                           />
                         </div>
                       </div>
@@ -175,6 +213,7 @@ function InfProfile({ route }) {
                             Whatsapp Number
                           </label>
                           <input
+                            disabled={disable}
                             className="input-field w-390"
                             id="phone"
                             type="text"
@@ -191,6 +230,7 @@ function InfProfile({ route }) {
                         <div className="datepicker">
                           <label className="block text-gray-700 text-sm mb-2">Date Of Birth </label>
                           <input
+                            disabled={disable}
                             type="date"
                             value={values.dob}
                             className="input-field text-gray-500"
@@ -205,7 +245,7 @@ function InfProfile({ route }) {
                         <div className="mt-1 flex w-390 ">
                           <img
                             className="w-360 h-[100px] border-2 border-gray-300 border-dashed rounded-md"
-                            src="/images/placeholder.png"
+                            src={values?.profile_pic}
                             alt="avtar"
                           />
                         </div>
@@ -216,7 +256,7 @@ function InfProfile({ route }) {
                         <div className="mt-1 flex w-390 ">
                           <img
                             className="w-360 h-[100px] border-2 border-gray-300 border-dashed rounded-md"
-                            src="/images/unsplash_aJYO8JmVodY.png"
+                            src={values?.cover_pic}
                             alt="avtar"
                           />
                         </div>
@@ -225,6 +265,7 @@ function InfProfile({ route }) {
                     <div className="mt-10">
                       <label className="form-label inline-block mb-2">About Your Self </label>
                       <textarea
+                        disabled={disable}
                         className="block w-[860px] h-[148px] px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:shadow-blue-300 focus:outline-none"
                         id="exampleFormControlTextarea1"
                         rows="3"
@@ -235,19 +276,14 @@ function InfProfile({ route }) {
                     </div>
                   </div>
 
-
                   <div className="mt-8 text-[16px] font-[600] w-[180px]">Category Details</div>
                   <div className="block mb-[15px] text-[12px] font-[400] text-gray-600">
                     Lorem ipsum dolor sit amet, consectetur
                   </div>
                   <div className="flex w-full min-w-infNavbar items-center">
                     <div className="flex gap-4 px-4 w-[191px] justify-center items-center h-[61px] bg-[#F1F1F1]">
-                      Fashion & Style
+                      {values?.category}
                     </div>
-                    <div className="flex gap-4 px-8 mx-8 w-[191px] justify-center items-center h-[61px] bg-[#F1F1F1]">
-                      Travel & Holidays
-                    </div>
-                    <div className="flex gap-4 px-4 w-[191px] justify-center items-center h-[61px] bg-[#F1F1F1]">Parenting</div>
                   </div>
 
                   {route === "active-user" && (
@@ -269,7 +305,7 @@ function InfProfile({ route }) {
                               <button
                                 type="button"
                                 className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                                onClick={() => { }}
+                                onClick={() => {}}
                               >
                                 Add
                               </button>
@@ -279,9 +315,58 @@ function InfProfile({ route }) {
                       </div>
                       <div className=" flex mt-14 cursor-pointer"></div>
                     </div>
-                  )
-                  }
+                  )}
 
+                  <div className="mt-8 text-[16px] font-[600] w-[180px]">Other Information</div>
+                  <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
+                    Lorem ipsum dolor sit amet, consectetur
+                  </div>
+                  <div className="w-[1100px]">
+                    <div className="flex flex-wrap gap-10 items-center">
+                      <div>
+                        <label className="block text-gray-700 text-sm mb-2" htmlFor="avgUserEngagement">
+                          Average User Engagement
+                        </label>
+                        <input
+                          disabled={disable}
+                          className="input-field w-390"
+                          id="avgUserEngagement"
+                          type="text"
+                          placeholder="Average User Engagement"
+                          value={values.avg_user_engagement}
+                          onChange={(val) => setFieldValue("avg_user_engagement", val.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-700 text-sm mb-2" htmlFor="chargePerPost">
+                          Basic Charges Per Post (INR)
+                        </label>
+                        <input
+                          disabled={disable}
+                          className="input-field w-390"
+                          id="chargePerPost"
+                          type="text"
+                          placeholder="Basic Charges Per Post (INR)"
+                          value={values.basic_charges_per_post}
+                          onChange={(val) => setFieldValue("basic_charges_per_post", val.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-700 text-sm mb-2" htmlFor="infExperience">
+                          Influencer Experience
+                        </label>
+                        <input
+                          disabled={disable}
+                          className="input-field w-390"
+                          id="infExperience"
+                          type="text"
+                          placeholder="Influencer Experience"
+                          value={values.influencer_experience}
+                          onChange={(val) => setFieldValue("influencer_experience", val.target.val)}
+                        />
+                      </div>
+                    </div>
+                  </div>
                   {/* <div className="mt-8 text-[16px] font-[600] w-[180px]">Contact Details</div>
                   <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
                     Lorem ipsum dolor sit amet, consectetur
@@ -343,53 +428,7 @@ function InfProfile({ route }) {
                     </div>
                   </div>
 
-                  <div className="mt-8 text-[16px] font-[600] w-[180px]">Other Information</div>
-                  <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
-                    Lorem ipsum dolor sit amet, consectetur
-                  </div>
-                  <div className="w-[1100px]">
-                    <div className="flex flex-wrap gap-10 items-center">
-                      <div>
-                        <label className="block text-gray-700 text-sm mb-2" htmlFor="avgUserEngagement">
-                          Average User Engagement
-                        </label>
-                        <input
-                          className="input-field w-390"
-                          id="avgUserEngagement"
-                          type="text"
-                          placeholder="Average User Engagement"
-                          value={values.avg_user_engagement}
-                          onChange={(val) => setFieldValue("avg_user_engagement", val.target.value)}
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-gray-700 text-sm mb-2" htmlFor="chargePerPost">
-                          Basic Charges Per Post (INR)
-                        </label>
-                        <input
-                          className="input-field w-390"
-                          id="chargePerPost"
-                          type="text"
-                          placeholder="Basic Charges Per Post (INR)"
-                          value={values.basic_charges_per_post}
-                          onChange={(val) => setFieldValue("basic_charges_per_post", val.target.value)}
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-gray-700 text-sm mb-2" htmlFor="infExperience">
-                          Influencer Experience
-                        </label>
-                        <input
-                          className="input-field w-390"
-                          id="infExperience"
-                          type="text"
-                          placeholder="Influencer Experience"
-                          value={values.influencer_experience}
-                          onChange={(val) => setFieldValue("influencer_experience", val.target.val)}
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  
 
                   <div className="mt-8 text-[16px] font-[600] w-[180px]">Bank Account Details</div>
                   <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
@@ -593,7 +632,7 @@ function InfProfile({ route }) {
                               <button
                                 type="button"
                                 className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                                onClick={() => { }}
+                                onClick={() => {}}
                               >
                                 Add
                               </button>
@@ -606,9 +645,13 @@ function InfProfile({ route }) {
 
                   <div className="flex justify-end">
                     <div className="mt-14 cursor-pointer">
-                      <button type="button" className="w-[150px] rounded-[50px] bg-primary text-white py-2"
-                        onClick={() => { console.log({ ...values, gender: values.gender.charAt(0) }, "values");
-                      }}>
+                      <button
+                        type="button"
+                        className="w-[150px] rounded-[50px] bg-primary text-white py-2"
+                        onClick={() => {
+                          console.log({ ...values, gender: values.gender.charAt(0) }, "values");
+                        }}
+                      >
                         {route === "new-user" && `Approve`}
                         {route === "active-user" && `Save`}
                         {route === "rejected-user" && `Re Active`}
@@ -625,7 +668,7 @@ function InfProfile({ route }) {
                     </div>
                   </div>
                 </>
-              )
+              );
             }}
           </Formik>
         </div>
