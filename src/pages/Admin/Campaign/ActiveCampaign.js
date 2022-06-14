@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminCampaignTable from "../../../components/AdminCampaignTable";
 import Breadcrumbs from "../../../components/Breadcrumbs";
@@ -7,14 +7,17 @@ import Pagination from "../../../components/Pagination";
 import { getActiveCampaignData } from "../../../store/Admin/Campaign/ActiveCampaign/action";
 
 const AdmActiveCampaign = ({ route }) => {
+  const [activePage, setActivePage] = useState(1);
   let tableData = [];
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getActiveCampaignData());
-  }, []);
+    const payload = null;
+    dispatch(getActiveCampaignData(payload, activePage));
+  }, [activePage]);
 
-  tableData = useSelector((state) => state?.AdminActiveCampaign?.results);
+  const AdminActiveCampaign = useSelector((state) => state?.AdminActiveCampaign);
+  tableData = AdminActiveCampaign?.results;
   console.log(tableData);
   return (
     <div className="pt-4 relative">
@@ -28,7 +31,7 @@ const AdmActiveCampaign = ({ route }) => {
         <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} />
       </div>
       <div className="absolute bottom-[-100px] right-0">
-        <Pagination />
+        <Pagination link={AdminActiveCampaign} activePage={activePage} setActivePage={setActivePage}/>
       </div>
     </div>
   );

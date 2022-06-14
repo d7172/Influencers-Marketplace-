@@ -1,7 +1,7 @@
 import { networkRequest } from "../../../_shared/api";
 
-export const getInfNewUserData = (payload) => {
-  const url = "influencer-user-list/?status=0";
+export const getInfNewUserData = (payload, activePage) => {
+  const url = `influencer-user-list/?page=${activePage}&status=0`;
   return (dispatch) => {
     networkRequest(
       url,

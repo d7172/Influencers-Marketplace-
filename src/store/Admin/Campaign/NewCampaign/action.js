@@ -1,7 +1,7 @@
 import { networkRequest } from "../../../_shared/api";
 
-export const getNewCampaignData = (payload) => {
-  const url = "campaign-all-list/?status=0";
+export const getNewCampaignData = (payload, activePage) => {
+  const url = `campaign-all-list/?page=${activePage}&status=pending`;
   return (dispatch) => {
     networkRequest(
       url,

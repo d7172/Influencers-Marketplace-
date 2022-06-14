@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminCampaignTable from "../../../components/AdminCampaignTable";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Pagination from "../../../components/Pagination";
-import { getRejectedCampaignData } from "../../../store/Admin/Campaign/RejectedUser/action";
+import { getRejectedCampaignData } from "../../../store/Admin/Campaign/RejectedCampaign/action";
 
 const AdmRejectedCampaign = ({ route }) => {
   // const tableData = [
@@ -18,11 +18,15 @@ const AdmRejectedCampaign = ({ route }) => {
   //   },
   // ];
   let tableData = [];
+  const [activePage, setActivePage] = useState(1);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getRejectedCampaignData());
+    const payload = null;
+    dispatch(getRejectedCampaignData(payload, activePage));
   }, []);
-  tableData = useSelector((state) => state?.AdmRejectedCampaign?.results);
+  const AdmRejectedCampaign = useSelector((state) => state?.AdmRejectedCampaign);
+  tableData = AdmRejectedCampaign?.results;
   return (
     <div className="pt-4 relative">
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -35,7 +39,7 @@ const AdmRejectedCampaign = ({ route }) => {
         <AdminCampaignTable tableData={tableData} route={route} />
       </div>
       <div className="absolute bottom-[-100px] right-0">
-        <Pagination />
+        <Pagination link={AdmRejectedCampaign} activePage={activePage} setActivePage={setActivePage}/>
       </div>
     </div>
   );

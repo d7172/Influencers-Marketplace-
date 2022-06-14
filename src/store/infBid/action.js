@@ -1,7 +1,7 @@
 import { networkRequest } from "../_shared/api";
 
-export const getInfBidData = (payload) => {
-  const url = "influencer-bids-list/";
+export const getInfBidData = (payload, activePage) => {
+  const url = `influencer-bids-list/?page=${activePage}`;
   return (dispatch) => {
     networkRequest(
       url,

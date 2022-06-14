@@ -8,10 +8,12 @@ import MyDialog from "../../../components/MyDialog";
 import CloseBtn from "../../../components/CloseBtn";
 // import ReasonForRejection from "../../../components/ResonForRejction";
 import { getCampaignActiveData } from "../../../store/infCampaignActive/action";
+import Pagination from "../../../components/Pagination";
 
 let tableData = [];
 
 function ActiveCampaign() {
+  const [activePage, setActivePage] = useState(1);
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   // console.log(loggedInUserData, "logged in user");
@@ -24,12 +26,13 @@ function ActiveCampaign() {
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getCampaignActiveData(payload));
-  }, []);
+    dispatch(getCampaignActiveData(payload, activePage));
+  }, [activePage]);
 
-  tableData = useSelector((state) => state?.infCampaignActive?.results);
+  const infCampaignActive = useSelector((state) => state?.infCampaignActive);
+  tableData = infCampaignActive?.results;
   return (
-    <div className="px-4">
+    <div className="px-4 relative">
       <Breadcrumbs options={[{ title: "campaign" }, { title: "Active campaign" }]} />
       <div className="flex justify-between mt-2">
         <div className="flex gap-4 items-center">
@@ -45,6 +48,9 @@ function ActiveCampaign() {
         <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
       </div>
       <ActiveCampaignTable tableData={tableData} />
+      <div className="absolute bottom-[-100px] right-0">
+        <Pagination link={infCampaignActive} activePage={activePage} setActivePage={setActivePage}/>
+      </div>
     </div>
   );
 }

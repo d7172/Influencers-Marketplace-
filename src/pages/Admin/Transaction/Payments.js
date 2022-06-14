@@ -92,7 +92,7 @@ function AdmPayments() {
           </div>
         </div>
         <div className="absolute bottom-[-100px] w-full px-4 right-0">
-          <Pagination />
+          {/* <Pagination /> */}
         </div>
       </div>
     </>

@@ -9,6 +9,7 @@ import { getInfBidData } from "../../../store/infBid/action";
 
 let infBids = [];
 function Bids() {
+  const [activePage, setActivePage] = useState(1);
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   const dispatch = useDispatch();
@@ -18,11 +19,12 @@ function Bids() {
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getInfBidData(data));
-  }, []);
-  infBids = useSelector((state) => state?.infBids?.results);
+    dispatch(getInfBidData(data, activePage));
+  }, [activePage]);
+  const infBidsObj = useSelector((state) => state?.infBids);
+  infBids = infBidsObj?.results;
   return (
-    <div className="ml-10">
+    <div className="ml-10 relative">
       <Breadcrumbs options={[{ title: "Bids" }, { title: "Active Bid" }]} />
       <div className="flex justify-between mt-2">
         <div className="flex gap-4 items-center">
@@ -38,6 +40,9 @@ function Bids() {
         <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
       </div>
       <BidTable />
+      <div className="absolute bottom-[-100px] right-0">
+        <Pagination link={infBidsObj} activePage={activePage} setActivePage={setActivePage} />
+      </div>
     </div>
   );
 }

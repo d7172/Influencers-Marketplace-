@@ -7,17 +7,23 @@ import { Link, useNavigate } from "react-router-dom";
 import DetailsTable from "./DetailsTable";
 import { useDispatch, useSelector } from "react-redux";
 import { getActiveBidsData } from "../../../store/Admin/ActiveBids/action";
+import Pagination from "../../../components/Pagination";
 // import MyDialog from "./MyDialog";
 // import PalceBid from "./PalceBid";
 
 function Bids() {
   // const [placeBid, setPlaceBid] = useState(false);
   let tableData = [];
+  const [activePage, setActivePage] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getActiveBidsData());
-  }, []);
-  tableData = useSelector((state) => state?.AdminActiveBids?.results);
+    const payload = null;
+    dispatch(getActiveBidsData(payload, activePage));
+  }, [activePage]);
+
+  const AdminActiveBids = useSelector((state) => state?.AdminActiveBids);
+  tableData = AdminActiveBids?.results;
+
   const infTableCol = ["User ID", "Influencer Name", "Influencer Bids Number"];
   const infTableRow = [
     {
@@ -60,7 +66,7 @@ function Bids() {
     setDetailsTable(!detailsTable);
   };
   return (
-    <div className="flex flex-col max-w-[1280px]">
+    <div className="flex flex-col relative max-w-[1280px]">
       {/* <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
         <PalceBid close={() => setPlaceBid(false)} />
       </MyDialog> */}
@@ -152,6 +158,9 @@ function Bids() {
             </table>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-[-100px] right-0">
+        <Pagination link={AdminActiveBids} activePage={activePage} setActivePage={setActivePage} />
       </div>
     </div>
   );

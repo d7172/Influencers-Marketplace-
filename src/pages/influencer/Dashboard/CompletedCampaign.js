@@ -12,6 +12,7 @@ import { getCampaignCompletedData } from "../../../store/infCampaignCompleted/ac
 
 let tableData = [];
 function CompletedCampaign() {
+  const [activePage, setActivePage] = useState(1);
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   const dispatch = useDispatch();
@@ -22,10 +23,11 @@ function CompletedCampaign() {
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getCampaignCompletedData(payload));
-  }, []);
+    dispatch(getCampaignCompletedData(payload, activePage));
+  }, [activePage]);
 
-  tableData = useSelector((state) => state?.infCampaignCompleted?.results);
+  const infCampaignCompleted = useSelector((state) => state?.infCampaignCompleted?.results);
+  tableData = infCampaignCompleted?.results;
   console.log(tableData, "table data");
   const infCampaignPool = {
     results: [
@@ -67,7 +69,7 @@ function CompletedCampaign() {
       </div>
       <CampaignTable data={tableData} />
       <div className="absolute bottom-[-100px] right-0">
-        <Pagination />
+        <Pagination link={infCampaignCompleted} activePage={activePage} setActivePage={setActivePage}/>
       </div>
     </div>
   );
