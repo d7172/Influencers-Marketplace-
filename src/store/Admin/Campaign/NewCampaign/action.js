@@ -24,7 +24,7 @@ export const addNewCampaignData = (payload) => {
     networkRequest(
       url,
       "POST",
-      "JSON",
+      false,
       payload,
       (res) => {
         dispatch({ type: "NEW_CAMPAIGN_ADDED_SUCCESS", data: res });

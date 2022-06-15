@@ -22,6 +22,8 @@ import { AdminEarning } from "./Admin/Transactions/Earnings/reducer";
 import { categories } from "./Categories/reducer";
 import { placeBid } from "./infPlaceBid/reducer";
 import { login } from "./Login/reducer";
+import { stateList } from "./State/reducer";
+import { countryList } from "./Country/reducer";
 
 const reducers = combineReducers({
   signUpState,
@@ -49,6 +51,8 @@ const reducers = combineReducers({
   AdminEarning,
   categories,
   placeBid,
+  stateList,
+  countryList,
 });
 
 export default reducers;
