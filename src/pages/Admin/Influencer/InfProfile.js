@@ -26,6 +26,9 @@ const initForm = {
   avg_user_engagement: null,
   basic_charges_per_post: "",
   influencer_experience: null,
+  address_details: {},
+  bank_details: {},
+  kyc_details: {},
   profile_title: "",
   profile_pic: "",
   cover_pic: "",
@@ -69,13 +72,16 @@ function InfProfile({ route }) {
     profile_title: (infNewUser || infActiveUser || infRejectedUser)?.profile_title,
     profile_pic: (infNewUser || infActiveUser || infRejectedUser)?.profile_pic,
     cover_pic: (infNewUser || infActiveUser || infRejectedUser)?.cover_pic,
+    address_details: (infNewUser || infActiveUser || infRejectedUser)?.address_details,
+    bank_details: (infNewUser || infActiveUser || infRejectedUser)?.bank_details,
+    kyc_details: (infNewUser || infActiveUser || infRejectedUser)?.kyc_details
   };
 
   useEffect(() => {
     setPersonalDetails(User);
     dispatch(getCategoriesData());
-  }, [infNewUser]);
-
+  }, [infNewUser, infActiveUser]);
+  // console.log(categoryData);
   return (
     <>
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
@@ -305,7 +311,7 @@ function InfProfile({ route }) {
                               <button
                                 type="button"
                                 className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                                onClick={() => {}}
+                                onClick={() => { }}
                               >
                                 Add
                               </button>
@@ -367,7 +373,7 @@ function InfProfile({ route }) {
                       </div>
                     </div>
                   </div>
-                  {/* <div className="mt-8 text-[16px] font-[600] w-[180px]">Contact Details</div>
+                  <div className="mt-8 text-[16px] font-[600] w-[180px]">Contact Details</div>
                   <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
                     Lorem ipsum dolor sit amet, consectetur
                   </div>
@@ -378,11 +384,12 @@ function InfProfile({ route }) {
                           Country
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="country"
                           type="text"
                           placeholder="country"
-                          value={"USA"}
+                          value={values.address_details.country}
                           onChange={handleChange("country")}
                         />
                       </div>
@@ -391,11 +398,12 @@ function InfProfile({ route }) {
                           City
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="city"
                           type="text"
                           placeholder="city"
-                          value={"New jersey"}
+                          value={values.address_details.city}
                           onChange={handleChange("city")}
                         />
                       </div>
@@ -404,11 +412,12 @@ function InfProfile({ route }) {
                           Address
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="address"
                           type="text"
                           placeholder="address"
-                          value={"2464 Royal Ln. Mesa, New Jersey"}
+                          value={values.address_details.line_1 + values.address_details.line_2}
                           onChange={handleChange("address")}
                         />
                       </div>
@@ -417,19 +426,17 @@ function InfProfile({ route }) {
                           ZIP code
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="ZIP code"
                           type="text"
-                          value={"45463"}
+                          value={values.address_details.pincode}
                           placeholder="zip code"
                           onChange={handleChange("ZIP code")}
                         />
                       </div>
                     </div>
                   </div>
-
-                  
-
                   <div className="mt-8 text-[16px] font-[600] w-[180px]">Bank Account Details</div>
                   <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
                     Lorem ipsum dolor sit amet, consectetur
@@ -441,11 +448,12 @@ function InfProfile({ route }) {
                           Bank Name
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="bankName"
                           type="text"
                           placeholder="Bank Name"
-                          value={"Bank of India"}
+                          value={values.bank_details.bank_name}
                           onChange={handleChange("bankName")}
                         />
                       </div>
@@ -454,37 +462,40 @@ function InfProfile({ route }) {
                           Account Number
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="accountNumber"
                           type="text"
                           placeholder="Account Number"
-                          value={"01213456789"}
+                          value={values.bank_details.account_number}
                           onChange={handleChange("accountNumber")}
                         />
                       </div>
-                      <div>
+                      {route==="new-user" && <div>
                         <label className="block text-gray-700 text-sm mb-2" htmlFor="confirmAccNUmber">
                           confirm Account Number
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="confirmAccNUmber"
                           type="text"
                           placeholder=" confirm Account Number"
-                          value={"01213456789"}
+                          value={values.bank_details.account_number}
                           onChange={handleChange("confirmAccNUmber")}
                         />
-                      </div>
+                      </div>}
                       <div>
                         <label className="block text-gray-700 text-sm mb-2" htmlFor="IFSC code">
                           IFSC Code
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="IFSCCode"
                           type="text"
                           placeholder=" IFSC code"
-                          value={"ABCD01236"}
+                          value={values.bank_details.ifsc_code}
                           onChange={handleChange("IFSCCode")}
                         />
                       </div>
@@ -501,11 +512,12 @@ function InfProfile({ route }) {
                           PAN Card Number
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="PANCardNumber"
                           type="text"
                           placeholder="PAN Card Number"
-                          value={""}
+                          value={values.kyc_details.pan_card_number}
                           onChange={handleChange("PANCardNumber")}
                         />
                       </div>
@@ -523,11 +535,12 @@ function InfProfile({ route }) {
                           Addhar Card Number
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="addharCardNumber"
                           type="text"
                           placeholder=" Addhar Card Number"
-                          value={"01213456789"}
+                          value={values.kyc_details.aadhar_card_number}
                           onChange={handleChange("addharCardNumber")}
                         />
                       </div>
@@ -535,13 +548,13 @@ function InfProfile({ route }) {
                         <div className="mt-1 flex w-390 justify-between">
                           <img
                             className="w-360 h-[100px] border-2 border-gray-300 border-dashed rounded-md"
-                            src="/images/addhar-front.png"
+                            src={values.kyc_details.aadhar_card_front_pic}
                             alt="avtar"
                           />
                           <div className="mt-1 flex w-191">
                             <img
                               className="w-360 h-[100px] border-2 border-gray-300 border-dashed rounded-md"
-                              src="/images/addhar-rear.png"
+                              src={values.kyc_details.aadhar_card_back_pic}
                               alt="avtar"
                             />
                           </div>
@@ -552,15 +565,16 @@ function InfProfile({ route }) {
                   <div className="mt-8 text-[16px] font-[600] w-[180px]">Social Account</div>
                   <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
                     Lorem ipsum dolor sit amet, consectetur
-                  </div> */}
+                  </div>
 
-                  {/* <div className="w-[1100px]">
+                  <div className="w-[1100px]">
                     <div className="flex flex-wrap gap-10 items-center">
                       <div>
                         <label className="block text-gray-700 text-sm mb-2" htmlFor="youtubeChannelName">
                           Youtube Channel Name
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="youtubeChannelName"
                           type="text"
@@ -575,6 +589,7 @@ function InfProfile({ route }) {
                           Youtube Link
                         </label>
                         <input
+                          disabled={disable}
                           className="input-field w-390"
                           id="youTubeLink"
                           type="text"
@@ -584,7 +599,7 @@ function InfProfile({ route }) {
                         />
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                   <div className="mt-8 flex items-center">
                     <div className={`items-center gap-3 w-fit pr-7 py-2 cursor-pointer`}>
                       <img className="w-[60px] h-[60px] items-center" src={`/svgs/facebook.svg`} alt={"facebook"} />
@@ -632,7 +647,7 @@ function InfProfile({ route }) {
                               <button
                                 type="button"
                                 className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                                onClick={() => {}}
+                                onClick={() => { }}
                               >
                                 Add
                               </button>

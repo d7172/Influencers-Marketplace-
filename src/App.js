@@ -5,7 +5,7 @@ import BrandDashboardCompositeComponent from "./BrandDashboardCompositeComponent
 import InfluencerCompositeComponent from "./InfluencerCompositeComponent";
 import AdmActiveCampaign from "./pages/Admin/Campaign/ActiveCampaign";
 import AdmAssignCampaign from "./pages/Admin/Campaign/AssignCampaign";
-import AdmAssignCampaignDetails from "./pages/Admin/Campaign/AssignCampaignDetails";
+// import AdmAssignCampaignDetails from "./pages/Admin/Campaign/AssignCampaignDetails";
 import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
 import AdmRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
 import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";

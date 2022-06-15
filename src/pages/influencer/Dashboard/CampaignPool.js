@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
@@ -11,6 +11,7 @@ function CampaignPool() {
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   const dispatch = useDispatch();
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
+  const [activePage, setActivePage] = useState(1);
   useEffect(() => {
     const payload = {
       category: loggedInUserData?.category.toLowerCase(),
@@ -18,8 +19,8 @@ function CampaignPool() {
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getCampaignPoolData(data));
-  }, []);
+    dispatch(getCampaignPoolData(data, activePage));
+  }, [activePage]);
 
   const infCampaignPool = useSelector((state) => state?.infCampaignPool);
   return (
@@ -30,7 +31,7 @@ function CampaignPool() {
       </div>
       <CampaignTable data={infCampaignPool?.results} />
       <div className="absolute bottom-[-100px] right-0">
-        <Pagination link={infCampaignPool} />
+        <Pagination link={infCampaignPool} activePage={activePage} setActivePage={setActivePage}/>
       </div>
     </div>
   );

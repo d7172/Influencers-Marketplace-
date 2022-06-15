@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdminCampaignTable from "../../../components/AdminCampaignTable";
 import Breadcrumbs from "../../../components/Breadcrumbs";
@@ -10,11 +10,15 @@ import Dropdown from "../Dropdowns";
 
 const AdmNewCampaign = ({ route }) => {
   let tableData = [];
+  const [activePage, setActivePage] = useState(1);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getNewCampaignData());
+    const payload = null;
+    dispatch(getNewCampaignData(payload, activePage));
   }, []);
-  tableData = useSelector((state) => state?.AdminNewCampaign?.results);
+  const AdminNewCampaign = useSelector((state) => state?.AdminNewCampaign);
+  tableData = AdminNewCampaign?.results;
   const navigate = useNavigate();
   return (
     <div className="pt-4 relative">
@@ -44,7 +48,7 @@ const AdmNewCampaign = ({ route }) => {
         <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} />
       </div>
       <div className="absolute bottom-[-100px] right-0">
-        <Pagination />
+        <Pagination link={AdminNewCampaign} activePage={activePage} setActivePage={setActivePage}/>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Pagination from "../../../components/Pagination";
@@ -9,11 +9,14 @@ import { useNavigate } from "react-router-dom";
 
 function InfNewUser({ route }) {
   let tableData = [];
+  const [activePage, setActivePage] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getInfNewUserData());
-  }, []);
-  tableData = useSelector((state) => state?.infNewUser?.results);
+    const payload = null;
+    dispatch(getInfNewUserData(payload, activePage));
+  }, [activePage]);
+  const infNewUser = useSelector((state) => state?.infNewUser);
+  tableData = infNewUser?.results;
   const navigate = useNavigate();
 
   return (
@@ -32,7 +35,7 @@ function InfNewUser({ route }) {
       </div>
       <AdminUserTable tableData={tableData} route={route} />
       <div className="absolute bottom-[-100px] right-0">
-        <Pagination />
+        <Pagination link={infNewUser} activePage={activePage} setActivePage={setActivePage}/>
       </div>
     </div>
   );

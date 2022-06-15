@@ -46,7 +46,7 @@ function Statement() {
       </div>
       <StatementTable />
       <div className="absolute bottom-4 right-6">
-        <Pagination />
+        {/* <Pagination /> */}
       </div>
     </div>
   );
