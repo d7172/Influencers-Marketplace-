@@ -16,7 +16,7 @@ const AdmNewCampaign = ({ route }) => {
   useEffect(() => {
     const payload = null;
     dispatch(getNewCampaignData(payload, activePage));
-  }, []);
+  }, [activePage]);
   const AdminNewCampaign = useSelector((state) => state?.AdminNewCampaign);
   tableData = AdminNewCampaign?.results;
   const navigate = useNavigate();

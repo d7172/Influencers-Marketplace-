@@ -183,7 +183,7 @@ function ActiveCampaignTable({ tableData }) {
                       {activeIndex === i && detailsTable && (
                         <tr>
                           {" "}
-                          <Details setReasonDialog={setReasonDialog} />{" "}
+                          <Details setReasonDialog={setReasonDialog} id={data?.id}/>{" "}
                         </tr>
                       )}
                     </>
@@ -198,7 +198,7 @@ function ActiveCampaignTable({ tableData }) {
   );
 }
 
-function Details({ setReasonDialog }) {
+function Details({ setReasonDialog, id }) {
   const navigate = useNavigate();
 
   return (
@@ -212,7 +212,7 @@ function Details({ setReasonDialog }) {
         </h1>
         <h1
           className="underline text-[#3751FF] text-sm cursor-pointer"
-          onClick={() => navigate(`/influencer/campaign/active-campaign/00001`)}
+          onClick={() => navigate(`/influencer/campaign/active-campaign/${id}`)}
         >
           Re Apply
         </h1>
@@ -226,7 +226,7 @@ function Details({ setReasonDialog }) {
         </h1>
         <h1
           className="underline text-[#3751FF] text-sm cursor-pointer"
-          onClick={() => navigate(`/influencer/campaign/active-campaign/00001`)}
+          onClick={() => navigate(`/influencer/campaign/active-campaign/${id}`)}
         >
           Re Apply
         </h1>

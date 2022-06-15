@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from "react-redux";
-
+import BackArrowBtn from '../../components/BackArrowBtn';
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CampaignBudget from "../../components/CampaignBudget";
 import BrandCampaignDeliverables from "./BrandCampaignDeliverables"
@@ -23,8 +23,8 @@ function CampaignDetails({ route, mainRoute }) {
     const isAdminActive = location.pathname.includes("admin/campaign/active-campaign");
     const isAdminRejected = location.pathname.includes("admin/campaign/rejected-campaign");
 
-    const AdmActiveCamp = useSelector((state)=>state.AdminActiveCampaign);
-    const AdmActiveCampDetails = AdmActiveCamp.results.filter((i)=> i.id == id)[0];
+    const AdmActiveCamp = useSelector((state) => state.AdminActiveCampaign);
+    const AdmActiveCampDetails = AdmActiveCamp.results.filter((i) => i.id == id)[0];
 
     // console.log(activeCampaignDetails, 'activeCampaignDetails');
     // campaignDetails = {
@@ -66,11 +66,11 @@ function CampaignDetails({ route, mainRoute }) {
         }]
 
 
-        console.log(AdmActiveCampDetails);
+    // console.log(location.pathname.slice(0, location.pathname.lastIndexOf("/")));
     return (
         <div>
             <div className='w-full bg-[#F2F2F2] py-4 px-8'>
-                <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Campaign" }, { title: route }, { title: id }]} />
+                <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Campaign" }, { title: isAdminAssigned?"Assigned Campaign":isAdminActive?"Active Campaign":"Rejected Campaign" }, { title: id }]} />
             </div>
             <div className="mt-6 px-6 pb-10">
                 <MyDialog isOpen={documentPhaseDialog} close={() => setDocumentPhaseDialog(false)} className="rounded-8">
@@ -186,6 +186,7 @@ function CampaignDetails({ route, mainRoute }) {
                     </div>
                 </MyDialog>
                 <div className="ml-4">
+                    <BackArrowBtn className="" onClick={()=>{ navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/"))) }} />
                     <div className='flex w-full justify-between'>
                         <div className="mt-6">
                             <h1 className="text-[32px] font-[600]">Campaign id</h1>

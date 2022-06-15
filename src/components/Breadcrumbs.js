@@ -16,7 +16,7 @@ function Breadcrumbs({ options = initOptions }) {
               <li>
                 <button
                   onClick={option?.onClick}
-                  className={`${isNotLast ? "text-blue-600 hover:text-blue-700" : "text-gray-500"} `}
+                  className={`capitalize ${isNotLast ? "text-blue-600 hover:text-blue-700" : "text-gray-500"} `}
                 >
                   {option.title}
                 </button>

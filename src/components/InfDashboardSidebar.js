@@ -78,7 +78,7 @@ function InfDashboardSidebar() {
             inActiveColor="text-[#969BA0]"
             activeColor="text-[#3751FF]"
             className="text-[18px] font-[600] w-[180px]"
-            label="Transition"
+            label="Transaction"
             content={() => (
               <div className="py-4 px-5 flex flex-col gap-4 items-start">
                 <Link

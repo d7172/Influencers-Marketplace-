@@ -26,7 +26,7 @@ function CompletedCampaign() {
     dispatch(getCampaignCompletedData(payload, activePage));
   }, [activePage]);
 
-  const infCampaignCompleted = useSelector((state) => state?.infCampaignCompleted?.results);
+  const infCampaignCompleted = useSelector((state) => state?.infCampaignCompleted);
   tableData = infCampaignCompleted?.results;
   console.log(tableData, "table data");
   const infCampaignPool = {

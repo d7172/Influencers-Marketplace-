@@ -28,12 +28,12 @@ const initForm = {
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
-  social_plateform: "",
+  social_platform: [],
   minimum_facebook_reach: "",
   minimum_facebook_engagement: "",
   number_of_days: "",
   facebook_deliverables: "",
-  industry: "",
+  industry: [],
   payout_type: "",
   budget_type: "",
   budget_per_influencer: "",
@@ -117,7 +117,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
       return { id: r?.id, name: r?.name };
     })
   );
-
+  // console.log(categoryData);
   return (
     <>
       <div className="bg-[#F2F2F2] w-full py-4 px-8 mb-4">
@@ -331,7 +331,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label="India"
+                        label={values.country.name.length ? values.country.name : "Select country"}
                         options={Country}
                         optionsLabel="name"
                         onChange={(val) => setFieldValue("country", { id: val.id, name: val.name })}
@@ -480,15 +480,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                           name="platFormcheck"
                           type="checkbox"
                           className="absolute top-0 right-[10px]"
-                          onChange={(val) => {
-                            setFieldValue("social_plateform", platform);
-                            values.social_plateform.includes(platform)
-                              ? setFieldValue(
-                                  "social_plateform",
-                                  values.social_plateform.splice(values.social_plateform.indexOf(platform), 1)
-                                )
-                              : setFieldValue("social_plateform", values.social_plateform.concat(", ", platform));
-                          }}
+                          onChange={() => { values.social_platform.includes(platform) ? values.social_platform.splice(values.social_platform.indexOf(platform), 1) : values.social_platform.push(platform) }}
                         />{" "}
                         <label htmlFor={`${platform}SVG`}>
                           {" "}
@@ -501,7 +493,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                 </div>
                 <div className="my-8 flex items-center gap-10">
                   <div className="flex flex-col w-full">
-                    <lable className="block text-gray-700 text-sm mb-2">Minimum Facebook Reach</lable>
+                    <label className="block text-gray-700 text-sm mb-2">Minimum Facebook Reach</label>
                     <input
                       type="range"
                       name="max-FB-reach"
@@ -512,7 +504,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                     <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p>
                   </div>
                   <div className="flex flex-col w-full">
-                    <lable className="block text-gray-700 text-sm mb-2">Minimum Facebook Engagement</lable>
+                    <label className="block text-gray-700 text-sm mb-2">Minimum Facebook Engagement</label>
                     <input
                       type="range"
                       name="max-FB-reach"
@@ -590,15 +582,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                           name="platFormcheck"
                           type="checkbox"
                           className="absolute top-0 right-[10px]"
-                          onChange={() => {
-                            setFieldValue("industry", industry);
-                            values.industry.includes(industry)
-                              ? setFieldValue("industry", values.industry.splice(values.industry.indexOf(industry), 1))
-                              : setFieldValue(
-                                  "industry",
-                                  values.industry.length > 1 && values.industry.concat(", ", industry)
-                                );
-                          }}
+                          onChange={() => { values.industry.includes(industry) ? values.industry.splice(values.industry.indexOf(industry), 1) : values.industry.push(industry) }}
                         />{" "}
                         <label htmlFor={`${industry}SVG`}>
                           {" "}
@@ -759,6 +743,8 @@ function CampaignDetails({ setSignUpStatus, route }) {
                           country: values.country.id,
                           state: values.state.id,
                           gender: values.gender.value,
+                          social_platform: values.social_platform.toString(),
+                          industry: values.industry.toString()
                         },
                       });
                       const temp = {
@@ -767,6 +753,8 @@ function CampaignDetails({ setSignUpStatus, route }) {
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
+                        social_platform: values.social_platform.toString(),
+                        industry: values.industry.toString()
                       };
 
                       console.log("data", temp);

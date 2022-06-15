@@ -1,7 +1,4 @@
-const init = {
-  count: 0,
-  results: [],
-};
+const init = [];
 
 export const categories = (state = init, action) => {
   switch (action.type) {
