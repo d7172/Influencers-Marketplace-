@@ -74,7 +74,7 @@ function InfProfile({ route }) {
     cover_pic: (infNewUser || infActiveUser || infRejectedUser)?.cover_pic,
     address_details: (infNewUser || infActiveUser || infRejectedUser)?.address_details,
     bank_details: (infNewUser || infActiveUser || infRejectedUser)?.bank_details,
-    kyc_details: (infNewUser || infActiveUser || infRejectedUser)?.kyc_details
+    kyc_details: (infNewUser || infActiveUser || infRejectedUser)?.kyc_details,
   };
 
   useEffect(() => {
@@ -311,7 +311,7 @@ function InfProfile({ route }) {
                               <button
                                 type="button"
                                 className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                                onClick={() => { }}
+                                onClick={() => {}}
                               >
                                 Add
                               </button>
@@ -319,7 +319,6 @@ function InfProfile({ route }) {
                           </div>
                         </div>
                       </div>
-                      <div className=" flex mt-14 cursor-pointer"></div>
                     </div>
                   )}
 
@@ -471,20 +470,22 @@ function InfProfile({ route }) {
                           onChange={handleChange("accountNumber")}
                         />
                       </div>
-                      {route==="new-user" && <div>
-                        <label className="block text-gray-700 text-sm mb-2" htmlFor="confirmAccNUmber">
-                          confirm Account Number
-                        </label>
-                        <input
-                          disabled={disable}
-                          className="input-field w-390"
-                          id="confirmAccNUmber"
-                          type="text"
-                          placeholder=" confirm Account Number"
-                          value={values.bank_details.account_number}
-                          onChange={handleChange("confirmAccNUmber")}
-                        />
-                      </div>}
+                      {route === "new-user" && (
+                        <div>
+                          <label className="block text-gray-700 text-sm mb-2" htmlFor="confirmAccNUmber">
+                            confirm Account Number
+                          </label>
+                          <input
+                            disabled={disable}
+                            className="input-field w-390"
+                            id="confirmAccNUmber"
+                            type="text"
+                            placeholder=" confirm Account Number"
+                            value={values.bank_details.account_number}
+                            onChange={handleChange("confirmAccNUmber")}
+                          />
+                        </div>
+                      )}
                       <div>
                         <label className="block text-gray-700 text-sm mb-2" htmlFor="IFSC code">
                           IFSC Code
@@ -647,7 +648,7 @@ function InfProfile({ route }) {
                               <button
                                 type="button"
                                 className="w-[150px] rounded-[50px] bg-primary text-white m-4 py-2"
-                                onClick={() => { }}
+                                onClick={() => {}}
                               >
                                 Add
                               </button>

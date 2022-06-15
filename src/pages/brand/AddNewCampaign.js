@@ -10,6 +10,7 @@ import { getBrandActiveUserData } from "../../store/Admin/Brand/ActiveUser/actio
 import { addNewCampaignData } from "../../store/Admin/Campaign/NewCampaign/action";
 import { getCountryData } from "../../store/Country/action";
 import { getStatesData } from "../../store/State/action";
+import { getCategoriesData } from "../../store/Categories/action";
 
 const initForm = {
   title: "",
@@ -89,29 +90,18 @@ function CampaignDetails({ setSignUpStatus, route }) {
   const [personalDetails, setPersonalDetails] = useState(initForm);
   const signUpState = useSelector((state) => state.signUpState);
   const navigate = useNavigate();
-  // let activeBrands = [
-  //   {
-  //     id: 1,
-  //     name: "Mama"
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "BoAt"
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "JBL"
-  //   },
-  // ];
+
   let activeBrands = [];
   let Country = [];
   let State = [];
+  let categoryData = [];
   useEffect(() => {
     dispatch(getBrandActiveUserData());
     dispatch(getCountryData());
     dispatch(getStatesData());
+    dispatch(getCategoriesData());
   }, []);
-
+  categoryData = useSelector((state) => state?.categories);
   activeBrands = useSelector((state) =>
     state?.BrandActiveUser?.results.map((r) => {
       return { id: r?.id, name: r?.first_name };
@@ -127,14 +117,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
       return { id: r?.id, name: r?.name };
     })
   );
-  console.log(Country, State, "country");
-  // console.log(activeBrands.map((data) => {
-  //   return (
-  //     {
-  //       label: data
-  //     }
-  //   )
-  // }));
+
   return (
     <>
       <div className="bg-[#F2F2F2] w-full py-4 px-8 mb-4">
@@ -147,8 +130,8 @@ function CampaignDetails({ setSignUpStatus, route }) {
         </p>
         <Formik
           enableReinitialize={true}
-          initialValues={personalDetails}
-          validationSchema={personalDetailsSchema}
+          initialValues={initForm}
+          // validationSchema={}
           onSubmit={(values) => {
             console.log(
               { ...values, brand: values.brand.id, country: values.country.id, state: values.state.id },
@@ -322,6 +305,24 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       {errors.age_group && touched.age_group && <FormError>{errors.age_group}</FormError>}
                     </div>
                   </div>
+                  <div className="w-[30%] cursor-pointer">
+                    <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
+                      Add Category Details
+                    </label>
+                    <div className="w-full">
+                      <Dropdown
+                        dropdownStyle="w-full"
+                        className="w-full"
+                        label={values?.category?.length ? values?.category : "category"}
+                        options={categoryData ? categoryData : []}
+                        onChange={(val) => setFieldValue("category", val.name)}
+                        optionsLabel={"name"}
+                      />
+                      {errors.audience_interest && touched.audience_interest && (
+                        <FormError>{errors.audience_interest}</FormError>
+                      )}
+                    </div>
+                  </div>
                   <div className="w-[30%] ">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                       Country<span className="text-red-500">*</span>
@@ -354,14 +355,14 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       {errors.state && touched.state && <FormError>{errors.state}</FormError>}
                     </div>
                   </div>
-                  <div>
+                  <div className="w-[30%]">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                       Gender
                     </label>
                     <div>
                       <Dropdown
-                        dropdownStyle="w-168"
-                        className="w-168"
+                        dropdownStyle="w-full"
+                        className="w-full"
                         label={values.gender.label.length ? values.gender.label : "Gender"}
                         options={[
                           {
@@ -378,6 +379,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       {errors.gender && touched.gender && <FormError>{errors.gender}</FormError>}
                     </div>
                   </div>
+
                   <div className="w-[30%]">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                       Audience Interest
@@ -432,6 +434,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       )}
                     </div>
                   </div>
+
                   <div className="w-[30%]">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                       Number of Followers
