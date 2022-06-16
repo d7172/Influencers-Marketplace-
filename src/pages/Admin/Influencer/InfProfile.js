@@ -8,7 +8,7 @@ import MyDialog from "../../../components/MyDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesData } from "../../../store/Categories/action";
 import { personalDetailsSchema } from "../../../utils/formsSchema";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const initForm = {
   first_name: "",
@@ -42,6 +42,7 @@ export const ImgUpload = ({ children }) => {
 
 function InfProfile({ route }) {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [rejectBid, setRejectBid] = useState(false);
   const [personalDetails, setPersonalDetails] = useState(initForm);
   let categoryData = [];
@@ -78,14 +79,14 @@ function InfProfile({ route }) {
   };
 
   useEffect(() => {
-    setPersonalDetails(User);
+    (id) && (setPersonalDetails(User));
     dispatch(getCategoriesData());
   }, [infNewUser, infActiveUser]);
   // console.log(categoryData);
   return (
     <>
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "influencer" }, { title: route }, { title: id }]} />
+        <Breadcrumbs options={[{ title: "influencer" }, { title: route, onClick: ()=>{navigate(`/admin/influencer/${route}`)} }, { title: personalDetails.first_name + " " + personalDetails.last_name}] } />
       </div>
       <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
         <ResonForRejction close={() => setRejectBid(false)} />

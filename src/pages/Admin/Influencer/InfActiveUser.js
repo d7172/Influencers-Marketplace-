@@ -5,8 +5,10 @@ import Pagination from "../../../components/Pagination";
 import AdminUserTable from "../../../components/AdminUserTable";
 import { useDispatch, useSelector } from "react-redux";
 import { getInfActiveUserData } from "../../../store/Admin/Influencer/ActiveUser/action";
+import { useNavigate } from "react-router-dom";
 
 function InfActiveUser({ route }) {
+  const navigate = useNavigate();
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
   const dispatch = useDispatch();
@@ -17,17 +19,20 @@ function InfActiveUser({ route }) {
   const infActiveUser = useSelector((state) => state?.infActiveUser);
   tableData = infActiveUser?.results.map((r) => r?.influencerDetail)
   return (
-    <div className="max-w-[1280px] pt-6 relative">
-      <div className="flex items-center px-8">
-        <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Influencer" }, { title: "Active User" }]} />
-
-        <CampaignSearchBar placeHolder={"Search here by userID"} />
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "Active Users" }]} />
       </div>
-      <AdminUserTable tableData={tableData} route={route} />
-      <div className="absolute bottom-[-100px] right-0">
-        <Pagination link={infActiveUser} activePage={activePage} setActivePage={setActivePage}/>
+      <div className="max-w-[1280px] pt-6 relative">
+        <div className="flex items-center px-8">
+          <CampaignSearchBar placeHolder={"Search here by userID"} />
+        </div>
+        <AdminUserTable tableData={tableData} route={route} />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infActiveUser} activePage={activePage} setActivePage={setActivePage} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

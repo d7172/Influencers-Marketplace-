@@ -18,7 +18,7 @@ export const getNewCampaignData = (payload, activePage) => {
   };
 };
 
-export const addNewCampaignData = (payload) => {
+export const addNewCampaignData = (payload, navigate) => {
   const url = "campaign/";
   return (dispatch) => {
     networkRequest(
@@ -27,6 +27,11 @@ export const addNewCampaignData = (payload) => {
       false,
       payload,
       (res) => {
+        if (res?.status_code === 201 && res?.status === "success") {
+          navigate("/admin/campaign/new-campaign")
+        } else {
+          alert("Some error occured!!");
+        }
         dispatch({ type: "NEW_CAMPAIGN_ADDED_SUCCESS", data: res });
       },
       () => {

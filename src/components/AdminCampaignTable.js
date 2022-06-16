@@ -57,8 +57,7 @@ function AdminCampaignTable({ tableData, mainRoute, route }) {
                   return (
                     <tr className="" key={id}>
                       <td
-                        className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer"
-                        onClick={() => navigate(`/admin/influencer/active-user/${data?.id}`)}
+                        className="text-sm text-gray-900 font-[500] pl-6 py-4 whitespace-nowrap"
                       >
                         {data?.id}
                       </td>

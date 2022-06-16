@@ -25,7 +25,7 @@ function SignUpType() {
             </p>
             <button
               onClick={() => {
-                dispatch({ type: "UPDATE_SIGNUP_STATE", data: { type: "influancer" } });
+                dispatch({ type: "UPDATE_SIGNUP_STATE", data: { type: "influencer" } });
                 navigate("/signup");
               }}
               className="bg-primary h-40 text-white w-120 rounded-3xl mt-10 "
