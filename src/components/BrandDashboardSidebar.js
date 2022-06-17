@@ -16,8 +16,8 @@ function BrandDashboardSidebar() {
   const isSupport = location?.pathname === "/brand/support";
 
   return (
-    <div className="min-w-[308px] h-full overflow-hidden box-shadow-sidebar">
-      <h1 className="text-[#1E266D] text-[32px] text-center my-4 font-[500]">
+    <div className="min-w-[308px] h-full overflow-y-auto box-shadow-sidebar">
+      <h1 className="text-[#1E266D] text-[32px] text-center mb-4 font-[500]">
         Brand<span className="text-red-500">:</span>{" "}
       </h1>
       <div className="flex flex-col gap-0">

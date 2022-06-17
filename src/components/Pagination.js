@@ -3,8 +3,9 @@ import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from "@heroicons/react/
 
 function Pagination({ link, activePage, setActivePage }) {
   console.log(link, "linkk");
+  const dataPerPage = 2;
   let paginationRange = [];
-  const totalPages = Math.ceil(link.count / 2);
+  const totalPages = Math.ceil(link.count / dataPerPage);
   function PageRang() {
     if (activePage <= 4) {
       if (totalPages > 4) {
@@ -26,7 +27,7 @@ function Pagination({ link, activePage, setActivePage }) {
   }
   return (
     <div className="flex justify-between items-center">
-      <p className="text-gray-500">Showing 10 from 48 data</p>
+      <p className="text-gray-500">Showing {dataPerPage>link.count?link.count:dataPerPage} from {link.count} data</p>
       <div className="flex justify-center border-2 border-[#D7D7D7] w-fit px-1 py-2 rounded-[16px] ">
         <nav aria-label="Page navigation example">
           <ul className="flex list-style-none items-center">

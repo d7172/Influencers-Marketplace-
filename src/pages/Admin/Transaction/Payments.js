@@ -1,31 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import DateRange from "../../../components/DateRange";
 import Pagination from "../../../components/Pagination";
+import { getBrandPaymentData, getInfPaymentData } from "../../../store/Admin/Transactions/Payments/action";
 
 function AdmPayments() {
   const [brand, setBrand] = useState(true);
+  const [activePage, setActivePage] = useState(1);
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const payload = null;
+    dispatch(getBrandPaymentData(payload, activePage));
+    dispatch(getInfPaymentData(payload, activePage));
+  }, [brand, activePage]);
+  const AdminBrandPayment = useSelector((state) => state?.AdminBrandPayment);
+  const AdminInfPayment = useSelector((state) => state?.AdminInfPayment);
+  let tableData = (brand) ? (AdminBrandPayment?.results) : (AdminInfPayment?.results);
+  console.log(tableData);
   return (
     <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Transaction" }, { title: "Payments" }]} />
+      </div>
       <div className="flex flex-col px-8 pt-4">
-        {/* <Breadcrumbs options={[{ title: "Transaction" }, { title: "Payments" }]} /> */}
         <div>
           <CampaignSearchBar placeHolder={"Search here"} />
         </div>
-        <div className="flex justify-between my-4 px-8">
+        <div className="flex justify-between my-4 px-2">
           <div className="flex gap-4 items-center">
             <div>
-              <p>Select</p>
+              <p className="text-sm text-[#939393]">Select</p>
             </div>
             <div>
-              <button className="px-4 py-2 rounded-lg shadow" onClick={() => setBrand(true)}>
+              <button className={`border px-4 py-2 rounded-lg shadow ${brand && `border-[#3751FF]`}`} onClick={() => setBrand(true)}>
                 Brand
               </button>
             </div>
             <div>
-              <button className="px-4 py-2 rounded-lg shadow" onClick={() => setBrand(false)}>
+              <button className={`border px-4 py-2 rounded-lg shadow ${!brand && `border-[#3751FF]`}`} onClick={() => setBrand(false)}>
                 Influencers
               </button>
             </div>
@@ -60,39 +77,51 @@ function AdmPayments() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="">
-                    <td className="pl-4 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">#00001</td>
-                    {brand ? (
-                      <td className="text-sm flex gap-2 w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                        <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
-                        BoAt
-                      </td>
-                    ) : (
-                      <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                        John Deo
-                      </td>
-                    )}
-                    <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">10</td>
-                    {brand && (
-                      <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-                        1
-                      </td>
-                    )}
-                    <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">1</td>
-                    <td
-                      onClick={() => navigate(`/admin/transaction/payments/00001`)}
-                      className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
-                    >
-                      View Details
-                    </td>
-                  </tr>
+                  {tableData?.map((data, i) => {
+                    return (
+                      <tr className="" key={i}>
+                        <td className="pl-4 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">#00001</td>
+                        {brand ? (
+                          <td className="text-sm flex gap-2 w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
+                            <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
+                            {data?.brand_detail[0]?.first_name}
+                          </td>
+                        ) : (
+                          <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap capitalize">
+                            {data?.influ_details[0]?.first_name + " " + data?.influ_details[0]?.last_name}
+                          </td>
+                        )}
+                        <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">{brand ? (data?.campaign_Details?.length) : (data?.campaign_detail?.length)}</td>
+                        {brand && (
+                          <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
+                            10
+                          </td>
+                        )}
+                        <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">1</td>
+                        {brand ? (<td
+                          onClick={() => navigate(`/admin/transaction/payments/brand/${data?.brand_detail[0]?.id}`)}
+                          className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
+                        >
+                          View Details
+                        </td>) : (
+                          <td
+                            onClick={() => navigate(`/admin/transaction/payments/influencer/${data?.influ_details[0]?.id}`)}
+                            className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
+                          >
+                            View Details
+                          </td>
+                        )
+                        }
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-[-100px] w-full px-4 right-0">
-          {/* <Pagination /> */}
+        <div className="w-full px-4">
+          <Pagination link={brand ? AdminBrandPayment : AdminInfPayment} activePage={activePage} setActivePage={setActivePage} />
         </div>
       </div>
     </>

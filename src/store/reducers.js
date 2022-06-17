@@ -18,6 +18,7 @@ import { AdminNewCampaign } from "./Admin/Campaign/NewCampaign/reducer";
 import { AdminActiveCampaign } from "./Admin/Campaign/ActiveCampaign/reducer";
 import { AdminAssignCampaign } from "./Admin/Campaign/AssignCampaign/reducer";
 import { AdminRejectedCampaign } from "./Admin/Campaign/RejectedCampaign/reducer";
+import { AdminBrandPayment, AdminInfPayment } from "./Admin/Transactions/Payments/reducer";
 import { AdminEarning } from "./Admin/Transactions/Earnings/reducer";
 import { categories } from "./Categories/reducer";
 import { placeBid } from "./infPlaceBid/reducer";
@@ -48,6 +49,8 @@ const reducers = combineReducers({
   AdminRejectedCampaign,
   AdminActiveCampaign,
   AdminAssignCampaign,
+  AdminBrandPayment,
+  AdminInfPayment,
   AdminEarning,
   categories,
   placeBid,

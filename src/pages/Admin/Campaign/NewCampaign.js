@@ -48,7 +48,7 @@ const AdmNewCampaign = ({ route }) => {
         <div className="flex items-center py-4 px-8">
           <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} />
         </div>
-        <div className="absolute bottom-[-100px] right-0">
+        <div className="w-full mt-2 px-4">
           <Pagination link={AdminNewCampaign} activePage={activePage} setActivePage={setActivePage} />
         </div>
       </div>

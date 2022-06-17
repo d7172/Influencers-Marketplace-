@@ -89,7 +89,7 @@ function BidDetails() {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Active Bids" }, { title: AdmActiveBidDetails.influencer_details.first_name + " " + AdmActiveBidDetails.influencer_details.last_name }, { title: "00001" }]} />
+        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "Active Bids", onClick: () => { navigate(`/admin/active-bids`) } }, { title: AdmActiveBidDetails.influencer_details.first_name + " " + AdmActiveBidDetails.influencer_details.last_name }, { title: AdmActiveBidDetails.campaign_details.id }]} />
       </div>
       <div className="ml-10">
         <div className="px-8 py-5">

@@ -143,7 +143,8 @@ function App() {
             <Route path="/admin/transaction" element={<Navigate replace to="/admin/transaction/earning" />} />
             <Route path="/admin/transaction/earning" element={<AdmEarning />} />
             <Route path="/admin/transaction/payments" element={<AdmPayments route="payment" />} />
-            <Route path="/admin/transaction/payments/:id" element={<BrandPaymentOngoing route="payment" />} />
+            <Route path="/admin/transaction/payments/brand/:id" element={<BrandPaymentOngoing route="brand" />} />
+            <Route path="/admin/transaction/payments/influencer/:id" element={<BrandPaymentOngoing route="influencer" />} />
             <Route path="/admin/transaction/statement" element={<AdmStatements route="statement" />} />
             {/* <Route path="/admin/transactions/payment-ongoing" element={<AdmPaymentOngoing route={"payment-ongoing"} />}/> */}
           </Route>

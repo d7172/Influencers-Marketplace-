@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import BackArrowBtn from "../../../components/BackArrowBtn";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import MyDialog from "../../../components/MyDialog";
@@ -7,8 +8,10 @@ import MyDialog from "../../../components/MyDialog";
 import ResonForRejction from "../../../components/ResonForRejction";
 import SimpleSlider from "../../../components/Slider";
 
-function BidDetails() {
-  const location = useLocation()
+function BidDetails({ route }) {
+  const location = useLocation();
+  const { id } = useParams();
+  const isBrand = location.pathname.includes("brand");
   const navigate = useNavigate();
   const active = "#3751FF";
   const inactive = "#969BA0";
@@ -75,16 +78,22 @@ function BidDetails() {
   let bidTotal = 0;
   const [dialog, setDialog] = useState(false);
   // const [reason, setReason] = useState("");
+  const paymentDetails = useSelector((state) =>
+    (isBrand) ? (state?.AdminBrandPayment?.results.filter((r) => r?.brand_detail[0]?.id == id))
+    : (state?.AdminInfPayment?.results.filter((r) => r?.influ_details[0]?.id == id))
+  )[0];
+
+  console.log(paymentDetails);
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Payments" }, { title: "BoAt" }]} />
+        <Breadcrumbs options={[{ title: "Transaction" }, { title: "Payments", onClick: () => navigate("/admin/transaction/payments") }, { title: "BoAt" }]} />
       </div>
       <div className="px-8 py-5">
         <MyDialog isOpen={dialog} close={() => setDialog(false)} className="rounded-8">
           <ResonForRejction close={() => setDialog(false)} />
         </MyDialog>
-        <BackArrowBtn className="" onClick={() => { navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/"))) }} />
+        <BackArrowBtn className="" onClick={() => { navigate(location.pathname.slice(0, location.pathname.lastIndexOf(`/${route}`))) }} />
         <h1 className="text-start text-2xl font-bold mt-6 mb-2">BoAt</h1>
         <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">#000001</p>
         <div className="mt-8">
