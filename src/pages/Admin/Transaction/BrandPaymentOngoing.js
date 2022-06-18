@@ -93,7 +93,7 @@ function BidDetails({ route }) {
         <MyDialog isOpen={dialog} close={() => setDialog(false)} className="rounded-8">
           <ResonForRejction close={() => setDialog(false)} />
         </MyDialog>
-        <BackArrowBtn className="" onClick={() => { navigate(location.pathname.slice(0, location.pathname.lastIndexOf(`/${route}`))) }} />
+        <BackArrowBtn className="" onClick={() => { navigate("/admin/transaction/payments")}} />
         <h1 className="text-start text-2xl font-bold mt-6 mb-2">BoAt</h1>
         <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">#000001</p>
         <div className="mt-8">

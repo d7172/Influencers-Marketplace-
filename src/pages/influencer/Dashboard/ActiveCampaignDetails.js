@@ -27,7 +27,7 @@ function CampaignDetails() {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Campaign" }, { title: "Active Campaign" }, { title: campaignDetails?.id }]} />
+        <Breadcrumbs options={[{ title: "Campaign" }, { title: "Active Campaign", onClick: ()=>{navigate(`/influencer/campaign/active-campaign`)} }, { title: campaignDetails?.id }]} />
       </div>
       <div className="mt-6 px-6 pb-10">
         <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">

@@ -16,9 +16,9 @@ import ResonForRejction from "../../../components/ResonForRejction";
 function CampaignDetails({ route }) {
   const { id } = useParams();
   const location = useLocation();
-  const isInfCampPool = route === "campaign pool";
-  const isInfCompletedCamp = route === "completed campaign";
-  const isInfBids = route === "active bids";
+  const isInfCampPool = route === "campaign-pool";
+  const isInfCompletedCamp = route === "completed-campaign";
+  const isInfBids = route === "active-bids";
   const [placeBid, setPlaceBid] = useState(false);
   const [rejectBid, setRejectBid] = useState(false);
   const [reasonDialog, setReasonDialog] = useState(false);
@@ -34,7 +34,7 @@ function CampaignDetails({ route }) {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Campaign" }, { title: isInfCampPool ? "Campiagn pool" : isInfCompletedCamp ? "Completed Campaign" : "Active Bids" }, { title: isInfCampPool ? campDetails?.id : isInfCompletedCamp ? infCampaignCompleted?.id : infBidDetails?.campaign_details?.id }]} />
+        <Breadcrumbs options={[{ title: "Campaign" }, { title: isInfCampPool ? "Campiagn pool" : isInfCompletedCamp ? "Completed Campaign" : "Active Bids", onClick: () => { isInfBids ? navigate(`/influencer/bids`) : navigate(`/influencer/campaign/${route}`) } }, { title: isInfCampPool ? campDetails?.id : isInfCompletedCamp ? completedCampDetails?.id : infBidDetails?.campaign_details?.id }]} />
       </div>
       <div className="mt-6 px-6 pb-10">
         <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
@@ -177,10 +177,10 @@ function CampaignDetails({ route }) {
             </div> */}
             </div>
           </>)
-          :  (
+          : (
             <>
               <div className="ml-4">
-              <BackArrowBtn className="" onClick={() => { navigate(`/influencer/bids`) }} />
+                <BackArrowBtn className="" onClick={() => { navigate(`/influencer/bids`) }} />
                 <div className="flex justify-between">
                   <div className="mt-6">
                     <h1 className="text-[32px] font-[600]">Campaign id</h1>

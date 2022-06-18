@@ -157,22 +157,22 @@ function App() {
             <Route path="/influencer/campaign/campaign-pool" element={<CampaignPool />} />
             <Route
               path="/influencer/campaign/campaign-pool/:id"
-              element={<CampaignDetails route={"campaign pool"} />}
+              element={<CampaignDetails route={"campaign-pool"} />}
             />
             <Route path="/influencer/campaign/assigned-campaign" element={<AssignedCampaign />} />
             <Route
               path="/influencer/campaign/assigned-campaign/:id"
-              element={<CampaignDetails route={"assigned campaign"} />}
+              element={<CampaignDetails route={"assigned-campaign"} />}
             />
             <Route path="/influencer/campaign/active-campaign" element={<ActiveCampaign />} />
             <Route path="/influencer/campaign/active-campaign/:id" element={<ActiveCampaignDetails />} />
             <Route path="/influencer/campaign/completed-campaign" element={<CompletedCampaign />} />
             <Route
               path="/influencer/campaign/completed-campaign/:id"
-              element={<CampaignDetails route={"completed campaign"} />}
+              element={<CampaignDetails route={"completed-campaign"} />}
             />
             <Route path="/influencer/bids" element={<Bids />} />
-            <Route path="/influencer/bids/active-bids/:id" element={<CampaignDetails route={"active bids"} />} />
+            <Route path="/influencer/bids/active-bids/:id" element={<CampaignDetails route={"active-bids"} />} />
             <Route
               path="/influencer/transactions"
               element={<Navigate replace to="/influencer/transactions/earning" />}

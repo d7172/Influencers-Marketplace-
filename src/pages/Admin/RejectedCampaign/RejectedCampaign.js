@@ -3,9 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { SearchIcon } from "@heroicons/react/solid";
 import CustomToolTip from '../../../components/Tooltip';
 import Breadcrumbs from "../../../components/Breadcrumbs";
+import { deleteCampaignData } from "../../../store/Admin/Campaign/NewCampaign/action";
+import { useDispatch } from "react-redux";
 
 function RejectedCampaign() {
   // const [placeBid, setPlaceBid] = useState(false);
+  const dispatch = useDispatch();
   const rowData = [
     {
       campaignId: "0001",
@@ -88,8 +91,16 @@ function RejectedCampaign() {
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                               </svg>
                             )}
-                            items={["Reassigned to Influencers", "Delete"]}
-                            itemStyle={"cursor-pointer"}
+                            items={[
+                              {
+                                title: "Reassigned to Influencers"
+                              },
+                              {
+                                title: "Delete",
+                                onClick: ()=>{ dispatch( deleteCampaignData({ influencer_id: data?.campaignId }) ) } 
+                              }
+                            ]}
+                          itemStyle={"cursor-pointer"}
                           />
                         </td>
                       </tr>

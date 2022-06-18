@@ -60,16 +60,20 @@ function AssignedCampaign() {
     ],
   };
   return (
-    <div className="max-w-[1280px] pt-6 relative">
-      <div className="flex items-center px-8">
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
         <Breadcrumbs options={[{ title: "Campaign" }, { title: "Assigned Campaign" }]} />
-        <CampaignSearchBar />
       </div>
-      <CampaignTable data={tableData} />
-      <div className="absolute bottom-[-100px] right-0">
-        <Pagination link={infCampaignAssigned} activePage={activePage} setActivePage={setActivePage}/>
+      <div className="max-w-[1280px] pt-6 relative">
+        <div className="flex items-center justify-end">
+          <CampaignSearchBar placeHolder={"Search here by Campaign ID"}/>
+        </div>
+        <CampaignTable data={tableData} />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infCampaignAssigned} activePage={activePage} setActivePage={setActivePage} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

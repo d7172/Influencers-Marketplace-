@@ -24,26 +24,30 @@ function Bids() {
   const infBidsObj = useSelector((state) => state?.infBids);
   infBids = infBidsObj?.results;
   return (
-    <div className="ml-10 relative">
-      <Breadcrumbs options={[{ title: "Bids" }, { title: "Active Bid" }]} />
-      <div className="flex justify-between mt-2">
-        <div className="flex gap-4 items-center">
-          <label className="text-[12px] text-[#939393]">Sort By Status</label>
-          <Dropdown
-            label="Pending for Approval"
-            options={[{ label: "Pending for Approval" }]}
-            dropdownStyle="w-[200px]"
-            className="w-[200px] h-[38px]"
-          />
-          <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Bids" }, { title: "Active Bids" }]} />
+      </div>
+      <div className="px-4 relative">
+        <div className="flex justify-between mt-6">
+          <div className="flex gap-4 items-center">
+            <label className="text-[12px] text-[#939393]">Sort By Status</label>
+            <Dropdown
+              label="Pending for Approval"
+              options={[{ label: "Pending for Approval" }]}
+              dropdownStyle="w-[200px]"
+              className="w-[200px] h-[38px]"
+            />
+            <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
+          </div>
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
         </div>
-        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+        <BidTable />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infBidsObj} activePage={activePage} setActivePage={setActivePage} />
+        </div>
       </div>
-      <BidTable />
-      <div className="absolute bottom-[-100px] right-0">
-        <Pagination link={infBidsObj} activePage={activePage} setActivePage={setActivePage} />
-      </div>
-    </div>
+    </>
   );
 }
 

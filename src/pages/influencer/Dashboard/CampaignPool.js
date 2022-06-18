@@ -24,16 +24,20 @@ function CampaignPool() {
 
   const infCampaignPool = useSelector((state) => state?.infCampaignPool);
   return (
-    <div className="max-w-[1280px] pt-6 relative">
-      <div className="flex items-center px-8">
-        <Breadcrumbs options={[{ title: "Campaign" }, { title: "CampaignPool" }]} />
-        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Campaign" }, { title: "Campaign Pool" }]} />
       </div>
-      <CampaignTable data={infCampaignPool?.results} />
-      <div className="absolute bottom-[-100px] right-0">
-        <Pagination link={infCampaignPool} activePage={activePage} setActivePage={setActivePage}/>
+      <div className="max-w-[1280px] pt-6 relative">
+        <div className="flex items-center justify-end px-4">
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+        </div>
+        <CampaignTable data={infCampaignPool?.results} />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infCampaignPool} activePage={activePage} setActivePage={setActivePage} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

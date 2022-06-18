@@ -20,6 +20,7 @@ const AdmNewCampaign = ({ route }) => {
   const AdminNewCampaign = useSelector((state) => state?.AdminNewCampaign);
   tableData = AdminNewCampaign?.results;
   const navigate = useNavigate();
+  console.log(AdminNewCampaign, "After delete");
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -46,7 +47,7 @@ const AdmNewCampaign = ({ route }) => {
           <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
         </div>
         <div className="flex items-center py-4 px-8">
-          <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} />
+          <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} activePage={activePage}/>
         </div>
         <div className="w-full mt-2 px-4">
           <Pagination link={AdminNewCampaign} activePage={activePage} setActivePage={setActivePage} />

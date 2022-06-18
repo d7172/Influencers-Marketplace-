@@ -33,22 +33,26 @@ function Statement() {
   let transitionState = useSelector((state) => console.log(state, "state"));
   console.log(transitionState);
   return (
-    <div className="ml-10">
-      <div className="flex items-center pr-8 mt-8">
-        <Breadcrumbs options={[{ title: "Transition" }, { title: "Statement" }]} />
-        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Transaction" }, { title: "Statement" }]} />
       </div>
-      <div className="flex justify-between items-center mt-8">
-        <DateRange />
-        <button className="underline text-[#2979FF] text-[16px]" onClick={downloadStatement}>
-          Download Statement{" "}
-        </button>
+      <div className="ml-10">
+        <div className="flex items-center pr-8 mt-8">
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+        </div>
+        <div className="flex justify-between items-center mt-8">
+          <DateRange />
+          <button className="underline text-[#2979FF] text-[16px]" onClick={downloadStatement}>
+            Download Statement{" "}
+          </button>
+        </div>
+        <StatementTable />
+        <div className="absolute bottom-4 right-6">
+          {/* <Pagination /> */}
+        </div>
       </div>
-      <StatementTable />
-      <div className="absolute bottom-4 right-6">
-        {/* <Pagination /> */}
-      </div>
-    </div>
+    </>
   );
 }
 

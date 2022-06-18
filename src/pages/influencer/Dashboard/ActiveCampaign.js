@@ -32,26 +32,30 @@ function ActiveCampaign() {
   const infCampaignActive = useSelector((state) => state?.infCampaignActive);
   tableData = infCampaignActive?.results;
   return (
-    <div className="px-4 relative">
-      <Breadcrumbs options={[{ title: "campaign" }, { title: "Active campaign" }]} />
-      <div className="flex justify-between mt-2">
-        <div className="flex gap-4 items-center">
-          <label className="text-[12px] text-[#939393]">Sort By Status</label>
-          <Dropdown
-            label="Pending for Approval"
-            options={[{ label: "Pending for Approval" }]}
-            dropdownStyle="w-[200px]"
-            className="w-[200px] h-[38px]"
-          />
-          <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Campaign" }, { title: "Active Campaign" }]} />
+      </div>
+      <div className="px-4 relative">
+        <div className="flex justify-between mt-6">
+          <div className="flex gap-4 items-center">
+            <label className="text-[12px] text-[#939393]">Sort By Status</label>
+            <Dropdown
+              label="Pending for Approval"
+              options={[{ label: "Pending for Approval" }]}
+              dropdownStyle="w-[200px]"
+              className="w-[200px] h-[38px]"
+            />
+            <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
+          </div>
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
         </div>
-        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+        <ActiveCampaignTable tableData={tableData} />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infCampaignActive} activePage={activePage} setActivePage={setActivePage} />
+        </div>
       </div>
-      <ActiveCampaignTable tableData={tableData} />
-      <div className="absolute bottom-[-100px] right-0">
-        <Pagination link={infCampaignActive} activePage={activePage} setActivePage={setActivePage}/>
-      </div>
-    </div>
+    </>
   );
 }
 
@@ -183,7 +187,7 @@ function ActiveCampaignTable({ tableData }) {
                       {activeIndex === i && detailsTable && (
                         <tr>
                           {" "}
-                          <Details setReasonDialog={setReasonDialog} id={data?.id}/>{" "}
+                          <Details setReasonDialog={setReasonDialog} id={data?.id} />{" "}
                         </tr>
                       )}
                     </>

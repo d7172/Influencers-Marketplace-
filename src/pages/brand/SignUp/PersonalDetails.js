@@ -4,7 +4,8 @@ import { personalDetailsSchema } from "../../../utils/formsSchema";
 import Dropdown from "../../../components/Dropdown";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Country, State, City } from "country-state-city";
+import { getCountryData } from "../../../store/Country/action";
+import { getStatesData } from "../../../store/State/action";
 
 const initForm = {
     first_name: "",
@@ -16,9 +17,8 @@ const initForm = {
     about_organization: "",
     description: "",
     site_url: "",
-    country: "India",
-    state: "",
-    city: "",
+    country: { id: null, name: "" },
+    state: { id: null, name: "" },
     address: "",
     pinCode: "",
     cover_pic: {}
@@ -31,14 +31,26 @@ export const ImgUpload = ({ children }) => {
     return <p className="text-[13px] mt-1 text-green-600">Added {children}</p>;
 };
 
+
 function PersonalDetails() {
     const dispatch = useDispatch();
     const [personalDetails, setPersonalDetails] = useState(initForm);
-    const [cities, setCities] = useState([]);
+    // const [cities, setCities] = useState([]);
     const signUpState = useSelector((state) => state.signUpState);
     useEffect(() => {
-        setCities(City.getCitiesOfState("IN", window.localStorage.getItem("stateCode")));
-    }, [])
+        dispatch(getCountryData());
+        dispatch(getStatesData());
+    }, []);
+    let Country = useSelector((state) =>
+        state?.countryList?.results.map((r) => {
+            return { id: r?.id, name: r?.name, label: r?.name };
+        })
+    );
+    let State = useSelector((state) =>
+        state?.stateList?.results.map((r) => {
+            return { id: r?.id, name: r?.name, label: r?.name };
+        })
+    );
     return (
         <div>
             <h1 className="text-center text-2xl font-bold mt-8 mb-4">Personal Details</h1>
@@ -213,28 +225,9 @@ function PersonalDetails() {
                                         <Dropdown
                                             dropdownStyle="w-390"
                                             className="w-390"
-                                            label={values.country.length ? values.country : "Country"}
-                                            options={[
-                                                {
-                                                    label: "India"
-                                                }
-                                            ]}
-                                            onChange={(val) => { setFieldValue("country", val.label) }}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label className="block text-gray-700 text-sm mb-2">
-                                        City
-                                    </label>
-                                    <div>
-                                        <Dropdown
-                                            dropdownStyle="w-390"
-                                            className="w-390"
-                                            label={values.city.length ? values.city : cities.length ? "City" : "Please select a state first"}
-                                            options={cities}
-                                            optionsLabel="name"
-                                            onChange={(val) => { setFieldValue("city", val.name) }}
+                                            label={values.country.name.length ? values.country.name : "Select country"}
+                                            options={Country}
+                                            onChange={(val) => setFieldValue("country", { id: val.id, name: val.name })}
                                         />
                                     </div>
                                 </div>
@@ -246,19 +239,14 @@ function PersonalDetails() {
                                         <Dropdown
                                             dropdownStyle="w-390"
                                             className="w-390"
-                                            label={values.state.length ? values.state : "Select a state"}
-                                            options={State.getStatesOfCountry("IN")}
+                                            label={values.state.name.length ? values.state.name : "select state"}
+                                            options={State}
                                             optionsLabel="name"
-                                            onChange={(val) => {
-                                                window.localStorage.setItem("stateCode", val.isoCode);
-                                                setCities(City.getCitiesOfState("IN", val.isoCode));
-                                                setFieldValue("city", "");
-                                                setFieldValue("state", val.name)
-                                            }}
+                                            onChange={(val) => setFieldValue("state", { id: val.id, name: val.name })}
                                         />
                                     </div>
                                 </div>
-                                
+
                                 <div>
                                     <label className="block text-gray-700 text-sm mb-2" htmlFor="address">
                                         Address<span className="text-red-500">*</span>
@@ -287,7 +275,7 @@ function PersonalDetails() {
                                     />
                                     {errors.pinCode && touched.pinCode && <FormError>{errors.pinCode}</FormError>}
                                 </div>
-                                
+
                             </div>
                             <div className="mt-14 flex justify-center cursor-pointer">
                                 <button
