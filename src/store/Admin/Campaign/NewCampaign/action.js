@@ -28,7 +28,7 @@ export const addNewCampaignData = (payload, navigate) => {
       payload,
       (res) => {
         if (res?.status_code === 201 && res?.status === "success") {
-          navigate("/admin/campaign/new-campaign")
+          navigate("/admin/campaign/new-campaign");
         } else {
           alert("Some error occured!!");
         }
