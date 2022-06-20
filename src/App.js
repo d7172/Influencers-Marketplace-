@@ -5,7 +5,7 @@ import BrandDashboardCompositeComponent from "./BrandDashboardCompositeComponent
 import InfluencerCompositeComponent from "./InfluencerCompositeComponent";
 import AdmActiveCampaign from "./pages/Admin/Campaign/ActiveCampaign";
 import AdmAssignCampaign from "./pages/Admin/Campaign/AssignCampaign";
-import AdmAssignCampaignDetails from "./pages/Admin/Campaign/AssignCampaignDetails";
+// import AdmAssignCampaignDetails from "./pages/Admin/Campaign/AssignCampaignDetails";
 import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
 import AdmRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
 import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
@@ -32,6 +32,7 @@ import Support from "./pages/influencer/Dashboard/Support";
 import Home from "./pages/influencer/Home";
 import SignUp from "./pages/influencer/SignUp/SignUp";
 
+import BrandSignUp from "./pages/brand/SignUp/SignUp"
 import BrandDashboard from "./pages/brand/Dashboard";
 import BrandCampaignDetails from "./pages/brand/CampaignDetails";
 import BrandNewCampaign from "./pages/brand/NewCampaign";
@@ -142,7 +143,8 @@ function App() {
             <Route path="/admin/transaction" element={<Navigate replace to="/admin/transaction/earning" />} />
             <Route path="/admin/transaction/earning" element={<AdmEarning />} />
             <Route path="/admin/transaction/payments" element={<AdmPayments route="payment" />} />
-            <Route path="/admin/transaction/payments/:id" element={<BrandPaymentOngoing route="payment" />} />
+            <Route path="/admin/transaction/payments/brand/:id" element={<BrandPaymentOngoing route="brand" />} />
+            <Route path="/admin/transaction/payments/influencer/:id" element={<BrandPaymentOngoing route="influencer" />} />
             <Route path="/admin/transaction/statement" element={<AdmStatements route="statement" />} />
             {/* <Route path="/admin/transactions/payment-ongoing" element={<AdmPaymentOngoing route={"payment-ongoing"} />}/> */}
           </Route>
@@ -155,22 +157,22 @@ function App() {
             <Route path="/influencer/campaign/campaign-pool" element={<CampaignPool />} />
             <Route
               path="/influencer/campaign/campaign-pool/:id"
-              element={<CampaignDetails route={"campaign pool"} />}
+              element={<CampaignDetails route={"campaign-pool"} />}
             />
             <Route path="/influencer/campaign/assigned-campaign" element={<AssignedCampaign />} />
             <Route
               path="/influencer/campaign/assigned-campaign/:id"
-              element={<CampaignDetails route={"assigned campaign"} />}
+              element={<CampaignDetails route={"assigned-campaign"} />}
             />
             <Route path="/influencer/campaign/active-campaign" element={<ActiveCampaign />} />
             <Route path="/influencer/campaign/active-campaign/:id" element={<ActiveCampaignDetails />} />
             <Route path="/influencer/campaign/completed-campaign" element={<CompletedCampaign />} />
             <Route
               path="/influencer/campaign/completed-campaign/:id"
-              element={<CampaignDetails route={"completed campaign"} />}
+              element={<CampaignDetails route={"completed-campaign"} />}
             />
             <Route path="/influencer/bids" element={<Bids />} />
-            <Route path="/influencer/bids/active-bids/:id" element={<CampaignDetails route={"active bids"} />} />
+            <Route path="/influencer/bids/active-bids/:id" element={<CampaignDetails route={"active-bids"} />} />
             <Route
               path="/influencer/transactions"
               element={<Navigate replace to="/influencer/transactions/earning" />}
@@ -220,6 +222,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup-type" element={<SignUpType />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/brand/signup" element={<BrandSignUp/>} />
           <Route path="/admin/signin" element={<SignInAdmin />} />
           <Route path="/admin/signup" element={<SignUpAdmin />} />
           <Route path="/admin/campaign/new-campaign/add" element={<AdmCampaignDetails route={"new-campaign"} />} />

@@ -5,8 +5,12 @@ import Dropdown from "../../components/Dropdown";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getBrandActiveUserData } from "../../store/Admin/Brand/ActiveUser/action";
+import { addNewCampaignData } from "../../store/Admin/Campaign/NewCampaign/action";
+import { getCountryData } from "../../store/Country/action";
+import { getStatesData } from "../../store/State/action";
+import { getCategoriesData } from "../../store/Categories/action";
 
 const initForm = {
   title: "",
@@ -18,15 +22,15 @@ const initForm = {
   campain_goal: "",
   promotion_goal: "",
   project_duration_in_days: null,
-  age_group: "",
-  gender: "",
+  age_group: [],
+  gender: { label: "", value: "" },
   audience_interest: "",
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
   social_platform: [],
-  minimum_facebook_reach: "",
-  minimum_facebook_engagement: "",
+  minimum_facebook_reach: [],
+  minimum_facebook_engagement: [],
   number_of_days: "",
   facebook_deliverables: "",
   industry: [],
@@ -38,8 +42,8 @@ const initForm = {
   note_from_admin: "",
   terms_and_condition: "",
   brand: { id: null, name: "" },
-  country: "",
-  state: "",
+  country: { id: null, name: "" },
+  state: { id: null, name: "" },
 };
 
 const platforms = [
@@ -82,41 +86,82 @@ export const ImgUpload = ({ children }) => {
 };
 
 function CampaignDetails({ setSignUpStatus, route }) {
+  const location = useLocation();
+  const isAddNewCamp = location.pathname.includes("add");
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const [personalDetails, setPersonalDetails] = useState(initForm);
+  const [campFormDetails, setCampFormDetails] = useState(initForm);
   const signUpState = useSelector((state) => state.signUpState);
   const navigate = useNavigate();
-  // let activeBrands = [
-  //   {
-  //     id: 1,
-  //     name: "Mama"
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "BoAt"
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "JBL"
-  //   },
-  // ];
+
   let activeBrands = [];
+  let Country = [];
+  let State = [];
+  let categoryData = [];
   useEffect(() => {
     dispatch(getBrandActiveUserData());
+    dispatch(getCountryData());
+    dispatch(getStatesData());
+    dispatch(getCategoriesData());
+    (id) && (setCampFormDetails(Details));
   }, []);
+  categoryData = useSelector((state) => state?.categories);
+  activeBrands = useSelector((state) =>
+    state?.BrandActiveUser?.results.map((r) => {
+      return { id: r?.id, name: r?.first_name };
+    })
+  );
+  Country = useSelector((state) =>
+    state?.countryList?.results.map((r) => {
+      return { id: r?.id, name: r?.name };
+    })
+  );
+  State = useSelector((state) =>
+    state?.stateList?.results.map((r) => {
+      return { id: r?.id, name: r?.name };
+    })
+  );
+  // console.log(categoryData);
+  const campaignDetails = useSelector((state) => state?.AdminNewCampaign?.results.filter((r) => r.id == id)[0]);
+  // console.log(campaignDetails);
+  const Details = {
+    title: campaignDetails?.title,
+    from_date: campaignDetails?.from_date,
+    to_date: campaignDetails?.to_date,
+    about_campaign: campaignDetails?.about_campaign,
+    category: campaignDetails?.category,
+    campain_strategy: campaignDetails?.campain_strategy,
+    campain_goal: campaignDetails?.campain_goal,
+    promotion_goal: campaignDetails?.promotion_goal,
+    project_duration_in_days: campaignDetails?.project_duration_in_days,
+    age_group: [campaignDetails?.age_group],
+    gender: { label: (campaignDetails?.gender === "M") ? "Male" : "Female", value: campaignDetails?.gender },
+    audience_interest: campaignDetails?.audience_interest,
+    number_of_influencer: campaignDetails?.number_of_influencer,
+    number_of_followers: campaignDetails?.number_of_followers,
+    amount: campaignDetails?.amount,
+    social_platform: campaignDetails?.social_platform,
+    minimum_facebook_reach: [campaignDetails?.minimum_facebook_reach],
+    minimum_facebook_engagement: [campaignDetails?.minimum_facebook_engagement],
+    number_of_days: campaignDetails?.number_of_days,
+    facebook_deliverables: campaignDetails?.facebook_deliverables,
+    industry: campaignDetails?.industry,
+    payout_type: campaignDetails?.payout_type,
+    budget_type: campaignDetails?.budget_type,
+    budget_per_influencer: campaignDetails?.budget_per_influencer,
+    expected_budget_per_influencer: campaignDetails?.expected_budget_per_influencer,
+    note_from_brand: campaignDetails?.note_from_brand,
+    note_from_admin: campaignDetails?.note_from_admin,
+    terms_and_condition: campaignDetails?.terms_and_condition,
+    brand: { id: campaignDetails?.brand, name: campaignDetails?.brand_name },
+    country: { id: null, name: campaignDetails?.country },
+    state: { id: null, name: campaignDetails?.state }
+  }
 
-  activeBrands = useSelector((state) => state?.BrandActiveUser?.results.map((r) => { return { id: r?.id, name: r?.first_name } }));
-  // console.log(activeBrands.map((data) => {
-  //   return (
-  //     {
-  //       label: data
-  //     }
-  //   )
-  // }));
   return (
     <>
-      <div className="bg-[#F2F2F2] w-full py-4 px-8 mb-4">
-        <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Campaign" }, { title: "New Campaign" }]} />
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "Campaign", onClick: () => { navigate(`/admin/campaign/new-campaign`) } }, { title: "New Campaign" }]} />
       </div>
       <div className="px-8 py-5">
         <h1 className="text-start text-2xl font-bold mb-2">Campaign Details</h1>
@@ -125,10 +170,13 @@ function CampaignDetails({ setSignUpStatus, route }) {
         </p>
         <Formik
           enableReinitialize={true}
-          initialValues={personalDetails}
-          validationSchema={personalDetailsSchema}
+          initialValues={campFormDetails}
+          // validationSchema={}
           onSubmit={(values) => {
-            console.log(values, "values add new campaign");
+            console.log(
+              { ...values, brand: values.brand.id, country: values.country.id, state: values.state.id },
+              "values add new campaign"
+            );
             const data = {};
           }}
         >
@@ -178,17 +226,13 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-168"
                         className="w-168"
-                        // label={values.brand.name.length ? values.brand.name : "Brand"}
                         label={values.brand.name.length ? values.brand.name : "Brand"}
                         options={activeBrands.map((data) => {
-                          return (
-                            {
-                              label: data.name,
-                              id: data.id
-                            }
-                          )
-                        })
-                        }
+                          return {
+                            label: data.name,
+                            id: data.id,
+                          };
+                        })}
                         onChange={(val) => setFieldValue("brand", { id: val.id, name: val.label })}
                       />
                       {errors.brand && touched.brand && <FormError>{errors.brand}</FormError>}
@@ -285,7 +329,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                   </div>
                   <div className="w-[30%] mr-16">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                      Age Group: <p className="text-gray-700 inline-block text-sm mt-4">{values?.age_group}</p>
+                      Age Group: <p className="text-gray-700 inline-block text-sm mt-4">{values?.age_group.toString()}</p>
                       <span className="text-red-500">*</span>
                     </label>
                     <div className="flex">
@@ -295,10 +339,28 @@ function CampaignDetails({ setSignUpStatus, route }) {
                         type="range"
                         min={10}
                         max={50}
-                        value={values.age_group}
-                        onChange={(val) => setFieldValue("age_group", val.target.value)}
+                        // value={values.age_group}
+                        onChange={(val) => (values.age_group[0] = val.target.value)}
                       />
                       {errors.age_group && touched.age_group && <FormError>{errors.age_group}</FormError>}
+                    </div>
+                  </div>
+                  <div className="w-[30%] cursor-pointer">
+                    <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
+                      Add Category Details
+                    </label>
+                    <div className="w-full">
+                      <Dropdown
+                        dropdownStyle="w-full"
+                        className="w-full"
+                        label={values?.category?.length ? values?.category : "category"}
+                        options={categoryData ? categoryData : []}
+                        onChange={(val) => setFieldValue("category", val.name)}
+                        optionsLabel={"name"}
+                      />
+                      {errors.audience_interest && touched.audience_interest && (
+                        <FormError>{errors.audience_interest}</FormError>
+                      )}
                     </div>
                   </div>
                   <div className="w-[30%] ">
@@ -309,19 +371,10 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.country.length ? values.country : "India"}
-                        options={[
-                          {
-                            label: "Australia",
-                          },
-                          {
-                            label: "Brazil",
-                          },
-                          {
-                            label: "Colombia",
-                          },
-                        ]}
-                        onChange={(val) => setFieldValue("country", val.label)}
+                        label={values.country.name.length ? values.country.name : "Select country"}
+                        options={Country}
+                        optionsLabel="name"
+                        onChange={(val) => setFieldValue("country", { id: val.id, name: val.name })}
                       />
                       {errors.country && touched.country && <FormError>{errors.country}</FormError>}
                     </div>
@@ -334,45 +387,39 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.state.length ? values.state : "India"}
-                        options={[
-                          {
-                            label: "Gujarat",
-                          },
-                          {
-                            label: "Maharashtra",
-                          },
-                          {
-                            label: "Colombia",
-                          },
-                        ]}
-                        onChange={(val) => setFieldValue("state", val.label)}
+                        label={values.state.name.length ? values.state.name : "select state"}
+                        options={State}
+                        optionsLabel="name"
+                        onChange={(val) => setFieldValue("state", { id: val.id, name: val.name })}
                       />
                       {errors.state && touched.state && <FormError>{errors.state}</FormError>}
                     </div>
                   </div>
-                  <div>
+                  <div className="w-[30%]">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                       Gender
                     </label>
                     <div>
                       <Dropdown
-                        dropdownStyle="w-168"
-                        className="w-168"
-                        label={values.gender.length ? values.gender : "Gender"}
+                        dropdownStyle="w-full"
+                        className="w-full"
+                        label={values.gender.label.length ? values.gender.label : "Gender"}
                         options={[
                           {
                             label: "Male",
+                            value: "M",
                           },
                           {
                             label: "Female",
+                            value: "F",
                           },
                         ]}
-                        onChange={(val) => setFieldValue("gender", val.label)}
+                        onChange={(val) => setFieldValue("gender", { label: val.label, value: val.value })}
                       />
                       {errors.gender && touched.gender && <FormError>{errors.gender}</FormError>}
                     </div>
                   </div>
+
                   <div className="w-[30%]">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                       Audience Interest
@@ -427,6 +474,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       )}
                     </div>
                   </div>
+
                   <div className="w-[30%]">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
                       Number of Followers
@@ -479,19 +527,33 @@ function CampaignDetails({ setSignUpStatus, route }) {
                           <img src={`/svgs/${platform}.svg`} className="platformsSVG" alt="platform" />
                         </label>{" "}
                       </div>
-                      <p className="text-sm font-[500]">{(platform.charAt(0).toUpperCase()) + (platform.slice(1))}</p>
+                      <p className="text-sm font-[500]">{platform.charAt(0).toUpperCase() + platform.slice(1)}</p>
                     </div>
                   ))}
                 </div>
                 <div className="my-8 flex items-center gap-10">
                   <div className="flex flex-col w-full">
-                    <lable className="block text-gray-700 text-sm mb-2">Minimum Facebook Reach</lable>
-                    <input type="range" name="max-FB-reach" min={0} max={10} onChange={(val) => setFieldValue("minimum_facebook_reach", val.target.value)} />
+                    <label className="block text-gray-700 text-sm mb-2">Minimum Facebook Reach</label>
+                    <input
+                      type="range"
+                      name="max-FB-reach"
+                      min={0}
+                      max={10}
+                      // value={values.minimum_facebook_reach}
+                      onChange={(val) => (values.minimum_facebook_reach[0] = val.target.value)}
+                    />
                     <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p>
                   </div>
                   <div className="flex flex-col w-full">
-                    <lable className="block text-gray-700 text-sm mb-2">Minimum Facebook Engagement</lable>
-                    <input type="range" name="max-FB-reach" min={0} max={10} onChange={(val) => setFieldValue("minimum_facebook_engagement", val.target.value)} />
+                    <label className="block text-gray-700 text-sm mb-2">Minimum Facebook Engagement</label>
+                    <input
+                      type="range"
+                      name="max-FB-reach"
+                      min={0}
+                      max={10}
+                      // value={values.minimum_facebook_engagement}
+                      onChange={(val) => (values.minimum_facebook_engagement[0] = val.target.value)}
+                    />
                     <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p>
                   </div>
                   <div className="w-full">
@@ -569,7 +631,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                           <img src={`/svgs/${industry}.svg`} className="industrySVG" alt="industry" />
                         </label>{" "}
                       </div>
-                      <p className="text-sm font-[500]">{(industry.charAt(0).toUpperCase()) + (industry.slice(1))}</p>
+                      <p className="text-sm font-[500]">{industry.charAt(0).toUpperCase() + industry.slice(1)}</p>
                     </div>
                   ))}
                 </div>
@@ -656,8 +718,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={
-                          values.expected_budget_per_influencer.length ? values.expected_budget_per_influencer : "10k"
+                        label={values.expected_budget_per_influencer.length ? values.expected_budget_per_influencer : "10k"
                         }
                         options={[
                           {
@@ -715,7 +776,25 @@ function CampaignDetails({ setSignUpStatus, route }) {
                     type="button"
                     className="rounded-[50px] bg-[#3751FF] text-white px-8 py-2 "
                     onClick={() => {
-                      console.log({ ...values, brand: values.brand.id }, "values");
+                      const temp = {
+                        ...values,
+                        brand: values.brand.id,
+                        country: values.country.id,
+                        state: values.state.id,
+                        gender: values.gender.value,
+                        // social_platform: values.social_platform.toString(),
+                        // industry: values.industry.toString()
+                      };
+
+                      const data = {
+                        ...values,
+                        brand: values.brand.id,
+                        country: values.country.id,
+                        state: values.state.id,
+                        gender: values.gender.value,
+                      }
+                      console.log("data", temp);
+                      dispatch(addNewCampaignData(data, navigate));
                     }}
                   >
                     Submit Campaing

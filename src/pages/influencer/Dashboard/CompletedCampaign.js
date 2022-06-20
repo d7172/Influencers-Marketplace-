@@ -12,6 +12,7 @@ import { getCampaignCompletedData } from "../../../store/infCampaignCompleted/ac
 
 let tableData = [];
 function CompletedCampaign() {
+  const [activePage, setActivePage] = useState(1);
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   const dispatch = useDispatch();
@@ -22,10 +23,11 @@ function CompletedCampaign() {
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getCampaignCompletedData(payload));
-  }, []);
+    dispatch(getCampaignCompletedData(payload, activePage));
+  }, [activePage]);
 
-  tableData = useSelector((state) => state?.infCampaignCompleted?.results);
+  const infCampaignCompleted = useSelector((state) => state?.infCampaignCompleted);
+  tableData = infCampaignCompleted?.results;
   console.log(tableData, "table data");
   const infCampaignPool = {
     results: [
@@ -60,16 +62,20 @@ function CompletedCampaign() {
     ],
   };
   return (
-    <div className="max-w-[1280px] pt-6 relative">
-      <div className="flex items-center px-8">
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
         <Breadcrumbs options={[{ title: "Campaign" }, { title: "Completed Campaign" }]} />
-        <CampaignSearchBar />
       </div>
-      <CampaignTable data={tableData} />
-      <div className="absolute bottom-[-100px] right-0">
-        <Pagination />
+      <div className="max-w-[1280px] pt-6 relative">
+        <div className="flex items-center px-8">
+          <CampaignSearchBar placeHolder={"Search here by Campaign ID"}/>
+        </div>
+        <CampaignTable data={tableData} />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infCampaignCompleted} activePage={activePage} setActivePage={setActivePage} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

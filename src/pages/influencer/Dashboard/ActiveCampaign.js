@@ -8,10 +8,12 @@ import MyDialog from "../../../components/MyDialog";
 import CloseBtn from "../../../components/CloseBtn";
 // import ReasonForRejection from "../../../components/ResonForRejction";
 import { getCampaignActiveData } from "../../../store/infCampaignActive/action";
+import Pagination from "../../../components/Pagination";
 
 let tableData = [];
 
 function ActiveCampaign() {
+  const [activePage, setActivePage] = useState(1);
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   // console.log(loggedInUserData, "logged in user");
@@ -24,28 +26,36 @@ function ActiveCampaign() {
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getCampaignActiveData(payload));
-  }, []);
+    dispatch(getCampaignActiveData(payload, activePage));
+  }, [activePage]);
 
-  tableData = useSelector((state) => state?.infCampaignActive?.results);
+  const infCampaignActive = useSelector((state) => state?.infCampaignActive);
+  tableData = infCampaignActive?.results;
   return (
-    <div className="px-4">
-      <Breadcrumbs options={[{ title: "campaign" }, { title: "Active campaign" }]} />
-      <div className="flex justify-between mt-2">
-        <div className="flex gap-4 items-center">
-          <label className="text-[12px] text-[#939393]">Sort By Status</label>
-          <Dropdown
-            label="Pending for Approval"
-            options={[{ label: "Pending for Approval" }]}
-            dropdownStyle="w-[200px]"
-            className="w-[200px] h-[38px]"
-          />
-          <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
-        </div>
-        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Campaign" }, { title: "Active Campaign" }]} />
       </div>
-      <ActiveCampaignTable tableData={tableData} />
-    </div>
+      <div className="px-4 relative">
+        <div className="flex justify-between mt-6">
+          <div className="flex gap-4 items-center">
+            <label className="text-[12px] text-[#939393]">Sort By Status</label>
+            <Dropdown
+              label="Pending for Approval"
+              options={[{ label: "Pending for Approval" }]}
+              dropdownStyle="w-[200px]"
+              className="w-[200px] h-[38px]"
+            />
+            <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
+          </div>
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+        </div>
+        <ActiveCampaignTable tableData={tableData} />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infCampaignActive} activePage={activePage} setActivePage={setActivePage} />
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -177,7 +187,7 @@ function ActiveCampaignTable({ tableData }) {
                       {activeIndex === i && detailsTable && (
                         <tr>
                           {" "}
-                          <Details setReasonDialog={setReasonDialog} />{" "}
+                          <Details setReasonDialog={setReasonDialog} id={data?.id} />{" "}
                         </tr>
                       )}
                     </>
@@ -192,7 +202,7 @@ function ActiveCampaignTable({ tableData }) {
   );
 }
 
-function Details({ setReasonDialog }) {
+function Details({ setReasonDialog, id }) {
   const navigate = useNavigate();
 
   return (
@@ -206,7 +216,7 @@ function Details({ setReasonDialog }) {
         </h1>
         <h1
           className="underline text-[#3751FF] text-sm cursor-pointer"
-          onClick={() => navigate(`/influencer/campaign/active-campaign/00001`)}
+          onClick={() => navigate(`/influencer/campaign/active-campaign/${id}`)}
         >
           Re Apply
         </h1>
@@ -220,7 +230,7 @@ function Details({ setReasonDialog }) {
         </h1>
         <h1
           className="underline text-[#3751FF] text-sm cursor-pointer"
-          onClick={() => navigate(`/influencer/campaign/active-campaign/00001`)}
+          onClick={() => navigate(`/influencer/campaign/active-campaign/${id}`)}
         >
           Re Apply
         </h1>

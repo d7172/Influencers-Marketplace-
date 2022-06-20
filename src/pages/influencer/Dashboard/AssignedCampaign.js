@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
@@ -10,6 +10,7 @@ import { getCampaignAssignedData } from "../../../store/infCampaignAssigned/acti
 let tableData = [];
 
 function AssignedCampaign() {
+  const [activePage, setActivePage] = useState(1);
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   const dispatch = useDispatch();
@@ -19,10 +20,11 @@ function AssignedCampaign() {
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getCampaignAssignedData(data));
-  }, []);
+    dispatch(getCampaignAssignedData(data, activePage));
+  }, [activePage]);
 
-  tableData = useSelector((state) => state?.infCampaignAssigned?.results);
+  const infCampaignAssigned = useSelector((state) => state?.infCampaignAssigned);
+  tableData = infCampaignAssigned?.results;
 
   console.log(tableData, "tabledata");
   const infCampaignPool = {
@@ -58,16 +60,20 @@ function AssignedCampaign() {
     ],
   };
   return (
-    <div className="max-w-[1280px] pt-6 relative">
-      <div className="flex items-center px-8">
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
         <Breadcrumbs options={[{ title: "Campaign" }, { title: "Assigned Campaign" }]} />
-        <CampaignSearchBar />
       </div>
-      <CampaignTable data={tableData} />
-      <div className="absolute bottom-[-100px] right-0">
-        <Pagination />
+      <div className="max-w-[1280px] pt-6 relative">
+        <div className="flex items-center justify-end">
+          <CampaignSearchBar placeHolder={"Search here by Campaign ID"}/>
+        </div>
+        <CampaignTable data={tableData} />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infCampaignAssigned} activePage={activePage} setActivePage={setActivePage} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -5,7 +5,7 @@ const initialState = {
     otp: "",
   },
   otp: "",
-  // type: "",
+  type: "",
   personal_details: {
     first_name: "",
     last_name: "",

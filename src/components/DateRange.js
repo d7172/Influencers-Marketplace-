@@ -11,7 +11,7 @@ function DateRange() {
         />
       </div>
       <div className="flex items-center gap-2">
-        <label className="text-[12px] text-[#939393]">From</label>
+        <label className="text-[12px] text-[#939393]">To</label>
         <input
           type="date"
           className="border border-[#C4C4C4] rounded-[8px] px-4 py-1 tracking-[3px] shadow-dateRange"

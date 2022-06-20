@@ -1,7 +1,7 @@
 import { networkRequest } from "../_shared/api";
 
-export const getCampaignCompletedData = (payload) => {
-  const url = `influencer-active-campaign-pool/?category=${payload.category}&status=complete&influencer_id=${payload.influencer_id}`;
+export const getCampaignCompletedData = (payload, activePage) => {
+  const url = `influencer-active-campaign-pool/?page=${activePage}&category=${payload.category}&status=complete&influencer_id=${payload.influencer_id}`;
   return (dispatch) => {
     networkRequest(
       url,

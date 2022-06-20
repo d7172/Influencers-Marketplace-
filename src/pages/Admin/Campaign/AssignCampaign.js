@@ -10,13 +10,16 @@ import { getAssignCampaignData } from "../../../store/Admin/Campaign/AssignCampa
 
 const AdmAssignCampaign = ({ route }) => {
   let tableData = [];
+  const [activePage, setActivePage] = useState(1);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAssignCampaignData());
-  }, []);
-  tableData = useSelector((state) => state?.AdminAssignCampaign?.results);
+    const payload = null;
+    dispatch(getAssignCampaignData(payload, activePage));
+  }, [activePage]);
+  const AdminAssignCampaign = useSelector((state) => state?.AdminAssignCampaign);
+  tableData = AdminAssignCampaign?.results;
   const subTableData = [
     {
       userId: "000001",
@@ -36,7 +39,7 @@ const AdmAssignCampaign = ({ route }) => {
       </div>
       <CampaignTable tableData={tableData} subTableData={subTableData} />
       <div className="absolute bottom-[-100px] right-0">
-        <Pagination />
+        <Pagination link={AdminAssignCampaign} activePage={activePage} setActivePage={setActivePage}/>
       </div>
     </div>
   );

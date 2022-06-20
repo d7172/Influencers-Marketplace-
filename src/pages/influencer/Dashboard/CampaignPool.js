@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
@@ -11,6 +11,7 @@ function CampaignPool() {
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   const dispatch = useDispatch();
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
+  const [activePage, setActivePage] = useState(1);
   useEffect(() => {
     const payload = {
       category: loggedInUserData?.category.toLowerCase(),
@@ -18,21 +19,25 @@ function CampaignPool() {
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getCampaignPoolData(data));
-  }, []);
+    dispatch(getCampaignPoolData(data, activePage));
+  }, [activePage]);
 
   const infCampaignPool = useSelector((state) => state?.infCampaignPool);
   return (
-    <div className="max-w-[1280px] pt-6 relative">
-      <div className="flex items-center px-8">
-        <Breadcrumbs options={[{ title: "Campaign" }, { title: "CampaignPool" }]} />
-        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Campaign" }, { title: "Campaign Pool" }]} />
       </div>
-      <CampaignTable data={infCampaignPool?.results} />
-      <div className="absolute bottom-[-100px] right-0">
-        <Pagination link={infCampaignPool} />
+      <div className="max-w-[1280px] pt-6 relative">
+        <div className="flex items-center justify-end px-4">
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+        </div>
+        <CampaignTable data={infCampaignPool?.results} />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infCampaignPool} activePage={activePage} setActivePage={setActivePage} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

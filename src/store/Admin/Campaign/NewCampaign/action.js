@@ -1,7 +1,7 @@
 import { networkRequest } from "../../../_shared/api";
 
-export const getNewCampaignData = (payload) => {
-  const url = "campaign-all-list/?status=0";
+export const getNewCampaignData = (payload, activePage) => {
+  const url = `campaign-all-list/?page=${activePage}&status=pending`;
   return (dispatch) => {
     networkRequest(
       url,
@@ -18,15 +18,20 @@ export const getNewCampaignData = (payload) => {
   };
 };
 
-export const addNewCampaignData = (payload) => {
+export const addNewCampaignData = (payload, navigate) => {
   const url = "campaign/";
   return (dispatch) => {
     networkRequest(
       url,
       "POST",
-      "JSON",
+      false,
       payload,
       (res) => {
+        if (res?.status_code === 201 && res?.status === "success") {
+          navigate("/admin/campaign/new-campaign");
+        } else {
+          alert("Some error occured!!");
+        }
         dispatch({ type: "NEW_CAMPAIGN_ADDED_SUCCESS", data: res });
       },
       () => {

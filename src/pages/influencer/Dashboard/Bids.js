@@ -9,6 +9,7 @@ import { getInfBidData } from "../../../store/infBid/action";
 
 let infBids = [];
 function Bids() {
+  const [activePage, setActivePage] = useState(1);
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
   console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   const dispatch = useDispatch();
@@ -18,27 +19,35 @@ function Bids() {
     };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
-    dispatch(getInfBidData(data));
-  }, []);
-  infBids = useSelector((state) => state?.infBids?.results);
+    dispatch(getInfBidData(data, activePage));
+  }, [activePage]);
+  const infBidsObj = useSelector((state) => state?.infBids);
+  infBids = infBidsObj?.results;
   return (
-    <div className="ml-10">
-      <Breadcrumbs options={[{ title: "Bids" }, { title: "Active Bid" }]} />
-      <div className="flex justify-between mt-2">
-        <div className="flex gap-4 items-center">
-          <label className="text-[12px] text-[#939393]">Sort By Status</label>
-          <Dropdown
-            label="Pending for Approval"
-            options={[{ label: "Pending for Approval" }]}
-            dropdownStyle="w-[200px]"
-            className="w-[200px] h-[38px]"
-          />
-          <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
-        </div>
-        <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+    <>
+      <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
+        <Breadcrumbs options={[{ title: "Bids" }, { title: "Active Bids" }]} />
       </div>
-      <BidTable />
-    </div>
+      <div className="px-4 relative">
+        <div className="flex justify-between mt-6">
+          <div className="flex gap-4 items-center">
+            <label className="text-[12px] text-[#939393]">Sort By Status</label>
+            <Dropdown
+              label="Pending for Approval"
+              options={[{ label: "Pending for Approval" }]}
+              dropdownStyle="w-[200px]"
+              className="w-[200px] h-[38px]"
+            />
+            <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
+          </div>
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+        </div>
+        <BidTable />
+        <div className="absolute bottom-[-100px] right-0">
+          <Pagination link={infBidsObj} activePage={activePage} setActivePage={setActivePage} />
+        </div>
+      </div>
+    </>
   );
 }
 

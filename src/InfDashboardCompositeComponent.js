@@ -13,7 +13,7 @@ function InfDashboardCompositeComponent() {
     setTitle(path.slice(12));
   }, [location.pathname])
   return (
-    <div className="flex h-full justify-between">
+    <div className="flex h-full">
       <aside className="h-screen sticky top-0">
         <InfDashboardSidebar />
       </aside>

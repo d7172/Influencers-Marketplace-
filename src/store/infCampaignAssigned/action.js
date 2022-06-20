@@ -1,7 +1,7 @@
 import { networkRequest } from "../_shared/api";
 
-export const getCampaignAssignedData = (payload) => {
-  const url = "influencer-assign-campaign-pool/";
+export const getCampaignAssignedData = (payload,activePage) => {
+  const url = `influencer-assign-campaign-pool/?page=${activePage}`;
   return (dispatch) => {
     networkRequest(
       url,

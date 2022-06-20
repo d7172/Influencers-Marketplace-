@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 
 function InfDetails({ route }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const activeCampaign = [
     {
       id: "00001",
@@ -63,12 +67,17 @@ function InfDetails({ route }) {
     }
   ]
   const [campaignTab, setCampaignTab] = useState(1);
-  const activeTabStyle = "border border-[#ffab2d] border-solid bg-[#ffab2d1a]";
+  const activeTabStyle = "border-[#ffab2d]  bg-[#ffab2d1a]";
   const [tableData, setTableData] = useState(activeCampaign);
+
+  const infActiveUserDetails = useSelector((state) => state?.infActiveUser?.results?.filter((r) => r.influencerDetail.id == id))[0];
+  // const userDetails = useSelector((state) => state?.infActiveUser);
+  const infDetails = infActiveUserDetails?.influencerDetail;
+  const date = new Date(infDetails.created_at);
   return (
     <>
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "influencer" }, { title: route }, { title: "0001" }]} />
+        <Breadcrumbs options={[{ title: "influencer" }, { title: route, onClick: ()=>{navigate(`/admin/influencer/${route}`)} }, { title: infDetails.id }]} />
       </div>
       <div className="flex flex-col boxShadow px-4 relative ml-4">
         <div className="mt-4 text-[16px] font-[600] w-[180px]">Influencers Profile</div>
@@ -78,14 +87,14 @@ function InfDetails({ route }) {
 
         <div className="flex">
           <div className="mt-1 flex w-230">
-            <img className="w-360 rounded-md" src="/images/profile.png" alt="avtar" />
+            <img className="w-360 rounded-md" src={infDetails.profile_pic} alt="avtar" />
           </div>
           <div className="ml-4">
-            <div className="text-[22px] font-[700] w-[180px]">Thomas Aldox</div>
-            <div className="text-[16px] mt-1 font-[400] w-[180px]">@thomasdox</div>
-            <div className="text-[16px] mt-4 font-[500] w-[180px]">Join on 24 March 2017</div>
-            <div className="text-[16px] mt-4 font-[400] w-[180px]">test@domain.com</div>
-            <div className="text-[16px] font-[400] w-[180px]">+91 987456123</div>
+            <div className="text-[22px] font-[700] w-[180px] capitalize">{infDetails.first_name + " " + infDetails.last_name}</div>
+            <div className="text-[16px] mt-1 font-[400] w-[180px]">@{infDetails.user_name}</div>
+            <div className="text-[16px] mt-4 font-[500] w-[180px]">Join on { date.toLocaleDateString("en-US",{day: "numeric", month: "long", year: "numeric"}) }</div>
+            <div className="text-[16px] mt-4 font-[400] w-[180px]">{infDetails.email}</div>
+            <div className="text-[16px] font-[400] w-[180px]">{infDetails.contact_number}</div>
           </div>
           <div className="ml-10 items-center">
             <div className="flex border border-[#ffab2d] border-solid bg-[#ffab2d1a] justify-center ">
@@ -108,7 +117,7 @@ function InfDetails({ route }) {
         </div>
         <div className="mt-8 flex ">
           <div className="items-center  box-shadow-button cursor-pointer" onClick={() => { setCampaignTab(1); setTableData(activeCampaign) }}>
-            <div className={`flex  ${(campaignTab === 1) && (activeTabStyle)} justify-center`}>
+            <div className={`flex border border-solid ${(campaignTab === 1) && (activeTabStyle)} justify-center`}>
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/2-user.svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Total Active Campaign</div>
@@ -117,7 +126,7 @@ function InfDetails({ route }) {
             </div>
           </div>
           <div className="ml-10 items-center  box-shadow-button cursor-pointer" onClick={() => { setCampaignTab(2); setTableData(completedCampaign) }}>
-            <div className={`flex  ${(campaignTab === 2) && (activeTabStyle)}  justify-center `}>
+            <div className={`flex border border-solid ${(campaignTab === 2) && (activeTabStyle)}  justify-center `}>
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/47-team.svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Completed Campaign</div>
@@ -126,7 +135,7 @@ function InfDetails({ route }) {
             </div>
           </div>
           <div className="ml-10 items-center  box-shadow-button cursor-pointer" onClick={() => { setCampaignTab(3); setTableData(rejectedCampaign) }}>
-            <div className={`flex  ${(campaignTab === 3) && (activeTabStyle)}  justify-center `}>
+            <div className={`flex border border-solid ${(campaignTab === 3) && (activeTabStyle)}  justify-center `}>
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/10-todo (1).svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Rejected Campaigning</div>
