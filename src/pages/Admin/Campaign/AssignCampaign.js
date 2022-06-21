@@ -38,7 +38,7 @@ const AdmAssignCampaign = ({ route }) => {
         <CampaignSearchBar placeHolder={"Search here"} />
       </div>
       <CampaignTable tableData={tableData} subTableData={subTableData} />
-      <div className="absolute bottom-[-100px] right-0">
+      <div className="w-full mt-2 px-4">
         <Pagination link={AdminAssignCampaign} activePage={activePage} setActivePage={setActivePage}/>
       </div>
     </div>

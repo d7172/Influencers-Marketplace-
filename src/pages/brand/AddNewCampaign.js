@@ -161,7 +161,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "Campaign", onClick: () => { navigate(`/admin/campaign/new-campaign`) } }, { title: "New Campaign" }]} />
+        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/${route}/dashboard`) } }, { title: "Campaign", onClick: () => { navigate(`/admin/campaign/new-campaign`) } }, { title: "New Campaign" }]} />
       </div>
       <div className="px-8 py-5">
         <h1 className="text-start text-2xl font-bold mb-2">Campaign Details</h1>

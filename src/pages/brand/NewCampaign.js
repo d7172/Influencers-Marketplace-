@@ -54,9 +54,9 @@ function NewCampaign() {
                 <div className='p-4'>
                     <BrandCampaignTable route={"new-campaign"} campaignRows={campaignData} />
                 </div>
-                <div className="absolute bottom-[-100px] right-0 w-full p-4">
+                {/* <div className="absolute bottom-[-100px] right-0 w-full p-4">
                     <Pagination />
-                </div>
+                </div> */}
             </div>
         </>
     )
