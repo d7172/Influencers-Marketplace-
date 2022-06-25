@@ -69,9 +69,13 @@ function AssignedCampaign() {
           <CampaignSearchBar placeHolder={"Search here by Campaign ID"}/>
         </div>
         <CampaignTable data={tableData} />
-        <div className="absolute bottom-[-100px] right-0">
+        {tableData?.length ? (<div className="absolute bottom-[-100px] right-0">
           <Pagination link={infCampaignAssigned} activePage={activePage} setActivePage={setActivePage} />
-        </div>
+        </div>) : (
+          <div className="text-center mt-4">
+            <p className="text-gray-500">No data to display.</p>
+          </div>
+        )}
       </div>
     </>
   );
