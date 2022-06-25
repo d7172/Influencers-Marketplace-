@@ -5,16 +5,16 @@ const init = {
 
 export const BrandNewCampaign = (state = init, action) => {
     switch (action.type) {
-        case "NEW_CAMPAIGN_SUCCESS":
+        case "BRAND_NEW_CAMPAIGN_SUCCESS":
             return action.data;
 
-        case "NEW_CAMPAIGN_FAIL":
+        case "BRAND_NEW_CAMPAIGN_FAIL":
             return init;
 
-        case "NEW_CAMPAIGN_ADDED_SUCCESS":
+        case "BRAND_NEW_CAMPAIGN_ADDED_SUCCESS":
             return action.data;
 
-        case "NEW_CAMPAIGN_ADDED_FAIL":
+        case "BRAND_NEW_CAMPAIGN_ADDED_FAIL":
             return init;
 
         default:

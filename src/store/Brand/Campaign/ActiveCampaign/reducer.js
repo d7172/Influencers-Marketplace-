@@ -3,12 +3,12 @@ const init = {
     results: [],
 };
 
-export const BrandRejectedCampaign = (state = init, action) => {
+export const BrandActiveCampaign = (state = init, action) => {
     switch (action.type) {
-        case "BRAND_REJECTED_CAMPAIGN_SUCCESS":
+        case "BRAND_ACTIVE_CAMPAIGN_SUCCESS":
             return action.data;
 
-        case "BRAND_REJECTED_CAMPAIGN_FAIL":
+        case "BRAND_ACTIVE_CAMPAIGN_FAIL":
             return init;
 
         default:

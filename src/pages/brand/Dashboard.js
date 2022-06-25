@@ -12,6 +12,7 @@ import {
   PointElement,
   Filler,
 } from "chart.js";
+import { useNavigate } from "react-router-dom";
 ChartJS.register(Title, Tooltip, LineElement, Legend, CategoryScale, LinearScale, PointElement, Filler);
 
 function BrandDashboard() {
@@ -58,6 +59,14 @@ function BrandDashboard() {
       },
     ],
   });
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage?.getItem('userInfo'));
+    if (!userInfo || userInfo.type!=="brand")
+      navigate(`/login`)
+  }, [])
+
   return (
     <div className=" w-[1200px] ">
       <div className="flex px-8 gap-10 justify-between mt-6">

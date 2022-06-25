@@ -8,6 +8,7 @@ import AdmAssignCampaign from "./pages/Admin/Campaign/AssignCampaign";
 // import AdmAssignCampaignDetails from "./pages/Admin/Campaign/AssignCampaignDetails";
 import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
 import AdmRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
+import AdmCampaignDetails from "./pages/Admin/Campaign/CampaignDetails"
 import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
 import InfDetails from "./pages/Admin/Influencer/InfDetails";
 import InfNewUser from "./pages/Admin/Influencer/InfNewUser";
@@ -43,7 +44,7 @@ import AddNewCampaign from "./pages/brand/AddNewCampaign";
 import SignInAdmin from "../src/pages/Admin/SignIn/SignIn";
 import SignUpAdmin from "../src/pages/Admin/SignUp/SignUp";
 import DashBoard from "./pages/Admin/Dashboard/Dashboard";
-import AdmCampaignDetails from "./pages/brand/CampaignDetails";
+// import AdmCampaignDetails from "./pages/brand/CampaignDetails";
 // import AdmAssignedCampaign from "./pages/Admin/AssignedCampaign/AssignedCampaign.js";
 import AdmEarning from "./pages/Admin/Transaction/Earnings";
 import { useEffect, useState } from "react";
@@ -120,12 +121,12 @@ function App() {
             />
             <Route
               path="/admin/campaign/assigned-campaign/:id"
-              element={<BrandCampaignDetails route={"admin/assigned-campaign"} />}
+              element={<AdmCampaignDetails route={"admin/assigned-campaign"} />}
             />
             <Route path="/admin/campaign/active-campaign" element={<AdmActiveCampaign route={"active-campaign"} />} />
             <Route
               path="/admin/campaign/active-campaign/:id"
-              element={<BrandCampaignDetails route={"admin/active-campaign"} />}
+              element={<AdmCampaignDetails route={"admin/active-campaign"} />}
             />
             {/* <Route
               path="/admin/campaign/assigned-campaign"
@@ -137,7 +138,7 @@ function App() {
             />
             <Route
               path="/admin/campaign/rejected-campaign/:id"
-              element={<BrandCampaignDetails route={"admin/rejected-campaign"} />}
+              element={<AdmCampaignDetails route={"admin/rejected-campaign"} />}
             />
 
             <Route path="/admin/transaction" element={<Navigate replace to="/admin/transaction/earning" />} />
@@ -222,10 +223,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup-type" element={<SignUpType />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/brand/signup" element={<BrandSignUp/>} />
+          <Route path="/brand/signup" element={<BrandSignUp />} />
           <Route path="/admin/signin" element={<SignInAdmin />} />
           <Route path="/admin/signup" element={<SignUpAdmin />} />
-          <Route path="/admin/campaign/new-campaign/add" element={<AdmCampaignDetails route={"new-campaign"} />} />
         </Routes>
       </BrowserRouter>
     </div>

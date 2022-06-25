@@ -1,36 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SearchIcon } from "@heroicons/react/solid";
 import BrandCampaignTable from './BrandCampaignTable';
 import Pagination from '../../components/Pagination';
 import { useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../../components/Breadcrumbs';
+import { getBrandNewCampaignData } from '../../store/Brand/Campaign/NewCampaign/action';
+import { useDispatch, useSelector } from 'react-redux';
+
 // import facebookIcon from '../../../public/svgs/facebook.svg'
 // import instagramIcon from '../../../public/svgs/instagram.svg'
 // import linkedinIcon from '../../../public/svgs/linkedin.svg'
 // import youtubeIcon from '../../../public/svgs/youtube.svg'
 
 function NewCampaign() {
-    const campaignData = [
-        {
-            id: "0001",
-            brandName: "Perfect Status",
-            title: "Enjoy the videos and music",
-            category: "Fashion, DIY",
-            amount: "5553",
-            socialPlatform: ["facebook", "instagram", "linkedin", "youtube"],
-            status: "Approved"
-        },
-        {
-            id: "0002",
-            brandName: "Mama Earth",
-            title: "Health and Comatic",
-            category: "Healthcare",
-            amount: "7195",
-            socialPlatform: ["facebook", "instagram", "youtube"],
-            status: "Pending for approval"
-        },
-    ]
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [activePage, setActivePage] = useState(1);
+    useEffect(() => {
+        dispatch(getBrandNewCampaignData(null, activePage))
+    }, [activePage])
+    let campaignData = useSelector((state) => state?.BrandNewCampaign);
+    let tableData = campaignData?.results;
     return (
         <>
             <div className='w-full bg-[#F2F2F2] py-4 px-8'>
@@ -52,11 +42,15 @@ function NewCampaign() {
                 </div>
 
                 <div className='p-4'>
-                    <BrandCampaignTable route={"new-campaign"} campaignRows={campaignData} />
+                    <BrandCampaignTable route={"new-campaign"} campaignRows={tableData} />
                 </div>
-                {/* <div className="absolute bottom-[-100px] right-0 w-full p-4">
-                    <Pagination />
-                </div> */}
+                {tableData?.length ? (<div className="w-full mt-2 px-4">
+                    <Pagination link={campaignData} activePage={activePage} setActivePage={setActivePage} />
+                </div>) : (
+                    <div className="text-center mt-4">
+                        <p className="text-gray-500">No data to display.</p>
+                    </div>
+                )}
             </div>
         </>
     )

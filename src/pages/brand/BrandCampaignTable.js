@@ -51,33 +51,47 @@ function BrandCampaignTable({ route, campaignRows }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {campaignRows.map((data, i) => {
+                                {campaignRows?.map((data, i) => {
+                                    let platforms = data?.social_media_deliverables?.map((item) => { return item.platform });
                                     return (
                                         <tr className="" key={i}>
                                             <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[135px] font-medium text-gray-900">
-                                                #{data.id}
+                                                #{data?.id}
                                             </td>
                                             {(route === "new-campaign") && <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                                                {data.brandName}
+                                                {data?.brand_name}
                                             </td>}
                                             <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                                                 <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
-                                                {data.title}
+                                                {data?.title}
                                             </td>
                                             {(route === "assigned-campaign") && <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                                                {data.date}
+                                                {data?.date}
                                             </td>}
                                             {/* <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                                                     {data.project_duration_in_days} Day
                                                 </td> */}
                                             <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                                                {data.category}
+                                                {data?.category}
                                             </td>
                                             <td className="text-sm max-w-[135px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                                                &#8377; {data.amount}
+                                                &#8377; {data?.amount}
                                             </td>
-                                            <td className="text-[16px] max-w-[150px] min-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
-                                                <img
+                                            <td className="text-[16px] min-w-[150px] max-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
+                                                {
+                                                    platforms?.map((item, i) => {
+                                                        return (
+                                                            <img
+                                                                key={i}
+                                                                className={`absolute z-40 w-[20px] `}
+                                                                src={`/svgs/${item}.svg`}
+                                                                alt="social_platform"
+                                                                style={{left: `${(i+1)*12}px`}}
+                                                            />
+                                                        )
+                                                    })
+                                                }
+                                                {/* <img
                                                     className="absolute z-40 w-[20px] "
                                                     src="/svgs/facebook.svg"
                                                     alt="face"
@@ -96,8 +110,7 @@ function BrandCampaignTable({ route, campaignRows }) {
                                                     className="absolute z-10 left-[55px] w-[20px] h-[20px]"
                                                     src="/svgs/linkedin.svg"
                                                     alt="face"
-                                                />
-
+                                                /> */}
                                                 <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1>
                                             </td>
                                             {/* <td
@@ -107,10 +120,10 @@ function BrandCampaignTable({ route, campaignRows }) {
                                                     Quick Bid
                                                 </td> */}
                                             <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                                                {data.status}
+                                                {data?.status_camp}
                                             </td>
                                             <td
-                                                onClick={() => navigate(`/brand/campaign/${route}/${data.id}`)}
+                                                onClick={() => navigate(`/brand/campaign/${route}/${data?.id}`)}
                                                 className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer "
                                             >
                                                 View Details

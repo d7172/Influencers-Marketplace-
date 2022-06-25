@@ -10,7 +10,7 @@ function AdminCampaignTable({ tableData, mainRoute, route, activePage }) {
     <div className="flex flex-col max-w-[1280px]">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto min-h-[43vh]">
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>

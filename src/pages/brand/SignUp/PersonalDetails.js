@@ -6,6 +6,10 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getCountryData } from "../../../store/Country/action";
 import { getStatesData } from "../../../store/State/action";
+import MyDialog from "../../../components/MyDialog";
+import SuccessfullSignUp from "../../../components/SuccessfullSignUp";
+import { postSignUp } from "../../../store/SignUp/action";
+import { useNavigate } from "react-router-dom";
 
 const initForm = {
     first_name: "",
@@ -37,10 +41,16 @@ function PersonalDetails() {
     const [personalDetails, setPersonalDetails] = useState(initForm);
     // const [cities, setCities] = useState([]);
     const signUpState = useSelector((state) => state.signUpState);
+    const [showSuccessfullSignUp, setShowSuccessfullSignUp] = useState(false);
+    const signUp = useSelector((state) => state.signUp);
+    const navigate = useNavigate();
     useEffect(() => {
         dispatch(getCountryData());
         dispatch(getStatesData());
-    }, []);
+        if (signUp.status === "success") {
+            setShowSuccessfullSignUp(true);
+        }
+    }, [signUp]);
     let Country = useSelector((state) =>
         state?.countryList?.results.map((r) => {
             return { id: r?.id, name: r?.name, label: r?.name };
@@ -51,8 +61,16 @@ function PersonalDetails() {
             return { id: r?.id, name: r?.name, label: r?.name };
         })
     );
+    function resetSuccessfullSignup() {
+        setShowSuccessfullSignUp(false);
+        dispatch({ type: "SIGN_UP_RESET" });
+        navigate("/login");
+    }
     return (
         <div>
+            <MyDialog isOpen={showSuccessfullSignUp} close={resetSuccessfullSignup} className="rounded-8">
+                <SuccessfullSignUp close={resetSuccessfullSignup} />
+            </MyDialog>
             <h1 className="text-center text-2xl font-bold mt-8 mb-4">Personal Details</h1>
             <p className="w-390 text-gray-500 text-sm text-center m-auto mb-4">
                 Log in to your account using email and password provided during registration.
@@ -63,7 +81,32 @@ function PersonalDetails() {
                 // validationSchema={personalDetailsSchema}
                 onSubmit={(values) => {
                     console.log(values, "handle submit");
-                    // setPersonalDetails({});
+                    const temp = {
+                        personal_details: {
+                            first_name: values.first_name,
+                            last_name: values.last_name,
+                            email: values.email,
+                            contact_number: values.contact_number,
+                            organization_name: values.organization_name,
+                            organization_type: values.organization_type,
+                            about_organization: values.about_organization,
+                            site_url: values.site_url,
+                            description: values.description,
+                            country: values.country.id,
+                            state: values.state.id,
+                            address: values.address,
+                            zipcode: values.pinCode
+                        },
+                        phone: signUpState.phone,
+                        type: signUpState.type,
+                    }
+                    const data = new FormData();
+                    // delete temp.personal_details.cover_pic;
+                    data.append("data", JSON.stringify(temp));
+                    data.append("cover_pic", values.cover_pic);
+                    console.log(temp);
+                    
+                    dispatch(postSignUp(data,"brand"))
                 }}
             >
                 {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
@@ -290,7 +333,7 @@ function PersonalDetails() {
                     );
                 }}
             </Formik>
-        </div>
+        </div >
     );
 }
 

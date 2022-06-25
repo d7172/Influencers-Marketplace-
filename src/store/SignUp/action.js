@@ -1,7 +1,7 @@
 import { networkRequest } from "../_shared/api";
 
-export const postSignUp = (payload) => {
-  const url = "influencer-register/";
+export const postSignUp = (payload, type) => {
+  const url = `${type}-register/`;
   return (dispatch) => {
     networkRequest(
       url,

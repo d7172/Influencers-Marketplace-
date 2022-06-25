@@ -1,6 +1,6 @@
 import { networkRequest } from "../../../_shared/api";
 
-export const getBrandRejectedCampaignData = (payload, activePage) => {
+export const getBrandActiveCampaignData = (payload, activePage) => {
     const url = `brand-campaign-active-reject/?brand_id=${payload?.brand_id}&status=${payload?.status}&page=${activePage}`;
     return (dispatch) => {
         networkRequest(
@@ -9,10 +9,10 @@ export const getBrandRejectedCampaignData = (payload, activePage) => {
             "JSON",
             payload,
             (res) => {
-                dispatch({ type: "BRAND_REJECTED_CAMPAIGN_SUCCESS", data: res });
+                dispatch({ type: "BRAND_ACTIVE_CAMPAIGN_SUCCESS", data: res });
             },
             () => {
-                dispatch({ type: "BRAND_REJECTED_CAMPAIGN_FAIL" });
+                dispatch({ type: "BRAND_ACTIVE_CAMPAIGN_FAIL" });
             }
         );
     };

@@ -1,32 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SearchIcon } from "@heroicons/react/solid";
 import Pagination from '../../components/Pagination';
 import { useNavigate } from 'react-router-dom';
 import BrandCampaignTable from './BrandCampaignTable';
 import Breadcrumbs from '../../components/Breadcrumbs';
+import { useSelector, useDispatch } from 'react-redux';
+import { getBrandRejectedCampaignData } from '../../store/Brand/Campaign/RejectedCampaign/action';
 // import facebookIcon from '../../../public/svgs/facebook.svg'
 // import instagramIcon from '../../../public/svgs/instagram.svg'
 // import linkedinIcon from '../../../public/svgs/linkedin.svg'
 // import youtubeIcon from '../../../public/svgs/youtube.svg'
 
 function RejectedCampaign() {
-  const campaignData = [
-    {
-      id: "0001",
-      title: "Enjoy the videos and music",
-      category: "Fashion, DIY",
-      amount: "5553",
-      socialPlatform: ["facebook", "instagram", "linkedin", "youtube"],
-    },
-    {
-      id: "0002",
-      brandName: "Perfect Status",
-      title: "Enjoy the videos and music",
-      category: "Fashion, DIY",
-      amount: "5553",
-      socialPlatform: ["facebook", "instagram", "linkedin", "youtube"],
-    },
-  ]
+  const [activePage, setActivePage] = useState(1);
+  const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const payload = {
+      status: "reject",
+      brand_id: loggedInUserData.id
+    }
+    const data = new FormData();
+    data.append("data", JSON.stringify(payload));
+    dispatch(getBrandRejectedCampaignData(payload, activePage));
+  }, [activePage])
+
+  const brandCampRejected = useSelector((state) => state?.BrandRejectedCampaign);
+  let tableData = brandCampRejected?.results;
   return (
     <>
       <div className='w-full bg-[#F2F2F2] py-4 px-8'>
@@ -45,11 +45,15 @@ function RejectedCampaign() {
         </div>
 
         <div className='p-4'>
-          <BrandCampaignTable route={"rejected-campaign"} campaignRows={campaignData} />
+          <BrandCampaignTable route={"rejected-campaign"} campaignRows={tableData} />
         </div>
-        {/* <div className="absolute bottom-[-100px] right-0 w-full p-4">
-          <Pagination />
-        </div> */}
+        {tableData?.length ? (<div className="w-full mt-2 px-4">
+          <Pagination link={brandCampRejected} activePage={activePage} setActivePage={setActivePage} />
+        </div>) : (
+          <div className="text-center mt-4">
+            <p className="text-gray-500">No data to display.</p>
+          </div>
+        )}
       </div>
     </>
   )

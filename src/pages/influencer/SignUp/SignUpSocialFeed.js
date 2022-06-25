@@ -102,7 +102,7 @@ function SignUpSocialFeed({ setSignUpStatus }) {
             data.append("aadhar_card_back", signUpState.aadhar_card_back);
             data.append("aadhar_card_front", signUpState.aadhar_card_front);
             console.log("data", data);
-            dispatch(postSignUp(data));
+            dispatch(postSignUp(data,"influencer"));
           }}
         >
           Submit

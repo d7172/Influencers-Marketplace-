@@ -11,6 +11,7 @@ import { addNewCampaignData } from "../../store/Admin/Campaign/NewCampaign/actio
 import { getCountryData } from "../../store/Country/action";
 import { getStatesData } from "../../store/State/action";
 import { getCategoriesData } from "../../store/Categories/action";
+import { MultiSelect } from "react-multi-select-component";
 
 const initForm = {
   title: "",
@@ -93,11 +94,13 @@ function CampaignDetails({ setSignUpStatus, route }) {
   const [campFormDetails, setCampFormDetails] = useState(initForm);
   const signUpState = useSelector((state) => state.signUpState);
   const navigate = useNavigate();
+  const [social_platform, setSocialPlatform] = useState([]);
 
   let activeBrands = [];
   let Country = [];
   let State = [];
   let categoryData = [];
+  // const [deliverables, setDeliverables] = useState([]);
   useEffect(() => {
     dispatch(getBrandActiveUserData());
     dispatch(getCountryData());
@@ -121,8 +124,12 @@ function CampaignDetails({ setSignUpStatus, route }) {
       return { id: r?.id, name: r?.name };
     })
   );
+
   // console.log(categoryData);
-  const campaignDetails = useSelector((state) => state?.AdminNewCampaign?.results.filter((r) => r.id == id)[0]);
+  const campaignDetails = useSelector((state) =>
+    route === "admin" ? state?.AdminNewCampaign?.results?.filter((r) => r.id == id)[0]
+    : state?.BrandNewCampaign?.results?.filter((r) => r.id == id)[0]
+  );
   // console.log(campaignDetails);
   const Details = {
     title: campaignDetails?.title,
@@ -157,11 +164,23 @@ function CampaignDetails({ setSignUpStatus, route }) {
     country: { id: null, name: campaignDetails?.country },
     state: { id: null, name: campaignDetails?.state }
   }
-
+  const handlePlatform = (platform) => {
+    let temp = social_platform;
+    temp.includes(platform) ? temp.splice(social_platform.indexOf(platform), 1) : temp.push(platform);
+    setSocialPlatform(temp);
+  }
+  let deliverablesRow = [
+    // <DeliverableRow platform={data} />,
+    // <DeliverableRow platform={data} />
+  ];
+  useEffect(() => {
+    deliverablesRow = social_platform.map((data) => { return (<DeliverableRow platform={data} />) })
+  }, [social_platform]);
+  // console.log(social_platform);
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/${route}/dashboard`) } }, { title: "Campaign", onClick: () => { navigate(`/admin/campaign/new-campaign`) } }, { title: "New Campaign" }]} />
+        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/${route}/dashboard`) } }, { title: "Campaign", onClick: () => { navigate(`/${route}/campaign/new-campaign`) } }, { title: "New Campaign" }]} />
       </div>
       <div className="px-8 py-5">
         <h1 className="text-start text-2xl font-bold mb-2">Campaign Details</h1>
@@ -520,7 +539,8 @@ function CampaignDetails({ setSignUpStatus, route }) {
                           name="platFormcheck"
                           type="checkbox"
                           className="absolute top-0 right-[10px]"
-                          onChange={() => { values.social_platform.includes(platform) ? values.social_platform.splice(values.social_platform.indexOf(platform), 1) : values.social_platform.push(platform) }}
+                          onChange={() => { handlePlatform(platform) }
+                          }
                         />{" "}
                         <label htmlFor={`${platform}SVG`}>
                           {" "}
@@ -531,80 +551,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                     </div>
                   ))}
                 </div>
-                <div className="my-8 flex items-center gap-10">
-                  <div className="flex flex-col w-full">
-                    <label className="block text-gray-700 text-sm mb-2">Minimum Facebook Reach</label>
-                    <input
-                      type="range"
-                      name="max-FB-reach"
-                      min={0}
-                      max={10}
-                      // value={values.minimum_facebook_reach}
-                      onChange={(val) => (values.minimum_facebook_reach[0] = val.target.value)}
-                    />
-                    <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p>
-                  </div>
-                  <div className="flex flex-col w-full">
-                    <label className="block text-gray-700 text-sm mb-2">Minimum Facebook Engagement</label>
-                    <input
-                      type="range"
-                      name="max-FB-reach"
-                      min={0}
-                      max={10}
-                      // value={values.minimum_facebook_engagement}
-                      onChange={(val) => (values.minimum_facebook_engagement[0] = val.target.value)}
-                    />
-                    <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p>
-                  </div>
-                  <div className="w-full">
-                    <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                      No of Days
-                    </label>
-                    <div>
-                      <Dropdown
-                        dropdownStyle="w-168"
-                        className="w-168"
-                        label={values.number_of_days.length ? values.number_of_days : "1"}
-                        options={[
-                          {
-                            label: "2",
-                          },
-                          {
-                            label: "3",
-                          },
-                        ]}
-                        onChange={(val) => setFieldValue("number_of_days", val.label)}
-                      />
-                      {errors.number_of_days && touched.number_of_days && (
-                        <FormError>{errors.number_of_days}</FormError>
-                      )}
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                      Facebook Deliverables
-                    </label>
-                    <div className="w-full">
-                      <Dropdown
-                        dropdownStyle="w-full"
-                        className="w-full"
-                        label={values.facebook_deliverables.length ? values.facebook_deliverables : "Create post"}
-                        options={[
-                          {
-                            label: "Create post",
-                          },
-                          {
-                            label: "Create post",
-                          },
-                        ]}
-                        onChange={(val) => setFieldValue("facebook_deliverables", val.label)}
-                      />
-                      {errors.facebook_deliverables && touched.facebook_deliverables && (
-                        <FormError>{errors.facebook_deliverables}</FormError>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                {deliverablesRow}
                 <div className="my-8">
                   <h1 className="text-start text-2xl font-bold mb-2 mt-4">Which Industry You Want To Target</h1>
                   <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">
@@ -834,3 +781,91 @@ export const imageSvg = (
     />
   </svg>
 );
+function DeliverableRow({ platform }) {
+  const [selected, setSelected] = useState([]);
+  const options = [
+    { label: "Create post", value: "Create post" },
+    { label: "Create story", value: "Create story" },
+    { label: "Reels", value: "Reels" },
+  ]
+  return (
+    <div className="my-8 flex items-center gap-8 border rounded-md p-4">
+      <div className="flex flex-col w-full">
+        <label className="block text-gray-700 text-sm mb-2">Minimum {platform} Reach</label>
+        <input
+          type="range"
+          name="max-FB-reach"
+          min={0}
+          max={10}
+        // value={values.minimum_facebook_reach}
+        // onChange={(val) => (values.minimum_facebook_reach[0] = val.target.value)}
+        />
+        {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p> */}
+      </div>
+      <div className="flex flex-col w-full">
+        <label className="block text-gray-700 text-sm mb-2">Minimum {platform} Engagement</label>
+        <input
+          type="range"
+          name="max-FB-reach"
+          min={0}
+          max={10}
+        // value={values.minimum_facebook_engagement}
+        // onChange={(val) => (values.minimum_facebook_engagement[0] = val.target.value)}
+        />
+        {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p> */}
+      </div>
+      <div className="w-auto">
+        <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
+          No of Days
+        </label>
+        <Dropdown
+          dropdownStyle="w-[100px]"
+          className="w-[100px]"
+          label={"1"}
+          options={[
+            {
+              label: "2",
+            },
+            {
+              label: "3",
+            },
+          ]}
+        />
+      </div>
+      <div className="w-auto">
+        <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
+          {platform} Deliverables
+        </label>
+        <MultiSelect
+          options={options}
+          value={selected}
+          onChange={setSelected}
+          labelledBy={"Select"}
+          hasSelectAll={false}
+        />
+      </div>
+      <div className="flex flex-col text-left">
+        <label htmlFor="" className="block text-sm text-gray-700 mb-2">Price</label>
+        <input type="number" className="input-field w-[110px] h-[48px] text-sm rounded-md px-2 py-1 border focus:outline-none text-gray-500" placeholder="Enter price" />
+      </div>
+    </div>
+  )
+}
+// const social_media_deliverables = [
+//   {
+//     platform: "instagram",
+//     deliverables: ["Create story","Create post","Reels"],
+//     minimum_reach: 2000,
+//     minimum_engagement: 1,
+//     duration: 1,
+//     price: 1000
+//   },
+//   {
+//     platform: "facebook",
+//     deliverables:["Create story","Create post"],
+//     minimum_reach: 156,
+//     minimum_engagement: 25,
+//     duration: 6,
+//     price: 7800
+//   }
+// ]
