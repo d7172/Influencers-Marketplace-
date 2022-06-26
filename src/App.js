@@ -84,6 +84,7 @@ function App() {
           >
             <Route
               path="/admin"
+              exact
               element={
                 <Protected isLoggedIn={isLoggedIn}>
                   <Navigate replace to="/admin/dashboard" />

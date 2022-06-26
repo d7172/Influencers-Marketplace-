@@ -28,7 +28,8 @@ import { placeBid } from "./infPlaceBid/reducer";
 import { login } from "./Login/reducer";
 import { stateList } from "./State/reducer";
 import { countryList } from "./Country/reducer";
-
+import { AdminAssignProcess } from "./Admin/Campaign/AssignProcess/reducer";
+import { AdminMoveToCampaignPool } from "./Admin/Campaign/MoveToPool/reducer";
 const reducers = combineReducers({
   signUpState,
   signUp,
@@ -62,6 +63,8 @@ const reducers = combineReducers({
   placeBid,
   stateList,
   countryList,
+  AdminAssignProcess,
+  AdminMoveToCampaignPool,
 });
 
 export default reducers;

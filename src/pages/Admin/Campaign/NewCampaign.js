@@ -7,6 +7,7 @@ import Pagination from "../../../components/Pagination";
 import { getNewCampaignData } from "../../../store/Admin/Campaign/NewCampaign/action";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../Dropdowns";
+import { getAssignProcessData } from "../../../store/Admin/Campaign/AssignProcess/action";
 
 const AdmNewCampaign = ({ route }) => {
   let tableData = [];
@@ -16,6 +17,7 @@ const AdmNewCampaign = ({ route }) => {
   useEffect(() => {
     const payload = null;
     dispatch(getNewCampaignData(payload, activePage));
+    dispatch(getAssignProcessData());
   }, [activePage]);
   const AdminNewCampaign = useSelector((state) => state?.AdminNewCampaign);
   tableData = AdminNewCampaign?.results;
@@ -24,7 +26,18 @@ const AdmNewCampaign = ({ route }) => {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "Campaign" }, { title: route }]} />
+        <Breadcrumbs
+          options={[
+            {
+              title: "Dashboard",
+              onClick: () => {
+                navigate(`/admin/dashboard`);
+              },
+            },
+            { title: "Campaign" },
+            { title: route },
+          ]}
+        />
       </div>
       <div className="pt-4 relative">
         <div className="flex items-center p-4 justify-between w-full mb-5">
@@ -47,7 +60,7 @@ const AdmNewCampaign = ({ route }) => {
           <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
         </div>
         <div className="flex items-center py-4 px-8">
-          <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} activePage={activePage}/>
+          <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} activePage={activePage} />
         </div>
         <div className="w-full mt-2 px-4">
           <Pagination link={AdminNewCampaign} activePage={activePage} setActivePage={setActivePage} />

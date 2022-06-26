@@ -86,7 +86,7 @@ function InfProfile({ route }) {
   return (
     <>
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "influencer" }, { title: route, onClick: ()=>{navigate(`/admin/influencer/${route}`)} }, { title: personalDetails.first_name + " " + personalDetails.last_name}] } />
+        <Breadcrumbs options={[{ title: "influencer" }, { title: route, onClick: ()=>{navigate(`/admin/influencer/${route}`)} }, { title: personalDetails.id}] } />
       </div>
       <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
         <ResonForRejction close={() => setRejectBid(false)} />

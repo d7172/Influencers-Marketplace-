@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getMoveToCampaignPoolData } from "../store/Admin/Campaign/MoveToPool/action";
 import { deleteCampaignData, getNewCampaignData } from "../store/Admin/Campaign/NewCampaign/action";
 import CustomToolTip from "./Tooltip";
 function AdminCampaignTable({ tableData, mainRoute, route, activePage }) {
@@ -134,6 +135,10 @@ function AdminCampaignTable({ tableData, mainRoute, route, activePage }) {
                             },
                             {
                               title: "Move to Campaign Pool",
+                              onClick: () => {
+                                dispatch(getMoveToCampaignPoolData(data?.id));
+                                window.location.reload();
+                              },
                             },
                             {
                               title: "Delete",
