@@ -1,6 +1,7 @@
 import React from "react";
 
-function CampaignRequirement({ campaignDetails }) {
+function CampaignRequirement({ campaignDetails, }) {
+    console.log("campaignDetails", campaignDetails);
   return (
     <div>
       <h1 className="text-[18px] font-[600] ">Campaign Requirement</h1>

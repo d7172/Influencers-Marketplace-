@@ -27,7 +27,10 @@ function CampaignDetails({ route, mainRoute }) {
     const isRejected = location.pathname.includes("rejected-campaign");
     const AdmActiveCamp = useSelector((state) => state.AdminActiveCampaign);
     const AdmActiveCampDetails = AdmActiveCamp.results.filter((i) => i.id == id)[0];
-
+    const brandActivecamp = useSelector((state) => state.BrandActiveCampaign);
+    const brandActivecampDetails = brandActivecamp.results.filter((i) => i.id == id)[0];
+    console.log("brandActivecampDetails", brandActivecampDetails);
+    
     // console.log(activeCampaignDetails, 'activeCampaignDetails');
     // campaignDetails = {
     //     from_date: "24/2/2021",
@@ -242,7 +245,7 @@ function CampaignDetails({ route, mainRoute }) {
                         </p>
                     </div>
                     <hr className="my-8" />
-                    <CampaignRequirement campaignDetails={AdmActiveCampDetails} />
+                    <CampaignRequirement campaignDetails={AdmActiveCampDetails || brandActivecampDetails} />
                     <hr className="my-8" />
                     {(route === "brand/assigned-campaign" || route === "admin/assigned-campaign") &&
                         <div className="mt-6">
