@@ -5,46 +5,22 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import CampaignBudget from "../../components/CampaignBudget";
 import BrandCampaignDeliverables from "./BrandCampaignDeliverables"
 import CampaignRequirement from "../../components/CampaignRequirement";
-// import CampaignUploadDocuments from "../../components/CampaignUploadDocuments";
 import MyDialog from "../../components/MyDialog";
-// import PalceBid from "../../components/PalceBid";
-// import ResonForRejction from "../../components/ResonForRejction";
 import CloseBtn from '../../components/CloseBtn';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getActiveCampaignData } from '../../store/Admin/Campaign/ActiveCampaign/action';
-// import { useLocation } from 'react-router-dom';
 
-function CampaignDetails({ route, mainRoute }) {
+function CampaignDetails({ route }) {
     const location = useLocation();
     const { id } = useParams();
-    const isAdminAssigned = location.pathname.includes("admin/campaign/assigned-campaign");
-    const isAdminActive = location.pathname.includes("admin/campaign/active-campaign");
-    const isAdminRejected = location.pathname.includes("admin/campaign/rejected-campaign");
     const isAssigned = location.pathname.includes("assigned-campaign");
     const isActive = location.pathname.includes("active-campaign");
     const isRejected = location.pathname.includes("rejected-campaign");
-    const AdmActiveCamp = useSelector((state) => state.AdminActiveCampaign);
-    const AdmActiveCampDetails = AdmActiveCamp.results.filter((i) => i.id == id)[0];
-    const brandActivecamp = useSelector((state) => state.BrandActiveCampaign);
-    const brandActivecampDetails = brandActivecamp.results.filter((i) => i.id == id)[0];
-    console.log("brandActivecampDetails", brandActivecampDetails);
-    
-    // console.log(activeCampaignDetails, 'activeCampaignDetails');
-    // campaignDetails = {
-    //     from_date: "24/2/2021",
-    //     to_date: "26/2/2021",
-    //     project_duration_in_days: "2",
-    //     category: "Fashion, DIY",
-    //     age_group: [18, 24],
-    //     number_of_followers: "1k - 10k",
-    //     number_of_influencer: "02",
-    //     budget_type: "Fixed",
-    //     payout_type: "Barter",
-    //     budget_per_influencer: 5553,
-    //     terms_and_condition: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit modi praesentium deserunt ab at esse necessitatibus debitis ad libero iusto enim consequatur eius, deleniti dolorum nemo! Deserunt praesentium, maxime adipisci nisi, magni a autem sint quo voluptas accusamus eligendi aliquid? Delectus quod dolores ipsum eaque, similique veniam quae corrupti, incidunt, iusto laboriosam a! Quidem, minima?"
-    // }
+
+    const campaignDetails = useSelector((state) =>
+        isAssigned ? state.BrandAssignedCampaign?.results?.filter((i) => i.id == id)[0]
+            : isActive ? state?.BrandActiveCampaign?.results?.filter((i) => i.id == id)[0]
+                : state?.BrandRejectedCampaign?.results?.filter((i) => i.id == id)[0]
+    )
     const [documentPhaseDialog, setDocumentPhaseDialog] = useState(false);
     const [sendBtn, setSentBtn] = useState(true);
     const [reasonDialog, setReasonDialog] = useState(false);
@@ -198,46 +174,18 @@ function CampaignDetails({ route, mainRoute }) {
                     <div className='flex w-full justify-between'>
                         <div className="mt-6">
                             <h1 className="text-[32px] font-[600]">Campaign id</h1>
-                            <p className="text-[18px] font-[500] text-[#969BA0]  "> {id} </p>
+                            <p className="text-[18px] font-[500] text-[#969BA0]  "> {campaignDetails?.id} </p>
                         </div>
-                        {(route === "brand/rejected-campaign") && <div>
+                        {isRejected && <div>
                             <h1 className="text-start text-xl font-bold mt-6 mb-1">You Rejected this Campaign</h1>
                             <p className="w-390 inline-block text-start text-[14px] font-[500] text-[#93939399] mb-4">
                                 relying on meaningful content. Lorem ipsum
                             </p>
                         </div>}
-                        {(route === "admin/rejected-campaign") && <div>
-                            <h1 className="text-start text-xl font-bold mt-6 mb-1">Influencer Rejected this Campaign</h1>
-                            <p className="w-390 inline-block text-start text-[14px] font-[500] text-[#93939399] mb-4">
-                                relying on meaningful content. Lorem ipsum
-                            </p>
-                            <p onClick={() => setReasonDialog(true)}
-                                className="text-sm text-start underline text-[14px] font-[500] text-[#3751FF] cursor-pointer mb-4">
-                                View reason
-                            </p>
-                        </div>}
-                        {(route === "admin/active-campaign" || route === "admin/assigned-campaign") &&
-                            <div className='flex'>
-                                <div className='flex flex-col mr-8'>
-                                    <h1 className="text-start text-[18px] font-bold mt-6 mb-1">Assigned Influencer</h1>
-                                    <p className="inline-block text-start font-[500] mb-4">
-                                        Steven Sloan
-                                    </p>
-                                    <p className="inline-block text-start font-[500] mb-4">
-                                        Jhon Deo
-                                    </p>
-                                </div>
-                                {(route === "admin/active-campaign") && <div className='flex flex-col mr-8'>
-                                    <h1 className="text-start text-[18px] font-bold mt-6 mb-1">Days Remaining</h1>
-                                    <p className="inline-block text-start font-[500] mb-4">
-                                        03
-                                    </p>
-                                </div>}
-                            </div>}
                     </div>
                     <div className="mt-6">
                         <p className="text-[#969BA0] font-[600] text-[16px]">Brand Description</p>
-                        <h1 className="text-[18px] font-[600]  mt-1 ">Cardboard paper style</h1>
+                        <h1 className="text-[18px] font-[600]  mt-1 ">{campaignDetails?.brand_name}</h1>
                         <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut publishing and
                             graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document
@@ -245,9 +193,9 @@ function CampaignDetails({ route, mainRoute }) {
                         </p>
                     </div>
                     <hr className="my-8" />
-                    <CampaignRequirement campaignDetails={AdmActiveCampDetails || brandActivecampDetails} />
+                    <CampaignRequirement campaignDetails={campaignDetails} />
                     <hr className="my-8" />
-                    {(route === "brand/assigned-campaign" || route === "admin/assigned-campaign") &&
+                    {isAssigned &&
                         <div className="mt-6">
                             <h1 className="text-[26px] font-[600]">Quotation Phase</h1>
                             <p className=" text-[14px] mt-1 leading-[21px] text-[#969BA0]">Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
@@ -274,7 +222,7 @@ function CampaignDetails({ route, mainRoute }) {
                             </div>
                         </div>
                     }
-                    {(route === "admin/active-campaign" || route === "brand/active-campaign") &&
+                    {isActive &&
                         <div className="my-6">
                             <h1 className="text-[20px] font-[600]">Document Phase</h1>
                             <p className=" mt-1 leading-[21px] text-[#969BA0]">Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
@@ -298,57 +246,34 @@ function CampaignDetails({ route, mainRoute }) {
                             </div>
                         </div>
                     }
-                    {(route === "admin/active-campaign" || route === "admin/rejected-campaign" || route === "brand/active-campaign") && <CampaignBudget campaignDetails={AdmActiveCampDetails} />}
+                    {isActive && <CampaignBudget campaignDetails={campaignDetails} />}
                     <hr className="my-8" />
-                    <BrandCampaignDeliverables route={route} setDocReqDialog={setDocReqDialog} setDocumentPhaseDialog={setDocumentPhaseDialog} setPaymentDialog={setPaymentDialog} deliverableDetails={social_media_deliverables} />
+                    <BrandCampaignDeliverables route={route} setDocReqDialog={setDocReqDialog} setDocumentPhaseDialog={setDocumentPhaseDialog} setPaymentDialog={setPaymentDialog} deliverableDetails={campaignDetails?.social_media_deliverables} />
                     <hr className="my-8" />
-                    {(route === "admin/active-campaign" || route === "admin/rejected-campaign" || route === "brand/rejected-campaign") && <div>
-                        {(route !== "brand/rejected-campaign") && <div className="mt-6">
+                    {isRejected &&
+                        <div className="mt-6">
                             <p className="text-[#969BA0] text-[16px]">Note from Brand</p>
                             <h1 className="text-[18px] font-[500] mt-1 ">Cardboard paper style</h1>
                             <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
-                                {AdmActiveCampDetails?.note_from_brand}
+                                {campaignDetails?.note_from_brand}
                             </p>
                             <hr className="my-8" />
-                        </div>
-                        }
-                        <div className="mt-6">
-                            <p className="text-[#969BA0] text-[16px]">Note from Admin</p>
-                            <h1 className="text-[18px] font-[500] mt-1 ">Jhon Deo</h1>
-                            <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut <br />{" "}
-                                publishing and graphic design, Lorem ipsum is a placeholder text commonly used to
-                                <br /> demonstrate the visual form of a document or a typeface without relying
-                            </p>
-                        </div>
-                        <hr className="my-8" />
-                        <div>
-                            <h1>Terms & Conditions</h1>
-                            <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{AdmActiveCampDetails?.terms_and_condition} </p>
-                        </div>
-                        <hr className="my-8" />
-                    </div>}
-                    {(route === "admin/rejected-campaign" || route === "brand/rejected-campaign") &&
-                        <div>
+                            <div className="mt-6">
+                                <p className="text-[#969BA0] text-[16px]">Note from Admin</p>
+                                <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
+                                    {campaignDetails?.note_from_admin}
+                                </p>
+                            </div>
+                            <hr className="my-8" />
+                            <div>
+                                <h1>Terms & Conditions</h1>
+                                <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campaignDetails?.terms_and_condition} </p>
+                            </div>
+                            <hr className="my-8" />
                             <div className="mb-8 w-[77%]">
                                 <h1 className="text-xl font-[600] mb-4">Reason for rejection</h1>
                                 <p className="block w-full h-auto mt-1 px-3 py-1.5 text-[#93939399] text-base font-normal border border-solid border-gray-300 rounded">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis quia est necessitatibus dignissimos aliquam optio accusamus dolorem hic amet labore, id, perferendis tenetur pariatur nostrum quidem expedita officia reprehenderit doloremque itaque ea. Ipsam ab saepe nostrum ratione suscipit amet laudantium libero culpa dignissimos nam, nesciunt aperiam cupiditate quos voluptatum, odit consequuntur commodi non quia natus.</p>
                             </div>
-                            {(route === "admin/rejected-campaign") && <div className="mt-14 flex ">
-                                <button
-                                    type="button"
-                                    className="rounded-[50px] bg-primary text-white px-4 py-2"
-                                >
-                                    Reassigned to Influencers
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => navigate(`/admin/campaign/rejected-campaign`)}
-                                    className="rounded-[50px] text-[#969BA0] px-4 py-2 underline"
-                                >
-                                    Cancle
-                                </button>
-                            </div>}
                         </div>}
                 </div>
             </div>

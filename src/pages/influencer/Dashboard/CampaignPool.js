@@ -33,7 +33,7 @@ function CampaignPool() {
           <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
         </div>
         <CampaignTable data={infCampaignPool?.results} />
-        {infCampaignPool?.results?.length ? (<div className="absolute bottom-[-100px] right-0">
+        {infCampaignPool?.results?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={infCampaignPool} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (
           <div className="text-center mt-4">

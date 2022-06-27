@@ -68,12 +68,16 @@ function CompletedCampaign() {
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center px-8">
-          <CampaignSearchBar placeHolder={"Search here by Campaign ID"}/>
+          <CampaignSearchBar placeHolder={"Search here by Campaign ID"} />
         </div>
         <CampaignTable data={tableData} />
-        <div className="absolute bottom-[-100px] right-0">
+        {tableData?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={infCampaignCompleted} activePage={activePage} setActivePage={setActivePage} />
-        </div>
+        </div>) : (
+          <div className="text-center mt-4">
+            <p className="text-gray-500">No data to display.</p>
+          </div>
+        )}
       </div>
     </>
   );

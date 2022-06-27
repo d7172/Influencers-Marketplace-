@@ -17,3 +17,21 @@ export const getAssignProcessData = (payload, activePage) => {
     );
   };
 };
+
+export const assignToInf = (payload)=>{
+  const url = `assign-campaigns/`
+  return (dispatch)=>{
+    networkRequest(
+      url,
+      "POST",
+      "JSON",
+      payload,
+      (res) => {
+        dispatch({ type: "ASSIGN_TO_INF_SUCCESS", data: res});
+      },
+      ()=>{
+        dispatch({type: "ASSIGN_TO_INF_FAIL"})
+      }
+    )
+  }
+}

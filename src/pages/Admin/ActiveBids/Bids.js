@@ -27,38 +27,6 @@ function Bids() {
   tableData = AdminActiveBids?.results;
 
   const infTableCol = ["User ID", "Influencer Name", "Influencer Bids Number"];
-  const infTableRow = [
-    {
-      userId: "00001",
-      infName: "Steven Sloan",
-      infBidNum: "01",
-    },
-    {
-      userId: "00002",
-      infName: "Steven Sloan",
-      infBidNum: "01",
-    },
-    {
-      userId: "00003",
-      infName: "Steven Sloan",
-      infBidNum: "01",
-    },
-    {
-      userId: "00004",
-      infName: "Steven Sloan",
-      infBidNum: "01",
-    },
-    {
-      userId: "00005",
-      infName: "Steven Sloan",
-      infBidNum: "01",
-    },
-    {
-      userId: "00006",
-      infName: "Steven Sloan",
-      infBidNum: "01",
-    },
-  ];
   const navigate = useNavigate();
   const [detailsTable, setDetailsTable] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -165,9 +133,13 @@ function Bids() {
             </div>
           </div>
         </div>
-        <div className="w-full mt-2 px-4">
+        {tableData?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={AdminActiveBids} activePage={activePage} setActivePage={setActivePage} />
-        </div>
+        </div>) : (
+          <div className="text-center mt-4">
+            <p className="text-gray-500">No data to display.</p>
+          </div>
+        )}
       </div>
     </>
   );

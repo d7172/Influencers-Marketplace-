@@ -24,7 +24,7 @@ function BrandCampaignDeliverables({ mainRoute, setDocReqDialog, route, setPayme
                                 </tr>
                             </thead>
                             <tbody>
-                                {deliverableDetails.map((data, index) => {
+                                {deliverableDetails?.map((data, index) => {
                                     bidTotal += data?.amount;
                                     return (
                                         <tr key={index} className="flex mb-8">

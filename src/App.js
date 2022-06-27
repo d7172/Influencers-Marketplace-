@@ -7,7 +7,7 @@ import AdmActiveCampaign from "./pages/Admin/Campaign/ActiveCampaign";
 import AdmAssignCampaign from "./pages/Admin/Campaign/AssignCampaign";
 // import AdmAssignCampaignDetails from "./pages/Admin/Campaign/AssignCampaignDetails";
 import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
-import AdmRejectedCampaign from "./pages/Admin/RejectedCampaign/RejectedCampaign";
+import AdmRejectedCampaign from "./pages/Admin/Campaign/RejectedCampaign";
 import AdmCampaignDetails from "./pages/Admin/Campaign/CampaignDetails"
 import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
 import InfDetails from "./pages/Admin/Influencer/InfDetails";
@@ -40,6 +40,8 @@ import BrandNewCampaign from "./pages/brand/NewCampaign";
 import BrandActiveCampaign from "./pages/brand/ActiveCampaign";
 import BrandAssignedCampaign from "./pages/brand/AssignedCampaign";
 import BrandRejectedCampaign from "./pages/brand/RejectedCampaign";
+import BrandEarning from "./pages/brand/Earning"
+import BrandStatement  from "./pages/brand/Statement";
 import AddNewCampaign from "./pages/brand/AddNewCampaign";
 import SignInAdmin from "../src/pages/Admin/SignIn/SignIn";
 import SignUpAdmin from "../src/pages/Admin/SignUp/SignUp";
@@ -216,7 +218,8 @@ function App() {
             />
 
             <Route path="/brand/transactions" element={<Navigate replace to="/brand/transactions/earning" />} />
-            <Route path="/brand/transactions/earning" element={<Earning />} />
+            <Route path="/brand/transactions/earning" element={<BrandEarning />} />
+            {/* <Route path="/brand/transactions/statement" element={<BrandStatement />} /> */}
             <Route path="/brand/transactions/statement" element={<Statement />} />
 
             <Route path="/brand/support" element={<Support />} />

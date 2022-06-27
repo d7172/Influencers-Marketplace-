@@ -38,9 +38,13 @@ const AdmRejectedCampaign = ({ route }) => {
       <div className="flex items-center py-4 px-8">
         <AdminCampaignTable tableData={tableData} route={route} />
       </div>
-      <div className="w-full mt-2 px-4">
-        <Pagination link={AdmRejectedCampaign} activePage={activePage} setActivePage={setActivePage}/>
-      </div>
+      {tableData?.length ? (<div className="w-full mt-2 px-4">
+        <Pagination link={AdmRejectedCampaign} activePage={activePage} setActivePage={setActivePage} />
+      </div>) : (
+        <div className="text-center mt-4">
+          <p className="text-gray-500">No data to display.</p>
+        </div>
+      )}
     </div>
   );
 };

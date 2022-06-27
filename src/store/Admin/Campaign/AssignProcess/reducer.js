@@ -11,6 +11,11 @@ export const AdminAssignProcess = (state = init, action) => {
     case "ASSIGN_PROCESS_FAIL":
       return init;
 
+    case "ASSIGN_TO_INF_SUCCESS": 
+      return action.data;
+    
+    case "ASSIGN_TO_INF_FAIL":
+      return init;
     default:
       return state;
   }

@@ -7,12 +7,15 @@ import Pagination from "../../../components/Pagination";
 import { getNewCampaignData } from "../../../store/Admin/Campaign/NewCampaign/action";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "../Dropdowns";
-import { getAssignProcessData } from "../../../store/Admin/Campaign/AssignProcess/action";
+import { assignToInf, getAssignProcessData } from "../../../store/Admin/Campaign/AssignProcess/action";
+import BackArrowBtn from "../../../components/BackArrowBtn";
+
 
 const AdmNewCampaign = ({ route }) => {
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
-
+  const [infTable, setInfTable] = useState(false);
+  const [campId, setCampId] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = null;
@@ -23,6 +26,56 @@ const AdmNewCampaign = ({ route }) => {
   tableData = AdminNewCampaign?.results;
   const navigate = useNavigate();
   console.log(AdminNewCampaign, "After delete");
+  const infTableData = [
+    {
+      id: 1,
+      name: "Steven Solan",
+      completed_campaign: "2",
+      social_media_deliverables: [
+        {
+          platform: "facebook"
+        },
+        {
+          platform: "instagram"
+        },
+        {
+          platform: "youtube"
+        }
+      ]
+    },
+    {
+      id: 2,
+      name: "Barbara Searcy",
+      completed_campaign: "1",
+      social_media_deliverables: [
+        {
+          platform: "facebook"
+        },
+        {
+          platform: "instagram"
+        },
+        {
+          platform: "youtube"
+        },
+        {
+          platform: "linkedin"
+        }
+      ]
+    },
+    {
+      id: 3,
+      name: "Thomas Gilbreath",
+      completed_campaign: "5",
+      social_media_deliverables: [
+        {
+          platform: "instagram"
+        }
+      ]
+    }
+  ]
+  console.log(infTable);
+  const assignProcessData = useSelector((state) => state?.AdminAssignProcess?.results);
+  console.log(assignProcessData);
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -42,14 +95,14 @@ const AdmNewCampaign = ({ route }) => {
       <div className="pt-4 relative">
         <div className="flex items-center p-4 justify-between w-full mb-5">
           <CampaignSearchBar placeHolder={"Search here"} />
-          <div
+          {!infTable && <div
             className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
             onClick={() => navigate("/admin/campaign/new-campaign/add")}
           >
             <button> + Add New Campaign </button>
-          </div>
+          </div>}
         </div>
-        <div className="flex gap-4 items-center ml-4">
+        {!infTable && <div className="flex gap-4 items-center ml-4">
           <label className="text-[12px] text-[#939393]">Sort By Status</label>
           <Dropdown
             lable="Pending for Approval"
@@ -58,16 +111,99 @@ const AdmNewCampaign = ({ route }) => {
             className="w-[200px] h-[38px]"
           />
           <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
-        </div>
-        <div className="flex items-center py-4 px-8">
-          <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} activePage={activePage} />
-        </div>
-        <div className="w-full mt-2 px-4">
-          <Pagination link={AdminNewCampaign} activePage={activePage} setActivePage={setActivePage} />
-        </div>
+        </div>}
+        {infTable ? <InfTable tableData={infTableData} setInfTable={setInfTable} campId={campId} />
+          : (<>
+            <div className="flex items-center py-4 px-8">
+              <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} setCampId={setCampId} setInfTable={setInfTable} route={route} activePage={activePage} />
+            </div>
+            {tableData?.length ? (
+              <div className="w-full mt-2 px-4">
+                <Pagination link={AdminNewCampaign} activePage={activePage} setActivePage={setActivePage} />
+              </div>) : (
+              <div className="text-center mt-4">
+                <p className="text-gray-500">No data to display.</p>
+              </div>
+            )}
+          </>
+          )}
+
       </div>
     </>
   );
 };
 
 export default AdmNewCampaign;
+
+function InfTable({ tableData, setInfTable, campId }) {
+  console.log(campId);
+  const dispatch = useDispatch();
+
+  const handleOnClick = (infId) => {
+    const payload = {
+      influencers: infId,
+      campaign: campId,
+      extra: {}
+    }
+    const data = new FormData();
+    data.append("data", JSON.stringify(payload));
+
+    dispatch(assignToInf(data));
+  }
+  const assignToInfData = useSelector((state) => state?.AdminAssignProcess?.results);
+  console.log(assignToInfData);
+  return (
+    <div className="my-4 mx-8">
+      <div className="flex justify-between px-2 mb-2">
+        <p className="font-bold " >Assigned to Influencers in Same Category</p>
+        <BackArrowBtn onClick={() => setInfTable(false)} />
+      </div>
+      <div className="grid grid-cols-5 gap-x-2 mb-6 text-lg p-2 border-b-2" >
+        <div>
+          <p>User Id</p>
+        </div>
+        <div>
+          <p>Name</p>
+        </div>
+        <div>
+          <p>Completed Campaign</p>
+        </div>
+        <div>
+          <p>Social Platform</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-5 gap-x-2 p-2 text-sm" >
+        {tableData?.map((data) => {
+          return (
+            <>
+              <div className="mb-6">
+                <p>{data?.id}</p>
+              </div>
+              <div className="mb-6">
+                <p>{data?.name}</p>
+              </div>
+              <div className="mb-6">
+                <p>{data?.completed_campaign}</p>
+              </div>
+              <div className="flex relative mb-6" >
+                {data?.social_media_deliverables.map((item, i) => {
+                  return (
+                    <img key={i} src={`/svgs/${item?.platform}.svg`} className={`absolute z-40 w-[20px] `} alt="social_platform" style={{ left: `${(i + 1) * 12}px` }} />)
+                })
+                }
+                <p className="absolute right-16" >+2 more</p>
+              </div>
+              <div className="mb-6">
+                <p className="underline text-[#3751FF] cursor-pointer"
+                  onClick={() => handleOnClick(data?.id)}
+                >Assign</p>
+              </div>
+            </>
+          )
+        })
+
+        }
+      </div>
+    </div>
+  )
+}
