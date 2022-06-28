@@ -106,7 +106,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
     dispatch(getCountryData());
     dispatch(getStatesData());
     dispatch(getCategoriesData());
-    (id) && (setCampFormDetails(Details));
+    id && setCampFormDetails(Details);
   }, []);
   categoryData = useSelector((state) => state?.categories);
   activeBrands = useSelector((state) =>
@@ -127,8 +127,9 @@ function CampaignDetails({ setSignUpStatus, route }) {
 
   // console.log(categoryData);
   const campaignDetails = useSelector((state) =>
-    route === "admin" ? state?.AdminNewCampaign?.results?.filter((r) => r.id == id)[0]
-    : state?.BrandNewCampaign?.results?.filter((r) => r.id == id)[0]
+    route === "admin"
+      ? state?.AdminNewCampaign?.results?.filter((r) => r.id == id)[0]
+      : state?.BrandNewCampaign?.results?.filter((r) => r.id == id)[0]
   );
   // console.log(campaignDetails);
   const Details = {
@@ -142,7 +143,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
     promotion_goal: campaignDetails?.promotion_goal,
     project_duration_in_days: campaignDetails?.project_duration_in_days,
     age_group: [campaignDetails?.age_group],
-    gender: { label: (campaignDetails?.gender === "M") ? "Male" : "Female", value: campaignDetails?.gender },
+    gender: { label: campaignDetails?.gender === "M" ? "Male" : "Female", value: campaignDetails?.gender },
     audience_interest: campaignDetails?.audience_interest,
     number_of_influencer: campaignDetails?.number_of_influencer,
     number_of_followers: campaignDetails?.number_of_followers,
@@ -162,25 +163,43 @@ function CampaignDetails({ setSignUpStatus, route }) {
     terms_and_condition: campaignDetails?.terms_and_condition,
     brand: { id: campaignDetails?.brand, name: campaignDetails?.brand_name },
     country: { id: null, name: campaignDetails?.country },
-    state: { id: null, name: campaignDetails?.state }
-  }
+    state: { id: null, name: campaignDetails?.state },
+  };
   const handlePlatform = (platform) => {
     let temp = social_platform;
     temp.includes(platform) ? temp.splice(social_platform.indexOf(platform), 1) : temp.push(platform);
     setSocialPlatform(temp);
-  }
+  };
   let deliverablesRow = [
     // <DeliverableRow platform={data} />,
     // <DeliverableRow platform={data} />
   ];
   useEffect(() => {
-    deliverablesRow = social_platform.map((data) => { return (<DeliverableRow platform={data} />) })
+    deliverablesRow = social_platform.map((data) => {
+      return <DeliverableRow platform={data} />;
+    });
   }, [social_platform]);
   // console.log(social_platform);
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/${route}/dashboard`) } }, { title: "Campaign", onClick: () => { navigate(`/${route}/campaign/new-campaign`) } }, { title: "New Campaign" }]} />
+        <Breadcrumbs
+          options={[
+            {
+              title: "Dashboard",
+              onClick: () => {
+                navigate(`/${route}/dashboard`);
+              },
+            },
+            {
+              title: "Campaign",
+              onClick: () => {
+                navigate(`/${route}/campaign/new-campaign`);
+              },
+            },
+            { title: "New Campaign" },
+          ]}
+        />
       </div>
       <div className="px-8 py-5">
         <h1 className="text-start text-2xl font-bold mb-2">Campaign Details</h1>
@@ -245,7 +264,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-168"
                         className="w-168"
-                        label={values.brand.name.length ? values.brand.name : "Brand"}
+                        label={values?.brand?.name?.length ? values?.brand?.name : "Brand"}
                         options={activeBrands.map((data) => {
                           return {
                             label: data.name,
@@ -278,7 +297,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.campain_strategy.length ? values.campain_strategy : "Shout Out Campaing"}
+                        label={values?.campain_strategy?.length ? values?.campain_strategy : "Shout Out Campaing"}
                         options={[
                           {
                             label: "Giveaway Campaing",
@@ -308,7 +327,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.campain_goal.length ? values.campain_goal : "Lead Genration"}
+                        label={values?.campain_goal?.length ? values?.campain_goal : "Lead Genration"}
                         options={[
                           {
                             label: "CPC",
@@ -348,7 +367,8 @@ function CampaignDetails({ setSignUpStatus, route }) {
                   </div>
                   <div className="w-[30%] mr-16">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                      Age Group: <p className="text-gray-700 inline-block text-sm mt-4">{values?.age_group.toString()}</p>
+                      Age Group:{" "}
+                      <p className="text-gray-700 inline-block text-sm mt-4">{values?.age_group.toString()}</p>
                       <span className="text-red-500">*</span>
                     </label>
                     <div className="flex">
@@ -390,7 +410,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.country.name.length ? values.country.name : "Select country"}
+                        label={values?.country?.name?.length ? values.country.name : "Select country"}
                         options={Country}
                         optionsLabel="name"
                         onChange={(val) => setFieldValue("country", { id: val.id, name: val.name })}
@@ -406,7 +426,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.state.name.length ? values.state.name : "select state"}
+                        label={values?.state?.name?.length ? values.state.name : "select state"}
                         options={State}
                         optionsLabel="name"
                         onChange={(val) => setFieldValue("state", { id: val.id, name: val.name })}
@@ -447,7 +467,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.audience_interest.length ? values.audience_interest : "Fashion Wear"}
+                        label={values?.audience_interest?.length ? values.audience_interest : "Fashion Wear"}
                         options={[
                           {
                             label: "Fashion Wear",
@@ -471,7 +491,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.number_of_influencer.length ? values.number_of_influencer : "1"}
+                        label={values?.number_of_influencer?.length ? values.number_of_influencer : "1"}
                         options={[
                           {
                             label: "2",
@@ -502,7 +522,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.number_of_followers.length ? values.number_of_followers : "1k - 10k"}
+                        label={values?.number_of_followers?.length ? values.number_of_followers : "1k - 10k"}
                         options={[
                           {
                             label: "10k - 20k",
@@ -539,8 +559,9 @@ function CampaignDetails({ setSignUpStatus, route }) {
                           name="platFormcheck"
                           type="checkbox"
                           className="absolute top-0 right-[10px]"
-                          onChange={() => { handlePlatform(platform) }
-                          }
+                          onChange={() => {
+                            handlePlatform(platform);
+                          }}
                         />{" "}
                         <label htmlFor={`${platform}SVG`}>
                           {" "}
@@ -571,7 +592,11 @@ function CampaignDetails({ setSignUpStatus, route }) {
                           name="platFormcheck"
                           type="checkbox"
                           className="absolute top-0 right-[10px]"
-                          onChange={() => { values.industry.includes(industry) ? values.industry.splice(values.industry.indexOf(industry), 1) : values.industry.push(industry) }}
+                          onChange={() => {
+                            values.industry.includes(industry)
+                              ? values.industry.splice(values.industry.indexOf(industry), 1)
+                              : values.industry.push(industry);
+                          }}
                         />{" "}
                         <label htmlFor={`${industry}SVG`}>
                           {" "}
@@ -597,7 +622,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.payout_type.length ? values.payout_type : "Barter"}
+                        label={values?.payout_type?.length ? values.payout_type : "Barter"}
                         options={[
                           {
                             label: "Barter",
@@ -619,7 +644,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.budget_type.length ? values.budget_type : "Fixed"}
+                        label={values?.budget_type?.length ? values.budget_type : "Fixed"}
                         options={[
                           {
                             label: "Fixed",
@@ -641,7 +666,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.budget_per_influencer.length ? values.budget_per_influencer : "1 - 10k"}
+                        label={values?.budget_per_influencer?.length ? values.budget_per_influencer : "1 - 10k"}
                         options={[
                           {
                             label: "10k - 20k",
@@ -665,7 +690,8 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       <Dropdown
                         dropdownStyle="w-full"
                         className="w-full"
-                        label={values.expected_budget_per_influencer.length ? values.expected_budget_per_influencer : "10k"
+                        label={
+                          values?.expected_budget_per_influencer?.length ? values.expected_budget_per_influencer : "10k"
                         }
                         options={[
                           {
@@ -739,7 +765,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
-                      }
+                      };
                       console.log("data", temp);
                       dispatch(addNewCampaignData(data, navigate));
                     }}
@@ -787,7 +813,7 @@ function DeliverableRow({ platform }) {
     { label: "Create post", value: "Create post" },
     { label: "Create story", value: "Create story" },
     { label: "Reels", value: "Reels" },
-  ]
+  ];
   return (
     <div className="my-8 flex items-center gap-8 border rounded-md p-4">
       <div className="flex flex-col w-full">
@@ -797,8 +823,8 @@ function DeliverableRow({ platform }) {
           name="max-FB-reach"
           min={0}
           max={10}
-        // value={values.minimum_facebook_reach}
-        // onChange={(val) => (values.minimum_facebook_reach[0] = val.target.value)}
+          // value={values.minimum_facebook_reach}
+          // onChange={(val) => (values.minimum_facebook_reach[0] = val.target.value)}
         />
         {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p> */}
       </div>
@@ -809,8 +835,8 @@ function DeliverableRow({ platform }) {
           name="max-FB-reach"
           min={0}
           max={10}
-        // value={values.minimum_facebook_engagement}
-        // onChange={(val) => (values.minimum_facebook_engagement[0] = val.target.value)}
+          // value={values.minimum_facebook_engagement}
+          // onChange={(val) => (values.minimum_facebook_engagement[0] = val.target.value)}
         />
         {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p> */}
       </div>
@@ -845,11 +871,17 @@ function DeliverableRow({ platform }) {
         />
       </div>
       <div className="flex flex-col text-left">
-        <label htmlFor="" className="block text-sm text-gray-700 mb-2">Price</label>
-        <input type="number" className="input-field w-[110px] h-[48px] text-sm rounded-md px-2 py-1 border focus:outline-none text-gray-500" placeholder="Enter price" />
+        <label htmlFor="" className="block text-sm text-gray-700 mb-2">
+          Price
+        </label>
+        <input
+          type="number"
+          className="input-field w-[110px] h-[48px] text-sm rounded-md px-2 py-1 border focus:outline-none text-gray-500"
+          placeholder="Enter price"
+        />
       </div>
     </div>
-  )
+  );
 }
 // const social_media_deliverables = [
 //   {
