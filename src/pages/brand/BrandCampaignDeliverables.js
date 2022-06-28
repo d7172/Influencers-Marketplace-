@@ -14,38 +14,38 @@ function BrandCampaignDeliverables({ mainRoute, setDocReqDialog, route, setPayme
                         <table className="w-full">
                             <thead>
                                 <tr className="flex w-auto mb-4">
-                                    {(route === "admin/active-campaign") && <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[137px] mr-8">Influencer name</th>}
-                                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[137px] mr-8">Social Platform</th>
-                                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[155px] mr-8">Deliverables</th>
-                                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[80px] mr-8">Duration</th>
-                                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[75px] mr-8">Amount</th>
-                                    {(route === "admin/active-campaign") && <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[120px] mr-8">Document link</th>}
+                                    {(route === "admin/active-campaign") && <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[137px] mr-4">Influencer name</th>}
+                                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[137px] mr-4">Social Platform</th>
+                                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[155px] mr-4">Deliverables</th>
+                                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[80px] mr-4">Duration</th>
+                                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg mr-4">Engagement rate</th>
+                                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[75px] mr-4">Amount</th>
+                                    {(route === "admin/active-campaign") && <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[120px] mr-4">Document link</th>}
                                 </tr>
                             </thead>
                             <tbody>
-                                {deliverableDetails.map((data, index) => {
+                                {deliverableDetails?.map((data, index) => {
+                                    bidTotal += data?.amount;
                                     return (
                                         <tr key={index} className="flex mb-8">
-                                            {(route === "admin/active-campaign") && <td className="flex flex-col gap-4 w-[155px] mr-8"><p>{data.infName}</p></td>}
-                                            <td className="flex items-start w-[137px] mr-8 capitalize"><img src={`/svgs/${data.socialPlatform}.svg`} className="w-[20px] h-[20px] mr-2" />{data.socialPlatform}</td>
-                                            <td className="flex flex-col gap-4 w-[155px] mr-8">{data.deliverables.map((data) => { return <p>{data}</p> })}</td>
-                                            <td className="flex flex-col gap-4 w-[80px] mr-8">{data.duration.map((data) => { return <p>{data}</p> })}</td>
-                                            <td className="flex flex-col gap-4 w-[75px] mr-8 text-[#3751FF]">{data.amount.map((data) => {
-                                                bidTotal += data;
-                                                return <p>&#8377;{data}</p>
-                                            })}</td>
+                                            {(route === "admin/active-campaign") && <td className="min-w-[137px] mr-4"><p>{data?.infName}</p></td>}
+                                            <td className="flex items-start w-[137px] mr-4 capitalize"><img src={`/svgs/${data?.platform}.svg`} className="w-[20px] h-[20px] mr-2" /><p className='capitalize' >{data?.platform}</p></td>
+                                            <td className="flex flex-col gap-4 w-[155px] mr-4">{data?.deliverables.map((data) => { return <p className='capitalize'>{data}</p> })}</td>
+                                            <td className="flex flex-col gap-4 w-[80px] mr-4">{data?.duration_in_day}</td>
+                                            <td className="min-w-[140px] mr-4">{data?.minimum_engagement}%</td>
+                                            <td className="flex flex-col gap-4 w-[75px] mr-4 text-[#3751FF]">&#8377;{data.amount}</td>
                                             {(route === "admin/active-campaign") &&
-                                                <td className='flex flex-col gap-4 w-[75px] mr-8'>
-                                                    {data.documentsLinks.map((data) => {
+                                                <td className='flex flex-col gap-4 w-[120px] mr-4'>
+                                                    {data?.documentsLinks?.map((data) => {
                                                         return (
-                                                            ((data === "link") ? (<a className='underline text-[#3751FF] cursor-pointer'>Click here</a>) : (<a className='underline text-[#3751FF] cursor-pointer' onClick={()=>setDocReqDialog(true)} >Request to upload Document</a>))
+                                                            ((data === "link") ? (<a className='underline text-[#3751FF] cursor-pointer'>Click here</a>) : (<a className='underline text-[#3751FF] cursor-pointer' onClick={() => setDocReqDialog(true)} >Request to upload Document</a>))
                                                         )
                                                     })
                                                     }
                                                 </td>}
                                             {(route === "brand/active-campaign") &&
-                                                <td className='flex flex-col gap-4 w-[75px] mr-8'>
-                                                    {data.documentsLinks.map((data) => {
+                                                <td className='flex flex-col gap-4 w-[75px] mr-4 '>
+                                                    {data.documentsLinks?.map((data) => {
                                                         return (
                                                             <a className='underline text-[#3751FF] cursor-pointer'>Click here</a>
                                                         )

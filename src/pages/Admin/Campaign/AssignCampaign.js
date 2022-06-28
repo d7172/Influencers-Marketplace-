@@ -38,9 +38,13 @@ const AdmAssignCampaign = ({ route }) => {
         <CampaignSearchBar placeHolder={"Search here"} />
       </div>
       <CampaignTable tableData={tableData} subTableData={subTableData} />
-      <div className="absolute bottom-[-100px] right-0">
-        <Pagination link={AdminAssignCampaign} activePage={activePage} setActivePage={setActivePage}/>
-      </div>
+      {tableData?.length ? (<div className="w-full mt-2 px-4">
+        <Pagination link={AdminAssignCampaign} activePage={activePage} setActivePage={setActivePage} />
+      </div>) : (
+        <div className="text-center mt-4">
+          <p className="text-gray-500">No data to display.</p>
+        </div>
+      )}
     </div>
   );
 };
@@ -194,7 +198,7 @@ function Subtable({ subTableData }) {
                     <td className="px-6 py-4 whitespace-nowrap text-sm min-w-[172px] font-medium text-gray-900">02</td>
                     <td className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer " onClick={() => handleIndex(i)}>View Bids</td>
                   </tr>
-                  {((activeIndex === i) && (bidsDetailsTable)) && (<BidsDetails deliverableDetails={deliverableDetails}/>)}
+                  {((activeIndex === i) && (bidsDetailsTable)) && (<BidsDetails deliverableDetails={deliverableDetails} />)}
                 </>
               )
             })}
@@ -205,7 +209,7 @@ function Subtable({ subTableData }) {
     </>
   )
 }
-function BidsDetails({deliverableDetails}) {
+function BidsDetails({ deliverableDetails }) {
   let bidTotal = 0;
 
   return (

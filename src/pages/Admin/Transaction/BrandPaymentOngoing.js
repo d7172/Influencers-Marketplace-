@@ -61,18 +61,20 @@ function BidDetails({ route }) {
       desc: "Brand Promation",
     },
   ];
-  const bidDetails = [
+  const social_media_deliverables = [
     {
-      socialPlatform: "instagram",
+      platform: "instagram",
       deliverables: ["Story", "Reels", "Swipe up Story / Link", "IGTV"],
-      duration: ["1 Days", "1 Days", "1 Days", "1 Days"],
-      amount: [500, 500, 500, 500],
+      duration_in_day: 1,
+      engagement_rate: 3,
+      amount: 500,
     },
     {
-      socialPlatform: "facebook",
-      deliverables: ["Create Post", "Create Post"],
-      duration: ["1 Days", "1 Days"],
-      amount: [500, 500],
+      platform: "facebook",
+      deliverables: ["Story", "Reels", "Swipe up Story / Link", "IGTV"],
+      duration_in_day: 2,
+      engagement_rate: 2.5,
+      amount: 4200,
     },
   ];
   let bidTotal = 0;
@@ -80,7 +82,7 @@ function BidDetails({ route }) {
   // const [reason, setReason] = useState("");
   const paymentDetails = useSelector((state) =>
     (isBrand) ? (state?.AdminBrandPayment?.results.filter((r) => r?.brand_detail[0]?.id == id))
-    : (state?.AdminInfPayment?.results.filter((r) => r?.influ_details[0]?.id == id))
+      : (state?.AdminInfPayment?.results.filter((r) => r?.influ_details[0]?.id == id))
   )[0];
 
   console.log(paymentDetails);
@@ -93,7 +95,7 @@ function BidDetails({ route }) {
         <MyDialog isOpen={dialog} close={() => setDialog(false)} className="rounded-8">
           <ResonForRejction close={() => setDialog(false)} />
         </MyDialog>
-        <BackArrowBtn className="" onClick={() => { navigate("/admin/transaction/payments")}} />
+        <BackArrowBtn className="" onClick={() => { navigate("/admin/transaction/payments") }} />
         <h1 className="text-start text-2xl font-bold mt-6 mb-2">BoAt</h1>
         <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">#000001</p>
         <div className="mt-8">
@@ -163,44 +165,23 @@ function BidDetails({ route }) {
               <table className="w-full">
                 <thead>
                   <tr className="flex w-auto mb-4">
-                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[137px] mr-8">
-                      Social Platform
-                    </th>
-                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[155px] mr-8">
-                      Deliverables
-                    </th>
-                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[80px] mr-8">
-                      Duration
-                    </th>
-                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[75px] mr-8">
-                      Amount
-                    </th>
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[137px] mr-4">Social Platform</th>
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[155px] mr-4">Deliverables</th>
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[80px] mr-4">Duration</th>
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg mr-4">Engagement rate</th>
+                    <th scope="col" className="text-left text-[#6C6C6C] font-[500] text-lg w-[75px] mr-4">Amount</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {bidDetails.map((data, index) => {
+                  {social_media_deliverables.map((data, index) => {
+                    bidTotal += data.amount;
                     return (
                       <tr key={index} className="flex mb-8">
-                        <td className="flex items-start w-[137px] mr-8 capitalize">
-                          <img src={`/svgs/${data.socialPlatform}.svg`} className="w-[20px] h-[20px] mr-2" />
-                          {data.socialPlatform}
-                        </td>
-                        <td className="flex flex-col gap-4 w-[155px] mr-8">
-                          {data.deliverables.map((data) => {
-                            return <p>{data}</p>;
-                          })}
-                        </td>
-                        <td className="flex flex-col gap-4 w-[80px] mr-8">
-                          {data.duration.map((data) => {
-                            return <p>{data}</p>;
-                          })}
-                        </td>
-                        <td className="flex flex-col gap-4 w-[75px] mr-8 text-[#3751FF]">
-                          {data.amount.map((data) => {
-                            bidTotal += data;
-                            return <p>&#8377;{data}</p>;
-                          })}
-                        </td>
+                        <td className="flex items-start w-[137px] mr-4 capitalize"><img src={`/svgs/${data.platform}.svg`} className="w-[20px] h-[20px] mr-2" />{data.platform}</td>
+                        <td className="flex flex-col gap-4 w-[155px] mr-4">{data.deliverables.map((data) => { return <p className='capitalize'>{data}</p> })}</td>
+                        <td className="w-[80px] mr-4">{data.duration_in_day} Days</td>
+                        <td className="min-w-[140px] mr-4">{data.engagement_rate}%</td>
+                        <td className="w-[75px] mr-4 text-[#3751FF]">&#8377;{data.amount}</td>
                       </tr>
                     );
                   })}

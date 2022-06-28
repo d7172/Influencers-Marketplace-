@@ -20,12 +20,18 @@ import { AdminAssignCampaign } from "./Admin/Campaign/AssignCampaign/reducer";
 import { AdminRejectedCampaign } from "./Admin/Campaign/RejectedCampaign/reducer";
 import { AdminBrandPayment, AdminInfPayment } from "./Admin/Transactions/Payments/reducer";
 import { AdminEarning } from "./Admin/Transactions/Earnings/reducer";
+import { BrandDashboard } from "./Brand/Dashboard/reducer";
+import { BrandNewCampaign } from "./Brand/Campaign/NewCampaign/reducer";
+import { BrandActiveCampaign } from "./Brand/Campaign/ActiveCampaign/reducer";
+import { BrandRejectedCampaign } from "./Brand/Campaign/RejectedCampaign/reducer";
+import { BrandTransactionEarning } from "./Brand/BrandTransactionEarning/reducer";
 import { categories } from "./Categories/reducer";
 import { placeBid } from "./infPlaceBid/reducer";
 import { login } from "./Login/reducer";
 import { stateList } from "./State/reducer";
 import { countryList } from "./Country/reducer";
-
+import { AdminAssignProcess } from "./Admin/Campaign/AssignProcess/reducer";
+import { AdminMoveToCampaignPool } from "./Admin/Campaign/MoveToPool/reducer";
 const reducers = combineReducers({
   signUpState,
   signUp,
@@ -52,10 +58,17 @@ const reducers = combineReducers({
   AdminBrandPayment,
   AdminInfPayment,
   AdminEarning,
+  BrandDashboard,
+  BrandNewCampaign,
+  BrandActiveCampaign,
+  BrandRejectedCampaign,
+  BrandTransactionEarning,
   categories,
   placeBid,
   stateList,
   countryList,
+  AdminAssignProcess,
+  AdminMoveToCampaignPool,
 });
 
 export default reducers;

@@ -120,9 +120,13 @@ function AdmPayments() {
             </div>
           </div>
         </div>
-        <div className="w-full px-4">
+        {tableData?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={brand ? AdminBrandPayment : AdminInfPayment} activePage={activePage} setActivePage={setActivePage} />
-        </div>
+        </div>) : (
+          <div className="text-center mt-4">
+            <p className="text-gray-500">No data to display.</p>
+          </div>
+        )}
       </div>
     </>
   );

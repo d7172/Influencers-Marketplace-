@@ -1,7 +1,7 @@
 import { networkRequest } from "../_shared/api";
 
 export const postLogin = (payload, navigate) => {
-  const url = "influencer-login/";
+  const url = "user-login/";
   return (dispatch) => {
     networkRequest(
       url,
@@ -11,7 +11,7 @@ export const postLogin = (payload, navigate) => {
       (res) => {
         if (res?.status_code === 200 && res?.status === "success") {
           localStorage.setItem("userInfo", JSON.stringify(res));
-          navigate("/influencer/dashboard");
+          navigate(`/${res.type}/dashboard`);
         } else {
           alert("wrong credentials");
         }

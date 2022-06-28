@@ -43,9 +43,13 @@ function Bids() {
           <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
         </div>
         <BidTable />
-        <div className="absolute bottom-[-100px] right-0">
+        {infBids?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={infBidsObj} activePage={activePage} setActivePage={setActivePage} />
-        </div>
+        </div>) : (
+          <div className="text-center mt-4">
+            <p className="text-gray-500">No data to display.</p>
+          </div>
+        )}
       </div>
     </>
   );

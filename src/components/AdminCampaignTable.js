@@ -1,16 +1,17 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getMoveToCampaignPoolData } from "../store/Admin/Campaign/MoveToPool/action";
 import { deleteCampaignData, getNewCampaignData } from "../store/Admin/Campaign/NewCampaign/action";
 import CustomToolTip from "./Tooltip";
-function AdminCampaignTable({ tableData, mainRoute, route, activePage }) {
+function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setCampId, activePage }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col max-w-[1280px]">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="overflow-x-auto">
+          <div className={`overflow-x-auto ${tableData?.length&& `min-h-[43vh]`}`}>
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
@@ -131,9 +132,17 @@ function AdminCampaignTable({ tableData, mainRoute, route, activePage }) {
                           items={[
                             {
                               title: "Assigned to Influencers",
+                              onClick: () => {
+                                setCampId(data?.id)
+                                setInfTable(true);
+                              }
                             },
                             {
                               title: "Move to Campaign Pool",
+                              onClick: () => {
+                                dispatch(getMoveToCampaignPoolData(data?.id));
+                                window.location.reload();
+                              },
                             },
                             {
                               title: "Delete",
