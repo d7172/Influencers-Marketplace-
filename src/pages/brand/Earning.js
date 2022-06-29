@@ -6,7 +6,6 @@ import { getBrandTransitionEarningData } from "../../store/Brand/BrandTransactio
 
 function Earning() {
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
-  console.log(JSON.parse(localStorage?.userInfo)?.data, "local storage");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,19 +16,28 @@ function Earning() {
   }, []);
 
   const earningData = useSelector((state) => state?.BrandTransactionEarning?.response);
-  console.log(earningData);
-  const [barData, setBarData] = useState({
-    labels: data.map((data) => data.month),
+
+  const data = earningData?.spend_summary_details?.map((data) => {
+    return {
+      id: data?.month,
+      month: data?.month_name,
+      amount: data?.total_amount,
+    }
+  });
+
+  const barData = {
+    labels: data?.map((data) => data.month),
     datasets: [
       {
         label: "Earnings",
-        data: data.map((data) => data.amount),
+        data: data?.map((data) => data.amount),
         backgroundColor: ["#ACC3FF"],
         borderRadius: 10,
         hoverBackgroundColor: "#3751FF",
       },
     ],
-  });
+  }
+
   const options = {
     maintainAspectRatio: true,
     responsive: true,
@@ -122,22 +130,21 @@ function Earning() {
                   {earningData?.last_five_transaction?.map((transaction) => {
                     return (
                       <tr className="">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                          {transaction?.id}
+                        <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium">
+                          <p className="underline cursor-pointer text-[#3751FF]" >#{transaction?.id}</p>
                         </td>
-                        <td className="text-sm flex gap-4 items-center justify-center min-w-[250px] max-w-[250px] overflow-hidden text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          <img className="w-[24px]" src="/svgs/facebook.svg" alt="face" />
-                          {transaction?.title}
+                        <td className="text-sm min-w-[200px] capitalize overflow-hidden text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {transaction?.campaing_title}
                         </td>
                         <td className="text-sm max-w-[170px] text-gray-900 font-bold px-6 py-4 whitespace-nowrap">
-                          &#8377;{transaction?.amount}
+                          &#8377;{transaction?.campaign_amount}
                         </td>
                         <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          {transaction?.payout_type}
+                          {transaction?.payment_type}
                         </td>
                         <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap flex items-center gap-4">
                           <div className="bg-red-500 w-[8px] h-[8px] rounded-full" />
-                          {transaction?.status_camp}
+                          {transaction?.status}
                         </td>
                       </tr>
                     );
@@ -148,9 +155,9 @@ function Earning() {
           </div>
         </div>
       </div>
-      <div className="text-center mt-4">
+      {earningData?.last_five_transaction?.length === 0 && <div className="text-center mt-4">
         <p className="text-gray-500">No data to display.</p>
-      </div>
+      </div>}
     </div>
   );
 }

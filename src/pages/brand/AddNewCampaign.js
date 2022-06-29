@@ -94,7 +94,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
   const [campFormDetails, setCampFormDetails] = useState(initForm);
   const signUpState = useSelector((state) => state.signUpState);
   const navigate = useNavigate();
-  const [social_platform, setSocialPlatform] = useState([]);
+  const [socialplatform, setSocialPlatform] = useState([]);
 
   let activeBrands = [];
   let Country = [];
@@ -166,20 +166,22 @@ function CampaignDetails({ setSignUpStatus, route }) {
     state: { id: null, name: campaignDetails?.state },
   };
   const handlePlatform = (platform) => {
-    let temp = social_platform;
-    temp.includes(platform) ? temp.splice(social_platform.indexOf(platform), 1) : temp.push(platform);
+    let temp = socialplatform;
+    temp.includes(platform) ? temp.splice(socialplatform.indexOf(platform), 1) : temp.push(platform);
     setSocialPlatform(temp);
   };
   let deliverablesRow = [
     // <DeliverableRow platform={data} />,
     // <DeliverableRow platform={data} />
   ];
+  console.log(campFormDetails);
   useEffect(() => {
-    deliverablesRow = social_platform.map((data) => {
-      return <DeliverableRow platform={data} />;
+    deliverablesRow = campFormDetails.social_platform.map((s) => {
+      console.log(s, "deliver row");
+      return <DeliverableRow platform={s} />;
     });
-  }, [social_platform]);
-  // console.log(social_platform);
+  }, [campFormDetails.social_platform]);
+  console.log(deliverablesRow, "deliverablesRow");
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -547,7 +549,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                   </p>
                 </div>
                 <div className="grid grid-cols-5 gap-16 ">
-                  {platforms.map((platform, index) => (
+                  {platforms?.map((platform, index) => (
                     <div className="flex flex-col items-center">
                       <div
                         key={index}
@@ -555,15 +557,20 @@ function CampaignDetails({ setSignUpStatus, route }) {
                       >
                         {" "}
                         <input
-                          id={`${platform}SVG`}
-                          name="platFormcheck"
+                          id={`${platform}`}
+                          name="social_platform"
                           type="checkbox"
                           className="absolute top-0 right-[10px]"
-                          onChange={() => {
-                            handlePlatform(platform);
+                          onChange={(val) => {
+                            values.social_platform.includes(platform)
+                              ? values.social_platform.splice(values.social_platform.indexOf(platform), 1)
+                              : values.social_platform.push(platform);
+                            console.log(values, "values in social_platform");
+
+                            // handlePlatform(platform);
                           }}
                         />{" "}
-                        <label htmlFor={`${platform}SVG`}>
+                        <label htmlFor={`${platform}`}>
                           {" "}
                           <img src={`/svgs/${platform}.svg`} className="platformsSVG" alt="platform" />
                         </label>{" "}
@@ -572,7 +579,10 @@ function CampaignDetails({ setSignUpStatus, route }) {
                     </div>
                   ))}
                 </div>
-                {deliverablesRow}
+                {values.social_platform.map((s) => {
+                  console.log(s, "deliver row");
+                  return <DeliverableRow platform={s} />;
+                })}
                 <div className="my-8">
                   <h1 className="text-start text-2xl font-bold mb-2 mt-4">Which Industry You Want To Target</h1>
                   <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">
@@ -589,7 +599,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                         {" "}
                         <input
                           id={`${industry}SVG`}
-                          name="platFormcheck"
+                          name="industrycheck"
                           type="checkbox"
                           className="absolute top-0 right-[10px]"
                           onChange={() => {
@@ -809,6 +819,7 @@ export const imageSvg = (
 );
 function DeliverableRow({ platform }) {
   const [selected, setSelected] = useState([]);
+  console.log(platform, "platform");
   const options = [
     { label: "Create post", value: "Create post" },
     { label: "Create story", value: "Create story" },

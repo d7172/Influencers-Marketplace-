@@ -7,7 +7,10 @@ import BrandCampaignDeliverables from "./BrandCampaignDeliverables"
 import CampaignRequirement from "../../components/CampaignRequirement";
 import MyDialog from "../../components/MyDialog";
 import CloseBtn from '../../components/CloseBtn';
+import ResonForRejction from '../../components/ResonForRejction';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+
 
 function CampaignDetails({ route }) {
     const location = useLocation();
@@ -17,16 +20,17 @@ function CampaignDetails({ route }) {
     const isRejected = location.pathname.includes("rejected-campaign");
 
     const campaignDetails = useSelector((state) =>
-        isAssigned ? state.BrandAssignedCampaign?.results?.filter((i) => i.id == id)[0]
+        isAssigned ? state.BrandAssignedCampaign?.results?.filter((i) => i?.campaigndetails?.id == id)[0]
             : isActive ? state?.BrandActiveCampaign?.results?.filter((i) => i.id == id)[0]
                 : state?.BrandRejectedCampaign?.results?.filter((i) => i.id == id)[0]
     )
     const [documentPhaseDialog, setDocumentPhaseDialog] = useState(false);
     const [sendBtn, setSentBtn] = useState(true);
     const [reasonDialog, setReasonDialog] = useState(false);
+    const [rejectionDialog, setRejectionDialog] = useState(false)
     const [paymentDialog, setPaymentDialog] = useState(false);
     const [docReqDialog, setDocReqDialog] = useState(false);
-
+    const [activeQuotation, setActiveQuotation] = useState(0);
     const navigate = useNavigate();
     const social_media_deliverables = [
         {
@@ -49,8 +53,10 @@ function CampaignDetails({ route }) {
         }
     ]
 
+    useEffect(() => {
+        isAssigned && setActiveQuotation(campaignDetails?.quotationdetails[0]?.id);
+    })
 
-    // console.log(location.pathname.slice(0, location.pathname.lastIndexOf("/")));
     return (
         <div>
             <div className='w-full bg-[#F2F2F2] py-4 px-8'>
@@ -169,6 +175,9 @@ function CampaignDetails({ route }) {
                         </button>
                     </div>
                 </MyDialog>
+                <MyDialog isOpen={rejectionDialog} close={() => { setRejectionDialog(false) }} className="rounded-8">
+                    <ResonForRejction close={() => setRejectionDialog(false)} />
+                </MyDialog>
                 <div className="ml-4">
                     <BackArrowBtn className="" onClick={() => { navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/"))) }} />
                     <div className='flex w-full justify-between'>
@@ -193,32 +202,24 @@ function CampaignDetails({ route }) {
                         </p>
                     </div>
                     <hr className="my-8" />
-                    <CampaignRequirement campaignDetails={campaignDetails} />
+                    <CampaignRequirement campaignDetails={campaignDetails?.campaigndetails || campaignDetails} />
                     <hr className="my-8" />
                     {isAssigned &&
                         <div className="mt-6">
                             <h1 className="text-[26px] font-[600]">Quotation Phase</h1>
                             <p className=" text-[14px] mt-1 leading-[21px] text-[#969BA0]">Lorem ipsum dolor sit amet, consectetur adipiscing elit </p>
                             <div className='flex' >
-                                <div className='mr-6 text-center'>
-                                    <p className='font-bold'>Quotion</p>
-                                    <p className='font-bold'>1.</p>
-                                    <button className='px-6 my-4 py-2 border-2 border-dashed border-[#969BA0] text-[#969BA0]'>&#8377;5553</button>
-                                    <p className='underline text-[#969BA0]'>Quotion rejected</p>
-                                    <p className='underline text-[#969BA0]' >Click here</p>
-                                </div>
-                                <div className='mr-6 text-center'>
-                                    <p className='font-bold'>Quotion</p>
-                                    <p className='font-bold'>2.</p>
-                                    <button className='px-6 my-4 py-2 border-2 border-dashed border-[#969BA0] text-[#3751FF]'>&#8377;5553</button>
-                                    <p className='underline text-[#3751FF]' >Click here</p>
-                                </div>
-                                <div className='mr-6 text-center'>
-                                    <p className='font-bold'>Quotion</p>
-                                    <p className='font-bold'>3.</p>
-                                    <button className='px-6 my-4 py-2 border-2 border-dashed border-[#969BA0] text-[#969BA0]'>&#8377;5553</button>
-                                    <p className='underline text-[#969BA0]' >Click here</p>
-                                </div>
+                                {campaignDetails?.quotationdetails?.map((data, i) => {
+                                    return (
+                                        <div className='mr-6 text-center cursor-pointer' key={i} onClick={() => setActiveQuotation(data?.id)}>
+                                            <p className='font-bold'>Quotion</p>
+                                            <p className='font-bold'>{i + 1}</p>
+                                            <button className={`px-6 my-4 py-2 border-2 border-dashed ${activeQuotation === data?.id ? `border-[#3751FF] text-[#3751FF]` : `border-[#969BA0] text-[#969BA0]`} `}>&#8377;{data?.bid_amount}</button>
+                                            {data?.status === "reject" && <p className='underline text-[#969BA0]'>Quotation Rejected</p>}
+                                            <p className={`underline  ${activeQuotation === data?.id ? `border-[#3751FF] text-[#3751FF]` : `border-[#969BA0] text-[#969BA0]`}`} >Click here</p>
+                                        </div>
+                                    )
+                                })}
                             </div>
                         </div>
                     }
@@ -249,7 +250,58 @@ function CampaignDetails({ route }) {
                     {isActive && <CampaignBudget campaignDetails={campaignDetails} />}
                     <hr className="my-8" />
                     <BrandCampaignDeliverables route={route} setDocReqDialog={setDocReqDialog} setDocumentPhaseDialog={setDocumentPhaseDialog} setPaymentDialog={setPaymentDialog} deliverableDetails={campaignDetails?.social_media_deliverables} />
-                    <hr className="my-8" />
+                    {(isActive || isAssigned) && (
+                        <div className="flex w-[50%] justify-end">
+                            <div>
+                                <button
+                                    // onClick={() => setPlaceBid(true)}
+                                    className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
+                                >
+                                    Accept
+                                </button>
+                                <button
+                                    onClick={() => setRejectionDialog(true)}
+                                    className="text-[#3751FF] border-[#3751FF] rounded-full bg-white border-2 w-[171px] h-[54px]"
+                                >
+                                    Reject
+                                </button>
+                            </div>
+                        </div>
+                    )
+                    }
+                    {(isActive) && (<>
+                        <div className="flex p items-start my-8">
+                            <div className="flex flex-col">
+                                <h1 className='font-[600]'>Payment Sent Details by Brand</h1>
+                                <table>
+                                    <thead>
+                                        <tr className="flex my-4 text-left">
+                                            <th className="w-[200px]">Date</th>
+                                            <th className="w-[200px]">Amount</th>
+                                            <th className="w-[200px]">Source</th>
+                                            <th className="w-[200px]">UTR Number</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="flex my-4">
+                                            <td className="w-[200px]">12 / 2 / 2020</td>
+                                            <td className="w-[200px]">&#8377;5500</td>
+                                            <td className="w-[200px]">Brand</td>
+                                            <td className="w-[200px]">0123456789</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div>
+                                <h1 className='font-[600]'>Hold Payment: &#8377;4840</h1>
+                                <p className='text-sm' >(This payment will be released on 26 /11 / 2022)</p>
+                            </div>
+                        </div>
+                        <div className="w-[50%] mt-10">
+                            <button onClick={() => setPaymentDialog(true)} className="bg-[#3751FF] px-8 py-4 rounded-full text-white mr-10">Define Payment Terms</button>
+                        </div>
+                    </>
+                    )}
                     {isRejected &&
                         <div className="mt-6">
                             <p className="text-[#969BA0] text-[16px]">Note from Brand</p>
