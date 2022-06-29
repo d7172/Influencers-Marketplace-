@@ -79,22 +79,6 @@ function BrandCampaignDeliverables({ mainRoute, setDocReqDialog, route, setPayme
                     </div>
                 </div>
             </div>
-            {(route === "brand/active-campaign" || route === "brand/assigned-campaign") && <div className="mt-14 flex w-[50%] justify-end">
-                <div>
-                    <button
-                        // onClick={() => setPlaceBid(true)}
-                        className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
-                    >
-                        Accept
-                    </button>
-                    <button
-                        // onClick={() => setRejectBid(true)}
-                        className="text-[#3751FF] border-[#3751FF] rounded-full bg-white border-2 w-[171px] h-[54px]"
-                    >
-                        Reject
-                    </button>
-                </div>
-            </div>}
             {(route === "admin/assigned-campaign") && <div className="mt-14 flex w-[50%] justify-end">
                 <div>
                     <button
@@ -111,7 +95,7 @@ function BrandCampaignDeliverables({ mainRoute, setDocReqDialog, route, setPayme
                     </button>
                 </div>
             </div>}
-            {(route === "admin/active-campaign" || route === "brand/active-campaign") && <div>
+            {(route === "admin/active-campaign") && <div>
                 <div className="flex p items-start my-8">
                     <div className="flex flex-col">
                         <h1 className='font-[600]'>Payment Sent Details by Brand</h1>

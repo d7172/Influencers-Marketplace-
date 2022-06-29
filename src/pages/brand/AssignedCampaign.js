@@ -1,28 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SearchIcon } from "@heroicons/react/solid";
 import Pagination from '../../components/Pagination';
 import BrandCampaignTable from './BrandCampaignTable';
 import Breadcrumbs from '../../components/Breadcrumbs';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBrandAssignedCampaign } from '../../store/Brand/Campaign/AssignedCampaign/action';
 
 function BrandAssignedCampaign() {
-  const campaignData = [
-    {
-      id: "0001",
-      title: "Enjoy the videos and music",
-      date: "03/12/2022",
-      socialPlatform: ["facebook", "instagram", "linkedin", "youtube"],
-      category: "Fashion, DIY",
-      amount: "5553",
-    },
-    {
-      id: "0002",
-      title: "Enjoy the videos and music",
-      date: "03/12/2022",
-      socialPlatform: ["facebook", "instagram", "linkedin", "youtube"],
-      category: "Fashion, DIY",
-      amount: "5553",
+
+  const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
+  const dispatch = useDispatch();
+
+  const [activePage, setActivePage] = useState(1);
+
+  useEffect(() => {
+    const payload = {
+      brand_id: loggedInUserData?.id
     }
-  ]
+    dispatch(getBrandAssignedCampaign(payload, activePage))
+  }, [activePage]);
+
+  const AssignedCamp = useSelector((state) => state?.BrandAssignedCampaign);
+  const tableData = AssignedCamp?.results?.map((i)=> { return i?.campaigndetails});
   return (
     <>
       <div className='w-full bg-[#F2F2F2] py-4 px-8'>
@@ -41,11 +40,15 @@ function BrandAssignedCampaign() {
         </div>
 
         <div className='p-4'>
-          <BrandCampaignTable route={"assigned-campaign"} campaignRows={campaignData} />
+          <BrandCampaignTable route={"assigned-campaign"} campaignRows={tableData} />
         </div>
-        {/* <div className="absolute bottom-[-100px] right-0 w-full p-4">
-          <Pagination />
-        </div> */}
+        {tableData?.length ? (<div className="w-full mt-2 px-4">
+          <Pagination link={AssignedCamp} activePage={activePage} setActivePage={setActivePage} />
+        </div>) : (
+          <div className="text-center mt-4">
+            <p className="text-gray-500">No data to display.</p>
+          </div>
+        )}
       </div>
     </>
   )

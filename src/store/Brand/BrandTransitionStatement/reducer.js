@@ -1,26 +1,40 @@
 const init = {
-  count: 0,
-  results: [],
+  status: 0,
+  response: [],
 };
 
-export const infTransitionStatement = (state = init, action) => {
+export const BrandTransactionStatement = (state = init, action) => {
   switch (action.type) {
-    case "INF_TRANSITION_STATEMENT_SUCCESS":
+    case "BRAND_TRANSACTION_STATEMENT_SUCCESS":
       return action.data;
 
-    case "INF_TRANSITION_STATEMENT_FAIL":
+    case "BRAND_TRANSACTION_STATEMENT_SUCCESS":
       return init;
 
     default:
       return state;
   }
 };
-export const infTransitionDownloadStatement = (state = init, action) => {
+
+export const BrandTransactionStatementFilter = (state = init, action) => {
   switch (action.type) {
-    case "INF_TRANSITION_STATEMENT_DOWNLOAD_SUCCESS":
+    case "BRAND_STATEMENT_FILTER_SUCCESS":
       return action.data;
 
-    case "INF_TRANSITION_STATEMENT_DOWNLOAD_FAIL":
+    case "BRAND_STATEMENT_FILTER_FAIL":
+      return init;
+
+    default:
+      return state;
+  }
+};
+
+export const BrandTransactionDownloadStatement = (state = init, action) => {
+  switch (action.type) {
+    case "BRAND_TRANSACTION_STATEMENT_DOWNLOAD_SUCCESS":
+      return action.data;
+
+    case "BRAND_TRANSACTION_STATEMENT_DOWNLOAD_FAIL":
       return init;
 
     default:

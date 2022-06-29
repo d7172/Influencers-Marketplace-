@@ -22,9 +22,11 @@ import { AdminBrandPayment, AdminInfPayment } from "./Admin/Transactions/Payment
 import { AdminEarning } from "./Admin/Transactions/Earnings/reducer";
 import { BrandDashboard } from "./Brand/Dashboard/reducer";
 import { BrandNewCampaign } from "./Brand/Campaign/NewCampaign/reducer";
+import { BrandAssignedCampaign } from "./Brand/Campaign/AssignedCampaign/reducer";
 import { BrandActiveCampaign } from "./Brand/Campaign/ActiveCampaign/reducer";
 import { BrandRejectedCampaign } from "./Brand/Campaign/RejectedCampaign/reducer";
 import { BrandTransactionEarning } from "./Brand/BrandTransactionEarning/reducer";
+import { BrandTransactionStatement, BrandTransactionStatementFilter, BrandTransactionDownloadStatement } from "./Brand/BrandTransitionStatement/reducer";
 import { categories } from "./Categories/reducer";
 import { placeBid } from "./infPlaceBid/reducer";
 import { login } from "./Login/reducer";
@@ -60,9 +62,13 @@ const reducers = combineReducers({
   AdminEarning,
   BrandDashboard,
   BrandNewCampaign,
+  BrandAssignedCampaign,
   BrandActiveCampaign,
   BrandRejectedCampaign,
   BrandTransactionEarning,
+  BrandTransactionStatement,
+  BrandTransactionStatementFilter,
+  BrandTransactionDownloadStatement,
   categories,
   placeBid,
   stateList,

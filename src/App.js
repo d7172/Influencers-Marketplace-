@@ -219,8 +219,8 @@ function App() {
 
             <Route path="/brand/transactions" element={<Navigate replace to="/brand/transactions/earning" />} />
             <Route path="/brand/transactions/earning" element={<BrandEarning />} />
+            <Route path="/brand/transactions/statement" element={<BrandStatement />} />
             {/* <Route path="/brand/transactions/statement" element={<BrandStatement />} /> */}
-            <Route path="/brand/transactions/statement" element={<Statement />} />
 
             <Route path="/brand/support" element={<Support />} />
           </Route>
