@@ -107,7 +107,7 @@ function StatementTable({ tableData }) {
             </th>
           </tr>
         </thead>
-        <tbody className="text-sm">
+        <tbody className="text-sm capitalize">
           {tableData?.map((data, id) => {
             return (
               <tr className="" key={id}>
