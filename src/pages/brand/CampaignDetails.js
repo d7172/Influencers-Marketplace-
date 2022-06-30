@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BackArrowBtn from '../../components/BackArrowBtn';
 import Breadcrumbs from "../../components/Breadcrumbs";
 import CampaignBudget from "../../components/CampaignBudget";
@@ -10,6 +10,7 @@ import CloseBtn from '../../components/CloseBtn';
 import ResonForRejction from '../../components/ResonForRejction';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { updateQuotationStatus } from '../../store/Brand/Campaign/AssignedCampaign/action';
 
 
 function CampaignDetails({ route }) {
@@ -18,6 +19,8 @@ function CampaignDetails({ route }) {
     const isAssigned = location.pathname.includes("assigned-campaign");
     const isActive = location.pathname.includes("active-campaign");
     const isRejected = location.pathname.includes("rejected-campaign");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const campaignDetails = useSelector((state) =>
         isAssigned ? state.BrandAssignedCampaign?.results?.filter((i) => i?.campaigndetails?.id == id)[0]
@@ -27,11 +30,11 @@ function CampaignDetails({ route }) {
     const [documentPhaseDialog, setDocumentPhaseDialog] = useState(false);
     const [sendBtn, setSentBtn] = useState(true);
     const [reasonDialog, setReasonDialog] = useState(false);
+    const [reason, setReason] = useState("");
     const [rejectionDialog, setRejectionDialog] = useState(false)
     const [paymentDialog, setPaymentDialog] = useState(false);
     const [docReqDialog, setDocReqDialog] = useState(false);
     const [activeQuotation, setActiveQuotation] = useState(0);
-    const navigate = useNavigate();
     const social_media_deliverables = [
         {
             infName: "Steven Sloan",
@@ -53,10 +56,21 @@ function CampaignDetails({ route }) {
         }
     ]
 
+    function updateQuotion(status, desc){
+        const payload = {
+            quotation_id: activeQuotation,
+            status: status,
+            description: desc
+        }
+        const data = new FormData();
+        data.append("data", JSON.stringify(payload));
+        dispatch(updateQuotationStatus(data));
+        // console.log(payload);
+    }
+
     useEffect(() => {
         isAssigned && setActiveQuotation(campaignDetails?.quotationdetails[0]?.id);
-    })
-
+    },[])
     return (
         <div>
             <div className='w-full bg-[#F2F2F2] py-4 px-8'>
@@ -176,7 +190,7 @@ function CampaignDetails({ route }) {
                     </div>
                 </MyDialog>
                 <MyDialog isOpen={rejectionDialog} close={() => { setRejectionDialog(false) }} className="rounded-8">
-                    <ResonForRejction close={() => setRejectionDialog(false)} />
+                    <ResonForRejction close={() => {updateQuotion("reject", reason); setReason("") ;setRejectionDialog(false)}} reason={reason} setReason={setReason}/>
                 </MyDialog>
                 <div className="ml-4">
                     <BackArrowBtn className="" onClick={() => { navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/"))) }} />
@@ -254,7 +268,7 @@ function CampaignDetails({ route }) {
                         <div className="flex w-[50%] justify-end">
                             <div>
                                 <button
-                                    // onClick={() => setPlaceBid(true)}
+                                    onClick={()=>updateQuotion("accept", "")}
                                     className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
                                 >
                                     Accept

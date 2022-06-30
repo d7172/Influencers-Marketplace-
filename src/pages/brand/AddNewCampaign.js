@@ -29,7 +29,7 @@ const initForm = {
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
-  social_platform: [],
+  social_media: [],
   minimum_facebook_reach: [],
   minimum_facebook_engagement: [],
   number_of_days: "",
@@ -86,21 +86,21 @@ export const ImgUpload = ({ children }) => {
   return <p className="text-[13px] mt-1 text-green-600">Added {children}</p>;
 };
 
-function CampaignDetails({ setSignUpStatus, route }) {
+function CampaignDetails({ route }) {
   const location = useLocation();
   const isAddNewCamp = location.pathname.includes("add");
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [campFormDetails, setCampFormDetails] = useState(initForm);
-  const signUpState = useSelector((state) => state.signUpState);
   const navigate = useNavigate();
+  const [campFormDetails, setCampFormDetails] = useState(initForm);
   const [socialplatform, setSocialPlatform] = useState([]);
+  const [deliverables, setDeliverables] = useState([]);
 
   let activeBrands = [];
   let Country = [];
   let State = [];
   let categoryData = [];
-  // const [deliverables, setDeliverables] = useState([]);
+
   useEffect(() => {
     dispatch(getBrandActiveUserData());
     dispatch(getCountryData());
@@ -165,23 +165,44 @@ function CampaignDetails({ setSignUpStatus, route }) {
     country: { id: null, name: campaignDetails?.country },
     state: { id: null, name: campaignDetails?.state },
   };
-  const handlePlatform = (platform) => {
-    let temp = socialplatform;
-    temp.includes(platform) ? temp.splice(socialplatform.indexOf(platform), 1) : temp.push(platform);
-    setSocialPlatform(temp);
-  };
-  let deliverablesRow = [
-    // <DeliverableRow platform={data} />,
-    // <DeliverableRow platform={data} />
-  ];
-  console.log(campFormDetails);
+
+  const [deliverablesRow, setDeliverablesRow] = useState([]);
+  // let deliDetails = {
+  //   platform: "",
+  //   deliverables: [],
+  //   minimum_reach: "",
+  //   minimum_engagement: "",
+  //   duration: null,
+  //   amount: null
+  // }
+
+  function handlePlatformChange(platform) {
+
+    socialplatform.includes(platform)
+      ? setSocialPlatform(socialplatform.filter((i) => i !== platform))
+      : setSocialPlatform(socialplatform.concat(platform));
+  }
+  // function handleValues(e, id) {
+  //   let tempValues = deliverables;
+  //   let objToChange = tempValues.filter((item) => item.id === id);
+  //   { ...objToChange, [e.target.name]: e.target.value };
+  // }
   useEffect(() => {
-    deliverablesRow = campFormDetails.social_platform.map((s) => {
-      console.log(s, "deliver row");
-      return <DeliverableRow platform={s} />;
-    });
-  }, [campFormDetails.social_platform]);
-  console.log(deliverablesRow, "deliverablesRow");
+    setDeliverables(socialplatform.map((item) => {
+      return {
+        platform: item,
+        deliverables: [],
+        minimum_reach: "",
+        minimum_engagement: "",
+        duration: null,
+        amount: null
+      }
+    }))
+    setDeliverablesRow(socialplatform.map((item, index) => { return <DeliverableRow platform={item} values={deliverables[index]} /> }))
+  }, [socialplatform]);
+
+
+  console.log(deliverables);
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -560,15 +581,9 @@ function CampaignDetails({ setSignUpStatus, route }) {
                           id={`${platform}`}
                           name="social_platform"
                           type="checkbox"
+                          // checked={social_media_deliverables.includes(platform)}
                           className="absolute top-0 right-[10px]"
-                          onChange={(val) => {
-                            values.social_platform.includes(platform)
-                              ? values.social_platform.splice(values.social_platform.indexOf(platform), 1)
-                              : values.social_platform.push(platform);
-                            console.log(values, "values in social_platform");
-
-                            // handlePlatform(platform);
-                          }}
+                          onChange={(val) => { handlePlatformChange(platform) }}
                         />{" "}
                         <label htmlFor={`${platform}`}>
                           {" "}
@@ -579,10 +594,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                     </div>
                   ))}
                 </div>
-                {values.social_platform.map((s) => {
-                  console.log(s, "deliver row");
-                  return <DeliverableRow platform={s} />;
-                })}
+                {deliverablesRow}
                 <div className="my-8">
                   <h1 className="text-start text-2xl font-bold mb-2 mt-4">Which Industry You Want To Target</h1>
                   <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">
@@ -775,6 +787,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
+                        // social_media_deliverables
                       };
                       console.log("data", temp);
                       dispatch(addNewCampaignData(data, navigate));
@@ -796,7 +809,7 @@ function CampaignDetails({ setSignUpStatus, route }) {
         </Formik>
       </div>
     </>
-  );
+  )
 }
 
 export default CampaignDetails;
@@ -817,80 +830,96 @@ export const imageSvg = (
     />
   </svg>
 );
-function DeliverableRow({ platform }) {
+function DeliverableRow({ values }) {
   const [selected, setSelected] = useState([]);
-  console.log(platform, "platform");
   const options = [
     { label: "Create post", value: "Create post" },
     { label: "Create story", value: "Create story" },
     { label: "Reels", value: "Reels" },
   ];
+  // const [deliverablesValues, setDeliverablesValues] = useState([]);
   return (
     <div className="my-8 flex items-center gap-8 border rounded-md p-4">
-      <div className="flex flex-col w-full">
-        <label className="block text-gray-700 text-sm mb-2">Minimum {platform} Reach</label>
-        <input
-          type="range"
-          name="max-FB-reach"
-          min={0}
-          max={10}
-          // value={values.minimum_facebook_reach}
-          // onChange={(val) => (values.minimum_facebook_reach[0] = val.target.value)}
-        />
-        {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p> */}
-      </div>
-      <div className="flex flex-col w-full">
-        <label className="block text-gray-700 text-sm mb-2">Minimum {platform} Engagement</label>
-        <input
-          type="range"
-          name="max-FB-reach"
-          min={0}
-          max={10}
-          // value={values.minimum_facebook_engagement}
-          // onChange={(val) => (values.minimum_facebook_engagement[0] = val.target.value)}
-        />
-        {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p> */}
-      </div>
-      <div className="w-auto">
-        <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-          No of Days
-        </label>
-        <Dropdown
-          dropdownStyle="w-[100px]"
-          className="w-[100px]"
-          label={"1"}
-          options={[
-            {
-              label: "2",
-            },
-            {
-              label: "3",
-            },
-          ]}
-        />
-      </div>
-      <div className="w-auto">
-        <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-          {platform} Deliverables
-        </label>
-        <MultiSelect
-          options={options}
-          value={selected}
-          onChange={setSelected}
-          labelledBy={"Select"}
-          hasSelectAll={false}
-        />
-      </div>
-      <div className="flex flex-col text-left">
-        <label htmlFor="" className="block text-sm text-gray-700 mb-2">
-          Price
-        </label>
-        <input
-          type="number"
-          className="input-field w-[110px] h-[48px] text-sm rounded-md px-2 py-1 border focus:outline-none text-gray-500"
-          placeholder="Enter price"
-        />
-      </div>
+      <Formik
+        initialValues={values}
+        enableReinitialize
+      >
+        {({ values, errors, setFieldValue, touched }) => {
+          return (
+            <>
+              <div className="flex flex-col w-full">
+                <label className="block text-gray-700 text-sm mb-2 capitalize">Minimum {values.platform} Reach</label>
+                <input
+                  type="range"
+                  name="minimum_reach"
+                  min={0}
+                  max={10}
+                  className="px-4 py-2 w-auto"
+                  onChange={(e) => setFieldValue("minimum_reach", e.target.value)}
+
+                // value={values.minimum_facebook_reach}
+                />
+                {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p> */}
+              </div>
+              <div className="flex flex-col w-full">
+                <label className="block text-gray-700 text-sm mb-2 capitalize">Minimum {values.platform} Engagement</label>
+                <input
+                  type="range"
+                  name="minimum_engagement"
+                  min={0}
+                  max={10}
+                  className="px-4 py-2 w-auto"
+                  onChange={(e) => setFieldValue("minimum_engagement", e.target.value)}
+                // value={values.minimum_facebook_engagement}
+                />
+                {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p> */}
+              </div>
+              <div className="w-auto">
+                <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
+                  No of Days
+                </label>
+                <Dropdown
+                  dropdownStyle="w-[100px]"
+                  className="w-[100px]"
+                  label={values?.duration ? values?.duration : "1"}
+                  options={[
+                    {
+                      label: "2",
+                    },
+                    {
+                      label: "3",
+                    },
+                  ]}
+                  onChange={(e) => setFieldValue("duration", e.target.label)}
+                />
+              </div>
+              <div className="w-full">
+                <label className="block text-gray-700 text-sm mb-2 capitalize" htmlFor="firstName">
+                  {values.platform} Deliverables
+                </label>
+                <MultiSelect
+                  options={options}
+                  value={selected}
+                  onChange={() => { setFieldValue("deliverables", selected) }}
+                  labelledBy={"Select"}
+                  hasSelectAll={false}
+                />
+              </div>
+              <div className="flex flex-col text-left">
+                <label htmlFor="" className="block text-sm text-gray-700 mb-2">
+                  Price
+                </label>
+                <input
+                  type="number"
+                  className="input-field w-[110px] h-[48px] text-sm rounded-md px-2 py-1 border focus:outline-none text-gray-500"
+                  placeholder="Enter price"
+                  value={values.amount}
+                  onChange={(e) => setFieldValue("amount", e.target.value)}
+                />
+              </div>
+            </>)
+        }}
+      </Formik>
     </div>
   );
 }
@@ -912,3 +941,4 @@ function DeliverableRow({ platform }) {
 //     price: 7800
 //   }
 // ]
+// setNewMemory({ ...newMemory, [e.target.name]: e.target.value });
