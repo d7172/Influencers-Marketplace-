@@ -57,7 +57,8 @@ function BrandUserTable({ tableData, route }) {
                         {moment(data?.created_at).format("DD/MM/YYYY") || data?.activeSince}
                       </td>
                       <td
-                        onClick={() => navigate(`/admin/influencer/${route}/${data?.id}`)}
+                        // onClick={() => navigate(`/admin/influencer/${route}/${data?.id}`)}
+                        onClick = {() => alert("Not found page")}
                         className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
                       >
                         View profile
