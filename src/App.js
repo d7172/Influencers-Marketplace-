@@ -33,6 +33,10 @@ import Support from "./pages/influencer/Dashboard/Support";
 import Home from "./pages/influencer/Home";
 import SignUp from "./pages/influencer/SignUp/SignUp";
 
+import BrandNewUser from "./pages/Admin/Brand/BrandNewUser";
+import BrandActiveUser from "./pages/Admin/Brand/BrandActiveUser";
+import BrandRejectedUser from "./pages/Admin/Brand/BrandRejectedUser";
+
 import BrandSignUp from "./pages/brand/SignUp/SignUp"
 import BrandDashboard from "./pages/brand/Dashboard";
 import BrandCampaignDetails from "./pages/brand/CampaignDetails";
@@ -107,13 +111,18 @@ function App() {
             <Route path="/admin/influencer/active-user/:id" element={<InfProfile route={"active-user"} />} />
             <Route path="/admin/influencer/activeUser/:id" element={<InfDetails route={"active-user"} />} />
             <Route path="/admin/influencer/new-user/:id" element={<InfProfile route={"new-user"} />} />
+
+            <Route path="/admin/Brand/new-user" element={<BrandNewUser route={"new-user"} />} />
+            <Route path="/admin/Brand/active-user" element={<BrandActiveUser route={"active-user"} />} />
+            <Route path="/admin/Brand/rejected-user" element={<BrandRejectedUser route={"rejected-user"} />} />
+
             {/* <Route path="/admin/influencer/new-user/add" element={<InfProfile route={"new-user"} />} /> */}
             <Route path="/admin/influencer/rejected-user/:id" element={<InfProfile route={"rejected-user"} />} />
             <Route path="/admin/active-bids" element={<AdminActiveBids />} />
             <Route path="/admin/active-bids/:id" element={<AdminBidDetails />} />
-            <Route path="/admin/brand/new-user" element={<Navigate replace to="/admin/dashboard" />} />
+            {/* <Route path="/radmin/brand/new-use" element={<Navigate replace to="/admin/dashboard" />} />
             <Route path="/admin/brand/active-user" element={<Navigate replace to="/admin/dashboard" />} />
-            <Route path="/admin/brand/rejected-user" element={<Navigate replace to="/admin/dashboard" />} />
+            <Route path="/admin/brand/rejected-user" element={<Navigate replace to="/admin/dashboard" />} /> */}
 
             <Route path="/admin/campaign/new-campaign" element={<AdmNewCampaign route={"new-campaign"} />} />
             <Route path="/admin/campaign/new-campaign/add" element={<AddNewCampaign route={"admin"} />} />

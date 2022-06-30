@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
-function AdminUserTable({ tableData, route }) {
+function BrandUserTable({ tableData, route }) {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col max-w-[1280px]">
@@ -14,11 +14,11 @@ function AdminUserTable({ tableData, route }) {
                 <tr>
                   {route === "active-user" && (
                     <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
-                      User Id
+                      Brand Id
                     </th>
                   )}
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
-                    Name
+                    Brand Name
                   </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     Number
@@ -45,7 +45,7 @@ function AdminUserTable({ tableData, route }) {
                         </td>
                       )}
                       <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                        {data.first_name || data?.name}
+                        {data.brand_name}
                       </td>
                       <td className="text-sm max-w-[170px] text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                         {data?.contact_number || data?.number}
@@ -74,4 +74,4 @@ function AdminUserTable({ tableData, route }) {
   );
 }
 
-export default AdminUserTable;
+export default BrandUserTable;

@@ -10,6 +10,7 @@ export const getBrandActiveUserData = (payload) => {
             payload,
             (res) => {
                 dispatch({ type: "BRAND_ACTIVE_USER_SUCCESS", data: res })
+                // console.log("res", res);
             },
             () => {
                 dispatch({type: "BRAND_ACTIVE_USER_FAIL"})
