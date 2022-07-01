@@ -28,3 +28,5 @@ function ResonForRejction({ close, reason = "" ,setReason = () => {} }) {
 }
 
 export default ResonForRejction;
+
+

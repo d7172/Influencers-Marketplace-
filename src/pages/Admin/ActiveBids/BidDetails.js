@@ -198,7 +198,7 @@ function BidDetails() {
             <button
               type="button"
               onClick={() => setDialog(true)}
-              className="rounded-[50px] text-[#969BA0] px-4 py-2 underline"
+              className="rounded-[50px] text-[#bcd6ef] px-4 py-2 underline"
             >
               Reject
             </button>
