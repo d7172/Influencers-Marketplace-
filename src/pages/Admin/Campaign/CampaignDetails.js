@@ -113,33 +113,36 @@ function CampaignDetails({ route }) {
                 <MyDialog isOpen={paymentDialog} close={() => setPaymentDialog(false)} className="rounded-8">
                     <div className="w-[550px] flex justify-center items-center flex-col">
                         <CloseBtn onClick={() => setPaymentDialog(false)} className="absolute right-5 top-7" />
-                        <h1 className="text-[28px] font-[500] mb-2 ">Payment Details for Influencers</h1>
+                        <h1 className="text-[28px] font-[500] mb-2 ">Add Payment Sent Details </h1>
                         <p className="w-390 text-gray-500 text-sm">
                             Log in to your account using email and password provided during registration.
                         </p>
-                        <div className="text-left w-[380px] mt-14">
-                            <label className="font-[400] text-[16px] ">Your Margin</label>
+                        <div className="text-left w-[380px] mt-10 datepicker">
+                            <label className="block text-gray-700 text-sm mb-2 ">Amount Date</label>
+                            <input
+                                type="date"
+                                className="w-full input-field text-gray-500 mr-8"
+                                placeholder="From"
+                                // value={values.from_date}
+                                // onChange={(e) => setFieldValue("from_date", e.target.value)}
+                            />
+                        </div>
+                        <div className="text-left w-[380px] mt-10">
+                            <label className="font-[400]  text-[16px] ">Amount</label>
                             <input type="number"
                                 className="block mt-1 px-3 w-full py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:shadow-blue-300 focus:outline-none"
                                 id="exampleFormControlTextarea1"
                             />
                         </div>
-                        <div className="text-left w-[380px] mt-14">
-                            <label className="font-[400]  text-[16px] ">Amount Pending From Brand</label>
-                            <input type="number"
+                        <div className="text-left w-[380px] mt-10">
+                            <label className="font-[400] text-[16px] ">Source</label>
+                            <input type="text"
                                 className="block mt-1 px-3 w-full py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:shadow-blue-300 focus:outline-none"
                                 id="exampleFormControlTextarea1"
                             />
                         </div>
-                        <div className="text-left w-[380px] mt-14">
-                            <label className="font-[400] text-[16px] ">Enter Custom Amount</label>
-                            <input type="number"
-                                className="block mt-1 px-3 w-full py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:shadow-blue-300 focus:outline-none"
-                                id="exampleFormControlTextarea1"
-                            />
-                        </div>
-                        <div className="text-left w-[380px] mt-14">
-                            <label className="font-[400] text-[16px] ">Enter UTR Number</label>
+                        <div className="text-left w-[380px] mt-10">
+                            <label className="font-[400] text-[16px] ">UTR Number</label>
                             <input type="number"
                                 className="block mt-1 px-3 w-full py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:shadow-blue-300 focus:outline-none"
                                 id="exampleFormControlTextarea1"
@@ -199,12 +202,6 @@ function CampaignDetails({ route }) {
                                         Jhon Deo
                                     </p>
                                 </div>
-                                {isActive && <div className='flex flex-col mr-8'>
-                                    <h1 className="text-start text-[18px] font-bold mt-6 mb-1">Days Remaining</h1>
-                                    <p className="inline-block text-start font-[500] mb-4">
-                                        03
-                                    </p>
-                                </div>}
                             </div>}
                     </div>
                     <div className="mt-6">

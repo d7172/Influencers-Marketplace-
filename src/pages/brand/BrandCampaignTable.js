@@ -63,7 +63,7 @@ function BrandCampaignTable({ route, campaignRows }) {
                                     {data?.title}
                                 </td>
                                 {(route === "assigned-campaign") && <td className="px-6 py-4">
-                                    {data?.date}
+                                    {data?.from_date}
                                 </td>}
                                 {/* <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                                                     {data.project_duration_in_days} Day

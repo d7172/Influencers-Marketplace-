@@ -29,7 +29,7 @@ const initForm = {
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
-  social_media: [],
+  social_media_deliverables: [],
   minimum_facebook_reach: [],
   minimum_facebook_engagement: [],
   number_of_days: "",
@@ -95,6 +95,12 @@ function CampaignDetails({ route }) {
   const [campFormDetails, setCampFormDetails] = useState(initForm);
   const [socialplatform, setSocialPlatform] = useState([]);
   const [deliverables, setDeliverables] = useState([]);
+  const [selected, setSelected] = useState([]);
+  const options = [
+    { label: "Create post", value: "Create post" },
+    { label: "Create story", value: "Create story" },
+    { label: "Reels", value: "Reels" },
+  ];
 
   let activeBrands = [];
   let Country = [];
@@ -176,11 +182,29 @@ function CampaignDetails({ route }) {
   //   amount: null
   // }
 
-  function handlePlatformChange(platform) {
+  function handlePlatformChange(isChecked, arr, social_platform, setFieldValue) {
 
-    socialplatform.includes(platform)
-      ? setSocialPlatform(socialplatform.filter((i) => i !== platform))
-      : setSocialPlatform(socialplatform.concat(platform));
+    // socialplatform.includes(platform)
+    //   ? setSocialPlatform(socialplatform.filter((i) => i !== platform))
+    //   : setSocialPlatform(socialplatform.concat(platform));
+
+    let temp1; let temp2 = arr;
+    if (isChecked) {
+      temp1 = [{
+        platform: social_platform,
+        deliverables: [],
+        minimum_reach: null,
+        minimum_engagement: null,
+        duration: null,
+        amount: null
+      }];
+      temp2 = temp2.concat(temp1);
+      setFieldValue("social_media_deliverables", temp2);
+    }
+    else{
+      temp2 = arr.filter((obj)=>obj.platform !== social_platform);
+      setFieldValue("social_media_deliverables", temp2);
+    }
   }
   // function handleValues(e, id) {
   //   let tempValues = deliverables;
@@ -583,7 +607,7 @@ function CampaignDetails({ route }) {
                           type="checkbox"
                           // checked={social_media_deliverables.includes(platform)}
                           className="absolute top-0 right-[10px]"
-                          onChange={(val) => { handlePlatformChange(platform) }}
+                          onChange={(val) => { handlePlatformChange(val.target.checked, values.social_media_deliverables, platform, setFieldValue) }}
                         />{" "}
                         <label htmlFor={`${platform}`}>
                           {" "}
@@ -594,7 +618,94 @@ function CampaignDetails({ route }) {
                     </div>
                   ))}
                 </div>
-                {deliverablesRow}
+                {values.social_media_deliverables.map((obj) => {
+                  console.log("item",obj);
+                  return (
+                    <div className="my-8 flex items-center gap-8 border rounded-md p-4">
+                      <Formik
+                        initialValues={obj}
+                        enableReinitialize
+                      >
+                        {({ item, errors, setFieldValue, touched }) => {
+                          return (
+                            <>
+                              <div className="flex flex-col w-full">
+                                <label className="block text-gray-700 text-sm mb-2 capitalize">Minimum {obj?.platform} Reach</label>
+                                <input
+                                  type="range"
+                                  name="minimum_reach"
+                                  min={0}
+                                  max={10}
+                                  className="px-4 py-2 w-auto"
+                                  onChange={(e) => setFieldValue("minimum_reach", e.target.value)}
+
+                                // value={values.minimum_facebook_reach}
+                                />
+                                {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p> */}
+                              </div>
+                              <div className="flex flex-col w-full">
+                                <label className="block text-gray-700 text-sm mb-2 capitalize">Minimum {obj?.platform} Engagement</label>
+                                <input
+                                  type="range"
+                                  name="minimum_engagement"
+                                  min={0}
+                                  max={10}
+                                  className="px-4 py-2 w-auto"
+                                  onChange={(e) => setFieldValue("minimum_engagement", e.target.value)}
+                                // value={values.minimum_facebook_engagement}
+                                />
+                                {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p> */}
+                              </div>
+                              <div className="w-auto">
+                                <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
+                                  No of Days
+                                </label>
+                                <Dropdown
+                                  dropdownStyle="w-[100px]"
+                                  className="w-[100px]"
+                                  label={"1"}
+                                  options={[
+                                    {
+                                      label: "2",
+                                    },
+                                    {
+                                      label: "3",
+                                    },
+                                  ]}
+                                  onChange={(e) => setFieldValue("duration", e.target.label)}
+                                />
+                              </div>
+                              <div className="w-full">
+                                <label className="block text-gray-700 text-sm mb-2 capitalize" htmlFor="firstName">
+                                  {obj?.platform} Deliverables
+                                </label>
+                                <MultiSelect
+                                  options={options}
+                                  value={selected}
+                                  onChange={() => { setSelected(); setFieldValue("deliverables", selected) }}
+                                  labelledBy={"Select"}
+                                  hasSelectAll={false}
+                                />
+                              </div>
+                              <div className="flex flex-col text-left">
+                                <label htmlFor="" className="block text-sm text-gray-700 mb-2">
+                                  Price
+                                </label>
+                                <input
+                                  type="number"
+                                  className="input-field w-[110px] h-[48px] text-sm rounded-md px-2 py-1 border focus:outline-none text-gray-500"
+                                  placeholder="Enter price"
+                                // value={values.amount}
+                                // onChange={(e) => setFieldValue("amount", e.target.value)}
+                                />
+                              </div>
+                            </>)
+                        }}
+                      </Formik>
+                    </div>
+                  );
+                })}
+                {console.log("deliverables",values.social_media_deliverables)}
                 <div className="my-8">
                   <h1 className="text-start text-2xl font-bold mb-2 mt-4">Which Industry You Want To Target</h1>
                   <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">
@@ -830,98 +941,10 @@ export const imageSvg = (
     />
   </svg>
 );
-function DeliverableRow({ values }) {
-  const [selected, setSelected] = useState([]);
-  const options = [
-    { label: "Create post", value: "Create post" },
-    { label: "Create story", value: "Create story" },
-    { label: "Reels", value: "Reels" },
-  ];
-  // const [deliverablesValues, setDeliverablesValues] = useState([]);
-  return (
-    <div className="my-8 flex items-center gap-8 border rounded-md p-4">
-      <Formik
-        initialValues={values}
-        enableReinitialize
-      >
-        {({ values, errors, setFieldValue, touched }) => {
-          return (
-            <>
-              <div className="flex flex-col w-full">
-                <label className="block text-gray-700 text-sm mb-2 capitalize">Minimum {values.platform} Reach</label>
-                <input
-                  type="range"
-                  name="minimum_reach"
-                  min={0}
-                  max={10}
-                  className="px-4 py-2 w-auto"
-                  onChange={(e) => setFieldValue("minimum_reach", e.target.value)}
+function DeliverableRow({ platform }) {
 
-                // value={values.minimum_facebook_reach}
-                />
-                {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p> */}
-              </div>
-              <div className="flex flex-col w-full">
-                <label className="block text-gray-700 text-sm mb-2 capitalize">Minimum {values.platform} Engagement</label>
-                <input
-                  type="range"
-                  name="minimum_engagement"
-                  min={0}
-                  max={10}
-                  className="px-4 py-2 w-auto"
-                  onChange={(e) => setFieldValue("minimum_engagement", e.target.value)}
-                // value={values.minimum_facebook_engagement}
-                />
-                {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p> */}
-              </div>
-              <div className="w-auto">
-                <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                  No of Days
-                </label>
-                <Dropdown
-                  dropdownStyle="w-[100px]"
-                  className="w-[100px]"
-                  label={values?.duration ? values?.duration : "1"}
-                  options={[
-                    {
-                      label: "2",
-                    },
-                    {
-                      label: "3",
-                    },
-                  ]}
-                  onChange={(e) => setFieldValue("duration", e.target.label)}
-                />
-              </div>
-              <div className="w-full">
-                <label className="block text-gray-700 text-sm mb-2 capitalize" htmlFor="firstName">
-                  {values.platform} Deliverables
-                </label>
-                <MultiSelect
-                  options={options}
-                  value={selected}
-                  onChange={() => { setFieldValue("deliverables", selected) }}
-                  labelledBy={"Select"}
-                  hasSelectAll={false}
-                />
-              </div>
-              <div className="flex flex-col text-left">
-                <label htmlFor="" className="block text-sm text-gray-700 mb-2">
-                  Price
-                </label>
-                <input
-                  type="number"
-                  className="input-field w-[110px] h-[48px] text-sm rounded-md px-2 py-1 border focus:outline-none text-gray-500"
-                  placeholder="Enter price"
-                  value={values.amount}
-                  onChange={(e) => setFieldValue("amount", e.target.value)}
-                />
-              </div>
-            </>)
-        }}
-      </Formik>
-    </div>
-  );
+  // const [deliverablesValues, setDeliverablesValues] = useState([]);
+
 }
 // const social_media_deliverables = [
 //   {

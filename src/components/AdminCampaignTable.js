@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getMoveToCampaignPoolData } from "../store/Admin/Campaign/MoveToPool/action";
 import { deleteCampaignData, getNewCampaignData } from "../store/Admin/Campaign/NewCampaign/action";
 import CustomToolTip from "./Tooltip";
-function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setCampId, activePage }) {
+function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTableData, activePage }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
@@ -133,7 +133,8 @@ function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setCampI
                             {
                               title: "Assigned to Influencers",
                               onClick: () => {
-                                setCampId(data?.id)
+                                // setCampId(data?.id)
+                                setInfTableData({id: data?.id, category: data?.category, platform: data?.social_platform[0]})
                                 setInfTable(true);
                               }
                             },
