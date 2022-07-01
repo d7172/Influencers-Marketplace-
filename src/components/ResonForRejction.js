@@ -1,7 +1,7 @@
 import React from "react";
 import CloseBtn from "./CloseBtn";
 
-function ResonForRejction({ close, reason = "" ,setReason = () => {} }) {
+function ResonForRejction({ close, reason = "" ,setReason = () => {}, onSubmit = ()=> { } }) {
   return (
     <div className="w-[550px] h-[550px] flex justify-center items-center flex-col">
       <CloseBtn onClick={close} className="absolute right-5 top-7" />
@@ -20,7 +20,7 @@ function ResonForRejction({ close, reason = "" ,setReason = () => {} }) {
           onChange={(val)=>setReason(val.target.value)}
         />
       </div>
-      <button onClick={close} className="bg-[#3751FF] text-white w-[400px] h-[47px] rounded-full mt-10">
+      <button disabled={reason.length===0} onClick={onSubmit} className="bg-[#3751FF] text-white w-[400px] h-[47px] rounded-full mt-10 disabled:bg-[#7789fc]">
         Submit
       </button>
     </div>

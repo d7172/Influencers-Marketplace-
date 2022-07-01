@@ -16,11 +16,14 @@ import { updateQuotationStatus } from '../../store/Brand/Campaign/AssignedCampai
 function CampaignDetails({ route }) {
     const location = useLocation();
     const { id } = useParams();
+
+    const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
     const isAssigned = location.pathname.includes("assigned-campaign");
     const isActive = location.pathname.includes("active-campaign");
     const isRejected = location.pathname.includes("rejected-campaign");
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
 
     const campaignDetails = useSelector((state) =>
         isAssigned ? state.BrandAssignedCampaign?.results?.filter((i) => i?.campaigndetails?.id == id)[0]
@@ -56,21 +59,21 @@ function CampaignDetails({ route }) {
         }
     ]
 
-    function updateQuotion(status, desc){
-        const payload = {
-            quotation_id: activeQuotation,
-            status: status,
-            description: desc
-        }
+    function updateQuotion(status, desc) {
+
+        const id = campaignDetails?.id || campaignDetails?.campaigndetails?.id;
+
         const data = new FormData();
-        data.append("data", JSON.stringify(payload));
-        dispatch(updateQuotationStatus(data));
+        data.append("campaign_id", JSON.stringify(id));
+        data.append("status", status)
+        // data.append("desciption", JSON.stringify(desc))
         // console.log(payload);
+        dispatch(updateQuotationStatus(data, navigate));
     }
 
     useEffect(() => {
         isAssigned && setActiveQuotation(campaignDetails?.quotationdetails[0]?.id);
-    },[])
+    }, [])
     return (
         <div>
             <div className='w-full bg-[#F2F2F2] py-4 px-8'>
@@ -190,14 +193,14 @@ function CampaignDetails({ route }) {
                     </div>
                 </MyDialog>
                 <MyDialog isOpen={rejectionDialog} close={() => { setRejectionDialog(false) }} className="rounded-8">
-                    <ResonForRejction close={() => {updateQuotion("reject", reason); setReason("") ;setRejectionDialog(false)}} reason={reason} setReason={setReason}/>
+                    <ResonForRejction close={() => { setReason(""); setRejectionDialog(false) }} onSubmit={() => { isAssigned && updateQuotion("reject", reason); setRejectionDialog(false) }} reason={reason} setReason={setReason} />
                 </MyDialog>
                 <div className="ml-4">
                     <BackArrowBtn className="" onClick={() => { navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/"))) }} />
                     <div className='flex w-full justify-between'>
                         <div className="mt-6">
                             <h1 className="text-[32px] font-[600]">Campaign id</h1>
-                            <p className="text-[18px] font-[500] text-[#969BA0]  "> {campaignDetails?.id} </p>
+                            <p className="text-[18px] font-[500] text-[#969BA0] "> {campaignDetails?.id || campaignDetails?.campaigndetails?.id} </p>
                         </div>
                         {isRejected && <div>
                             <h1 className="text-start text-xl font-bold mt-6 mb-1">You Rejected this Campaign</h1>
@@ -268,7 +271,7 @@ function CampaignDetails({ route }) {
                         <div className="flex w-[50%] justify-end">
                             <div>
                                 <button
-                                    onClick={()=>updateQuotion("accept", "")}
+                                    onClick={() => { isAssigned && updateQuotion("active", "") }}
                                     className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
                                 >
                                     Accept

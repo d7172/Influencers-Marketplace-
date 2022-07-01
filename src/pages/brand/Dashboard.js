@@ -129,7 +129,7 @@ function BrandDashboard() {
               className="w-[200px] h-[38px]"
             />
           </div>
-          <Line data={data}>Hello</Line>
+          <Line data={data} />
         </div>
       </div>
       {/* Chart 2 */}

@@ -18,8 +18,8 @@ export const getBrandAssignedCampaign = (payload, activePage) => {
     }
 }
 
-export const updateQuotationStatus = (payload) => {
-    const url = `brand-campaign-assign-quotation-accept-reject/`;
+export const updateQuotationStatus = (payload, navigate) => {
+    const url = `campaign-accept-reject/`;
 
     return (dispatch) => {
         networkRequest(
@@ -28,6 +28,7 @@ export const updateQuotationStatus = (payload) => {
             "JSON",
             payload,
             (res) => {
+                res.status==="success" && navigate(`/brand/campaign/assigned-campaign`)
                 console.log("status", res.status);
                 console.log("response", res.response);
             },

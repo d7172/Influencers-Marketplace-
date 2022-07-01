@@ -22,7 +22,7 @@ function BrandRejectedUser({ route }) {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "Rejected Users" }]} />
+        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "Rejected Brands" }]} />
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center px-8">

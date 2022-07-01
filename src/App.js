@@ -112,9 +112,9 @@ function App() {
             <Route path="/admin/influencer/activeUser/:id" element={<InfDetails route={"active-user"} />} />
             <Route path="/admin/influencer/new-user/:id" element={<InfProfile route={"new-user"} />} />
 
-            <Route path="/admin/Brand/new-user" element={<BrandNewUser route={"new-user"} />} />
-            <Route path="/admin/Brand/active-user" element={<BrandActiveUser route={"active-user"} />} />
-            <Route path="/admin/Brand/rejected-user" element={<BrandRejectedUser route={"rejected-user"} />} />
+            <Route path="/admin/brand/new-user" element={<BrandNewUser route={"new-user"} />} />
+            <Route path="/admin/brand/active-user" element={<BrandActiveUser route={"active-user"} />} />
+            <Route path="/admin/brand/rejected-user" element={<BrandRejectedUser route={"rejected-user"} />} />
 
             {/* <Route path="/admin/influencer/new-user/add" element={<InfProfile route={"new-user"} />} /> */}
             <Route path="/admin/influencer/rejected-user/:id" element={<InfProfile route={"rejected-user"} />} />
