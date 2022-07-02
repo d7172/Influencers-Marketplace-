@@ -39,6 +39,8 @@ import { countryList } from "./Country/reducer";
 import { AdminAssignProcess } from "./Admin/Campaign/AssignProcess/reducer";
 import { AdminMoveToCampaignPool } from "./Admin/Campaign/MoveToPool/reducer";
 import { infActiveReject } from "./Admin/Influencer/Active-Reject/reducer";
+import { campaignActiveReject } from "./Admin/Campaign/Active-Reject/reducer";
+import { brandActiveReject } from "./Admin/Brand/Active-Reject/reducer";
 const reducers = combineReducers({
   signUpState,
   signUp,
@@ -81,6 +83,8 @@ const reducers = combineReducers({
   AdminAssignProcess,
   AdminMoveToCampaignPool,
   infActiveReject,
+  campaignActiveReject,
+  brandActiveReject,
 });
 
 export default reducers;

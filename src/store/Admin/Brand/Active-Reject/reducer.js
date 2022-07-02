@@ -3,12 +3,12 @@ const init = {
   results: [],
 };
 
-export const infActiveReject = (state = init, action) => {
+export const brandActiveReject = (state = init, action) => {
   switch (action.type) {
-    case "INF_ACTIVE_REJECT_SUCCESS":
+    case "BRAND_ACTIVE_REJECT_SUCCESS":
       return action.data;
 
-    case "INF_ACTIVE_REJECT_FAIL":
+    case "BRAND_ACTIVE_REJECT_FAIL":
       return init;
 
     default:
