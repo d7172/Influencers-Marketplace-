@@ -1,5 +1,8 @@
 import React from "react";
 import CloseBtn from "../../../components/CloseBtn";
+import MyDialog from "../../../components/MyDialog";
+import AssignCampaignDetails from "../Campaign/AssignCampaignDetails";
+import { useNavigate } from "react-router-dom";
 const InfluencersBidDetails = ({ close, reason = "", setReason = () => {} }) => {
   const deliverableDetails = [
     {
@@ -172,12 +175,21 @@ export const RejectedCampaign = ({ close, reason = "", setReason = () => {} }) =
 };
 
 export const Qutationphase = ({ close, reason = "", setReason = () => {} }) => {
-  return(
-    <div className="w-[950px] h-[550px]">
-    <CloseBtn onClick={close} className="absolute right-5 top-7" />
-    <CloseBtn onClick={close} className="absolute right-5 top-7" />
-      <div className="w-[180px]">
-        <h1 className="font-bold">Quotation Phase to Brand</h1>
+  const navigate = useNavigate();
+
+  const campaigns = [
+    {
+      campaignId: "00001",
+      brandName: "Perfect Status",
+      CampaignTitle: "Enjoy the videos and music ",
+      TotalQuotationSent: "10",
+    },
+  ];
+  return (
+    <div className="w-[1000px] h-[550px]">
+      <CloseBtn onClick={close} className="absolute right-5 top-7" />
+      <div className="w-[230px]">
+        <h1 className="font-bold text-lg">Quotation Phase to Brand</h1>
       </div>
       <div className="w-[320px] ml-1 mt-4">
         <h1 className="text-[12px] text-left text-[#787A80]">
@@ -187,28 +199,87 @@ export const Qutationphase = ({ close, reason = "", setReason = () => {} }) => {
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8 my-4">
           <div className="overflow-x-auto">
-          <table className="w-full">
+            <table className="w-full">
               <thead>
-                <tr className="flex">
-                  <th scope="col" className="text-[14px] font-[500] text-gray-900 px-6 py-4 text-left">
+                <tr className="flex gap-5">
+                  <th scope="col" className="text-[14px]  text-gray-900 px-6 py-4 text-left font-bold">
                     Campaign Id
                   </th>
-                  <th scope="col" className="text-[14px] font-[500] text-gray-900 px-6 py-4 text-left">
+                  <th scope="col" className="text-[14px]  text-gray-900 px-6 py-4 text-left font-bold">
                     Brand Name
                   </th>
-                  <th scope="col" className="text-[14px] font-[500] text-gray-900 px-6 py-4 text-left">
-                  Campaign Title
+                  <th
+                    scope="col"
+                    className="text-[14px]  text-gray-900 px-20 py-4 text-left ml-5 w-[300px] font-bold"
+                  >
+                    Campaign Title
                   </th>
-                  <th scope="col" className="text-[14px] font-[500] text-gray-900 px-6 py-4 text-left">
-                  Total Quotation Sent
+                  <th scope="col" className="text-[14px]  text-gray-900 px-6 py-4 text-left font-bold">
+                    Total Quotation Sent
                   </th>
                 </tr>
-                </thead>
-                </table>
+              </thead>
+              <tbody className="border-t-2 border-b-2">
+                {campaigns.map((data, index) => {
+                  return (
+                    <tr className="flex gap-10 ">
+                      <td className="text-[14px] font-[500] text-gray-900 px-6 py-4 text-left  w-[125px]">
+                        {data.campaignId}
+                      </td>
+                      <td className="text-[14px] font-[500] text-gray-900 px-1 py-4 text-left  w-[150px] ">
+                        {data.brandName}
+                      </td>
+                      <td className="text-[14px] font-[500] text-gray-900 px-10 py-4 text-left w-[260px]">
+                        {data.CampaignTitle}
+                      </td>
+                      <td className="text-[14px] font-[500] text-gray-900 px-1 py-4 text-left  w-[150px]">
+                        {data.TotalQuotationSent}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+              <div className=" w-[880px] mt-8 ">
+                <div className="flex justify-start">
+                  <p className="text-right text-[14px]  text-black px-6 py-4 font-bold">Quotation 1.</p>
+                  <p className="text-right text-[14px] font-[500]  px-2 py-4 text-[#3751FF]">&#8377;{"6000"}</p>
+                  <div className="text-right text-[14px] font-[500]  py-5 text-[#3751FF] ml-4">
+                    <div className="w-[8px] h-[8px]  rounded bg-[#FF844B]" />
+                  </div>
+                  <p className="text-right text-[14px] font-[500]  px-2 py-4 text-[#3751FF]">{"Rejected"}</p>
+                </div>
+                <div className="flex justify-start">
+                  <p className="text-right text-[12px]  text-[#969BA0] ml-6 py-4 font-bold">Quotation Date:</p>
+                  <p className=" text-[12px] font-[500]  py-4 text-[#969BA0]">{"12 / 12 / 2020"}</p>
+                  <p className="text-right text-[12px] font-[500]  px-4 py-4 text-[#969BA0]">{"Rejected"}</p>
+                </div>
+                <div className="flex justify-start">
+                  <p className="text-right text-[12px]  text-[#969BA0] px-6 py-0 font-bold">Your Margin:</p>
+                  <p className="text-right text-[12px] font-[500]  px-0 py-0 text-[#969BA0]">&#8377;{"6000"}</p>
+                </div>
+                <div className="flex justify-start">
+                  <button
+                    className="h-[40px] mt-2 px-6 text-[#3751FF] text-[14px] underline"
+                    type="button"
+                    // onClick={() => setDialog(true)}
+                  >
+                    View Reson
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex justify-start mt-12">
+                <button className="bg-[#3751FF] text-white w-[400px] h-[35px] rounded-full mt-10 text-[14px]"
+                onClick={()=> navigate(`/admin/campaign/assigned-campaign/assigned-campaignDetails`) }
+                >
+                  Sent Another Quotation
+                </button>
+              </div>
+            </table>
           </div>
-          </div>
-          </div>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 export default InfluencersBidDetails;
