@@ -8,7 +8,7 @@ import AdmAssignCampaign from "./pages/Admin/Campaign/AssignCampaign";
 // import AdmAssignCampaignDetails from "./pages/Admin/Campaign/AssignCampaignDetails";
 import AdmNewCampaign from "./pages/Admin/Campaign/NewCampaign";
 import AdmRejectedCampaign from "./pages/Admin/Campaign/RejectedCampaign";
-import AdmCampaignDetails from "./pages/Admin/Campaign/CampaignDetails"
+import AdmCampaignDetails from "./pages/Admin/Campaign/CampaignDetails";
 import InfActiveUser from "./pages/Admin/Influencer/InfActiveUser";
 import InfDetails from "./pages/Admin/Influencer/InfDetails";
 import InfNewUser from "./pages/Admin/Influencer/InfNewUser";
@@ -37,15 +37,15 @@ import BrandNewUser from "./pages/Admin/Brand/BrandNewUser";
 import BrandActiveUser from "./pages/Admin/Brand/BrandActiveUser";
 import BrandRejectedUser from "./pages/Admin/Brand/BrandRejectedUser";
 
-import BrandSignUp from "./pages/brand/SignUp/SignUp"
+import BrandSignUp from "./pages/brand/SignUp/SignUp";
 import BrandDashboard from "./pages/brand/Dashboard";
 import BrandCampaignDetails from "./pages/brand/CampaignDetails";
 import BrandNewCampaign from "./pages/brand/NewCampaign";
 import BrandActiveCampaign from "./pages/brand/ActiveCampaign";
 import BrandAssignedCampaign from "./pages/brand/AssignedCampaign";
 import BrandRejectedCampaign from "./pages/brand/RejectedCampaign";
-import BrandEarning from "./pages/brand/Earning"
-import BrandStatement  from "./pages/brand/Statement";
+import BrandEarning from "./pages/brand/Earning";
+import BrandStatement from "./pages/brand/Statement";
 import AddNewCampaign from "./pages/brand/AddNewCampaign";
 import SignInAdmin from "../src/pages/Admin/SignIn/SignIn";
 import SignUpAdmin from "../src/pages/Admin/SignUp/SignUp";
@@ -93,12 +93,13 @@ function App() {
               exact
               element={
                 <Protected isLoggedIn={isLoggedIn}>
-                  <Navigate replace to="/admin/dashboard" />
+                  <Navigate replace to="/admin/login" />
                 </Protected>
               }
             />
             <Route
               path="/admin/dashboard"
+              exact
               element={
                 <Protected isLoggedIn={isLoggedIn}>
                   <DashBoard />
@@ -157,7 +158,10 @@ function App() {
             <Route path="/admin/transaction/earning" element={<AdmEarning />} />
             <Route path="/admin/transaction/payments" element={<AdmPayments route="payment" />} />
             <Route path="/admin/transaction/payments/brand/:id" element={<BrandPaymentOngoing route="brand" />} />
-            <Route path="/admin/transaction/payments/influencer/:id" element={<BrandPaymentOngoing route="influencer" />} />
+            <Route
+              path="/admin/transaction/payments/influencer/:id"
+              element={<BrandPaymentOngoing route="influencer" />}
+            />
             <Route path="/admin/transaction/statement" element={<AdmStatements route="statement" />} />
             {/* <Route path="/admin/transactions/payment-ongoing" element={<AdmPaymentOngoing route={"payment-ongoing"} />}/> */}
           </Route>
@@ -198,7 +202,7 @@ function App() {
 
           {/* Brand routes */}
           <Route path="/brand" element={<BrandDashboardCompositeComponent />}>
-            <Route path="/brand" element={<Navigate replace to="/brand/dashboard" />} />
+            <Route path="/brand" element={<Navigate replace to="/login" />} />
             <Route path="/brand/dashboard" element={<BrandDashboard />} />
             <Route path="/brand/campaign" element={<Navigate replace to="/brand/campaign/new-campaign" />} />
             {/* <Route path="/brand/campaign/campaign-pool" element={<CampaignPool />}></Route>

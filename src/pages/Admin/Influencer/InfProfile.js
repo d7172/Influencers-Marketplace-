@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategoriesData } from "../../../store/Categories/action";
 import { personalDetailsSchema } from "../../../utils/formsSchema";
 import { useNavigate, useParams } from "react-router-dom";
+import { InfActiveReject } from "../../../store/Admin/Influencer/Active-Reject/action";
 
 const initForm = {
   first_name: "",
@@ -79,14 +80,25 @@ function InfProfile({ route }) {
   };
 
   useEffect(() => {
-    (id) && (setPersonalDetails(User));
+    id && setPersonalDetails(User);
     dispatch(getCategoriesData());
   }, [infNewUser, infActiveUser]);
   // console.log(categoryData);
   return (
     <>
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "influencer" }, { title: route, onClick: ()=>{navigate(`/admin/influencer/${route}`)} }, { title: personalDetails.id}] } />
+        <Breadcrumbs
+          options={[
+            { title: "influencer" },
+            {
+              title: route,
+              onClick: () => {
+                navigate(`/admin/influencer/${route}`);
+              },
+            },
+            { title: personalDetails.id },
+          ]}
+        />
       </div>
       <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
         <ResonForRejction close={() => setRejectBid(false)} />
@@ -667,6 +679,8 @@ function InfProfile({ route }) {
                         className="w-[150px] rounded-[50px] bg-primary text-white py-2"
                         onClick={() => {
                           console.log({ ...values, gender: values.gender.charAt(0) }, "values");
+                          const approvalData = { influencer_id: id, status: "active" };
+                          route === "new-user" && dispatch(InfActiveReject(approvalData));
                         }}
                       >
                         {route === "new-user" && `Approve`}
