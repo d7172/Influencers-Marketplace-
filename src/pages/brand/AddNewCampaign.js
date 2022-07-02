@@ -183,26 +183,27 @@ function CampaignDetails({ route }) {
   // }
 
   function handlePlatformChange(isChecked, arr, social_platform, setFieldValue) {
-
     // socialplatform.includes(platform)
     //   ? setSocialPlatform(socialplatform.filter((i) => i !== platform))
     //   : setSocialPlatform(socialplatform.concat(platform));
 
-    let temp1; let temp2 = arr;
+    let temp1;
+    let temp2 = arr;
     if (isChecked) {
-      temp1 = [{
-        platform: social_platform,
-        deliverables: [],
-        minimum_reach: null,
-        minimum_engagement: null,
-        duration: null,
-        amount: null
-      }];
+      temp1 = [
+        {
+          platform: social_platform,
+          deliverables: [],
+          minimum_reach: null,
+          minimum_engagement: null,
+          duration: null,
+          amount: null,
+        },
+      ];
       temp2 = temp2.concat(temp1);
       setFieldValue("social_media_deliverables", temp2);
-    }
-    else{
-      temp2 = arr.filter((obj)=>obj.platform !== social_platform);
+    } else {
+      temp2 = arr.filter((obj) => obj.platform !== social_platform);
       setFieldValue("social_media_deliverables", temp2);
     }
   }
@@ -212,19 +213,24 @@ function CampaignDetails({ route }) {
   //   { ...objToChange, [e.target.name]: e.target.value };
   // }
   useEffect(() => {
-    setDeliverables(socialplatform.map((item) => {
-      return {
-        platform: item,
-        deliverables: [],
-        minimum_reach: "",
-        minimum_engagement: "",
-        duration: null,
-        amount: null
-      }
-    }))
-    setDeliverablesRow(socialplatform.map((item, index) => { return <DeliverableRow platform={item} values={deliverables[index]} /> }))
+    setDeliverables(
+      socialplatform.map((item) => {
+        return {
+          platform: item,
+          deliverables: [],
+          minimum_reach: "",
+          minimum_engagement: "",
+          duration: null,
+          amount: null,
+        };
+      })
+    );
+    setDeliverablesRow(
+      socialplatform.map((item, index) => {
+        return <DeliverableRow platform={item} values={deliverables[index]} />;
+      })
+    );
   }, [socialplatform]);
-
 
   console.log(deliverables);
   return (
@@ -607,7 +613,14 @@ function CampaignDetails({ route }) {
                           type="checkbox"
                           // checked={social_media_deliverables.includes(platform)}
                           className="absolute top-0 right-[10px]"
-                          onChange={(val) => { handlePlatformChange(val.target.checked, values.social_media_deliverables, platform, setFieldValue) }}
+                          onChange={(val) => {
+                            handlePlatformChange(
+                              val.target.checked,
+                              values.social_media_deliverables,
+                              platform,
+                              setFieldValue
+                            );
+                          }}
                         />{" "}
                         <label htmlFor={`${platform}`}>
                           {" "}
@@ -618,19 +631,18 @@ function CampaignDetails({ route }) {
                     </div>
                   ))}
                 </div>
-                {values.social_media_deliverables.map((obj) => {
-                  console.log("item",obj);
+                {values?.social_media_deliverables?.map((obj) => {
+                  console.log("item", obj);
                   return (
                     <div className="my-8 flex items-center gap-8 border rounded-md p-4">
-                      <Formik
-                        initialValues={obj}
-                        enableReinitialize
-                      >
+                      <Formik initialValues={obj} enableReinitialize>
                         {({ item, errors, setFieldValue, touched }) => {
                           return (
                             <>
                               <div className="flex flex-col w-full">
-                                <label className="block text-gray-700 text-sm mb-2 capitalize">Minimum {obj?.platform} Reach</label>
+                                <label className="block text-gray-700 text-sm mb-2 capitalize">
+                                  Minimum {obj?.platform} Reach
+                                </label>
                                 <input
                                   type="range"
                                   name="minimum_reach"
@@ -639,12 +651,14 @@ function CampaignDetails({ route }) {
                                   className="px-4 py-2 w-auto"
                                   onChange={(e) => setFieldValue("minimum_reach", e.target.value)}
 
-                                // value={values.minimum_facebook_reach}
+                                  // value={values.minimum_facebook_reach}
                                 />
                                 {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p> */}
                               </div>
                               <div className="flex flex-col w-full">
-                                <label className="block text-gray-700 text-sm mb-2 capitalize">Minimum {obj?.platform} Engagement</label>
+                                <label className="block text-gray-700 text-sm mb-2 capitalize">
+                                  Minimum {obj?.platform} Engagement
+                                </label>
                                 <input
                                   type="range"
                                   name="minimum_engagement"
@@ -652,7 +666,7 @@ function CampaignDetails({ route }) {
                                   max={10}
                                   className="px-4 py-2 w-auto"
                                   onChange={(e) => setFieldValue("minimum_engagement", e.target.value)}
-                                // value={values.minimum_facebook_engagement}
+                                  // value={values.minimum_facebook_engagement}
                                 />
                                 {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p> */}
                               </div>
@@ -682,7 +696,10 @@ function CampaignDetails({ route }) {
                                 <MultiSelect
                                   options={options}
                                   value={selected}
-                                  onChange={() => { setSelected(); setFieldValue("deliverables", selected) }}
+                                  onChange={() => {
+                                    setSelected();
+                                    setFieldValue("deliverables", selected);
+                                  }}
                                   labelledBy={"Select"}
                                   hasSelectAll={false}
                                 />
@@ -695,17 +712,18 @@ function CampaignDetails({ route }) {
                                   type="number"
                                   className="input-field w-[110px] h-[48px] text-sm rounded-md px-2 py-1 border focus:outline-none text-gray-500"
                                   placeholder="Enter price"
-                                // value={values.amount}
-                                // onChange={(e) => setFieldValue("amount", e.target.value)}
+                                  // value={values.amount}
+                                  // onChange={(e) => setFieldValue("amount", e.target.value)}
                                 />
                               </div>
-                            </>)
+                            </>
+                          );
                         }}
                       </Formik>
                     </div>
                   );
                 })}
-                {console.log("deliverables",values.social_media_deliverables)}
+                {console.log("deliverables", values.social_media_deliverables)}
                 <div className="my-8">
                   <h1 className="text-start text-2xl font-bold mb-2 mt-4">Which Industry You Want To Target</h1>
                   <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">
@@ -920,7 +938,7 @@ function CampaignDetails({ route }) {
         </Formik>
       </div>
     </>
-  )
+  );
 }
 
 export default CampaignDetails;
@@ -942,9 +960,7 @@ export const imageSvg = (
   </svg>
 );
 function DeliverableRow({ platform }) {
-
   // const [deliverablesValues, setDeliverablesValues] = useState([]);
-
 }
 // const social_media_deliverables = [
 //   {

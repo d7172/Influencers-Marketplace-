@@ -51,9 +51,11 @@ function ActiveCampaign() {
           <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
         </div>
         <ActiveCampaignTable tableData={tableData} />
-        {tableData?.length ? (<div className="w-full mt-2 px-4">
-          <Pagination link={infCampaignActive} activePage={activePage} setActivePage={setActivePage} />
-        </div>) : (
+        {tableData?.length ? (
+          <div className="w-full mt-2 px-4">
+            <Pagination link={infCampaignActive} activePage={activePage} setActivePage={setActivePage} />
+          </div>
+        ) : (
           <div className="text-center mt-4">
             <p className="text-gray-500">No data to display.</p>
           </div>
@@ -178,8 +180,8 @@ function ActiveCampaignTable({ tableData }) {
                       </tr>
                       <tr className="w-auto flex justify-between items-center">
                         <td>
-                          <input type="checkbox" className="w-[16px]" />
-                          <label className="text-[14px] text-[#3751FF] font-[400] ml-2.5">Submit for Approval</label>
+                          {/* <input type="checkbox" className="w-[16px]" /> */}
+                          {/* <label className="text-[14px] text-[#3751FF] font-[400] ml-2.5">Submit for Approval</label> */}
                         </td>
                         <td
                           onClick={() => handleIndex(i)}
