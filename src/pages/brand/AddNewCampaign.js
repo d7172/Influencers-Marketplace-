@@ -29,7 +29,9 @@ const initForm = {
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
-  social_media_deliverables: [],
+  social_media_deliverables: [
+
+  ],
   minimum_facebook_reach: [],
   minimum_facebook_engagement: [],
   number_of_days: "",
@@ -171,7 +173,7 @@ function CampaignDetails({ route }) {
     country: { id: null, name: campaignDetails?.country },
     state: { id: null, name: campaignDetails?.state },
   };
-
+  console.log("Details", Details);
   const [deliverablesRow, setDeliverablesRow] = useState([]);
   // let deliDetails = {
   //   platform: "",
@@ -186,7 +188,7 @@ function CampaignDetails({ route }) {
     // socialplatform.includes(platform)
     //   ? setSocialPlatform(socialplatform.filter((i) => i !== platform))
     //   : setSocialPlatform(socialplatform.concat(platform));
-
+    console.log("alaslspaspddioadi", social_platform.length);
     let temp1;
     let temp2 = arr;
     if (isChecked) {
@@ -207,6 +209,11 @@ function CampaignDetails({ route }) {
       setFieldValue("social_media_deliverables", temp2);
     }
   }
+  // const checkcount = temp2.filter((obj) => obj.platform).length;
+  // console.log(
+  //   checkcount,
+  //   "checkcount",
+  // );
   // function handleValues(e, id) {
   //   let tempValues = deliverables;
   //   let objToChange = tempValues.filter((item) => item.id === id);
@@ -220,8 +227,8 @@ function CampaignDetails({ route }) {
           deliverables: [],
           minimum_reach: "",
           minimum_engagement: "",
-          duration: null,
           amount: null,
+          number_of_days: null,
         };
       })
     );
@@ -264,10 +271,10 @@ function CampaignDetails({ route }) {
           initialValues={campFormDetails}
           // validationSchema={}
           onSubmit={(values) => {
-            console.log(
-              { ...values, brand: values.brand.id, country: values.country.id, state: values.state.id },
-              "values add new campaign"
-            );
+            // console.log(
+            //   { ...values, brand: values.brand.id, country: values.country.id, state: values.state.id },
+            //   "values add new campaign"
+            // );
             const data = {};
           }}
         >
@@ -431,8 +438,8 @@ function CampaignDetails({ route }) {
                         type="range"
                         min={10}
                         max={50}
-                        // value={values.age_group}
-                        onChange={(val) => (values.age_group[0] = val.target.value)}
+                        value={values.age_group}
+                        onChange={(val) => setFieldValue(values.age_group[0] = val.target.value)}
                       />
                       {errors.age_group && touched.age_group && <FormError>{errors.age_group}</FormError>}
                     </div>
@@ -446,9 +453,18 @@ function CampaignDetails({ route }) {
                         dropdownStyle="w-full"
                         className="w-full"
                         label={values?.category?.length ? values?.category : "category"}
-                        options={categoryData ? categoryData : []}
-                        onChange={(val) => setFieldValue("category", val.name)}
-                        optionsLabel={"name"}
+                        // options={categoryData ? categoryData : []}
+                        options={[
+                          {
+                            label: "category",
+                          },
+                          {
+                            label: "Fashion Wear",
+                          },
+                        ]}
+                        onChange={(val) => setFieldValue("category", val.label)}
+                        // onChange={(val) => setFieldValue("category", val.name)}
+                        // optionsLabel={"name"}
                       />
                       {errors.audience_interest && touched.audience_interest && (
                         <FormError>{errors.audience_interest}</FormError>
@@ -606,8 +622,10 @@ function CampaignDetails({ route }) {
                         key={index}
                         className="flex justify-center items-center mb-2 relative campaignDetailsSVG-shadow w-fit p-3 h-fit rounded-[4rem] bg-white "
                       >
-                        {" "}
+                        {console.log(values.social_media_deliverables.length, "dasdasdasda")}
+                        {/* {values.social_media_deliverables.length > 5 ? */}
                         <input
+                          disabled={values.social_media_deliverables.length < 5 ? false : true}
                           id={`${platform}`}
                           name="social_platform"
                           type="checkbox"
@@ -621,7 +639,7 @@ function CampaignDetails({ route }) {
                               setFieldValue
                             );
                           }}
-                        />{" "}
+                        />
                         <label htmlFor={`${platform}`}>
                           {" "}
                           <img src={`/svgs/${platform}.svg`} className="platformsSVG" alt="platform" />
@@ -648,12 +666,12 @@ function CampaignDetails({ route }) {
                                   name="minimum_reach"
                                   min={0}
                                   max={10}
+                                  defaultValue={0}
                                   className="px-4 py-2 w-auto"
-                                  onChange={(e) => setFieldValue("minimum_reach", e.target.value)}
-
-                                  // value={values.minimum_facebook_reach}
+                                  onChange={(e) => setFieldValue("minimum_reach", (obj.minimum_reach = e.target.value))}
+                                  value={obj.minimum_reach}
                                 />
-                                {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_reach}</p> */}
+                                <p className="text-gray-700 text-sm"> Value: {obj.minimum_reach}</p>
                               </div>
                               <div className="flex flex-col w-full">
                                 <label className="block text-gray-700 text-sm mb-2 capitalize">
@@ -664,11 +682,16 @@ function CampaignDetails({ route }) {
                                   name="minimum_engagement"
                                   min={0}
                                   max={10}
+                                  defaultValue={0}
                                   className="px-4 py-2 w-auto"
-                                  onChange={(e) => setFieldValue("minimum_engagement", e.target.value)}
-                                  // value={values.minimum_facebook_engagement}
+                                  onChange={(e) =>
+                                    setFieldValue("minimum_engagement", (obj.minimum_engagement = e.target.value))
+                                  }
+                                  // onChange={(e) => setFieldValue("minimum_engagement", e.target.value)}
+                                  value={obj.minimum_engagement}
                                 />
-                                {/* <p className="text-gray-700 text-sm mt-4"> Value: {values?.minimum_facebook_engagement}</p> */}
+
+                                <p className="text-gray-700 text-sm"> Value: {obj.minimum_engagement}</p>
                               </div>
                               <div className="w-auto">
                                 <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
@@ -677,7 +700,7 @@ function CampaignDetails({ route }) {
                                 <Dropdown
                                   dropdownStyle="w-[100px]"
                                   className="w-[100px]"
-                                  label={"1"}
+                                  label={obj?.number_of_days?.length ? obj.number_of_days : "1"}
                                   options={[
                                     {
                                       label: "2",
@@ -686,23 +709,33 @@ function CampaignDetails({ route }) {
                                       label: "3",
                                     },
                                   ]}
-                                  onChange={(e) => setFieldValue("duration", e.target.label)}
+                                  value={obj.number_of_days}
+                                  onChange={(e) => setFieldValue("number_of_days", (obj.number_of_days = e.label))}
                                 />
                               </div>
                               <div className="w-full">
                                 <label className="block text-gray-700 text-sm mb-2 capitalize" htmlFor="firstName">
-                                  {obj?.platform} Deliverables
+                                  {obj?.platform.length? obj?.platform : null} Deliverables
                                 </label>
                                 <MultiSelect
                                   options={options}
                                   value={selected}
-                                  onChange={() => {
-                                    setSelected();
-                                    setFieldValue("deliverables", selected);
+                                  // onChange={setSelected}
+                                  name="deliverables"
+                                  onChange={(e) => {
+                                    setSelected(e);
+                                    // console.log("selected", e);
+                                    let arr = [];
+                                    e?.map((item, index) => {
+                                      arr.push(item.label);
+                                    });
+                                    setFieldValue("deliverables", (obj.deliverables = arr));
+                                    // console.log("deliverableslo9ggg", arr);
                                   }}
                                   labelledBy={"Select"}
                                   hasSelectAll={false}
                                 />
+                                {/* {console.log(selected,"seeee")} */}
                               </div>
                               <div className="flex flex-col text-left">
                                 <label htmlFor="" className="block text-sm text-gray-700 mb-2">
@@ -712,18 +745,22 @@ function CampaignDetails({ route }) {
                                   type="number"
                                   className="input-field w-[110px] h-[48px] text-sm rounded-md px-2 py-1 border focus:outline-none text-gray-500"
                                   placeholder="Enter price"
-                                  // value={values.amount}
-                                  // onChange={(e) => setFieldValue("amount", e.target.value)}
+                                  value={obj.amount}
+                                  onChange={
+                                    (e) => setFieldValue("amount", (obj.amount = e.target.value))
+                                    // console.log("amout",e.target.value)
+                                  }
                                 />
                               </div>
                             </>
                           );
                         }}
                       </Formik>
+                      <div></div>
                     </div>
                   );
                 })}
-                {console.log("deliverables", values.social_media_deliverables)}
+                {/* {console.log("deliverables", values.social_media_deliverables)} */}
                 <div className="my-8">
                   <h1 className="text-start text-2xl font-bold mb-2 mt-4">Which Industry You Want To Target</h1>
                   <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">
@@ -906,19 +943,29 @@ function CampaignDetails({ route }) {
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
+                        socialplatform: values.social_media_deliverables
+                        // social_platform
+
                         // social_platform: values.social_platform.toString(),
                         // industry: values.industry.toString()
                       };
 
                       const data = {
                         ...values,
+                        // setSocialPlatform:socialplatform,
                         brand: values.brand.id,
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
+                        socialplatform: values.social_media_deliverables,
+                        social_platform:["wre","qww"],
+                        minimum_facebook_reach:["12","30"],
+                        minimum_facebook_engagement:["45","30"],
+                        number_of_days:"10",
+                        facebook_deliverables:"40"
                         // social_media_deliverables
                       };
-                      console.log("data", temp);
+                      console.log("data", data);
                       dispatch(addNewCampaignData(data, navigate));
                     }}
                   >
