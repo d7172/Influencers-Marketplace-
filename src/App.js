@@ -99,6 +99,7 @@ function App() {
             />
             <Route
               path="/admin/dashboard"
+              exact
               element={
                 <Protected isLoggedIn={isLoggedIn}>
                   <DashBoard />
