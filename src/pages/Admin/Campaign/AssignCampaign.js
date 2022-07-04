@@ -7,7 +7,7 @@ import CampaignDeliverables from "../../../components/CampaignDeliverables";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import CloseBtn from "../../../components/CloseBtn";
 import Pagination from "../../../components/Pagination";
-import { getAssignCampaignData } from "../../../store/Admin/Campaign/AssignCampaign/action";
+import { getQuotationCampaignData } from "../../../store/Admin/Campaign/AssignCampaign/action";
 import InfluencersBidDetails, { Qutationphase, RejectedCampaign } from "../Influencer/InfulncersBidDetails";
 import MyDialog from "../../../components/MyDialog";
 import ResonForRejction from "../../../components/ResonForRejction";
@@ -31,7 +31,7 @@ const AdmAssignCampaign = ({ route }) => {
 
   useEffect(() => {
     const payload = null;
-    dispatch(getAssignCampaignData(payload, activePage));
+    dispatch(getQuotationCampaignData(payload, activePage));
   }, [activePage]);
   const AdminAssignCampaign = useSelector((state) => state?.AdminAssignCampaign);
   tableData = AdminAssignCampaign?.results;

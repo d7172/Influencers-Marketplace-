@@ -1,19 +1,19 @@
 import { networkRequest } from "../../../_shared/api";
 
-export const getAssignCampaignData = (payload, activePage) => {
-    const url = `admin-assigncampaigns-list/?page=${activePage}`
-    return (dispatch) => {
-        networkRequest(
-            url,
-            "GET",
-            "JSON",
-            payload,
-            (res) => {
-                dispatch({ type: "ASSIGN_CAMPAIGN_SUCCESS", data: res })
-            },
-            () => {
-                dispatch({ type: "ASSIGN_CAMPAIGN_FAIL" })
-            }
-        )
-    }
-}
+export const getQuotationCampaignData = (payload, activePage) => {
+  const url = `admin-campaign-quotation-list/?page=${activePage}`;
+  return (dispatch) => {
+    networkRequest(
+      url,
+      "GET",
+      "JSON",
+      payload,
+      (res) => {
+        dispatch({ type: "QUOTATION_CAMPAIGN_SUCCESS", data: res });
+      },
+      () => {
+        dispatch({ type: "QUOTATION_CAMPAIGN_FAIL" });
+      }
+    );
+  };
+};

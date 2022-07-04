@@ -21,7 +21,7 @@ function AdminDashboardSidebar() {
   const isBrandActiveUser = location?.pathname.includes("/admin/brand/active-user");
   const isBrandRejectedUser = location?.pathname.includes("/admin/brand/rejected-user");
   const isNewCampaign = location?.pathname.includes("/admin/campaign/new-campaign");
-  const isAssignedCampaign = location?.pathname.includes("/admin/campaign/assigned-campaign");
+  const isAssignedCampaign = location?.pathname.includes("/admin/campaign/quotation-campaign");
   const isActiveCampaign = location?.pathname.includes("/admin/campaign/active-campaign");
   const isRejectedCampaign = location?.pathname.includes("/admin/campaign/rejected-campaign");
   return (
@@ -116,10 +116,10 @@ function AdminDashboardSidebar() {
                   New Campaign
                 </Link>
                 <Link
-                  to="/admin/campaign/assigned-campaign"
+                  to="/admin/campaign/quotation-campaign"
                   className={`text-[18px] ${isAssignedCampaign ? "text-[#3751FF]" : "text-[#969BA0]"}`}
                 >
-                  Assigned Campaign
+                  Quotation Campaign
                 </Link>
                 <Link
                   to="/admin/campaign/active-campaign"

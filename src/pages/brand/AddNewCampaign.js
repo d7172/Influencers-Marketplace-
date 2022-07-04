@@ -29,6 +29,8 @@ const initForm = {
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
+  revise_amount: 0,
+  admin_amount: 0,
   social_media_deliverables: [],
   minimum_facebook_reach: [],
   minimum_facebook_engagement: [],
@@ -137,7 +139,7 @@ function CampaignDetails({ route }) {
       ? state?.AdminNewCampaign?.results?.filter((r) => r.id == id)[0]
       : state?.BrandNewCampaign?.results?.filter((r) => r.id == id)[0]
   );
-  // console.log(campaignDetails);
+  console.log(campaignDetails, "campaignDetails--------------------------");
   const Details = {
     title: campaignDetails?.title,
     from_date: campaignDetails?.from_date,
@@ -154,6 +156,8 @@ function CampaignDetails({ route }) {
     number_of_influencer: campaignDetails?.number_of_influencer,
     number_of_followers: campaignDetails?.number_of_followers,
     amount: campaignDetails?.amount,
+    admin_amount: campaignDetails?.admin_amount,
+    revise_amount: campaignDetails?.revise_amount,
     social_platform: campaignDetails?.social_platform,
     minimum_facebook_reach: [campaignDetails?.minimum_facebook_reach],
     minimum_facebook_engagement: [campaignDetails?.minimum_facebook_engagement],
@@ -210,8 +214,6 @@ function CampaignDetails({ route }) {
       console.log(temp2, "temp2");
       setFieldValue("social_media_deliverables", temp2);
     }
-    console.log(temp2, "temp2++++++++++++++++++++++");
-    console.log(temp1, "temp1++++++++++++++++++++++");
     setFieldValue([]);
   }
   // const checkcount = temp2.filter((obj) => obj.platform).length;
@@ -913,6 +915,46 @@ function CampaignDetails({ route }) {
                         <FormError>{errors.expected_budget_per_influencer}</FormError>
                       )}
                     </div>
+                  </div>
+                  <div className="w-[27%]">
+                    <label className="block text-gray-700 text-sm mb-2" htmlFor="amount">
+                      Brand Amount<span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      className="input-field w-full"
+                      id="amount"
+                      type="text"
+                      value={values.amount}
+                      onChange={handleChange("amount")}
+                    />
+                    {errors.amount && touched.amount && <FormError>{errors.amount}</FormError>}
+                  </div>
+                  <div className="w-[27%]">
+                    <label className="block text-gray-700 text-sm mb-2" htmlFor="admin_amount">
+                      Admin Amount<span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      className="input-field w-full"
+                      id="admin_amount"
+                      type="text"
+                      value={values.admin_amount}
+                      onChange={handleChange("admin_amount")}
+                    />
+                    {errors.admin_amount && touched.admin_amount && <FormError>{errors.admin_amount}</FormError>}
+                  </div>
+                  <div className="w-[27%]">
+                    <label className="block text-gray-700 text-sm mb-2" htmlFor="revise_amount">
+                      Revise price<span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      className="input-field w-full"
+                      id="revise_amount"
+                      type="text"
+                      disabled
+                      value={values.amount - values.admin_amount}
+                      onChange={handleChange("revise_amount")}
+                    />
+                    {errors.revise_amount && touched.revise_amount && <FormError>{errors.revise_amount}</FormError>}
                   </div>
                 </div>
                 <div className="my-8">
