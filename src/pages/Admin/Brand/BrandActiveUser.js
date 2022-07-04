@@ -26,9 +26,9 @@ function BrandActiveUser({ route}) {
         <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "Active Brands" }]} />
       </div>
       <div className="max-w-[1280px] pt-6 relative">
-        <div className="flex items-center px-8">
+        {/* <div className="flex items-center px-8">
           <CampaignSearchBar placeHolder={"Search here by userID"} />
-        </div>
+        </div> */}
         <BrandUserTable tableData={tableData} route={"active-user"} />
         {tableData?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={brandActiveUser} activePage={activePage} setActivePage={setActivePage} />

@@ -97,9 +97,9 @@ function CampaignDetails({ route }) {
   const [deliverables, setDeliverables] = useState([]);
   const [selected, setSelected] = useState([]);
   const options = [
-    { label: "Create post", value: "Create post" },
-    { label: "Create story", value: "Create story" },
-    { label: "Reels", value: "Reels" },
+    { id: 0, label: "Create post", value: "Create post" },
+    { id: 1, label: "Create story", value: "Create story" },
+    { id: 2, label: "Reels", value: "Reels" },
   ];
 
   let activeBrands = [];
@@ -171,7 +171,7 @@ function CampaignDetails({ route }) {
     country: { id: null, name: campaignDetails?.country },
     state: { id: null, name: campaignDetails?.state },
   };
-  console.log("Details", Details);
+  // console.log("Details", Details);
   const [deliverablesRow, setDeliverablesRow] = useState([]);
   // let deliDetails = {
   //   platform: "",
@@ -182,11 +182,8 @@ function CampaignDetails({ route }) {
   //   amount: null
   // }
 
-  function handlePlatformChange(isChecked, arr, social_platform, setFieldValue) {
-    // socialplatform.includes(platform)
-    //   ? setSocialPlatform(socialplatform.filter((i) => i !== platform))
-    //   : setSocialPlatform(socialplatform.concat(platform));
-    console.log("alaslspaspddioadi", social_platform.length);
+  function handlePlatformChange(isChecked, arr, social_platform, setFieldValue, currentcheckbox) {
+    // console.log("alaslspaspddioadi", social_platform.length);
     let temp1;
     let temp2 = arr;
     if (isChecked) {
@@ -200,12 +197,22 @@ function CampaignDetails({ route }) {
           amount: null,
         },
       ];
+      console.log(temp1, "sddsdsdsd");
       temp2 = temp2.concat(temp1);
-      setFieldValue("social_media_deliverables", temp2);
+      if (temp2.length <= 5) {
+        setFieldValue("social_media_deliverables", temp2);
+      } else {
+        currentcheckbox.target.checked = false;
+        alert("You can select only 5 platforms");
+      }
     } else {
       temp2 = arr.filter((obj) => obj.platform !== social_platform);
+      console.log(temp2, "temp2");
       setFieldValue("social_media_deliverables", temp2);
     }
+    console.log(temp2, "temp2++++++++++++++++++++++");
+    console.log(temp1, "temp1++++++++++++++++++++++");
+    setFieldValue([]);
   }
   // const checkcount = temp2.filter((obj) => obj.platform).length;
   // console.log(
@@ -237,7 +244,23 @@ function CampaignDetails({ route }) {
     );
   }, [socialplatform]);
 
-  console.log(deliverables);
+  const limitedreach = (e) => {
+    if (socialplatform.length < 5) {
+      alert("You can add only 5 platforms");
+    } else {
+      alert("You can add more platforms");
+    }
+  };
+  const selectdelevrable = (e) => {
+    var newdeliverbles = [];
+    for (let index = 0; index < e.length; index++) {
+      newdeliverbles.push({
+        label: e[index],
+        value: e[index],
+      });
+    }
+    return newdeliverbles;
+  };
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -623,10 +646,11 @@ function CampaignDetails({ route }) {
                         {/* {console.log(values.social_media_deliverables.length, "dasdasdasda")} */}
                         {/* {values.social_media_deliverables.length > 5 ? */}
                         <input
-                          disabled={values.social_media_deliverables?.length < 5 ? false : true}
+                          // disabled={values.social_media_deliverables.length < 5 ? false : true}
                           id={`${platform}`}
                           name="social_platform"
                           type="checkbox"
+                          checked={values.social_media_deliverables[platform]}
                           // checked={social_media_deliverables.includes(platform)}
                           className="absolute top-0 right-[10px]"
                           onChange={(val) => {
@@ -634,7 +658,8 @@ function CampaignDetails({ route }) {
                               val.target.checked,
                               values.social_media_deliverables,
                               platform,
-                              setFieldValue
+                              setFieldValue,
+                              val
                             );
                           }}
                         />
@@ -647,10 +672,9 @@ function CampaignDetails({ route }) {
                     </div>
                   ))}
                 </div>
-                {values?.social_media_deliverables?.map((obj) => {
-                  console.log("item", obj);
+                {values?.social_media_deliverables?.map((obj, index) => {
                   return (
-                    <div className="my-8 flex items-center gap-8 border rounded-md p-4">
+                    <div className="my-8 flex items-center gap-8 border rounded-md p-4" key={index + "sd"}>
                       <Formik initialValues={obj} enableReinitialize>
                         {({ item, errors, setFieldValue, touched }) => {
                           return (
@@ -711,29 +735,25 @@ function CampaignDetails({ route }) {
                                   onChange={(e) => setFieldValue("number_of_days", (obj.number_of_days = e.label))}
                                 />
                               </div>
+
                               <div className="w-full">
                                 <label className="block text-gray-700 text-sm mb-2 capitalize" htmlFor="firstName">
                                   {obj?.platform.length ? obj?.platform : null} Deliverables
                                 </label>
                                 <MultiSelect
                                   options={options}
-                                  value={selected}
-                                  // onChange={setSelected}
+                                  value={selectdelevrable(obj.deliverables)}
                                   name="deliverables"
                                   onChange={(e) => {
-                                    setSelected(e);
-                                    // console.log("selected", e);
                                     let arr = [];
                                     e?.map((item, index) => {
                                       arr.push(item.label);
                                     });
                                     setFieldValue("deliverables", (obj.deliverables = arr));
-                                    // console.log("deliverableslo9ggg", arr);
                                   }}
                                   labelledBy={"Select"}
                                   hasSelectAll={false}
                                 />
-                                {/* {console.log(selected,"seeee")} */}
                               </div>
                               <div className="flex flex-col text-left">
                                 <label htmlFor="" className="block text-sm text-gray-700 mb-2">

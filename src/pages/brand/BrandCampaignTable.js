@@ -21,7 +21,7 @@ function BrandCampaignTable({ route, campaignRows }) {
                     <tr>
                         <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3">
                             Campaign ID
-                            {/* <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id')} /></span> */}
+                            <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id')} /></span>
                         </th>
                         {(route === "new-campaign") && <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3">
                             Brand Name

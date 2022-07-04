@@ -11,11 +11,22 @@ import { getAssignCampaignData } from "../../../store/Admin/Campaign/AssignCampa
 import InfluencersBidDetails, { Qutationphase, RejectedCampaign } from "../Influencer/InfulncersBidDetails";
 import MyDialog from "../../../components/MyDialog";
 import ResonForRejction from "../../../components/ResonForRejction";
+import { SearchIcon } from "@heroicons/react/solid";
 
 const AdmAssignCampaign = ({ route }) => {
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
+  // const [searchQuery, setSearchQuery] = useState("");
+  const [query, setQuery] = useState("");
+  const [searchParams] = useState(["id"]);
 
+  function search(items) {
+    return items?.filter((item) => {
+      return searchParams?.some((newItem) => {
+        return item.campaigndetails[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1;
+      });
+    });
+  }
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -39,9 +50,17 @@ const AdmAssignCampaign = ({ route }) => {
         <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Campaign" }, { title: route }]} />
       </div>
       <div className="flex items-center py-4 px-8">
-        <CampaignSearchBar placeHolder={"Search here"} />
+        <div className="flex gap-4 px-4 w-[450px] h-[50px] bg-[#F1F1F1]">
+          <SearchIcon className="w-7" />
+          <input
+            type="search"
+            placeholder={"Search here"}
+            className="outline-none border-0 w-full bg-[#F1F1F1] "
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
       </div>
-      <CampaignTable tableData={tableData} subTableData={subTableData} />
+      <CampaignTable tableData={tableData} subTableData={subTableData} search={search} />
       {tableData?.length ? (
         <div className="w-full mt-2 px-4">
           <Pagination link={AdminAssignCampaign} activePage={activePage} setActivePage={setActivePage} />
@@ -56,7 +75,7 @@ const AdmAssignCampaign = ({ route }) => {
 };
 
 export default AdmAssignCampaign;
-function CampaignTable({ tableData, subTableData }) {
+function CampaignTable({ tableData, subTableData, search, campaignRows }) {
   const navigate = useNavigate();
   const [detailsTable, setDetailsTable] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -64,6 +83,22 @@ function CampaignTable({ tableData, subTableData }) {
   const handleIndex = (index) => {
     activeIndex !== index && setActiveIndex(index);
     setDetailsTable(!detailsTable);
+  };
+
+  const [sort, setSort] = useState(null);
+  const [assigntableData, setTableData] = useState(tableData);
+
+  const sortAccending = (param) => {
+    param === "id"
+      ? setTableData(assigntableData.sort((a, b) => a.id - b.id))
+      : setTableData(assigntableData.sort((a, b) => a.amount - b.amount));
+    setSort(0);
+  };
+  const sortDecending = (param) => {
+    param === "id"
+      ? setTableData(assigntableData.sort((a, b) => b.id - a.id))
+      : setTableData(assigntableData.sort((a, b) => b.amount - a.amount));
+    setSort(1);
   };
   // console.log(tableData[0].campaigndetails);
   // console.log(tableData[0].influencerdetails);
@@ -96,10 +131,25 @@ function CampaignTable({ tableData, subTableData }) {
                   <th scope="col" className=" text-[18px] font-[500] text-gray-900 pl-6 py-4 text-left">
                     Amount
                   </th>
+                  <div className="text-[18px] font-[500] text-gray-900  py-4 mt-1">
+                    <span className="cursor-pointer">
+                      <img
+                        src="/svgs/uparrow.svg"
+                        className={`hover:invert-[.5] ${sort === 0 && "invert-[.5]"} `}
+                        onClick={() => sortAccending("amount")}
+                      />
+                      <img
+                        src="/svgs/downarrow.svg"
+                        className={`hover:invert-[.5] ${sort === 1 && "invert-[.5]"} `}
+                        onClick={() => sortDecending("amount")}
+                      />
+                    </span>
+                  </div>
                 </tr>
               </thead>
               <tbody>
-                {tableData?.map((data, id) => {
+                {search(tableData)?.map((data, id) => {
+                  console.log(data);
                   return (
                     <>
                       <tr key={id} className="bg-[#F2F2F2] flex">

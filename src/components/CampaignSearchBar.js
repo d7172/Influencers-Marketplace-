@@ -10,4 +10,5 @@ function CampaignSearchBar({ placeHolder }) {
   );
 }
 
+
 export default CampaignSearchBar;

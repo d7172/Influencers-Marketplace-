@@ -25,9 +25,9 @@ function BrandNewUser({ route }) {
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
         <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "New Brands" }]} />
       </div>
-      <div className="max-w-[1280px] pt-6 relative">
-        <div className="flex items-center p-4 justify-between w-full mb-5">
-          <CampaignSearchBar placeHolder={"Search here"} />
+      <div className="max-w-[1280px]  relative">
+        <div className="flex items-center justify-between w-full">
+          {/* <CampaignSearchBar placeHolder={"Search here"} /> */}
           {/* <div
           className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
           onClick={() => navigate("/admin/influencer/new-user/add")}
