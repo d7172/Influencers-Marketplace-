@@ -33,7 +33,6 @@ const AdmAssignCampaign = ({ route }) => {
     },
   ];
 
-
   return (
     <div className="pt-4 relative">
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -147,7 +146,6 @@ function CampaignTable({ tableData, subTableData }) {
                 })}
               </tbody>
             </table>
-            ``
           </div>
         </div>
       </div>
@@ -234,10 +232,9 @@ function Subtable({ subTableData }) {
 }
 
 function BidsDetails({ deliverableDetails }) {
-
   const [dialog, setDialog] = useState(false);
-  const [reason , setReason] = useState(false);
-  const [quotation , setQuotation] = useState(false);
+  const [reason, setReason] = useState(false);
+  const [quotation, setQuotation] = useState(false);
 
   let bidTotal = 0;
   return (
@@ -318,41 +315,46 @@ function BidsDetails({ deliverableDetails }) {
         <div className="flex flex-col">
           <h1 className="text-[14px]  text-black-900 font-bold pl-6 mt-2 text-left">Total Bid from Influencers</h1>
           <p className="w-[20px] h-[20px] ml-6 text-[#3751FF] font-bold">&#8377;{bidTotal}</p>
-        </div>   
+        </div>
         <div className="flex flex-col">
           <h1 className="text-[14px]  text-black-900 font-bold pl-6 mt-2 text-left">Total Bid of Yours</h1>
           <p className="w-[20px] h-[20px] ml-6 text-[#3751FF] font-bold">&#8377;{bidTotal}</p>
         </div>
         <div>
-          <button className="w-[230px] h-[40px] mt-2 ml-auto text-white bg-[#3751FF] font-bold rounded-full text-[14px]"
-          onClick={() => setQuotation(true)}>
-          Accept & Move to quotation
+          <button
+            className="w-[230px] h-[40px] mt-2 ml-auto text-white bg-[#3751FF] font-bold rounded-full text-[14px]"
+            onClick={() => setQuotation(true)}
+          >
+            Accept & Move to quotation
           </button>
         </div>
         <div>
-          <button className="w-[180px] h-[40px] mt-2 ml-auto text-[#3751FF] bg-[#FFFFFF] rounded-full text-[14px] border-2 border-blue-300"
-          onClick={() => setReason(true)}>
-          Reject
-          </button> 
+          <button
+            className="w-[180px] h-[40px] mt-2 ml-auto text-[#3751FF] bg-[#FFFFFF] rounded-full text-[14px] border-2 border-blue-300"
+            onClick={() => setReason(true)}
+          >
+            Reject
+          </button>
         </div>
         <div>
-          <button className="h-[40px] mt-2 ml-auto text-[#3751FF] text-[14px] underline"
-          type="button"
-          onClick={() => setDialog(true)}
+          <button
+            className="h-[40px] mt-2 ml-auto text-[#3751FF] text-[14px] underline"
+            type="button"
+            onClick={() => setDialog(true)}
           >
             viewDetails
           </button>
         </div>
         <MyDialog isOpen={dialog} close={() => setDialog(false)} className="rounded-8">
-            <InfluencersBidDetails close={() => setDialog(false)} />
-          </MyDialog>
-          <MyDialog isOpen={reason} close={() => setReason(false)} className="rounded-8">
-            <RejectedCampaign close={() => setReason(false)} />
-          </MyDialog>
-          <MyDialog isOpen={quotation} close={() => setQuotation(false)} className="rounded-8">
-            <Qutationphase close={() => setQuotation(false)} />
-          </MyDialog>
+          <InfluencersBidDetails close={() => setDialog(false)} />
+        </MyDialog>
+        <MyDialog isOpen={reason} close={() => setReason(false)} className="rounded-8">
+          <RejectedCampaign close={() => setReason(false)} />
+        </MyDialog>
+        <MyDialog isOpen={quotation} close={() => setQuotation(false)} className="rounded-8">
+          <Qutationphase close={() => setQuotation(false)} />
+        </MyDialog>
+      </div>
     </div>
-</div>
   );
 }

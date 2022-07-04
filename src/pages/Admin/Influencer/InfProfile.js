@@ -45,6 +45,7 @@ function InfProfile({ route }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [rejectBid, setRejectBid] = useState(false);
+  const [reason, setReason] = useState("");
   const [personalDetails, setPersonalDetails] = useState(initForm);
   let categoryData = [];
   const disable = route === "rejected-user";
@@ -56,7 +57,7 @@ function InfProfile({ route }) {
   const infActiveUser = activeUserdata.results.filter((i) => i?.influencerDetail?.id == id)[0]?.influencerDetail;
   let rejectedUserData = useSelector((state) => state?.infRejectedUser);
   const infRejectedUser = rejectedUserData.results.filter((i) => i.id == id)[0];
-
+  console.log(infActiveUser, "------infActiveUser--------");
   const User = {
     first_name: (infNewUser || infActiveUser || infRejectedUser)?.first_name,
     last_name: (infNewUser || infActiveUser || infRejectedUser)?.last_name,
@@ -79,6 +80,21 @@ function InfProfile({ route }) {
     kyc_details: (infNewUser || infActiveUser || infRejectedUser)?.kyc_details,
   };
 
+  const handleApproveInf = () => {
+    const approvalData = new FormData();
+    approvalData.append("influencer_id", JSON.parse(id));
+    approvalData.append("status", "active");
+    console.log(approvalData, "approvalData");
+    dispatch(InfActiveReject(approvalData, navigate));
+  };
+  const handleRejectInf = () => {
+    const rejectData = new FormData();
+    rejectData.append("influencer_id", JSON.parse(id));
+    rejectData.append("status", "reject");
+    rejectData.append("reason", reason);
+    console.log(rejectData, "rejectData");
+    dispatch(InfActiveReject(rejectData, navigate));
+  };
   useEffect(() => {
     id && setPersonalDetails(User);
     dispatch(getCategoriesData());
@@ -101,7 +117,12 @@ function InfProfile({ route }) {
         />
       </div>
       <MyDialog isOpen={rejectBid} close={() => setRejectBid(false)} className="rounded-8">
-        <ResonForRejction close={() => setRejectBid(false)} />
+        <ResonForRejction
+          close={() => setRejectBid(false)}
+          reason={reason}
+          setReason={setReason}
+          onSubmit={() => handleRejectInf()}
+        />
       </MyDialog>
 
       <div className=" w-full min-w-infNavbar px-8 items-center justify-between">
@@ -643,7 +664,7 @@ function InfProfile({ route }) {
                     </div>
                   </div>
 
-                  {route === "active-user" && (
+                  {/* {route === "active-user" && (
                     <div className="mt-8 flex cursor-pointer">
                       <div className="">
                         <div className="flex flex-wrap gap-10 items-center justify-between">
@@ -670,7 +691,7 @@ function InfProfile({ route }) {
                         </div>
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   <div className="flex justify-end">
                     <div className="mt-14 cursor-pointer">
@@ -679,8 +700,7 @@ function InfProfile({ route }) {
                         className="w-[150px] rounded-[50px] bg-primary text-white py-2"
                         onClick={() => {
                           console.log({ ...values, gender: values.gender.charAt(0) }, "values");
-                          const approvalData = { influencer_id: id, status: "active" };
-                          route === "new-user" && dispatch(InfActiveReject(approvalData));
+                          (route === "new-user" || route === "rejected-user") && handleApproveInf();
                         }}
                       >
                         {route === "new-user" && `Approve`}
@@ -692,9 +712,15 @@ function InfProfile({ route }) {
                       <button
                         type="button"
                         className="w-[150px] rounded-[50px] bg-[#FFFFFF] py-2 box-shadow-button"
-                        onClick={() => setRejectBid(true)}
+                        onClick={() => {
+                          route === "new-user"
+                            ? setRejectBid(true)
+                            : route === "active-user"
+                            ? navigate(`/admin/influencer/active-user`)
+                            : navigate(`/admin/influencer/rejected-user`);
+                        }}
                       >
-                        {route === "new-user" ? `Reject` : `Cancle`}
+                        {route === "new-user" ? `Reject` : `Cancel`}
                       </button>
                     </div>
                   </div>

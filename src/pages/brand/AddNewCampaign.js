@@ -29,9 +29,7 @@ const initForm = {
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
-  social_media_deliverables: [
-
-  ],
+  social_media_deliverables: [],
   minimum_facebook_reach: [],
   minimum_facebook_engagement: [],
   number_of_days: "",
@@ -439,7 +437,7 @@ function CampaignDetails({ route }) {
                         min={10}
                         max={50}
                         value={values.age_group}
-                        onChange={(val) => setFieldValue(values.age_group[0] = val.target.value)}
+                        onChange={(val) => setFieldValue((values.age_group[0] = val.target.value))}
                       />
                       {errors.age_group && touched.age_group && <FormError>{errors.age_group}</FormError>}
                     </div>
@@ -622,10 +620,10 @@ function CampaignDetails({ route }) {
                         key={index}
                         className="flex justify-center items-center mb-2 relative campaignDetailsSVG-shadow w-fit p-3 h-fit rounded-[4rem] bg-white "
                       >
-                        {console.log(values.social_media_deliverables.length, "dasdasdasda")}
+                        {/* {console.log(values.social_media_deliverables.length, "dasdasdasda")} */}
                         {/* {values.social_media_deliverables.length > 5 ? */}
                         <input
-                          disabled={values.social_media_deliverables.length < 5 ? false : true}
+                          disabled={values.social_media_deliverables?.length < 5 ? false : true}
                           id={`${platform}`}
                           name="social_platform"
                           type="checkbox"
@@ -715,7 +713,7 @@ function CampaignDetails({ route }) {
                               </div>
                               <div className="w-full">
                                 <label className="block text-gray-700 text-sm mb-2 capitalize" htmlFor="firstName">
-                                  {obj?.platform.length? obj?.platform : null} Deliverables
+                                  {obj?.platform.length ? obj?.platform : null} Deliverables
                                 </label>
                                 <MultiSelect
                                   options={options}
@@ -943,7 +941,7 @@ function CampaignDetails({ route }) {
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
-                        socialplatform: values.social_media_deliverables
+                        socialplatform: values.social_media_deliverables,
                         // social_platform
 
                         // social_platform: values.social_platform.toString(),
@@ -958,11 +956,11 @@ function CampaignDetails({ route }) {
                         state: values.state.id,
                         gender: values.gender.value,
                         socialplatform: values.social_media_deliverables,
-                        social_platform:["wre","qww"],
-                        minimum_facebook_reach:["12","30"],
-                        minimum_facebook_engagement:["45","30"],
-                        number_of_days:"10",
-                        facebook_deliverables:"40"
+                        social_platform: ["wre", "qww"],
+                        minimum_facebook_reach: ["12", "30"],
+                        minimum_facebook_engagement: ["45", "30"],
+                        number_of_days: "10",
+                        facebook_deliverables: "40",
                         // social_media_deliverables
                       };
                       console.log("data", data);
