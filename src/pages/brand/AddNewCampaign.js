@@ -659,7 +659,7 @@ function CampaignDetails({ route }) {
                           id={`${platform}`}
                           name="social_platform"
                           type="checkbox"
-                          checked={values.social_media_deliverables[platform]}
+                          // checked={values.social_media_deliverables[platform]}
                           // checked={social_media_deliverables.includes(platform)}
                           className="absolute top-0 right-[10px]"
                           onChange={(val) => {
@@ -684,6 +684,7 @@ function CampaignDetails({ route }) {
                 </div>
                 {values?.social_media_deliverables?.map((obj,index) => {
 
+                  console.log(obj, "item");
                   return (
                     <div className="my-8 flex items-center gap-8 border rounded-md p-4"  key={index + "sd"}>
                       <Formik initialValues={obj} enableReinitialize>
