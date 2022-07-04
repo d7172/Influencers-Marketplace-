@@ -11,11 +11,25 @@ import { getAssignCampaignData } from "../../../store/Admin/Campaign/AssignCampa
 import InfluencersBidDetails, { Qutationphase, RejectedCampaign } from "../Influencer/InfulncersBidDetails";
 import MyDialog from "../../../components/MyDialog";
 import ResonForRejction from "../../../components/ResonForRejction";
+import { SearchIcon } from "@heroicons/react/solid";
+
 
 const AdmAssignCampaign = ({ route }) => {
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
+  // const [searchQuery, setSearchQuery] = useState("");
+  const [query, setQuery] = useState("");
+  const [searchParams] = useState(["id", ]);
 
+  function search(items) {
+    return items?.filter((item) => {
+      return searchParams?.some((newItem) => {
+        return (
+          item.campaigndetails[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
+        );
+      });
+    });
+  }
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,9 +54,14 @@ const AdmAssignCampaign = ({ route }) => {
         <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Campaign" }, { title: route }]} />
       </div>
       <div className="flex items-center py-4 px-8">
-        <CampaignSearchBar placeHolder={"Search here"} />
+        <div className="flex gap-4 px-4 w-[450px] h-[50px] bg-[#F1F1F1]">
+          <SearchIcon className="w-7" />
+          <input type="search" placeholder={"Search here"} className="outline-none border-0 w-full bg-[#F1F1F1] "
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
       </div>
-      <CampaignTable tableData={tableData} subTableData={subTableData} />
+      <CampaignTable tableData={tableData} subTableData={subTableData} search={search} />
       {tableData?.length ? (
         <div className="w-full mt-2 px-4">
           <Pagination link={AdminAssignCampaign} activePage={activePage} setActivePage={setActivePage} />
@@ -57,7 +76,7 @@ const AdmAssignCampaign = ({ route }) => {
 };
 
 export default AdmAssignCampaign;
-function CampaignTable({ tableData, subTableData }) {
+function CampaignTable({ tableData, subTableData, search,campaignRows }) {
   const navigate = useNavigate();
   const [detailsTable, setDetailsTable] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -65,6 +84,18 @@ function CampaignTable({ tableData, subTableData }) {
   const handleIndex = (index) => {
     activeIndex !== index && setActiveIndex(index);
     setDetailsTable(!detailsTable);
+  };
+
+  const [sort, setSort] = useState(null);
+  const [assigntableData, setTableData] = useState(tableData);
+
+  const sortAccending = (param) => {
+      param === 'id' ? setTableData(assigntableData.sort((a, b) => a.id - b.id)) : setTableData(assigntableData.sort((a, b) => a.amount - b.amount));
+      setSort(0);
+  };
+  const sortDecending = (param) => {
+      param === 'id' ? setTableData(assigntableData.sort((a, b) => b.id - a.id)) : setTableData(assigntableData.sort((a, b) => b.amount - a.amount));
+      setSort(1);
   };
   // console.log(tableData[0].campaigndetails);
   // console.log(tableData[0].influencerdetails);
@@ -97,16 +128,20 @@ function CampaignTable({ tableData, subTableData }) {
                   <th scope="col" className=" text-[18px] font-[500] text-gray-900 pl-6 py-4 text-left">
                     Amount
                   </th>
+                  <div className="text-[18px] font-[500] text-gray-900  py-4 mt-1">
+                  <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('amount')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('amount')} /></span>
+                  </div>
                 </tr>
               </thead>
               <tbody>
-                {tableData?.map((data, id) => {
+                {search(tableData)?.map((data, id) => {
+                  console.log(data)
                   return (
                     <>
                       <tr key={id} className="bg-[#F2F2F2] flex">
                         <td
                           className="text-sm text-[#3751FF] w-[132px] font-[500] pl-6 py-4 whitespace-nowrap underline  cursor-pointer"
-                          // onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
+                        // onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
                         >
                           {data?.campaigndetails.id}
                         </td>
@@ -147,7 +182,6 @@ function CampaignTable({ tableData, subTableData }) {
                 })}
               </tbody>
             </table>
-            ``
           </div>
         </div>
       </div>
@@ -236,8 +270,8 @@ function Subtable({ subTableData }) {
 function BidsDetails({ deliverableDetails }) {
 
   const [dialog, setDialog] = useState(false);
-  const [reason , setReason] = useState(false);
-  const [quotation , setQuotation] = useState(false);
+  const [reason, setReason] = useState(false);
+  const [quotation, setQuotation] = useState(false);
 
   let bidTotal = 0;
   return (
@@ -318,41 +352,41 @@ function BidsDetails({ deliverableDetails }) {
         <div className="flex flex-col">
           <h1 className="text-[14px]  text-black-900 font-bold pl-6 mt-2 text-left">Total Bid from Influencers</h1>
           <p className="w-[20px] h-[20px] ml-6 text-[#3751FF] font-bold">&#8377;{bidTotal}</p>
-        </div>   
+        </div>
         <div className="flex flex-col">
           <h1 className="text-[14px]  text-black-900 font-bold pl-6 mt-2 text-left">Total Bid of Yours</h1>
           <p className="w-[20px] h-[20px] ml-6 text-[#3751FF] font-bold">&#8377;{bidTotal}</p>
         </div>
         <div>
           <button className="w-[230px] h-[40px] mt-2 ml-auto text-white bg-[#3751FF] font-bold rounded-full text-[14px]"
-          onClick={() => setQuotation(true)}>
-          Accept & Move to quotation
+            onClick={() => setQuotation(true)}>
+            Accept & Move to quotation
           </button>
         </div>
         <div>
           <button className="w-[180px] h-[40px] mt-2 ml-auto text-[#3751FF] bg-[#FFFFFF] rounded-full text-[14px] border-2 border-blue-300"
-          onClick={() => setReason(true)}>
-          Reject
-          </button> 
+            onClick={() => setReason(true)}>
+            Reject
+          </button>
         </div>
         <div>
           <button className="h-[40px] mt-2 ml-auto text-[#3751FF] text-[14px] underline"
-          type="button"
-          onClick={() => setDialog(true)}
+            type="button"
+            onClick={() => setDialog(true)}
           >
             viewDetails
           </button>
         </div>
         <MyDialog isOpen={dialog} close={() => setDialog(false)} className="rounded-8">
-            <InfluencersBidDetails close={() => setDialog(false)} />
-          </MyDialog>
-          <MyDialog isOpen={reason} close={() => setReason(false)} className="rounded-8">
-            <RejectedCampaign close={() => setReason(false)} />
-          </MyDialog>
-          <MyDialog isOpen={quotation} close={() => setQuotation(false)} className="rounded-8">
-            <Qutationphase close={() => setQuotation(false)} />
-          </MyDialog>
+          <InfluencersBidDetails close={() => setDialog(false)} />
+        </MyDialog>
+        <MyDialog isOpen={reason} close={() => setReason(false)} className="rounded-8">
+          <RejectedCampaign close={() => setReason(false)} />
+        </MyDialog>
+        <MyDialog isOpen={quotation} close={() => setQuotation(false)} className="rounded-8">
+          <Qutationphase close={() => setQuotation(false)} />
+        </MyDialog>
+      </div>
     </div>
-</div>
   );
 }
