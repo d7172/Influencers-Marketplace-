@@ -80,14 +80,7 @@ function App() {
           </Route>
 
           {/* admin routes */}
-          <Route
-            path="/admin"
-            element={
-              <Protected isLoggedIn={isLoggedIn}>
-                <AdminDashboardCompositeComponent />
-              </Protected>
-            }
-          >
+          <Route path="/admin" element={<AdminDashboardCompositeComponent />}>
             <Route
               path="/admin"
               exact
