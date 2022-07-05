@@ -14,7 +14,7 @@ function InfDetails({ route }) {
       number_of_days: "1",
       category: "Fashion, DIY",
       amount: "500",
-      social_platform: ["facebook", "instagram"]
+      social_platform: ["facebook", "instagram"],
     },
     {
       id: "00001",
@@ -23,9 +23,9 @@ function InfDetails({ route }) {
       number_of_days: "1",
       category: "Fashion, DIY",
       amount: "5050",
-      social_platform: ["facebook"]
-    }
-  ]
+      social_platform: ["facebook"],
+    },
+  ];
   const completedCampaign = [
     {
       id: "00002",
@@ -34,9 +34,9 @@ function InfDetails({ route }) {
       number_of_days: "1",
       category: "Fashion, DIY",
       amount: "500",
-      social_platform: ["facebook", "instagram"]
-    }
-  ]
+      social_platform: ["facebook", "instagram"],
+    },
+  ];
   const rejectedCampaign = [
     {
       id: "00003",
@@ -45,7 +45,7 @@ function InfDetails({ route }) {
       number_of_days: "1",
       category: "Fashion, DIY",
       amount: "500",
-      social_platform: ["facebook", "instagram"]
+      social_platform: ["facebook", "instagram"],
     },
     {
       id: "00003",
@@ -54,7 +54,7 @@ function InfDetails({ route }) {
       number_of_days: "1",
       category: "Fashion, DIY",
       amount: "5050",
-      social_platform: ["facebook"]
+      social_platform: ["facebook"],
     },
     {
       id: "00003",
@@ -63,21 +63,34 @@ function InfDetails({ route }) {
       number_of_days: "1",
       category: "Fashion, DIY",
       amount: "5050",
-      social_platform: ["facebook"]
-    }
-  ]
+      social_platform: ["facebook"],
+    },
+  ];
   const [campaignTab, setCampaignTab] = useState(1);
   const activeTabStyle = "border-[#ffab2d]  bg-[#ffab2d1a]";
   const [tableData, setTableData] = useState(activeCampaign);
 
-  const infActiveUserDetails = useSelector((state) => state?.infActiveUser?.results?.filter((r) => r.influencerDetail.id == id))[0];
+  const infActiveUserDetails = useSelector((state) =>
+    state?.infActiveUser?.results?.filter((r) => r.influencerDetail.id == id)
+  )[0];
   // const userDetails = useSelector((state) => state?.infActiveUser);
   const infDetails = infActiveUserDetails?.influencerDetail;
   const date = new Date(infDetails.created_at);
   return (
     <>
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "influencer" }, { title: route, onClick: ()=>{navigate(`/admin/influencer/${route}`)} }, { title: infDetails.id }]} />
+        <Breadcrumbs
+          options={[
+            { title: "influencer" },
+            {
+              title: route,
+              onClick: () => {
+                navigate(`/admin/influencer/${route}`);
+              },
+            },
+            { title: infDetails.id },
+          ]}
+        />
       </div>
       <div className="flex flex-col boxShadow px-4 relative ml-4">
         <div className="mt-4 text-[16px] font-[600] w-[180px]">Influencers Profile</div>
@@ -90,9 +103,13 @@ function InfDetails({ route }) {
             <img className="w-360 rounded-md" src={infDetails.profile_pic} alt="avtar" />
           </div>
           <div className="ml-4">
-            <div className="text-[22px] font-[700] w-[180px] capitalize">{infDetails.first_name + " " + infDetails.last_name}</div>
+            <div className="text-[22px] font-[700] w-[180px] capitalize">
+              {infDetails.first_name + " " + infDetails.last_name}
+            </div>
             <div className="text-[16px] mt-1 font-[400] w-[180px]">@{infDetails.user_name}</div>
-            <div className="text-[16px] mt-4 font-[500] w-[180px]">Join on { date.toLocaleDateString("en-US",{day: "numeric", month: "long", year: "numeric"}) }</div>
+            <div className="text-[16px] mt-4 font-[500] w-[180px]">
+              Join on {date.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" })}
+            </div>
             <div className="text-[16px] mt-4 font-[400] w-[180px]">{infDetails.email}</div>
             <div className="text-[16px] font-[400] w-[180px]">{infDetails.contact_number}</div>
           </div>
@@ -109,15 +126,21 @@ function InfDetails({ route }) {
             <div className="flex border border-[#DC3CCC] border-solid bg-[#dc3ccc1a] justify-center ">
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/10-todo.svg" alt="avtar" />
               <div className="ml-2 items-center">
-                <div className="mt-2 text-[18px] font-[600] w-[180px]">3.5%</div>
+                <div className="mt-2 text-[18px] font-[600] w-[180px]">3.50</div>
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Bid to Win Ratio</div>
               </div>
             </div>
           </div>
         </div>
         <div className="mt-8 flex ">
-          <div className="items-center  box-shadow-button cursor-pointer" onClick={() => { setCampaignTab(1); setTableData(activeCampaign) }}>
-            <div className={`flex border border-solid ${(campaignTab === 1) && (activeTabStyle)} justify-center`}>
+          <div
+            className="items-center  box-shadow-button cursor-pointer"
+            onClick={() => {
+              setCampaignTab(1);
+              setTableData(activeCampaign);
+            }}
+          >
+            <div className={`flex border border-solid ${campaignTab === 1 && activeTabStyle} justify-center`}>
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/2-user.svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Total Active Campaign</div>
@@ -125,8 +148,14 @@ function InfDetails({ route }) {
               </div>
             </div>
           </div>
-          <div className="ml-10 items-center  box-shadow-button cursor-pointer" onClick={() => { setCampaignTab(2); setTableData(completedCampaign) }}>
-            <div className={`flex border border-solid ${(campaignTab === 2) && (activeTabStyle)}  justify-center `}>
+          <div
+            className="ml-10 items-center  box-shadow-button cursor-pointer"
+            onClick={() => {
+              setCampaignTab(2);
+              setTableData(completedCampaign);
+            }}
+          >
+            <div className={`flex border border-solid ${campaignTab === 2 && activeTabStyle}  justify-center `}>
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/47-team.svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Completed Campaign</div>
@@ -134,8 +163,14 @@ function InfDetails({ route }) {
               </div>
             </div>
           </div>
-          <div className="ml-10 items-center  box-shadow-button cursor-pointer" onClick={() => { setCampaignTab(3); setTableData(rejectedCampaign) }}>
-            <div className={`flex border border-solid ${(campaignTab === 3) && (activeTabStyle)}  justify-center `}>
+          <div
+            className="ml-10 items-center  box-shadow-button cursor-pointer"
+            onClick={() => {
+              setCampaignTab(3);
+              setTableData(rejectedCampaign);
+            }}
+          >
+            <div className={`flex border border-solid ${campaignTab === 3 && activeTabStyle}  justify-center `}>
               <img className="w-45 h-[50px] m-2 rounded-md" src="/svgs/10-todo (1).svg" alt="avtar" />
               <div className="ml-2 items-center">
                 <div className="mt-1 text-[16px] font-[400] w-[180px]">Rejected Campaigning</div>
@@ -147,14 +182,14 @@ function InfDetails({ route }) {
 
         {/* <CampaignTable /> */}
         <div className="mt-6 pr-4">
-          <div className="flex gap-10 border-b-2 pb-2.5 text-[18px] font-[500]">
-            <h1 className="w-[110px]">Campaign ID</h1>
-            <h1 className="w-[220px]">Campaign Title</h1>
-            <h1 className="w-[60px]">From</h1>
-            <h1 className="w-[60px]">Duration</h1>
-            <h1 className="w-[70px]">Category</h1>
-            <h1 className="w-[60px]">Amount</h1>
-            <h1 className="w-[130px]">Social Platform</h1>
+          <div className="flex gap-10 border-b-2 pb-2.5 text-[12px] font-[500]">
+            <h5 className="w-[110px]">Campaign ID</h5>
+            <h5 className="w-[220px]">Campaign Title</h5>
+            <h5 className="w-[60px]">From</h5>
+            <h5 className="w-[60px]">Duration</h5>
+            <h5 className="w-[70px]">Category</h5>
+            <h5 className="w-[60px]">Amount</h5>
+            <h5 className="w-[130px]">Social Platform</h5>
           </div>
           {tableData.map((data, i) => (
             <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">
@@ -174,7 +209,7 @@ function InfDetails({ route }) {
                 <img className="absolute z-10 left-[35px] w-[20px] h-[20px]" src="/svgs/linkedin.svg" alt="face" />
                 <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1>
               </div>
-              <div onClick={() => { }} className="text-[#3751FF] font-[500]  underline cursor-pointer ">
+              <div onClick={() => {}} className="text-[#3751FF] font-[500]  underline cursor-pointer ">
                 View Details
               </div>
             </div>

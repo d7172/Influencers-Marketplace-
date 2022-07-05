@@ -27,7 +27,18 @@ function CampaignDetails() {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Campaign" }, { title: "Active Campaign", onClick: ()=>{navigate(`/influencer/campaign/active-campaign`)} }, { title: campaignDetails?.id }]} />
+        <Breadcrumbs
+          options={[
+            { title: "Campaign" },
+            {
+              title: "Active Campaign",
+              onClick: () => {
+                navigate(`/influencer/campaign/active-campaign`);
+              },
+            },
+            { title: campaignDetails?.id },
+          ]}
+        />
       </div>
       <div className="mt-6 px-6 pb-10">
         <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
@@ -38,10 +49,19 @@ function CampaignDetails() {
           <ResonForRejction close={() => setRejectBid(false)} />
         </MyDialog>
         <MyDialog isOpen={uploadDocsuments} close={() => setUploadDocsuments(false)} className="rounded-8">
-          <CampaignUploadDocuments close={() => setUploadDocsuments(false)} />
+          <CampaignUploadDocuments
+            close={() => setUploadDocsuments(false)}
+            campaign_id={JSON.parse(id)}
+            influencer_id={JSON.parse(localStorage.userInfo).data[0].id}
+          />
         </MyDialog>
         <div className="ml-4">
-          <BackArrowBtn className="" onClick={() => { navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/"))) }} />
+          <BackArrowBtn
+            className=""
+            onClick={() => {
+              navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/")));
+            }}
+          />
           <div className="flex justify-between items-start">
             <div className="mt-6">
               <h1 className="text-[32px] font-[600]">Campaign id</h1>

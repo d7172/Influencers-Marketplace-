@@ -129,12 +129,12 @@ function App() {
             <Route path="/admin/campaign/new-campaign/add" element={<AddNewCampaign route={"admin"} />} />
             <Route path="/admin/campaign/new-campaign/:id" element={<AddNewCampaign route={"admin"} />} />
             <Route
-              path="/admin/campaign/assigned-campaign"
-              element={<AdmAssignCampaign route={"assigned-campaign"} />}
+              path="/admin/campaign/quotation-campaign"
+              element={<AdmAssignCampaign route={"quotation-campaign"} />}
             />
             <Route
-              path="/admin/campaign/assigned-campaign/:id"
-              element={<AdmCampaignDetails route={"admin/assigned-campaign"} />}
+              path="/admin/campaign/quotation-campaign/:id"
+              element={<AdmCampaignDetails route={"admin/quotation-campaign"} />}
             />
             <Route path="/admin/campaign/active-campaign" element={<AdmActiveCampaign route={"active-campaign"} />} />
             <Route

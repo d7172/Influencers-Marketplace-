@@ -7,26 +7,23 @@ import CampaignDeliverables from "../../../components/CampaignDeliverables";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import CloseBtn from "../../../components/CloseBtn";
 import Pagination from "../../../components/Pagination";
-import { getAssignCampaignData } from "../../../store/Admin/Campaign/AssignCampaign/action";
+import { getQuotationCampaignData } from "../../../store/Admin/Campaign/AssignCampaign/action";
 import InfluencersBidDetails, { Qutationphase, RejectedCampaign } from "../Influencer/InfulncersBidDetails";
 import MyDialog from "../../../components/MyDialog";
 import ResonForRejction from "../../../components/ResonForRejction";
 import { SearchIcon } from "@heroicons/react/solid";
-
 
 const AdmAssignCampaign = ({ route }) => {
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
   // const [searchQuery, setSearchQuery] = useState("");
   const [query, setQuery] = useState("");
-  const [searchParams] = useState(["id", ]);
+  const [searchParams] = useState(["id"]);
 
   function search(items) {
     return items?.filter((item) => {
       return searchParams?.some((newItem) => {
-        return (
-          item.campaigndetails[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
-        );
+        return item.campaigndetails[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1;
       });
     });
   }
@@ -34,7 +31,7 @@ const AdmAssignCampaign = ({ route }) => {
 
   useEffect(() => {
     const payload = null;
-    dispatch(getAssignCampaignData(payload, activePage));
+    dispatch(getQuotationCampaignData(payload, activePage));
   }, [activePage]);
   const AdminAssignCampaign = useSelector((state) => state?.AdminAssignCampaign);
   tableData = AdminAssignCampaign?.results;
@@ -47,7 +44,6 @@ const AdmAssignCampaign = ({ route }) => {
     },
   ];
 
-
   return (
     <div className="pt-4 relative">
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -56,7 +52,10 @@ const AdmAssignCampaign = ({ route }) => {
       <div className="flex items-center py-4 px-8">
         <div className="flex gap-4 px-4 w-[450px] h-[50px] bg-[#F1F1F1]">
           <SearchIcon className="w-7" />
-          <input type="search" placeholder={"Search here"} className="outline-none border-0 w-full bg-[#F1F1F1] "
+          <input
+            type="search"
+            placeholder={"Search here"}
+            className="outline-none border-0 w-full bg-[#F1F1F1] "
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
@@ -76,7 +75,7 @@ const AdmAssignCampaign = ({ route }) => {
 };
 
 export default AdmAssignCampaign;
-function CampaignTable({ tableData, subTableData, search,campaignRows }) {
+function CampaignTable({ tableData, subTableData, search, campaignRows }) {
   const navigate = useNavigate();
   const [detailsTable, setDetailsTable] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -90,12 +89,16 @@ function CampaignTable({ tableData, subTableData, search,campaignRows }) {
   const [assigntableData, setTableData] = useState(tableData);
 
   const sortAccending = (param) => {
-      param === 'id' ? setTableData(assigntableData.sort((a, b) => a.id - b.id)) : setTableData(assigntableData.sort((a, b) => a.amount - b.amount));
-      setSort(0);
+    param === "id"
+      ? setTableData(assigntableData.sort((a, b) => a.id - b.id))
+      : setTableData(assigntableData.sort((a, b) => a.amount - b.amount));
+    setSort(0);
   };
   const sortDecending = (param) => {
-      param === 'id' ? setTableData(assigntableData.sort((a, b) => b.id - a.id)) : setTableData(assigntableData.sort((a, b) => b.amount - a.amount));
-      setSort(1);
+    param === "id"
+      ? setTableData(assigntableData.sort((a, b) => b.id - a.id))
+      : setTableData(assigntableData.sort((a, b) => b.amount - a.amount));
+    setSort(1);
   };
   // console.log(tableData[0].campaigndetails);
   // console.log(tableData[0].influencerdetails);
@@ -129,19 +132,30 @@ function CampaignTable({ tableData, subTableData, search,campaignRows }) {
                     Amount
                   </th>
                   <div className="text-[18px] font-[500] text-gray-900  py-4 mt-1">
-                  <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('amount')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('amount')} /></span>
+                    <span className="cursor-pointer">
+                      <img
+                        src="/svgs/uparrow.svg"
+                        className={`hover:invert-[.5] ${sort === 0 && "invert-[.5]"} `}
+                        onClick={() => sortAccending("amount")}
+                      />
+                      <img
+                        src="/svgs/downarrow.svg"
+                        className={`hover:invert-[.5] ${sort === 1 && "invert-[.5]"} `}
+                        onClick={() => sortDecending("amount")}
+                      />
+                    </span>
                   </div>
                 </tr>
               </thead>
               <tbody>
                 {search(tableData)?.map((data, id) => {
-                  console.log(data)
+                  console.log(data);
                   return (
                     <>
                       <tr key={id} className="bg-[#F2F2F2] flex">
                         <td
                           className="text-sm text-[#3751FF] w-[132px] font-[500] pl-6 py-4 whitespace-nowrap underline  cursor-pointer"
-                        // onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
+                          // onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
                         >
                           {data?.campaigndetails.id}
                         </td>
@@ -268,7 +282,6 @@ function Subtable({ subTableData }) {
 }
 
 function BidsDetails({ deliverableDetails }) {
-
   const [dialog, setDialog] = useState(false);
   const [reason, setReason] = useState(false);
   const [quotation, setQuotation] = useState(false);
@@ -358,19 +371,24 @@ function BidsDetails({ deliverableDetails }) {
           <p className="w-[20px] h-[20px] ml-6 text-[#3751FF] font-bold">&#8377;{bidTotal}</p>
         </div>
         <div>
-          <button className="w-[230px] h-[40px] mt-2 ml-auto text-white bg-[#3751FF] font-bold rounded-full text-[14px]"
-            onClick={() => setQuotation(true)}>
+          <button
+            className="w-[230px] h-[40px] mt-2 ml-auto text-white bg-[#3751FF] font-bold rounded-full text-[14px]"
+            onClick={() => setQuotation(true)}
+          >
             Accept & Move to quotation
           </button>
         </div>
         <div>
-          <button className="w-[180px] h-[40px] mt-2 ml-auto text-[#3751FF] bg-[#FFFFFF] rounded-full text-[14px] border-2 border-blue-300"
-            onClick={() => setReason(true)}>
+          <button
+            className="w-[180px] h-[40px] mt-2 ml-auto text-[#3751FF] bg-[#FFFFFF] rounded-full text-[14px] border-2 border-blue-300"
+            onClick={() => setReason(true)}
+          >
             Reject
           </button>
         </div>
         <div>
-          <button className="h-[40px] mt-2 ml-auto text-[#3751FF] text-[14px] underline"
+          <button
+            className="h-[40px] mt-2 ml-auto text-[#3751FF] text-[14px] underline"
             type="button"
             onClick={() => setDialog(true)}
           >
