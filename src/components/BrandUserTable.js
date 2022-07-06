@@ -1,18 +1,12 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import CustomToolTip from "./Tooltip";
 import { SearchIcon } from "@heroicons/react/solid";
 
-function BrandUserTable({ tableData, route , query }) {
-
-  const [tableDatas, setTableData] = useState(tableData);
-  const [searchParams] = useState(["id","brand_name"]);
-
-
-  useEffect(() => {
-    setTableData(tableData);
-  }, [tableData]);
+function BrandUserTable({ tableData, route }) {
+  const [query, setQuery] = useState("");
+  const [searchParams] = useState(["id"]);
 
   function search(items) {
     return items?.filter((item) => {
@@ -23,21 +17,17 @@ function BrandUserTable({ tableData, route , query }) {
       });
     });
   }
-  
-const [sort, setSort] = useState(null);
-
-  const sortAccending = (param) => {
-    param === 'id' ? setTableData(tableDatas?.sort((a, b) => a.id - b.id)) : setTableData(tableDatas?.sort((a, b) => a.id - b.id));
-    setSort(0);
-};
-const sortDecending = (param) => {
-    param === 'id' ? setTableData(tableDatas?.sort((a, b) => b.id - a.id)) : setTableData(tableDatas?.sort((a, b) => b.id - a.id));
-    setSort(1);
-};
-
   const navigate = useNavigate();
   return (
     <>
+      <div className="flex items-center py-4 px-8">
+        <div className="flex gap-4 px-4 w-[450px] h-[50px] bg-[#F1F1F1]">
+          <SearchIcon className="w-7" />
+          <input type="search" placeholder={"Search here"} className="outline-none border-0 w-full bg-[#F1F1F1] "
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+      </div>
       <div className="flex flex-col max-w-[1280px]">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -46,20 +36,12 @@ const sortDecending = (param) => {
                 <thead className="border-b">
                   <tr>
                     {route === "active-user" && (
-                      <div>
-                      <th scope="row" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 flex flex-row">
+                      <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
                         Brand Id
-                     <div className="ml-2 mt-1">
-                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id')} /></span>
-                     </div>
                       </th>
-                      </div>
                     )}
                     <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                       Brand Name
-                    {/* <div className="ml-2 mt-1">
-                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id')} /></span>
-                     </div> */}
                     </th>
                     <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                       Number

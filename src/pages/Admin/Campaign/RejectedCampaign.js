@@ -27,20 +27,16 @@ const AdmRejectedCampaign = ({ route }) => {
   }, []);
   const AdmRejectedCampaign = useSelector((state) => state?.AdmRejectedCampaign);
   tableData = AdmRejectedCampaign?.results;
-
-  const [query, setQuery] = useState("");
-
-
   return (
     <div className="pt-4 relative">
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
         <Breadcrumbs options={[{ title: "Dashboard" }, { title: "Campaign" }, { title: route }]} />
       </div>
       <div className="flex items-center py-4 px-8">
-        <CampaignSearchBar placeHolder={"Search here"} setQuery={setQuery} />
+        <CampaignSearchBar placeHolder={"Search here"} />
       </div>
       <div className="flex items-center py-4 px-8">
-        <AdminCampaignTable tableData={tableData} route={route} query={query} />
+        <AdminCampaignTable tableData={tableData} route={route} />
       </div>
       {tableData?.length ? (<div className="w-full mt-2 px-4">
         <Pagination link={AdmRejectedCampaign} activePage={activePage} setActivePage={setActivePage} />

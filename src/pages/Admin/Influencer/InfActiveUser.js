@@ -21,9 +21,6 @@ function InfActiveUser({ route }) {
   console.log('infActiveUser', infActiveUser);
   console.log('====================================');
   tableData = infActiveUser?.results.map((r) => r?.influencerDetail)
-
-  const [query, setQuery] = useState("");
-
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -31,9 +28,9 @@ function InfActiveUser({ route }) {
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center px-8">
-          <CampaignSearchBar placeHolder={"Search here by userID"} setQuery={setQuery} />
+          <CampaignSearchBar placeHolder={"Search here by userID"} />
         </div>
-        <AdminUserTable tableData={tableData} route={route} query={query} />
+        <AdminUserTable tableData={tableData} route={route} />
         {tableData?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={infActiveUser} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (

@@ -10,7 +10,6 @@ import Dropdown from "../Dropdowns";
 import { assignToInf, getAssignProcessData } from "../../../store/Admin/Campaign/AssignProcess/action";
 import BackArrowBtn from "../../../components/BackArrowBtn";
 
-import { SearchIcon } from "@heroicons/react/solid";
 
 const AdmNewCampaign = ({ route }) => {
   let tableData = [];
@@ -78,9 +77,6 @@ const AdmNewCampaign = ({ route }) => {
   console.log(infTable);
   const assignProcessData = useSelector((state) => state?.AdminAssignProcess?.results);
   console.log(assignProcessData);
-
-  const [query, setQuery] = useState("");
-
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -99,7 +95,7 @@ const AdmNewCampaign = ({ route }) => {
       </div>
       <div className="pt-4 relative">
         <div className="flex items-center p-4 justify-between w-full mb-5">
-          <CampaignSearchBar placeHolder={"Search here"} setQuery={setQuery} />
+          <CampaignSearchBar placeHolder={"Search here"} />
           {!infTable && <div
             className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
             onClick={() => navigate("/admin/campaign/new-campaign/add")}
@@ -120,7 +116,7 @@ const AdmNewCampaign = ({ route }) => {
         {infTable ? <InfTable infTableData={infTableData} setInfTable={setInfTable} />
           : (<>
             <div className="flex items-center py-4 px-8">
-              <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} setInfTableData={setInfTableData} setInfTable={setInfTable} route={route} activePage={activePage} query={query} />
+              <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} setInfTableData={setInfTableData} setInfTable={setInfTable} route={route} activePage={activePage} />
             </div>
             {tableData?.length ? (
               <div className="w-full mt-2 px-4">
@@ -140,7 +136,7 @@ const AdmNewCampaign = ({ route }) => {
 
 export default AdmNewCampaign;
 
-function InfTable({ infTableData, setInfTable , search }) {
+function InfTable({ infTableData, setInfTable }) {
   const dispatch = useDispatch();
   let tableData = [];
   
@@ -189,7 +185,7 @@ function InfTable({ infTableData, setInfTable , search }) {
         </div>
       </div>
       <div className="grid grid-cols-5 gap-x-2 p-2 text-sm" >
-        {search(tableData)?.influencerdetails?.map((data) => {
+        {tableData?.influencerdetails?.map((data) => {
           return (
             <>
               <div className="mb-6">

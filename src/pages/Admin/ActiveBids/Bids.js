@@ -16,7 +16,7 @@ import Breadcrumbs from "../../../components/Breadcrumbs";
 // import MyDialog from "./MyDialog";
 // import PalceBid from "./PalceBid";
 
-const  Bids = () => {
+function Bids() {
   // const [placeBid, setPlaceBid] = useState(false);
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
@@ -40,22 +40,7 @@ const  Bids = () => {
   const handleIndex = (index) => {
     activeIndex !== index && setActiveIndex(index);
     setDetailsTable(!detailsTable);
-
-    
-
   };
-  const [query, setQuery] = useState("");
-    const [searchParams] = useState(["id","brand_name"]);
-    
-  function search(items) {
-    return items?.filter((item) => {
-      return searchParams?.some((newItem) => {
-        return (
-          item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
-        );
-      });
-    });
-  }
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -78,7 +63,6 @@ const  Bids = () => {
             type="search"
             placeholder="Search here by campaign ID"
             className="outline-none border-0 w-full bg-[#F1F1F1] "
-            onChange={(e) => setQuery(e.target.value)}
           />
         </div>
         <div className="flex gap-4 px-4 mx-4">
@@ -134,7 +118,7 @@ const  Bids = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {search(tableData)?.map((data, i) => {
+                  {tableData?.map((data, i) => {
                     return (
                       <>
                         <tr key={i} className="bg-[#F2F2F2] flex">

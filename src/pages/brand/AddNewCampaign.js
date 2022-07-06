@@ -14,7 +14,6 @@ import { getCategoriesData } from "../../store/Categories/action";
 import { MultiSelect } from "react-multi-select-component";
 
 const initForm = {
-  brand: { id: null, name: "" },
   title: "",
   from_date: "",
   to_date: "",
@@ -22,17 +21,17 @@ const initForm = {
   category: "",
   campain_strategy: "",
   campain_goal: "",
-  project_duration_in_days: null,
   promotion_goal: "",
+  project_duration_in_days: null,
   age_group: [],
-  country: { id: null, name: "" },
-  state: { id: null, name: "" },
   gender: { label: "", value: "" },
   audience_interest: "",
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
-  social_platform:[],
+  revise_amount: 0,
+  admin_amount: 0,
+  social_media_deliverables: [],
   minimum_facebook_reach: [],
   minimum_facebook_engagement: [],
   number_of_days: "",
@@ -45,11 +44,9 @@ const initForm = {
   note_from_brand: "",
   note_from_admin: "",
   terms_and_condition: "",
-  status_camp: "pending",
-  social_media_deliverables: [],
-  adminamount: 0,
-  reviseamount: 0,
-  
+  brand: { id: null, name: "" },
+  country: { id: null, name: "" },
+  state: { id: null, name: "" },
 };
 
 const platforms = [
@@ -92,7 +89,6 @@ export const ImgUpload = ({ children }) => {
 };
 
 function CampaignDetails({ route }) {
-  // console.log("CampaignDetails", route);
   const location = useLocation();
   const isAddNewCamp = location.pathname.includes("add");
   const { id } = useParams();
@@ -103,9 +99,9 @@ function CampaignDetails({ route }) {
   const [deliverables, setDeliverables] = useState([]);
   const [selected, setSelected] = useState([]);
   const options = [
-    {id:0, label: "Create post", value: "Create post" },
-    {id:1, label: "Create story", value: "Create story" },
-    {id:2, label: "Reels", value: "Reels" },
+    { id: 0, label: "Create post", value: "Create post" },
+    { id: 1, label: "Create story", value: "Create story" },
+    { id: 2, label: "Reels", value: "Reels" },
   ];
 
   let activeBrands = [];
@@ -143,9 +139,8 @@ function CampaignDetails({ route }) {
       ? state?.AdminNewCampaign?.results?.filter((r) => r.id == id)[0]
       : state?.BrandNewCampaign?.results?.filter((r) => r.id == id)[0]
   );
-  // console.log("campaignDetails", campaignDetails);
+  console.log(campaignDetails, "campaignDetails--------------------------");
   const Details = {
-    brand: { id: campaignDetails?.brand, name: campaignDetails?.brand_name },
     title: campaignDetails?.title,
     from_date: campaignDetails?.from_date,
     to_date: campaignDetails?.to_date,
@@ -156,14 +151,14 @@ function CampaignDetails({ route }) {
     promotion_goal: campaignDetails?.promotion_goal,
     project_duration_in_days: campaignDetails?.project_duration_in_days,
     age_group: [campaignDetails?.age_group],
-    country: { id: null, name: campaignDetails?.country },
-    state: { id: null, name: campaignDetails?.state },
     gender: { label: campaignDetails?.gender === "M" ? "Male" : "Female", value: campaignDetails?.gender },
     audience_interest: campaignDetails?.audience_interest,
     number_of_influencer: campaignDetails?.number_of_influencer,
     number_of_followers: campaignDetails?.number_of_followers,
     amount: campaignDetails?.amount,
-    social_platform: [campaignDetails?.social_platform],
+    admin_amount: campaignDetails?.admin_amount,
+    revise_amount: campaignDetails?.revise_amount,
+    social_platform: campaignDetails?.social_platform,
     minimum_facebook_reach: [campaignDetails?.minimum_facebook_reach],
     minimum_facebook_engagement: [campaignDetails?.minimum_facebook_engagement],
     number_of_days: campaignDetails?.number_of_days,
@@ -176,9 +171,11 @@ function CampaignDetails({ route }) {
     note_from_brand: campaignDetails?.note_from_brand,
     note_from_admin: campaignDetails?.note_from_admin,
     terms_and_condition: campaignDetails?.terms_and_condition,
-    social_media_deliverables: campaignDetails?.social_media_deliverables,
+    brand: { id: campaignDetails?.brand, name: campaignDetails?.brand_name },
+    country: { id: null, name: campaignDetails?.country },
+    state: { id: null, name: campaignDetails?.state },
   };
-  console.log("Details", Details.social_media_deliverables);
+  // console.log("Details", Details);
   const [deliverablesRow, setDeliverablesRow] = useState([]);
   // let deliDetails = {
   //   platform: "",
@@ -189,12 +186,12 @@ function CampaignDetails({ route }) {
   //   amount: null
   // }
 
-  function handlePlatformChange(isChecked, arr, social_platform, setFieldValue , currentcheckbox) {
+  function handlePlatformChange(isChecked, arr, social_platform, setFieldValue, currentcheckbox) {
     // console.log("alaslspaspddioadi", social_platform.length);
     let temp1;
     let temp2 = arr;
     if (isChecked) {
-      temp1 = 
+      temp1 = [
         {
           platform: social_platform,
           deliverables: [],
@@ -202,27 +199,23 @@ function CampaignDetails({ route }) {
           minimum_engagement: null,
           duration: null,
           amount: null,
-        };
-      console.log(temp1,"sddsdsdsd");
+        },
+      ];
+      console.log(temp1, "sddsdsdsd");
       temp2 = temp2.concat(temp1);
-      if(temp2.length <= 5){
-      setFieldValue("social_media_deliverables", temp2);
-      }
-      else{
+      if (temp2.length <= 5) {
+        setFieldValue("social_media_deliverables", temp2);
+      } else {
         currentcheckbox.target.checked = false;
         alert("You can select only 5 platforms");
       }
-
-    }
-    else {
+    } else {
       temp2 = arr.filter((obj) => obj.platform !== social_platform);
-      console.log(temp2,"temp2");
-      setFieldValue("social_media_deliverables", temp2[0]);
+      console.log(temp2, "temp2");
+      setFieldValue("social_media_deliverables", temp2);
     }
-    console.log(temp2,"temp2++++++++++++++++++++++");
-    console.log(temp1,"temp1++++++++++++++++++++++");
-    setFieldValue([])
-}
+    setFieldValue([]);
+  }
   // const checkcount = temp2.filter((obj) => obj.platform).length;
   // console.log(
   //   checkcount,
@@ -242,7 +235,7 @@ function CampaignDetails({ route }) {
           minimum_reach: "",
           minimum_engagement: "",
           amount: null,
-          number_of_days: null,
+          duration: null,
         };
       })
     );
@@ -253,116 +246,23 @@ function CampaignDetails({ route }) {
     );
   }, [socialplatform]);
 
-
-  const dataddd = () => {
-    const all = 
-      {
-        "id": 17,
-        "created_by": "system",
-        "created_at": "2022-07-06T07:23:01.239872Z",
-        "updated_by": "system",
-        "updated_at": "2022-07-06T07:23:01.239895Z",
-        "status": 1,
-        "title": "dffgfgf",
-        "from_date": "2022-07-08",
-        "to_date": "2022-07-21",
-        "about_campaign": "dfgfdgdfg",
-        "category": "Fashion Wear",
-        "campain_strategy": "Affiliate Campaing",
-        "campain_goal": "Brand Awareness",
-        "promotion_goal": "",
-        "project_duration_in_days": 10,
-        "age_group": [
-            "16"
-        ],
-        "gender": "M",
-        "audience_interest": "Fashion Wear",
-        "number_of_influencer": "3",
-        "number_of_followers": "20k - 30k",
-        "amount": 0,
-        "admin_amount": 0,
-        "revise_amount": 0,
-        "social_platform": [
-            "wre",
-            "qww"
-        ],
-        "minimum_facebook_reach": [
-            "12",
-            "30"
-        ],
-        "minimum_facebook_engagement": [
-            "45",
-            "30"
-        ],
-        "number_of_days": "10",
-        "facebook_deliverables": "40",
-        "industry": [
-            "beauty",
-            "health"
-        ],
-        "payout_type": "Barter",
-        "budget_type": "Fixed",
-        "budget_per_influencer": "20k - 30k",
-        "expected_budget_per_influencer": "30k",
-        "note_from_brand": "fghgfhghfgh",
-        "note_from_admin": "",
-        "terms_and_condition": "fghfghgfh",
-        "status_camp": "pending",
-        "brand": 3,
-        "country": "india",
-        "state": "maharastra",
-        "social_media_deliverables": [
-        {
-          "id": 15,
-          "platform": "facebook",
-          "deliverables": [
-            "Create story",
-            "Create post"
-          ],
-          "minimum_reach": 156,
-          "minimum_engagement": 25,
-          "duration_in_day": 6,
-          "amount": 400
-        },
-        {
-          "id": 14,
-          "platform": "instagram",
-          "deliverables": [
-            "Create story",
-            "Create post",
-            "Reels"
-          ],
-          "minimum_reach": 400,
-          "minimum_engagement": 1,
-          "duration_in_day": 1,
-          "amount": 400
-        }
-      ],
-        "brand_name": "Abul Rajani"
-    }
-    console.log(all,"all");
-  }
-
   const limitedreach = (e) => {
-    if(socialplatform.length < 5){
+    if (socialplatform.length < 5) {
       alert("You can add only 5 platforms");
-    }
-    else{
+    } else {
       alert("You can add more platforms");
     }
-  }
+  };
   const selectdelevrable = (e) => {
-    var newdeliverbles = []
+    var newdeliverbles = [];
     for (let index = 0; index < e.length; index++) {
       newdeliverbles.push({
-        label:e[index],
-        value:e[index]
+        label: e[index],
+        value: e[index],
       });
-      
     }
-    return newdeliverbles
-
-  }
+    return newdeliverbles;
+  };
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -562,7 +462,7 @@ function CampaignDetails({ route }) {
                         min={10}
                         max={50}
                         value={values.age_group}
-                        onChange={(val) => setFieldValue(values.age_group[0] = val.target.value)}
+                        onChange={(val) => setFieldValue((values.age_group[0] = val.target.value))}
                       />
                       {errors.age_group && touched.age_group && <FormError>{errors.age_group}</FormError>}
                     </div>
@@ -747,12 +647,12 @@ function CampaignDetails({ route }) {
                       >
                         {/* {console.log(values.social_media_deliverables.length, "dasdasdasda")} */}
                         {/* {values.social_media_deliverables.length > 5 ? */}
-                     <input
+                        <input
                           // disabled={values.social_media_deliverables.length < 5 ? false : true}
                           id={`${platform}`}
                           name="social_platform"
                           type="checkbox"
-                          // checked={values.social_media_deliverables[platform]}
+                          checked={values.social_media_deliverables[platform]}
                           // checked={social_media_deliverables.includes(platform)}
                           className="absolute top-0 right-[10px]"
                           onChange={(val) => {
@@ -765,7 +665,6 @@ function CampaignDetails({ route }) {
                             );
                           }}
                         />
-                      
                         <label htmlFor={`${platform}`}>
                           {" "}
                           <img src={`/svgs/${platform}.svg`} className="platformsSVG" alt="platform" />
@@ -775,11 +674,9 @@ function CampaignDetails({ route }) {
                     </div>
                   ))}
                 </div>
-                {values?.social_media_deliverables?.map((obj,index) => {
-
-                  console.log(obj, "item");
+                {values?.social_media_deliverables?.map((obj, index) => {
                   return (
-                    <div className="my-8 flex items-center gap-8 border rounded-md p-4"  key={index + "sd"}>
+                    <div className="my-8 flex items-center gap-8 border rounded-md p-4" key={index + "sd"}>
                       <Formik initialValues={obj} enableReinitialize>
                         {({ item, errors, setFieldValue, touched }) => {
                           return (
@@ -822,7 +719,7 @@ function CampaignDetails({ route }) {
                               </div>
                               <div className="w-auto">
                                 <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                                 duration
+                                  No of Days
                                 </label>
                                 <Dropdown
                                   dropdownStyle="w-[100px]"
@@ -837,13 +734,13 @@ function CampaignDetails({ route }) {
                                     },
                                   ]}
                                   value={obj.duration}
-                                  onChange={(e) => setFieldValue("duration", (obj.duration = (e.label)))}
+                                  onChange={(e) => setFieldValue("duration", (obj.duration = e.label))}
                                 />
                               </div>
-                             
+
                               <div className="w-full">
                                 <label className="block text-gray-700 text-sm mb-2 capitalize" htmlFor="firstName">
-                                  {obj?.platform.length? obj?.platform : null} Deliverables
+                                  {obj?.platform.length ? obj?.platform : null} Deliverables
                                 </label>
                                 <MultiSelect
                                   options={options}
@@ -853,7 +750,7 @@ function CampaignDetails({ route }) {
                                     let arr = [];
                                     e?.map((item, index) => {
                                       arr.push(item.label);
-                                    });     
+                                    });
                                     setFieldValue("deliverables", (obj.deliverables = arr));
                                   }}
                                   labelledBy={"Select"}
@@ -1019,6 +916,46 @@ function CampaignDetails({ route }) {
                       )}
                     </div>
                   </div>
+                  <div className="w-[27%]">
+                    <label className="block text-gray-700 text-sm mb-2" htmlFor="amount">
+                      Brand Amount<span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      className="input-field w-full"
+                      id="amount"
+                      type="text"
+                      value={values.amount}
+                      onChange={handleChange("amount")}
+                    />
+                    {errors.amount && touched.amount && <FormError>{errors.amount}</FormError>}
+                  </div>
+                  <div className="w-[27%]">
+                    <label className="block text-gray-700 text-sm mb-2" htmlFor="admin_amount">
+                      Admin Amount<span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      className="input-field w-full"
+                      id="admin_amount"
+                      type="text"
+                      value={values.admin_amount}
+                      onChange={handleChange("admin_amount")}
+                    />
+                    {errors.admin_amount && touched.admin_amount && <FormError>{errors.admin_amount}</FormError>}
+                  </div>
+                  <div className="w-[27%]">
+                    <label className="block text-gray-700 text-sm mb-2" htmlFor="revise_amount">
+                      Revise price<span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      className="input-field w-full"
+                      id="revise_amount"
+                      type="text"
+                      disabled
+                      value={values.amount - values.admin_amount}
+                      onChange={handleChange("revise_amount")}
+                    />
+                    {errors.revise_amount && touched.revise_amount && <FormError>{errors.revise_amount}</FormError>}
+                  </div>
                 </div>
                 <div className="my-8">
                   <h1 className="text-start text-2xl font-bold mb-2 mt-4">Describe Your Campaign</h1>
@@ -1059,13 +996,6 @@ function CampaignDetails({ route }) {
                   <button
                     type="button"
                     className="rounded-[50px] bg-[#3751FF] text-white px-8 py-2 "
-                    onClick={() => dataddd() }
-                  />
-
-                  <button
-                    type="button"
-                    className="rounded-[50px] bg-[#3751FF] text-white px-8 py-2 "
-
                     onClick={() => {
                       const temp = {
                         ...values,
@@ -1073,7 +1003,7 @@ function CampaignDetails({ route }) {
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
-                        socialplatform: values.social_media_deliverables
+                        socialplatform: values.social_media_deliverables,
                         // social_platform
 
                         // social_platform: values.social_platform.toString(),
@@ -1087,16 +1017,14 @@ function CampaignDetails({ route }) {
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
-                        // socialplatform: values.social_media_deliverables,
-                        social_platform:["wre","qww"],
-                        minimum_facebook_reach:["12","30"],
-                        minimum_facebook_engagement:["45","30"],
-                        number_of_days:"10",
-                        facebook_deliverables:"40",
-                        social_media_deliverables: values.social_media_deliverables,
-                        // social_media_deliverables:temp1
+                        socialplatform: values.social_media_deliverables,
+                        social_platform: ["wre", "qww"],
+                        minimum_facebook_reach: ["12", "30"],
+                        minimum_facebook_engagement: ["45", "30"],
+                        number_of_days: "10",
+                        facebook_deliverables: "40",
+                        // social_media_deliverables
                       };
-                      console.log(data.social_media_deliverables,"data.social_media_deliverables");
                       console.log("data", data);
                       dispatch(addNewCampaignData(data, navigate));
                     }}

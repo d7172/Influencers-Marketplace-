@@ -1,38 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMoveToCampaignPoolData } from "../store/Admin/Campaign/MoveToPool/action";
 import { deleteCampaignData, getNewCampaignData } from "../store/Admin/Campaign/NewCampaign/action";
 import CustomToolTip from "./Tooltip";
-import { SearchIcon } from "@heroicons/react/solid";
-
-
-function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTableData, activePage , query }) {
-  console.log("mainRoute", mainRoute);
-  console.log("route", route);
-
-  const [searchParams] = useState(["id","brand_name"]);
-  
-  function search(items) {
-    return items?.filter((item) => {
-      return searchParams?.some((newItem) => {
-        return (
-          item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
-        );
-      });
-    });
-  }
-
+function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTableData, activePage }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col max-w-[1280px]">
-       {/* <div className="flex gap-4 px-4 w-[450px] h-[50px] bg-[#F1F1F1]">
-          <SearchIcon className="w-7" />
-          <input type="search" placeholder={"Search here"} className="outline-none border-0 w-full bg-[#F1F1F1] "
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </div> */}
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className={`overflow-x-auto ${tableData?.length&& `min-h-[43vh]`}`}>
@@ -81,14 +57,13 @@ function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTa
                 </tr>
               </thead>
               <tbody>
-                {search(tableData)?.map((data, id) => {
-                  console.log("data", data);
+                {tableData?.map((data, id) => {
                   return (
                     <tr className="relative min-h-[56px]" key={id}>
                       <td className="text-sm text-gray-900 font-[500] pl-6 py-4 whitespace-nowrap">{data?.id}</td>
 
                       <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                        {data?.brand_name}
+                        {data?.brand}
                       </td>
                       <td className="text-sm min-w-[250px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         {data?.title}

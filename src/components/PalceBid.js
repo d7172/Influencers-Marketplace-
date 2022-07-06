@@ -90,7 +90,7 @@ function PalceBid({ close, deliverablesDetails = [] }) {
       <div className="flex w-full gap-4 items-end my-4" >
         <Dropdown
           label={platform.length ? platform : `Select social platform`}
-          className={"w-[210px] capitalize"}
+          className={"w-full capitalize"}
           dropdownStyle={"w-[200px] capitalize"}
           options={platformsList}
           onChange={(val) => { setPlatform(val.label) }}
