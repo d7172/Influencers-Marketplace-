@@ -194,7 +194,7 @@ function CampaignDetails({ route }) {
     let temp1;
     let temp2 = arr;
     if (isChecked) {
-      temp1 = [
+      temp1 = 
         {
           platform: social_platform,
           deliverables: [],
@@ -202,8 +202,7 @@ function CampaignDetails({ route }) {
           minimum_engagement: null,
           duration: null,
           amount: null,
-        },
-      ];
+        };
       console.log(temp1,"sddsdsdsd");
       temp2 = temp2.concat(temp1);
       if(temp2.length <= 5){
@@ -218,7 +217,7 @@ function CampaignDetails({ route }) {
     else {
       temp2 = arr.filter((obj) => obj.platform !== social_platform);
       console.log(temp2,"temp2");
-      setFieldValue("social_media_deliverables", temp2);
+      setFieldValue("social_media_deliverables", temp2[0]);
     }
     console.log(temp2,"temp2++++++++++++++++++++++");
     console.log(temp1,"temp1++++++++++++++++++++++");
@@ -823,12 +822,12 @@ function CampaignDetails({ route }) {
                               </div>
                               <div className="w-auto">
                                 <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                                  No of Days
+                                 duration
                                 </label>
                                 <Dropdown
                                   dropdownStyle="w-[100px]"
                                   className="w-[100px]"
-                                  label={obj?.number_of_days?.length ? obj.number_of_days : "1"}
+                                  label={obj?.duration?.length ? obj.duration : "1"}
                                   options={[
                                     {
                                       label: "2",
@@ -837,8 +836,8 @@ function CampaignDetails({ route }) {
                                       label: "3",
                                     },
                                   ]}
-                                  value={obj.number_of_days}
-                                  onChange={(e) => setFieldValue("number_of_days", (obj.number_of_days = e.label))}
+                                  value={obj.duration}
+                                  onChange={(e) => setFieldValue("duration", (obj.duration = (e.label)))}
                                 />
                               </div>
                              
@@ -1094,7 +1093,7 @@ function CampaignDetails({ route }) {
                         minimum_facebook_engagement:["45","30"],
                         number_of_days:"10",
                         facebook_deliverables:"40",
-                        social_media_deliverables: [values.social_media_deliverables],
+                        social_media_deliverables: values.social_media_deliverables,
                         // social_media_deliverables:temp1
                       };
                       console.log(data.social_media_deliverables,"data.social_media_deliverables");
