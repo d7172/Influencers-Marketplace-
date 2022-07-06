@@ -21,7 +21,7 @@ function BrandCampaignTable({ route, campaignRows }) {
                     <tr>
                         <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3">
                             Campaign ID
-                            {/* <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id')} /></span> */}
+                            <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id')} /></span>
                         </th>
                         {(route === "new-campaign") && <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3">
                             Brand Name
@@ -63,7 +63,7 @@ function BrandCampaignTable({ route, campaignRows }) {
                                     {data?.title}
                                 </td>
                                 {(route === "assigned-campaign") && <td className="px-6 py-4">
-                                    {data?.date}
+                                    {data?.from_date}
                                 </td>}
                                 {/* <td className="text-sm max-w-[150px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                                                     {data.project_duration_in_days} Day

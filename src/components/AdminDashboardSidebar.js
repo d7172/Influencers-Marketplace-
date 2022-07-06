@@ -11,9 +11,9 @@ function AdminDashboardSidebar() {
   const isBrand = location?.pathname.startsWith("/admin/brand");
   const isActiveBids = location?.pathname.startsWith("/admin/active-bids");
   const isTransaction = location?.pathname.startsWith("/admin/transaction");
-  const isEarning = location?.pathname === "/admin/transaction/earning";
-  const isPayments = location?.pathname === "/admin/transaction/payments";
-  const isStatement = location?.pathname === "/admin/transaction/statement";
+  const isEarning = location?.pathname.includes("/admin/transaction/earning");
+  const isPayments = location?.pathname.includes("/admin/transaction/payments");
+  const isStatement = location?.pathname.includes("/admin/transaction/statement");
   const isInfNewUser = location?.pathname.includes("/admin/influencer/new-user");
   const isInfActiveUser = location?.pathname.includes("/admin/influencer/active-user");
   const isInfRejectedUser = location?.pathname.includes("/admin/influencer/rejected-user");
@@ -21,10 +21,9 @@ function AdminDashboardSidebar() {
   const isBrandActiveUser = location?.pathname.includes("/admin/brand/active-user");
   const isBrandRejectedUser = location?.pathname.includes("/admin/brand/rejected-user");
   const isNewCampaign = location?.pathname.includes("/admin/campaign/new-campaign");
-  const isAssignedCampaign = location?.pathname.includes("/admin/campaign/assigned-campaign");
+  const isAssignedCampaign = location?.pathname.includes("/admin/campaign/quotation-campaign");
   const isActiveCampaign = location?.pathname.includes("/admin/campaign/active-campaign");
   const isRejectedCampaign = location?.pathname.includes("/admin/campaign/rejected-campaign");
-
   return (
     <div className="min-w-[308px] h-full overflow-y-auto box-shadow-sidebar">
       <h1 className="text-[#1E266D] text-[32px] text-center mb-4 font-[500]">
@@ -117,10 +116,10 @@ function AdminDashboardSidebar() {
                   New Campaign
                 </Link>
                 <Link
-                  to="/admin/campaign/assigned-campaign"
+                  to="/admin/campaign/quotation-campaign"
                   className={`text-[18px] ${isAssignedCampaign ? "text-[#3751FF]" : "text-[#969BA0]"}`}
                 >
-                  Assigned Campaign
+                  Quotation Campaign
                 </Link>
                 <Link
                   to="/admin/campaign/active-campaign"

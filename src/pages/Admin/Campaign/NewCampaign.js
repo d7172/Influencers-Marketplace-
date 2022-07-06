@@ -15,7 +15,8 @@ const AdmNewCampaign = ({ route }) => {
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
   const [infTable, setInfTable] = useState(false);
-  const [campId, setCampId] = useState(null);
+  // const [campId, setCampId] = useState(null);
+  const [infTableData, setInfTableData] = useState({});
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = null;
@@ -26,53 +27,53 @@ const AdmNewCampaign = ({ route }) => {
   tableData = AdminNewCampaign?.results;
   const navigate = useNavigate();
   console.log(AdminNewCampaign, "After delete");
-  const infTableData = [
-    {
-      id: 1,
-      name: "Steven Solan",
-      completed_campaign: "2",
-      social_media_deliverables: [
-        {
-          platform: "facebook"
-        },
-        {
-          platform: "instagram"
-        },
-        {
-          platform: "youtube"
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: "Barbara Searcy",
-      completed_campaign: "1",
-      social_media_deliverables: [
-        {
-          platform: "facebook"
-        },
-        {
-          platform: "instagram"
-        },
-        {
-          platform: "youtube"
-        },
-        {
-          platform: "linkedin"
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: "Thomas Gilbreath",
-      completed_campaign: "5",
-      social_media_deliverables: [
-        {
-          platform: "instagram"
-        }
-      ]
-    }
-  ]
+  // const infTableData = [
+  //   {
+  //     id: 1,
+  //     name: "Steven Solan",
+  //     completed_campaign: "2",
+  //     social_media_deliverables: [
+  //       {
+  //         platform: "facebook"
+  //       },
+  //       {
+  //         platform: "instagram"
+  //       },
+  //       {
+  //         platform: "youtube"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Barbara Searcy",
+  //     completed_campaign: "1",
+  //     social_media_deliverables: [
+  //       {
+  //         platform: "facebook"
+  //       },
+  //       {
+  //         platform: "instagram"
+  //       },
+  //       {
+  //         platform: "youtube"
+  //       },
+  //       {
+  //         platform: "linkedin"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Thomas Gilbreath",
+  //     completed_campaign: "5",
+  //     social_media_deliverables: [
+  //       {
+  //         platform: "instagram"
+  //       }
+  //     ]
+  //   }
+  // ]
   console.log(infTable);
   const assignProcessData = useSelector((state) => state?.AdminAssignProcess?.results);
   console.log(assignProcessData);
@@ -112,10 +113,10 @@ const AdmNewCampaign = ({ route }) => {
           />
           <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
         </div>}
-        {infTable ? <InfTable tableData={infTableData} setInfTable={setInfTable} campId={campId} />
+        {infTable ? <InfTable infTableData={infTableData} setInfTable={setInfTable} />
           : (<>
             <div className="flex items-center py-4 px-8">
-              <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} setCampId={setCampId} setInfTable={setInfTable} route={route} activePage={activePage} />
+              <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} setInfTableData={setInfTableData} setInfTable={setInfTable} route={route} activePage={activePage} />
             </div>
             {tableData?.length ? (
               <div className="w-full mt-2 px-4">
@@ -135,14 +136,25 @@ const AdmNewCampaign = ({ route }) => {
 
 export default AdmNewCampaign;
 
-function InfTable({ tableData, setInfTable, campId }) {
-  console.log(campId);
+function InfTable({ infTableData, setInfTable }) {
   const dispatch = useDispatch();
+  let tableData = [];
+  
+  useEffect(() => {
+    const payload = {
+      campaign_id: infTableData?.id,
+      category: infTableData?.category,
+      social_platform: infTableData?.platform
+    }
+    dispatch(getAssignProcessData(payload, 1));
+  }, [])
 
+  tableData = useSelector((state)=>state?.AdminAssignProcess?.results)[0];
+  console.log(tableData);
   const handleOnClick = (infId) => {
     const payload = {
       influencers: infId,
-      campaign: campId,
+      campaign: infTableData?.id,
       extra: {}
     }
     const data = new FormData();
@@ -173,20 +185,20 @@ function InfTable({ tableData, setInfTable, campId }) {
         </div>
       </div>
       <div className="grid grid-cols-5 gap-x-2 p-2 text-sm" >
-        {tableData?.map((data) => {
+        {tableData?.influencerdetails?.map((data) => {
           return (
             <>
               <div className="mb-6">
                 <p>{data?.id}</p>
               </div>
               <div className="mb-6">
-                <p>{data?.name}</p>
+                <p className="capitalize">{data?.first_name + " " + data?.last_name}</p>
               </div>
               <div className="mb-6">
-                <p>{data?.completed_campaign}</p>
+                <p>{data?.complete_campaign}</p>
               </div>
               <div className="flex relative mb-6" >
-                {data?.social_media_deliverables.map((item, i) => {
+                {data?.social_media_deliverables?.map((item, i) => {
                   return (
                     <img key={i} src={`/svgs/${item?.platform}.svg`} className={`absolute z-40 w-[20px] `} alt="social_platform" style={{ left: `${(i + 1) * 12}px` }} />)
                 })
@@ -195,7 +207,7 @@ function InfTable({ tableData, setInfTable, campId }) {
               </div>
               <div className="mb-6">
                 <p className="underline text-[#3751FF] cursor-pointer"
-                  onClick={() => handleOnClick(data?.id)}
+                onClick={() => handleOnClick(data?.id)}
                 >Assign</p>
               </div>
             </>

@@ -2,7 +2,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import React, { Fragment } from "react";
 
-function Dropdown({ label = "Options", options, className, dropdownStyle, onChange, optionsLabel = "label" }) {
+function Dropdown({ disabled = false, label = "Options", options, className, dropdownStyle, onChange, optionsLabel = "label" }) {
   return (
     // <Menu as="div" className="relative inline-block text-left">
     <Menu as="div" className={`relative inline-block text-left ${dropdownStyle}`}>
@@ -28,22 +28,25 @@ function Dropdown({ label = "Options", options, className, dropdownStyle, onChan
         <Menu.Items
           className={`${dropdownStyle} absolute right-0 mt-2 max-h-[200px] overflow-auto origin-top-right bg-white divide-y z-[100] divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none `}
         >
-          <div className="px-1 py-1 ">
-            {options.map((props) => (
-              <Menu.Item key={props[optionsLabel]}>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? "bg-primary text-white" : "text-gray-900"
-                    } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                    onClick={() => onChange(props)}
-                  >
-                    {props[optionsLabel]}
-                  </button>
-                )}
-              </Menu.Item>
-            ))}
-          </div>
+          {options.length ?
+            (<div className="px-1 py-1 ">
+              {options.map((props) => (
+                <Menu.Item key={props[optionsLabel]}>
+                  {({ active }) => (
+                    <button
+                      disabled={disabled}
+                      className={`${active ? "bg-primary text-white" : "text-gray-900"
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm capitalize`}
+                      onClick={() => onChange(props)}
+                    >
+                      {props[optionsLabel]}
+                    </button>
+                  )}
+                </Menu.Item>
+              ))}
+            </div>) : <div className="px-1 py-1 ">
+              <p className="w-full px-2 py-2 text-gray-900 text-sm capitalize cursor-default" >No data available.</p>
+            </div>}
         </Menu.Items>
       </Transition>
     </Menu>

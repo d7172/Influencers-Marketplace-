@@ -8,16 +8,18 @@ import PalceBid from "./PalceBid";
 function CampaignTable({ data }) {
   const [placeBid, setPlaceBid] = useState(false);
   const infCampaignPool = data;
+  const [deliverablesState, setDeliverablesState] = useState([]);
   const navigate = useNavigate();
 
-  const handleClick = (id) => {
-    console.log(id, "id");
+  const handleClick = (data) => {
+    // console.log(data, "data");
+    setDeliverablesState(data);
     setPlaceBid(true);
   };
   return (
     <div className="flex flex-col max-w-[1280px] overflow-hidden">
       <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
-        <PalceBid close={() => setPlaceBid(false)} />
+        <PalceBid close={() => setPlaceBid(false)} deliverablesDetails={deliverablesState} />
       </MyDialog>
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -96,7 +98,7 @@ function CampaignTable({ data }) {
                         {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
                       </td>
                       <td
-                        onClick={() => handleClick(pool.id)}
+                        onClick={() => handleClick(pool.social_media_deliverables)}
                         className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer"
                       >
                         Quick Bid

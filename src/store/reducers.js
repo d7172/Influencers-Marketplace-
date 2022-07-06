@@ -16,7 +16,7 @@ import { BrandActiveUser } from "./Admin/Brand/ActiveUser/reducer";
 import { AdminActiveBids } from "./Admin/ActiveBids/reducer";
 import { AdminNewCampaign } from "./Admin/Campaign/NewCampaign/reducer";
 import { AdminActiveCampaign } from "./Admin/Campaign/ActiveCampaign/reducer";
-import { AdminAssignCampaign } from "./Admin/Campaign/AssignCampaign/reducer";
+import { AdminQuotationCampaign } from "./Admin/Campaign/AssignCampaign/reducer";
 import { AdminRejectedCampaign } from "./Admin/Campaign/RejectedCampaign/reducer";
 import { AdminBrandPayment, AdminInfPayment } from "./Admin/Transactions/Payments/reducer";
 import { AdminEarning } from "./Admin/Transactions/Earnings/reducer";
@@ -26,7 +26,11 @@ import { BrandAssignedCampaign } from "./Brand/Campaign/AssignedCampaign/reducer
 import { BrandActiveCampaign } from "./Brand/Campaign/ActiveCampaign/reducer";
 import { BrandRejectedCampaign } from "./Brand/Campaign/RejectedCampaign/reducer";
 import { BrandTransactionEarning } from "./Brand/BrandTransactionEarning/reducer";
-import { BrandTransactionStatement, BrandTransactionStatementFilter, BrandTransactionDownloadStatement } from "./Brand/BrandTransitionStatement/reducer";
+import {
+  BrandTransactionStatement,
+  BrandTransactionStatementFilter,
+  BrandTransactionDownloadStatement,
+} from "./Brand/BrandTransitionStatement/reducer";
 import { categories } from "./Categories/reducer";
 import { placeBid } from "./infPlaceBid/reducer";
 import { login } from "./Login/reducer";
@@ -34,6 +38,11 @@ import { stateList } from "./State/reducer";
 import { countryList } from "./Country/reducer";
 import { AdminAssignProcess } from "./Admin/Campaign/AssignProcess/reducer";
 import { AdminMoveToCampaignPool } from "./Admin/Campaign/MoveToPool/reducer";
+import { infActiveReject } from "./Admin/Influencer/Active-Reject/reducer";
+import { campaignActiveReject } from "./Admin/Campaign/Active-Reject/reducer";
+import { brandActiveReject } from "./Admin/Brand/Active-Reject/reducer";
+import { infUploadDocuments } from "./infDocumentUpload/reducer";
+
 const reducers = combineReducers({
   signUpState,
   signUp,
@@ -56,7 +65,7 @@ const reducers = combineReducers({
   AdminNewCampaign,
   AdminRejectedCampaign,
   AdminActiveCampaign,
-  AdminAssignCampaign,
+  AdminQuotationCampaign,
   AdminBrandPayment,
   AdminInfPayment,
   AdminEarning,
@@ -75,6 +84,10 @@ const reducers = combineReducers({
   countryList,
   AdminAssignProcess,
   AdminMoveToCampaignPool,
+  infActiveReject,
+  campaignActiveReject,
+  brandActiveReject,
+  infUploadDocuments,
 });
 
 export default reducers;

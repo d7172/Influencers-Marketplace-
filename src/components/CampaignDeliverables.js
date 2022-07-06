@@ -9,24 +9,24 @@ function CampaignDeliverables({ campaignDetails }) {
       </p>
       <div className="flex flex-col gap-6 mt-6">
         <div className="flex gap-10 text-gray-600 text-[18px] font-[500]">
-          <h1 className="w-[125px] ">Social Platform</h1>
-          <h1 className="w-[125px]">Deliverables</h1>
-          <h1 className="w-[125px]">Duration</h1>
-          <h1 className="">Engagement rate</h1>
+          <h5 className="w-[125px] ">Social Platform</h5>
+          <h5 className="w-[125px]">Deliverables</h5>
+          <h5 className="w-[125px]">Duration</h5>
+          <h5 className="">Engagement rate</h5>
         </div>
         <div className="flex gap-10 items-start">
           <div className="flex gap-4 w-[125px]">
-            <img className="w-[20px]" src="/svgs/facebook.svg" alt="instagram" />
-            <h1>{campaignDetails?.social_platform[0]}</h1>
+            <img className="w-[20px]" src={`/svgs/${campaignDetails?.social_platform[0]}.svg`} alt="instagram" />
+            <h5>{campaignDetails?.social_platform[0]}</h5>
           </div>
           <div className="w-[125px] font-[600] text-[16px] flex flex-col gap-2">
-            <h1>Story</h1>
-            <h1>Reels</h1>
-            <h1>Swipe Up Story</h1>
-            <h1>Story</h1>
+            <h5>Story</h5>
+            <h5>Reels</h5>
+            <h5>Swipe Up Story</h5>
+            <h5>Story</h5>
           </div>
-          <h1 className="w-[125px] font-[600] text-[16px]">{campaignDetails?.number_of_days}</h1>
-          <h1 className="font-[600] text-[16px]">{campaignDetails?.minimum_facebook_engagement[0]} %</h1>
+          <h5 className="w-[125px] font-[600] text-[16px]">{campaignDetails?.number_of_days}</h5>
+          <h5 className="font-[600] text-[16px]">{campaignDetails?.minimum_facebook_engagement[0]} %</h5>
         </div>
       </div>
     </div>

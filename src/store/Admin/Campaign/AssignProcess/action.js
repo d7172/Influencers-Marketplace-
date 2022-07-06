@@ -1,7 +1,7 @@
 import { networkRequest } from "../../../_shared/api";
 
 export const getAssignProcessData = (payload, activePage) => {
-  const url = `admin-assigncampaigns-process/?campaign_id=1&category=fashion&social_platform=facebook`;
+  const url = `admin-assigncampaigns-process/?campaign_id=${payload?.campaign_id}&category=${payload?.category}&social_platform=${payload?.social_platform}`;
   return (dispatch) => {
     networkRequest(
       url,

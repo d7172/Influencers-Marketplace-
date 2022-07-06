@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import BidDetails from "./BidDetails";
 
 function DetailsTable({ campaignId, columnData, rowData }) {
   const navigate = useNavigate();
@@ -16,23 +17,29 @@ function DetailsTable({ campaignId, columnData, rowData }) {
           </tr>
         </thead>
         <tbody>
-          <tr key={rowData?.bid_details[0]?.id}>
-            <td className="pl-4 py-4 whitespace-nowrap text-sm max-w-[170px]  font-medium text-[#3751FF] underline">
-              {rowData?.influencer_details?.id}
-            </td>
-            <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-              {rowData?.influencer_details?.first_name}
-            </td>
-            <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
-              {rowData?.bid_details[0]?.id}
-            </td>
-            <td
-              className=" pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative"
-              onClick={() => navigate(`/admin/active-bids/${campaignId}`)}
-            >
-              View Bids
-            </td>
-          </tr>
+          {console.log(rowData, "-----row data-----")}
+          {rowData?.influencer_details.map((inf) => {
+            return (
+              <tr key={inf?.id}>
+                <td className="pl-4 py-4 whitespace-nowrap text-sm max-w-[170px]  font-medium text-[#3751FF] underline">
+                  {inf?.id}
+                </td>
+                <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
+                  {inf?.first_name}
+                </td>
+                <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
+                  {inf?.bids?.[0]?.id}
+                </td>
+                <td
+                  className=" pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative"
+                  onClick={() => navigate(`/admin/active-bids/${campaignId}`)}
+                >
+                  View Bids
+                </td>
+                {window.location.pathname === `/admin/active-bids/${campaignId}` && <BidDetails inf_id={inf?.id} />}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

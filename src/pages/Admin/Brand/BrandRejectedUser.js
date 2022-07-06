@@ -2,37 +2,35 @@ import React, { useEffect, useState } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import Pagination from "../../../components/Pagination";
-import AdminUserTable from "../../../components/AdminUserTable";
+import BrandUserTable from "../../../components/BrandUserTable";
+import { getBrandRejectedUserData } from "../../../store/Admin/Brand/RejectedUser/action";
 import { useDispatch, useSelector } from "react-redux";
-import { getInfActiveUserData } from "../../../store/Admin/Influencer/ActiveUser/action";
 import { useNavigate } from "react-router-dom";
 
-function InfActiveUser({ route }) {
+function BrandRejectedUser({ route }) {
   const navigate = useNavigate();
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = null;
-    dispatch(getInfActiveUserData(payload, activePage));
+    dispatch(getBrandRejectedUserData(payload, activePage));
   }, [activePage]);
-  const infActiveUser = useSelector((state) => state?.infActiveUser);
-  console.log('====================================');
-  console.log('infActiveUser', infActiveUser);
-  console.log('====================================');
-  tableData = infActiveUser?.results.map((r) => r?.influencerDetail)
+  const BrandRejectedUser = useSelector((state) => state?.brandrejecteduser);
+  console.log("BrandRejectedUser", BrandRejectedUser);
+  tableData = BrandRejectedUser?.results;
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "Active Users" }]} />
+        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "Rejected Brands" }]} />
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center px-8">
           <CampaignSearchBar placeHolder={"Search here by userID"} />
         </div>
-        <AdminUserTable tableData={tableData} route={route} />
+        <BrandUserTable tableData={tableData} route={route} />
         {tableData?.length ? (<div className="w-full mt-2 px-4">
-          <Pagination link={infActiveUser} activePage={activePage} setActivePage={setActivePage} />
+          <Pagination link={BrandRejectedUser} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (
           <div className="text-center mt-4">
             <p className="text-gray-500">No data to display.</p>
@@ -43,4 +41,4 @@ function InfActiveUser({ route }) {
   );
 }
 
-export default InfActiveUser;
+export default BrandRejectedUser;

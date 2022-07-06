@@ -11,6 +11,11 @@ export const AdminActiveBids = (state = init, action) => {
     case "ADMIN_ACTIVE_BIDS_FAIL":
       return init;
 
+    case "ADMIN_ASSIGN_CAMPAIGN_TO_BRAND_SUCCESS":
+      return action.data;
+
+    case "ADMIN_ASSIGN_CAMPAIGN_TO_BRAND_FAIL":
+      return init;
     default:
       return state;
   }

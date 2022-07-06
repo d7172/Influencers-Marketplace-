@@ -4,9 +4,6 @@ import moment from "moment";
 
 function AdminUserTable({ tableData, route }) {
   const navigate = useNavigate();
-  {
-    console.log(route, "route");
-  }
   return (
     <div className="flex flex-col max-w-[1280px]">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
