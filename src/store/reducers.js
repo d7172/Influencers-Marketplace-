@@ -16,7 +16,7 @@ import { BrandActiveUser } from "./Admin/Brand/ActiveUser/reducer";
 import { AdminActiveBids } from "./Admin/ActiveBids/reducer";
 import { AdminNewCampaign } from "./Admin/Campaign/NewCampaign/reducer";
 import { AdminActiveCampaign } from "./Admin/Campaign/ActiveCampaign/reducer";
-import { AdminAssignCampaign } from "./Admin/Campaign/AssignCampaign/reducer";
+import { AdminQuotationCampaign } from "./Admin/Campaign/AssignCampaign/reducer";
 import { AdminRejectedCampaign } from "./Admin/Campaign/RejectedCampaign/reducer";
 import { AdminBrandPayment, AdminInfPayment } from "./Admin/Transactions/Payments/reducer";
 import { AdminEarning } from "./Admin/Transactions/Earnings/reducer";
@@ -65,7 +65,7 @@ const reducers = combineReducers({
   AdminNewCampaign,
   AdminRejectedCampaign,
   AdminActiveCampaign,
-  AdminAssignCampaign,
+  AdminQuotationCampaign,
   AdminBrandPayment,
   AdminInfPayment,
   AdminEarning,

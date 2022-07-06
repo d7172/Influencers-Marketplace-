@@ -57,9 +57,6 @@ function Bids() {
         />
       </div>
       <div className="flex flex-col relative max-w-[1280px]">
-        {/* <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
-        <PalceBid close={() => setPlaceBid(false)} />
-      </MyDialog> */}
         <div className="flex gap-4 px-4 m-4 w-[450px] h-[50px] bg-[#F1F1F1]">
           <SearchIcon className="w-7" />
           <input
@@ -165,7 +162,7 @@ function Bids() {
                               key={i}
                               campaignId={data?.campaign_details?.id}
                               columnData={infTableCol}
-                              rowData={data}
+                              rowData={data?.campaign_details}
                             />
                           </tr>
                         )}

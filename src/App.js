@@ -114,9 +114,6 @@ function App() {
             <Route path="/admin/influencer/rejected-user/:id" element={<InfProfile route={"rejected-user"} />} />
             <Route path="/admin/active-bids" element={<AdminActiveBids />} />
             <Route path="/admin/active-bids/:id" element={<AdminBidDetails />} />
-            {/* <Route path="/radmin/brand/new-use" element={<Navigate replace to="/admin/dashboard" />} />
-            <Route path="/admin/brand/active-user" element={<Navigate replace to="/admin/dashboard" />} />
-            <Route path="/admin/brand/rejected-user" element={<Navigate replace to="/admin/dashboard" />} /> */}
 
             <Route path="/admin/campaign/new-campaign" element={<AdmNewCampaign route={"new-campaign"} />} />
             <Route path="/admin/campaign/new-campaign/add" element={<AddNewCampaign route={"admin"} />} />
