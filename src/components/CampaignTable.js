@@ -57,7 +57,7 @@ function CampaignTable({ data }) {
                       <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[150px] font-medium text-gray-900">
                         {pool.id}
                       </td>
-                      <td className="text-sm flex gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
+                      <td className="text-sm flex gap-4  min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         <img className="w-[24px]" src="/svgs/campaignTitle.svg" alt="face" />
                         {pool.title}
                       </td>

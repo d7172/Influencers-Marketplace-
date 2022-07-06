@@ -20,22 +20,19 @@ function BrandNewUser({ route }) {
   // tableData = BrandNewUser?.results;
   const navigate = useNavigate();
 
+  const [query, setQuery] = useState("");
+
+
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
         <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "New Brands" }]} />
       </div>
       <div className="max-w-[1280px]  relative">
-        <div className="flex items-center justify-between w-full">
-          {/* <CampaignSearchBar placeHolder={"Search here"} /> */}
-          {/* <div
-          className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
-          onClick={() => navigate("/admin/influencer/new-user/add")}
-        >
-          <button> + Add New Influencer </button>
-        </div> */}
+        <div className="flex items-center justify-between w-full px-6 py-3">
+          <CampaignSearchBar placeHolder={"Search here"} setQuery={setQuery} />
         </div>
-        <BrandUserTable tableData={tableData} route={"new-user"} />
+        <BrandUserTable tableData={tableData} route={"new-user"} query={query} />
         {tableData?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={BrandNewUser} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (

@@ -14,6 +14,7 @@ import { getCategoriesData } from "../../store/Categories/action";
 import { MultiSelect } from "react-multi-select-component";
 
 const initForm = {
+  brand: { id: null, name: "" },
   title: "",
   from_date: "",
   to_date: "",
@@ -21,17 +22,17 @@ const initForm = {
   category: "",
   campain_strategy: "",
   campain_goal: "",
-  promotion_goal: "",
   project_duration_in_days: null,
+  promotion_goal: "",
   age_group: [],
+  country: { id: null, name: "" },
+  state: { id: null, name: "" },
   gender: { label: "", value: "" },
   audience_interest: "",
   number_of_influencer: "",
   number_of_followers: "",
   amount: 0,
-  social_media_deliverables: [
-
-  ],
+  social_platform:[],
   minimum_facebook_reach: [],
   minimum_facebook_engagement: [],
   number_of_days: "",
@@ -44,9 +45,11 @@ const initForm = {
   note_from_brand: "",
   note_from_admin: "",
   terms_and_condition: "",
-  brand: { id: null, name: "" },
-  country: { id: null, name: "" },
-  state: { id: null, name: "" },
+  status_camp: "pending",
+  social_media_deliverables: [],
+  adminamount: 0,
+  reviseamount: 0,
+  
 };
 
 const platforms = [
@@ -89,6 +92,7 @@ export const ImgUpload = ({ children }) => {
 };
 
 function CampaignDetails({ route }) {
+  // console.log("CampaignDetails", route);
   const location = useLocation();
   const isAddNewCamp = location.pathname.includes("add");
   const { id } = useParams();
@@ -139,8 +143,9 @@ function CampaignDetails({ route }) {
       ? state?.AdminNewCampaign?.results?.filter((r) => r.id == id)[0]
       : state?.BrandNewCampaign?.results?.filter((r) => r.id == id)[0]
   );
-  // console.log(campaignDetails);
+  // console.log("campaignDetails", campaignDetails);
   const Details = {
+    brand: { id: campaignDetails?.brand, name: campaignDetails?.brand_name },
     title: campaignDetails?.title,
     from_date: campaignDetails?.from_date,
     to_date: campaignDetails?.to_date,
@@ -151,12 +156,14 @@ function CampaignDetails({ route }) {
     promotion_goal: campaignDetails?.promotion_goal,
     project_duration_in_days: campaignDetails?.project_duration_in_days,
     age_group: [campaignDetails?.age_group],
+    country: { id: null, name: campaignDetails?.country },
+    state: { id: null, name: campaignDetails?.state },
     gender: { label: campaignDetails?.gender === "M" ? "Male" : "Female", value: campaignDetails?.gender },
     audience_interest: campaignDetails?.audience_interest,
     number_of_influencer: campaignDetails?.number_of_influencer,
     number_of_followers: campaignDetails?.number_of_followers,
     amount: campaignDetails?.amount,
-    social_platform: campaignDetails?.social_platform,
+    social_platform: [campaignDetails?.social_platform],
     minimum_facebook_reach: [campaignDetails?.minimum_facebook_reach],
     minimum_facebook_engagement: [campaignDetails?.minimum_facebook_engagement],
     number_of_days: campaignDetails?.number_of_days,
@@ -169,11 +176,9 @@ function CampaignDetails({ route }) {
     note_from_brand: campaignDetails?.note_from_brand,
     note_from_admin: campaignDetails?.note_from_admin,
     terms_and_condition: campaignDetails?.terms_and_condition,
-    brand: { id: campaignDetails?.brand, name: campaignDetails?.brand_name },
-    country: { id: null, name: campaignDetails?.country },
-    state: { id: null, name: campaignDetails?.state },
+    social_media_deliverables: campaignDetails?.social_media_deliverables,
   };
-  // console.log("Details", Details);
+  console.log("Details", Details.social_media_deliverables);
   const [deliverablesRow, setDeliverablesRow] = useState([]);
   // let deliDetails = {
   //   platform: "",
@@ -249,6 +254,95 @@ function CampaignDetails({ route }) {
     );
   }, [socialplatform]);
 
+
+  const dataddd = () => {
+    const all = 
+      {
+        "id": 17,
+        "created_by": "system",
+        "created_at": "2022-07-06T07:23:01.239872Z",
+        "updated_by": "system",
+        "updated_at": "2022-07-06T07:23:01.239895Z",
+        "status": 1,
+        "title": "dffgfgf",
+        "from_date": "2022-07-08",
+        "to_date": "2022-07-21",
+        "about_campaign": "dfgfdgdfg",
+        "category": "Fashion Wear",
+        "campain_strategy": "Affiliate Campaing",
+        "campain_goal": "Brand Awareness",
+        "promotion_goal": "",
+        "project_duration_in_days": 10,
+        "age_group": [
+            "16"
+        ],
+        "gender": "M",
+        "audience_interest": "Fashion Wear",
+        "number_of_influencer": "3",
+        "number_of_followers": "20k - 30k",
+        "amount": 0,
+        "admin_amount": 0,
+        "revise_amount": 0,
+        "social_platform": [
+            "wre",
+            "qww"
+        ],
+        "minimum_facebook_reach": [
+            "12",
+            "30"
+        ],
+        "minimum_facebook_engagement": [
+            "45",
+            "30"
+        ],
+        "number_of_days": "10",
+        "facebook_deliverables": "40",
+        "industry": [
+            "beauty",
+            "health"
+        ],
+        "payout_type": "Barter",
+        "budget_type": "Fixed",
+        "budget_per_influencer": "20k - 30k",
+        "expected_budget_per_influencer": "30k",
+        "note_from_brand": "fghgfhghfgh",
+        "note_from_admin": "",
+        "terms_and_condition": "fghfghgfh",
+        "status_camp": "pending",
+        "brand": 3,
+        "country": "india",
+        "state": "maharastra",
+        "social_media_deliverables": [
+        {
+          "id": 15,
+          "platform": "facebook",
+          "deliverables": [
+            "Create story",
+            "Create post"
+          ],
+          "minimum_reach": 156,
+          "minimum_engagement": 25,
+          "duration_in_day": 6,
+          "amount": 400
+        },
+        {
+          "id": 14,
+          "platform": "instagram",
+          "deliverables": [
+            "Create story",
+            "Create post",
+            "Reels"
+          ],
+          "minimum_reach": 400,
+          "minimum_engagement": 1,
+          "duration_in_day": 1,
+          "amount": 400
+        }
+      ],
+        "brand_name": "Abul Rajani"
+    }
+    console.log(all,"all");
+  }
 
   const limitedreach = (e) => {
     if(socialplatform.length < 5){
@@ -966,6 +1060,13 @@ function CampaignDetails({ route }) {
                   <button
                     type="button"
                     className="rounded-[50px] bg-[#3751FF] text-white px-8 py-2 "
+                    onClick={() => dataddd() }
+                  />
+
+                  <button
+                    type="button"
+                    className="rounded-[50px] bg-[#3751FF] text-white px-8 py-2 "
+
                     onClick={() => {
                       const temp = {
                         ...values,
@@ -987,14 +1088,16 @@ function CampaignDetails({ route }) {
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
-                        socialplatform: values.social_media_deliverables,
+                        // socialplatform: values.social_media_deliverables,
                         social_platform:["wre","qww"],
                         minimum_facebook_reach:["12","30"],
                         minimum_facebook_engagement:["45","30"],
                         number_of_days:"10",
-                        facebook_deliverables:"40"
-                        // social_media_deliverables
+                        facebook_deliverables:"40",
+                        social_media_deliverables: [values.social_media_deliverables],
+                        // social_media_deliverables:temp1
                       };
+                      console.log(data.social_media_deliverables,"data.social_media_deliverables");
                       console.log("data", data);
                       dispatch(addNewCampaignData(data, navigate));
                     }}

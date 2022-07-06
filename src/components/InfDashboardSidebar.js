@@ -80,7 +80,7 @@ function InfDashboardSidebar() {
             className="text-[18px] font-[600] w-[180px]"
             label="Transaction"
             content={() => (
-              <div className="py-4 px-5 flex flex-col gap-4 items-start">
+              <div className="py-4 flex flex-col gap-4 items-start">
                 <Link
                   to="/influencer/transactions/earning"
                   className={`text-[18px] ${isEarning ? "text-[#3751FF]" : "text-[#969BA0]"}`}
