@@ -3,13 +3,13 @@ import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
 import DateRange from "../../../components/DateRange";
 // import Dropdown from "../Dropdowns";
-import Dropdown from '../../../components/Dropdown';
+import Dropdown from "../../../components/Dropdown";
 
 function AdmStatements() {
   const [category, setCategory] = useState("Brand");
   const [brand, setBrand] = useState("");
   const [influencer, setInfluencer] = useState("");
-  const [infBrand, setInfBrand] = useState("")
+  const [infBrand, setInfBrand] = useState("");
   return (
     <>
       <div className="max-w-[1280px] pt-6 relative">
@@ -19,7 +19,7 @@ function AdmStatements() {
         <div className="flex justify-between py-4 px-8 mb-4 items-center">
           <CampaignSearchBar placeHolder={"Search here"} />
           <div>
-            <h1 className="text-[#3751FF] underline cursor-pointer">Download as Statement</h1>
+            <h5 className="text-[#3751FF] underline cursor-pointer">Download as Statement</h5>
           </div>
         </div>
         <div className="flex items-center px-6">
@@ -41,7 +41,6 @@ function AdmStatements() {
               ]}
               onChange={(val) => setCategory(val.label)}
             />
-
           </div>
           {category === "Brand" && (
             <div className="flex items-center pr-4">
@@ -64,49 +63,51 @@ function AdmStatements() {
               />
             </div>
           )}
-          {category === "Influencer" && (<>
-            <div className="flex items-center pr-4">
-              <div className="w-[187px]">
-                <p className="text-[#939393] pr-2 text-sm ">Select Influencer</p>
+          {category === "Influencer" && (
+            <>
+              <div className="flex items-center pr-4">
+                <div className="w-[187px]">
+                  <p className="text-[#939393] pr-2 text-sm ">Select Influencer</p>
+                </div>
+                <Dropdown
+                  dropdownStyle="w-full"
+                  className="w-full"
+                  label={influencer.length ? influencer : "Jhon Deo"}
+                  options={[
+                    {
+                      label: "Jhon Deo",
+                    },
+                    {
+                      label: "Barbara Searcy",
+                    },
+                    {
+                      label: "Steven Sloan",
+                    },
+                  ]}
+                  onChange={(val) => setInfluencer(val.label)}
+                />
               </div>
-              <Dropdown
-                dropdownStyle="w-full"
-                className="w-full"
-                label={influencer.length ? influencer : "Jhon Deo"}
-                options={[
-                  {
-                    label: "Jhon Deo",
-                  },
-                  {
-                    label: "Barbara Searcy",
-                  },
-                  {
-                    label: "Steven Sloan",
-                  },
-                ]}
-                onChange={(val) => setInfluencer(val.label)}
-              />
-            </div>
-            <div className="flex items-center pr-4">
-              <div className="w-[168px]">
-                <p className="text-[#939393] pr-2 text-sm ">Select Brand</p>
+              <div className="flex items-center pr-4">
+                <div className="w-[168px]">
+                  <p className="text-[#939393] pr-2 text-sm ">Select Brand</p>
+                </div>
+                <Dropdown
+                  dropdownStyle="w-full"
+                  className="w-full"
+                  label={infBrand.length ? infBrand : "Brand"}
+                  options={[
+                    {
+                      label: "BoAt",
+                    },
+                    {
+                      label: "JBL",
+                    },
+                  ]}
+                  onChange={(val) => setInfBrand(val.label)}
+                />
               </div>
-              <Dropdown
-                dropdownStyle="w-full"
-                className="w-full"
-                label={infBrand.length ? infBrand : "Brand"}
-                options={[
-                  {
-                    label: "BoAt",
-                  },
-                  {
-                    label: "JBL",
-                  }
-                ]}
-                onChange={(val) => setInfBrand(val.label)}
-              />
-            </div>
-          </>)}
+            </>
+          )}
           <div>
             <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
           </div>
@@ -246,7 +247,7 @@ function DetailsTable({ campaignId, columnData, rowData }) {
               <td className="text-sm w-auto text-gray-900 font-light pl-4 py-4 whitespace-nowrap">{data.infBidNum}</td>
               <td
                 className=" pl-4 py-4 whitespace-nowrap text-[#3571FF] overflow-hidden underline cursor-pointer relative"
-                onClick={() => { }}
+                onClick={() => {}}
               >
                 View details
               </td>

@@ -6,7 +6,10 @@ import { Disclosure } from "@headlessui/react";
 import { Link, useNavigate } from "react-router-dom";
 import DetailsTable from "./DetailsTable";
 import { useDispatch, useSelector } from "react-redux";
-import { getActiveBidsData } from "../../../store/Admin/ActiveBids/action";
+import {
+  getActiveBidsCampaignPoolData,
+  getActiveBidsAssignInfluencerData,
+} from "../../../store/Admin/ActiveBids/action";
 import Pagination from "../../../components/Pagination";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 
@@ -17,11 +20,14 @@ const  Bids = () => {
   // const [placeBid, setPlaceBid] = useState(false);
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
+  const [campaignPool, setCampaignPool] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    const payload = null;
-    dispatch(getActiveBidsData(payload, activePage));
-  }, [activePage]);
+    const payload = {};
+    campaignPool
+      ? dispatch(getActiveBidsCampaignPoolData(payload, activePage))
+      : dispatch(getActiveBidsAssignInfluencerData(payload, activePage));
+  }, [campaignPool, activePage]);
 
   const AdminActiveBids = useSelector((state) => state?.AdminActiveBids);
   tableData = AdminActiveBids?.results;
@@ -53,12 +59,19 @@ const  Bids = () => {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "Active Bids" }]} />
+        <Breadcrumbs
+          options={[
+            {
+              title: "Dashboard",
+              onClick: () => {
+                navigate(`/admin/dashboard`);
+              },
+            },
+            { title: "Active Bids" },
+          ]}
+        />
       </div>
       <div className="flex flex-col relative max-w-[1280px]">
-        {/* <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
-        <PalceBid close={() => setPlaceBid(false)} />
-      </MyDialog> */}
         <div className="flex gap-4 px-4 m-4 w-[450px] h-[50px] bg-[#F1F1F1]">
           <SearchIcon className="w-7" />
           <input
@@ -67,6 +80,29 @@ const  Bids = () => {
             className="outline-none border-0 w-full bg-[#F1F1F1] "
             onChange={(e) => setQuery(e.target.value)}
           />
+        </div>
+        <div className="flex gap-4 px-4 mx-4">
+          <div className="flex gap-4 items-center">
+            <div>
+              <p className="text-sm text-[#939393]">Which bid you want to see</p>
+            </div>
+            <div>
+              <button
+                className={`border px-4 py-2 rounded-lg shadow ${campaignPool && `border-[#3751FF]`}`}
+                onClick={() => setCampaignPool(true)}
+              >
+                Campaign Pool
+              </button>
+            </div>
+            <div>
+              <button
+                className={`border px-4 py-2 rounded-lg shadow ${!campaignPool && `border-[#3751FF]`}`}
+                onClick={() => setCampaignPool(false)}
+              >
+                Assign to Influencers
+              </button>
+            </div>
+          </div>
         </div>
         <div className="overflow-x-hidden sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -138,7 +174,12 @@ const  Bids = () => {
                         {activeIndex === i && detailsTable && (
                           <tr>
                             {" "}
-                            <DetailsTable key={i} campaignId={data?.campaign_details?.id} columnData={infTableCol} rowData={data} />
+                            <DetailsTable
+                              key={i}
+                              campaignId={data?.campaign_details?.id}
+                              columnData={infTableCol}
+                              rowData={data?.campaign_details}
+                            />
                           </tr>
                         )}
                       </>
@@ -149,9 +190,11 @@ const  Bids = () => {
             </div>
           </div>
         </div>
-        {tableData?.length ? (<div className="w-full mt-2 px-4">
-          <Pagination link={AdminActiveBids} activePage={activePage} setActivePage={setActivePage} />
-        </div>) : (
+        {tableData?.length ? (
+          <div className="w-full mt-2 px-4">
+            <Pagination link={AdminActiveBids} activePage={activePage} setActivePage={setActivePage} />
+          </div>
+        ) : (
           <div className="text-center mt-4">
             <p className="text-gray-500">No data to display.</p>
           </div>

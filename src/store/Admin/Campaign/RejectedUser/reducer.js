@@ -3,12 +3,12 @@ const init = {
   results: [],
 };
 
-export const AdminQuotationCampaign = (state = init, action) => {
+export const AdminRejectedCampaign = (state = init, action) => {
   switch (action.type) {
-    case "QUOTATION_CAMPAIGN_SUCCESS":
+    case "CAMPAIGN_REJECTED_USER_SUCCESS":
       return action.data;
 
-    case "QUOTATION_CAMPAIGN_FAIL":
+    case "CAMPAIGN_REJECTED_USER_FAIL":
       return init;
 
     default:

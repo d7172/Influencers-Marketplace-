@@ -23,7 +23,7 @@ const AdmAssignCampaign = ({ route }) => {
   function search(items) {
     return items?.filter((item) => {
       return searchParams?.some((newItem) => {
-        return item.campaigndetails[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1;
+        return item?.campaign_details[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1;
       });
     });
   }
@@ -33,7 +33,7 @@ const AdmAssignCampaign = ({ route }) => {
     const payload = null;
     dispatch(getQuotationCampaignData(payload, activePage));
   }, [activePage]);
-  const AdminAssignCampaign = useSelector((state) => state?.AdminAssignCampaign);
+  const AdminAssignCampaign = useSelector((state) => state?.AdminQuotationCampaign);
   tableData = AdminAssignCampaign?.results;
   const subTableData = [
     {
@@ -43,6 +43,8 @@ const AdmAssignCampaign = ({ route }) => {
       num_of_bids: "02",
     },
   ];
+
+  console.log(tableData, "table data");
 
   return (
     <div className="pt-4 relative">
@@ -157,38 +159,38 @@ function CampaignTable({ tableData, subTableData, search, campaignRows }) {
                           className="text-sm text-[#3751FF] w-[132px] font-[500] pl-6 py-4 whitespace-nowrap underline  cursor-pointer"
                           // onClick={() => navigate(`/admin/influencer/activeUser/0001`)}
                         >
-                          {data?.campaigndetails.id}
+                          {data?.campaign_details.id}
                         </td>
 
                         <td className="text-sm w-[135px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          Perfect Status
+                          {data?.campaign_details.brand_name}
                         </td>
                         <td className="text-sm flex text-left gap-4 items-center justify-center min-w-[240px] max-w-[240px] overflow-hidden text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          {data?.campaigndetails.title}
+                          {data?.campaign_details.title}
                         </td>
                         <td className="pl-6 py-4 whitespace-nowrap text-sm w-[170px] font-medium text-gray-900">
-                          {data?.campaigndetails.project_duration_in_days}
+                          {data?.campaign_details.project_duration_in_days}
                         </td>
                         <td className="text-sm w-[170px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          {data?.campaigndetails.from_date}
+                          {data?.campaign_details.from_date}
                         </td>
                         <td className="text-sm w-[125px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          {data?.campaigndetails.category}
+                          {data?.campaign_details.category}
                         </td>
                         <td className="text-sm w-[100px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
-                          &#8377;{data?.campaigndetails.amount}
+                          &#8377;{data?.campaign_details.amount}
                         </td>
                         <td
-                          onClick={() => handleIndex(id)}
+                          onClick={() => navigate(`/admin/campaign/quotation-campaign/${data?.campaign_details.id}`)}
                           className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer "
                         >
-                          View All Bids
+                          View Details
                         </td>
                       </tr>
                       {activeIndex === id && detailsTable && (
                         <tr>
                           {" "}
-                          <Subtable subTableData={data.influencerdetails} />
+                          <Subtable subTableData={data?.campaign_details.influencer_details} />
                         </tr>
                       )}
                     </>
@@ -251,7 +253,8 @@ function Subtable({ subTableData }) {
             </tr>
           </thead>
           <tbody>
-            {subTableData.map((data, i) => {
+            {console.log(subTableData)}
+            {subTableData?.map((data, i) => {
               return (
                 <>
                   <tr className="flex">
