@@ -59,6 +59,7 @@ import { useSelector } from "react-redux";
 import Protected from "./ProtectedRoute";
 import AdmPayments from "./pages/Admin/Transaction/Payments";
 import AdmStatements from "./pages/Admin/Transaction/Statements";
+import BrandViewDetails from "./pages/Admin/Brand/BrandViewDetails";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -109,6 +110,9 @@ function App() {
             <Route path="/admin/brand/new-user" element={<BrandNewUser route={"new-user"} />} />
             <Route path="/admin/brand/active-user" element={<BrandActiveUser route={"active-user"} />} />
             <Route path="/admin/brand/rejected-user" element={<BrandRejectedUser route={"rejected-user"} />} />
+            <Route path="/admin/brand/brand-view-details" element={<BrandViewDetails route={"brand-view-details"} />} />
+            <Route path="/admin/brand/activeUser/:id" element={<InfProfile route={"active-user"} />} />
+
 
             {/* <Route path="/admin/influencer/new-user/add" element={<InfProfile route={"new-user"} />} /> */}
             <Route path="/admin/influencer/rejected-user/:id" element={<InfProfile route={"rejected-user"} />} />

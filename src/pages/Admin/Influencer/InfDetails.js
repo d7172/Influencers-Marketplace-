@@ -73,8 +73,15 @@ function InfDetails({ route }) {
   const infActiveUserDetails = useSelector((state) =>
     state?.infActiveUser?.results?.filter((r) => r.influencerDetail.id == id)
   )[0];
+  console.log("infActiveUserDetails", infActiveUserDetails);
+
+  const brandActiveUserDetails = useSelector((state) =>
+    state?.BrandActiveUser?.results?.filter((r) => r.id == id)[0]
+  );
+  console.log("brandActiveUserDetails", brandActiveUserDetails);
   // const userDetails = useSelector((state) => state?.infActiveUser);
   const infDetails = infActiveUserDetails?.influencerDetail;
+  // const brandDetails = brandActiveUserDetails?.brandDetail;
   const date = new Date(infDetails.created_at);
   return (
     <>
@@ -88,7 +95,7 @@ function InfDetails({ route }) {
                 navigate(`/admin/influencer/${route}`);
               },
             },
-            { title: infDetails.id },
+            { title: infDetails.id},
           ]}
         />
       </div>

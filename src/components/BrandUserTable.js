@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import CustomToolTip from "./Tooltip";
 import { SearchIcon } from "@heroicons/react/solid";
+import BrandViewDetails from "../pages/Admin/Brand/BrandViewDetails";
 
 function BrandUserTable({ tableData, route,query  }) {
  
@@ -80,6 +81,7 @@ const sortDecending = (param) => {
                           <td
                             className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer"
                           // onClick={() => navigate(`/admin/influencer/activeUser/${data?.id}`)}
+                          onClick={() => navigate(`/admin/brand/activeUser/${data?.id}`)}
                           >
                             {data?.id}
                           </td>
@@ -101,7 +103,8 @@ const sortDecending = (param) => {
                         </td>}
                         <td
                           // onClick={() => navigate(`/admin/influencer/${route}/${data?.id}`)}
-                          onClick={() => alert("Not found page")}
+                          // onClick={() => alert("Not found page")}
+                          onClick={() => navigate('/admin/brand/brand-view-details')}
                           className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
                         >
                           View profile

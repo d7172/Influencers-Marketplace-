@@ -71,7 +71,7 @@ function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTa
                 </tr>
               </thead>
               <tbody>
-                {search(tableData)?.map((data, id) => {
+                {tableData?.map((data, id) => {
                   return (
                     <tr className="relative min-h-[56px]" key={id}>
                       <td className="text-sm text-gray-900 font-[500] pl-6 py-4 whitespace-nowrap">{data?.id}</td>
