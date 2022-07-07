@@ -174,6 +174,7 @@ function CampaignDetails({ route }) {
     brand: { id: campaignDetails?.brand, name: campaignDetails?.brand_name },
     country: { id: null, name: campaignDetails?.country },
     state: { id: null, name: campaignDetails?.state },
+    social_media_deliverables: campaignDetails?.social_media_deliverables,
   };
   // console.log("Details", Details);
   const [deliverablesRow, setDeliverablesRow] = useState([]);
@@ -199,8 +200,7 @@ function CampaignDetails({ route }) {
           minimum_engagement: null,
           duration: null,
           amount: null,
-        },
-      ];
+        }];
       console.log(temp1, "sddsdsdsd");
       temp2 = temp2.concat(temp1);
       if (temp2.length <= 5) {
@@ -245,14 +245,6 @@ function CampaignDetails({ route }) {
       })
     );
   }, [socialplatform]);
-
-  const limitedreach = (e) => {
-    if (socialplatform.length < 5) {
-      alert("You can add only 5 platforms");
-    } else {
-      alert("You can add more platforms");
-    }
-  };
   const selectdelevrable = (e) => {
     var newdeliverbles = [];
     for (let index = 0; index < e.length; index++) {
@@ -652,8 +644,6 @@ function CampaignDetails({ route }) {
                           id={`${platform}`}
                           name="social_platform"
                           type="checkbox"
-                          checked={values.social_media_deliverables[platform]}
-                          // checked={social_media_deliverables.includes(platform)}
                           className="absolute top-0 right-[10px]"
                           onChange={(val) => {
                             handlePlatformChange(
@@ -719,7 +709,7 @@ function CampaignDetails({ route }) {
                               </div>
                               <div className="w-auto">
                                 <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                                  No of Days
+                                  duration
                                 </label>
                                 <Dropdown
                                   dropdownStyle="w-[100px]"
@@ -1017,12 +1007,13 @@ function CampaignDetails({ route }) {
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
-                        socialplatform: values.social_media_deliverables,
+                        // socialplatform: values.social_media_deliverables,
                         social_platform: ["wre", "qww"],
                         minimum_facebook_reach: ["12", "30"],
                         minimum_facebook_engagement: ["45", "30"],
                         number_of_days: "10",
                         facebook_deliverables: "40",
+                        social_media_deliverables: values.social_media_deliverables,
                         // social_media_deliverables
                       };
                       console.log("data", data);

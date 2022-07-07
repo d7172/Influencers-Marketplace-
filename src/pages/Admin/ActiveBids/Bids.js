@@ -16,7 +16,7 @@ import Breadcrumbs from "../../../components/Breadcrumbs";
 // import MyDialog from "./MyDialog";
 // import PalceBid from "./PalceBid";
 
-function Bids() {
+const  Bids = () => {
   // const [placeBid, setPlaceBid] = useState(false);
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
@@ -41,6 +41,19 @@ function Bids() {
     activeIndex !== index && setActiveIndex(index);
     setDetailsTable(!detailsTable);
   };
+
+  const [query, setQuery] = useState("");
+  const [searchParams] = useState(["id","brand_name"]);
+
+function search(items) {
+  return items?.filter((item) => {
+    return searchParams?.some((newItem) => {
+      return (
+        item?.campaign_details?.[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
+      );
+    });
+  });
+}
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -63,6 +76,7 @@ function Bids() {
             type="search"
             placeholder="Search here by campaign ID"
             className="outline-none border-0 w-full bg-[#F1F1F1] "
+            onChange={(e) => setQuery(e.target.value)}
           />
         </div>
         <div className="flex gap-4 px-4 mx-4">
@@ -100,10 +114,10 @@ function Bids() {
                     <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left">
                       Brand Name
                     </th>
-                    <th scope="col" className="text-[18px] w-[220px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    <th scope="col" className="text-[18px] w-[200px] font-[500] text-gray-900 pl-4 py-4 text-left">
                       Campaign Title
                     </th>
-                    <th scope="col" className="text-[18px] w-[190px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    <th scope="col" className="text-[18px] w-[180px] font-[500] text-gray-900 pl-4 py-4 text-left">
                       Total Number of Bids
                     </th>
                     <th scope="col" className="text-[18px] w-[130px] font-[500] text-gray-900 pl-4 py-4 text-left">
@@ -118,7 +132,7 @@ function Bids() {
                   </tr>
                 </thead>
                 <tbody>
-                  {tableData?.map((data, i) => {
+                  {search(tableData)?.map((data, i) => {
                     return (
                       <>
                         <tr key={i} className="bg-[#F2F2F2] flex">
@@ -136,20 +150,20 @@ function Bids() {
                           <td className="text-sm w-[220px] text-gray-900 font-light pl-10 py-4 whitespace-nowrap">
                             {data?.campaign_details?.number_of_bids}
                           </td>
-                          <td className="text-sm w-[130px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
+                          <td className="text-sm w-[130px] text-gray-900 font-light  py-4 whitespace-nowrap">
                             {data?.campaign_details?.category}
                           </td>
-                          <td className="text-[16px] w-[180px] min-w-[170px] flex  relative text-gray-900  font-light pl-4 py-4 whitespace-nowrap">
+                          <td className="text-[16px] w-[180px] min-w-[170px] flex  relative text-gray-900  font-light  py-4 whitespace-nowrap">
                             <img className="absolute z-40 w-[20px] " src="/svgs/facebook.svg" alt="face" />
                             <img className="absolute z-40 w-[20px] " src="/svgs/instagram.svg" alt="face" />
                             <img className="absolute z-40 w-[20px] " src="/svgs/linkedin.svg" alt="face" />
                             <img className="absolute z-40 w-[20px] " src="/svgs/youtube.svg" alt="face" />
                             +2 more
                           </td>
-                          <td className="text-sm w-[100px] text-gray-900 font-light pl-4 py-4 whitespace-nowrap">
+                          <td className="text-sm w-[100px] text-gray-900 font-light  py-4 whitespace-nowrap">
                             &#8377;{data?.campaign_details?.amount}
                           </td>
-                          <td className=" pl-4 py-4 whitespace-nowrap w-[100px] underline cursor-pointer relative">
+                          <td className=" py-4 whitespace-nowrap w-[100px] underline cursor-pointer relative">
                             <button className="text-sm text-[#3751FF] font-[500]" onClick={() => handleIndex(i)}>
                               View details
                             </button>

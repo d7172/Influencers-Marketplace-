@@ -19,6 +19,9 @@ function BrandRejectedUser({ route }) {
   const BrandRejectedUser = useSelector((state) => state?.brandrejecteduser);
   console.log("BrandRejectedUser", BrandRejectedUser);
   tableData = BrandRejectedUser?.results;
+
+  const [query, setQuery] = useState("");
+
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -26,9 +29,9 @@ function BrandRejectedUser({ route }) {
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center px-8">
-          <CampaignSearchBar placeHolder={"Search here by userID"} />
+          <CampaignSearchBar placeHolder={"Search here by userID"} setQuery={setQuery} />
         </div>
-        <BrandUserTable tableData={tableData} route={route} />
+        <BrandUserTable tableData={tableData} route={route} query={query} />
         {tableData?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={BrandRejectedUser} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (

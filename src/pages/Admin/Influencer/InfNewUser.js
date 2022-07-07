@@ -19,6 +19,8 @@ function InfNewUser({ route }) {
   tableData = infNewUser?.results;
   const navigate = useNavigate();
 
+  const [query, setQuery] = useState("");
+
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -26,7 +28,7 @@ function InfNewUser({ route }) {
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center p-4 justify-between w-full mb-5">
-          <CampaignSearchBar placeHolder={"Search here"} />
+          <CampaignSearchBar placeHolder={"Search here"} setQuery={setQuery} />
           {/* <div
           className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
           onClick={() => navigate("/admin/influencer/new-user/add")}
@@ -34,7 +36,7 @@ function InfNewUser({ route }) {
           <button> + Add New Influencer </button>
         </div> */}
         </div>
-        <AdminUserTable tableData={tableData} route={route} />
+        <AdminUserTable tableData={tableData} route={route} query={query} />
         {tableData?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={infNewUser} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (

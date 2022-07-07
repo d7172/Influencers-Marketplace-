@@ -68,12 +68,12 @@ function BidTable() {
   };
   return (
     <div className="mt-6 pr-4">
-      <div className="flex gap-10 border-b-2 pb-2.5 text-[18px] font-[500]">
-        <h1 className="w-[95px]">Campaign ID</h1>
-        <h1 className="w-[240px]">Campaign Title</h1>
-        <h1 className="w-[80px]">Amount</h1>
-        <h1 className="w-[130px]">Social Platform</h1>
-        <h1 className="w-[125px]">Number of bids</h1>
+      <div className="flex gap-10 border-b-2 pb-2.5 text-[14px] font-[500]">
+        <h1 className="w-[150px] text-[18px] font-[500] text-gray-900 text-left">Campaign ID</h1>
+        <h1 className="w-[180px] text-[18px] font-[500] text-gray-900 text-left">Campaign Title</h1>
+        <h1 className="w-[80px]  text-[18px] font-[500] text-gray-900 text-left">Amount</h1>
+        <h1 className="w-[130px] text-[18px] font-[500] text-gray-900 text-left">Social Platform</h1>
+        <h1 className="w-[150px] text-[18px] font-[500] text-gray-900 text-left">Number of bids</h1>
       </div>
       {infBids?.map((bid, id) => {
         return (
@@ -98,15 +98,15 @@ function BidTable() {
                 <div className="w-[140px] flex flex-col items-center justify-center border-r-2 pr-4">
                   <h1 className="text-[18px] font-[500]">Bid Number</h1>
                   <h1 className="text-[18px] font-[500] mb-1">1.</h1>
-                  <div className="text-[#3751FF] border-[#3751FF] font-bold border-2 border-dashed w-[110px] h-[40px] flex items-center justify-center">
-                    <h1>&#8377; {bid?.influencer_bid_amount}</h1>
+                  <div className=" text-[18px]  text-[#3751FF] border-[#3751FF] font-bold border-2 border-dashed w-[110px] h-[40px] flex items-center justify-center">
+                    <h1 className="text-[18px] font-[500] mb-1">&#8377; {bid?.influencer_bid_amount}</h1>
                   </div>
-                  <h1 className="text-[#2BC155] mt-4">
+                  <h1 className="text-[#2BC155] mt-2  text-[18px] font-[500]">
                     <div className="w-[12px] h-[12px] inline-block rounded-full bg-[#2BC155]"></div>
                     {bid?.campaign_details?.status_camp}
                   </h1>
                   <h1
-                    className="text-[#3751FF] underline mt-4 cursor-pointer"
+                     className="text-[#3751FF] underline mt-1 cursor-pointer text-[18px] font-[500]"
                     onClick={() => navigate(`/influencer/bids/active-bids/${bid?.campaign_details?.id}`)}
                   >
                     View Details

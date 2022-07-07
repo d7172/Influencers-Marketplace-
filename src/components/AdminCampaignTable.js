@@ -1,12 +1,26 @@
-import React from "react";
+import React,{useState} from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMoveToCampaignPoolData } from "../store/Admin/Campaign/MoveToPool/action";
 import { deleteCampaignData, getNewCampaignData } from "../store/Admin/Campaign/NewCampaign/action";
 import CustomToolTip from "./Tooltip";
-function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTableData, activePage }) {
+function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTableData, activePage, query}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [searchParams] = useState(["id","first_name","last_name"]);
+
+  function search(items) {
+    return items?.filter((item) => {
+      return searchParams?.some((newItem) => {
+        return (
+          item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
+        );
+      });
+    });
+  }
+
+
   return (
     <div className="flex flex-col max-w-[1280px]">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -57,13 +71,13 @@ function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTa
                 </tr>
               </thead>
               <tbody>
-                {tableData?.map((data, id) => {
+                {search(tableData)?.map((data, id) => {
                   return (
                     <tr className="relative min-h-[56px]" key={id}>
                       <td className="text-sm text-gray-900 font-[500] pl-6 py-4 whitespace-nowrap">{data?.id}</td>
 
                       <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
-                        {data?.brand}
+                        {data?.brand_name}
                       </td>
                       <td className="text-sm min-w-[250px] text-gray-900 font-light pl-6 py-4 whitespace-nowrap">
                         {data?.title}

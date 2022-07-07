@@ -20,16 +20,19 @@ function BrandActiveUser({ route}) {
   console.log("brandActiveUser", brandActiveUser);
   tableData = brandActiveUser?.results
   // console.log("tableData", brandtableData);
+
+  const [query, setQuery] = useState("");
+
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
         <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "Active Brands" }]} />
       </div>
       <div className="max-w-[1280px] pt-6 relative">
-        {/* <div className="flex items-center px-8">
-          <CampaignSearchBar placeHolder={"Search here by userID"} />
-        </div> */}
-        <BrandUserTable tableData={tableData} route={"active-user"} />
+        <div className="flex items-center px-8">
+          <CampaignSearchBar placeHolder={"Search here by userID"} setQuery={setQuery} />
+        </div>
+        <BrandUserTable tableData={tableData} route={"active-user"} query={query} />
         {tableData?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={brandActiveUser} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (
