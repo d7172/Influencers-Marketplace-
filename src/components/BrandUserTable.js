@@ -73,7 +73,7 @@ const sortDecending = (param) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {console.log(tableData, "data in table compo")} */}
+                  {console.log(tableData, "activebranddata in table compo")}
                   {search(tableData)?.map((data) => {
                     return (
                       <tr className="">
@@ -102,9 +102,9 @@ const sortDecending = (param) => {
                           {data?.activeSince || "-"}
                         </td>}
                         <td
-                          // onClick={() => navigate(`/admin/influencer/${route}/${data?.id}`)}
+                          onClick={() => navigate(`/admin/brand/${route}/${data?.id}`)}
                           // onClick={() => alert("Not found page")}
-                          onClick={() => navigate('/admin/brand/brand-view-details')}
+                          // onClick={() => navigate('/admin/brand/brand-view-details')}
                           className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer "
                         >
                           View profile

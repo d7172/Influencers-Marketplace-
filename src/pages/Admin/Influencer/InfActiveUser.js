@@ -17,9 +17,7 @@ function InfActiveUser({ route }) {
     dispatch(getInfActiveUserData(payload, activePage));
   }, [activePage]);
   const infActiveUser = useSelector((state) => state?.infActiveUser);
-  console.log('====================================');
   console.log('infActiveUser', infActiveUser);
-  console.log('====================================');
   tableData = infActiveUser?.results.map((r) => r?.influencerDetail)
 
   const [query, setQuery] = useState("");
