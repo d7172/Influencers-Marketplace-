@@ -37,14 +37,14 @@ function SignIn() {
     }
   }, [userInfo]);
   return (
-    <div className="bg-background h-full min-h-screen py-4 flex flex-col gap-14 items-center justify-center">
+    <div className="bg-background h-full min-h-screen flex flex-col gap-14 items-center justify-center">
       <div className="text-center flex flex-col gap-5">
         <h2 className="text-3xl">{isLogin ? "Log In" : "Sign Up"}</h2>
         <p className="w-390 text-gray-500 text-sm">
           Log in to your account using email and password provided during registration.
         </p>
       </div>
-      <div className="bg-white w-608 h-520 text-center rounded-8">
+      <div className="bg-white w-608 h-500 text-center rounded-8">
         <Formik
           enableReinitialize={true}
           initialValues={credentials}
@@ -74,8 +74,8 @@ function SignIn() {
         >
           {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
             return (
-              <div className="w-400 m-auto mt-14">
-                <div className="flex flex-col text-left">
+              <div className="w-400 m-auto">
+                <div className="flex flex-col text-left mt-14">
                   <label className="ml-2">Phone</label>
                   <input
                     id="phone"

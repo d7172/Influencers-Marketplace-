@@ -22,6 +22,8 @@ function CampaignPool() {
     dispatch(getCampaignPoolData(data, activePage));
   }, [activePage]);
 
+  const [query, setQuery] = useState("");
+
   const infCampaignPool = useSelector((state) => state?.infCampaignPool);
   return (
     <>
@@ -30,9 +32,9 @@ function CampaignPool() {
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center justify-end px-4">
-          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} setQuery={setQuery} />
         </div>
-        <CampaignTable data={infCampaignPool?.results} />
+        <CampaignTable data={infCampaignPool?.results} query={query}  />
         {infCampaignPool?.results?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={infCampaignPool} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (

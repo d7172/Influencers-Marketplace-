@@ -16,6 +16,7 @@ function Statement() {
   const [toDate, setToDate] = useState("");
   const [tableData, setTableData] = useState([]);
 
+
   const statementData = useSelector((state) => state?.BrandTransactionStatement?.response)
   const filteredData = useSelector((state) => state?.BrandTransactionStatementFilter?.response);
 
@@ -52,6 +53,8 @@ function Statement() {
   useEffect(() => {
     setTableData(filteredData);
   }, [filteredData]);
+
+  const [query, setQuery] = useState("");
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -59,7 +62,7 @@ function Statement() {
       </div>
       <div className="mx-10">
         <div className="flex justify-end mt-8">
-          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} setQuery={setQuery} />
         </div>
         <div className="flex justify-between items-center mt-8">
           <DateRange setFromDate={setFromDate} fromDate={fromDate} toDate={toDate} setToDate={setToDate} onClick={handleFilter} />
@@ -67,7 +70,7 @@ function Statement() {
             Download Statement
           </button>
         </div>
-        <StatementTable tableData={tableData} />
+        <StatementTable tableData={tableData} query={query} />
         {tableData?.length === 0 && <div className="text-center mt-4">
           <p className="text-gray-500">No data to display.</p>
         </div>}
@@ -78,14 +81,44 @@ function Statement() {
 
 export default Statement;
 
-function StatementTable({ tableData }) {
+function StatementTable({query,tableData }) {
+
+  const [searchParams] = useState(["id","first_name","last_name","brand_name"]);
+  const [tableDatas, setTableData] = useState(tableData);
+    function search(items) {
+        return items?.filter((item) => {
+          return searchParams?.some((newItem) => {
+            return (
+              item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
+            );
+          });
+        });
+      }
+      useEffect(() => {
+        setTableData();
+
+    }, [tableDatas])
+
+    const [sort, setSort] = useState(null);
+
+    const sortAccending = (param) => {
+        param === 'id' ? setTableData(tableDatas.sort((a, b) => a.id - b.id)) : setTableData(tableDatas.sort((a, b) => a.amount - b.amount));
+        setSort(0);
+    };
+    const sortDecending = (param) => {
+        param === 'id' ? setTableData(tableDatas.sort((a, b) => b.id - a.id)) : setTableData(tableDatas.sort((a, b) => b.amount - a.amount));
+        setSort(1);
+    };
   return (
     <div className="overflow-x-auto mt-8">
       <table className="w-full text-left">
         <thead className="border-b ">
           <tr>
-            <th scope="col" class="text-lg text-gray-900 font-[500] px-6 py-3">
+            <th scope="col" class="text-lg text-gray-900 font-[500] px-6 py-3 flex flex-row">
               Campaign ID
+              <div className="ml-2 mt-1">
+                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                     </div>
             </th>
             <th scope="col" class="text-lg text-gray-900 font-[500] px-6 py-3">
               Campaign Title
@@ -108,7 +141,7 @@ function StatementTable({ tableData }) {
           </tr>
         </thead>
         <tbody className="text-sm capitalize">
-          {tableData?.map((data, id) => {
+          {search(tableData)?.map((data, id) => {
             return (
               <tr className="" key={id}>
                 <td scope="row" className="px-6 py-4 whitespace-nowrap" >

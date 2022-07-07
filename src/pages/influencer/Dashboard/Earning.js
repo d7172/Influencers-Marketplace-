@@ -65,6 +65,27 @@ function Earning() {
       },
     },
   };
+
+  
+  const [sort, setSort] = useState(null);
+
+  const [tableDatas, setTableData] = useState(latestTransactionState);
+  
+  useEffect(() => {
+      setTableData(latestTransactionState);
+
+  }, [latestTransactionState])
+
+  const sortAccending = (param) => {
+    param === 'id' ? setTableData(tableDatas.sort((a, b) => a.id - b.id)) : setTableData(tableDatas.sort((a, b) => a.id - b.id));
+    setSort(0);
+};
+const sortDecending = (param) => {
+    param === 'id' ? setTableData(tableDatas.sort((a, b) => b.id - a.id)) : setTableData(tableDatas.sort((a, b) => b.id - a.id));
+    setSort(1);
+};
+
+
   return (
     <div className="pb-20">
       <div className="flex px-8 gap-10 justify-between mt-6">
@@ -119,8 +140,11 @@ function Earning() {
               <table className="min-w-full">
                 <thead className="border-b">
                   <tr>
-                    <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
+                    <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row ">
                       Campaign ID
+                      <div className="mt-1 ml-2">
+                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                     </div>
                     </th>
                     <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                       Campaign Title

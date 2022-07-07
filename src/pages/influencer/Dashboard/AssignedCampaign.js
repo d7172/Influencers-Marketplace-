@@ -59,6 +59,9 @@ function AssignedCampaign() {
       },
     ],
   };
+
+  const [query, setQuery] = useState("");
+
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -66,9 +69,9 @@ function AssignedCampaign() {
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center justify-end">
-          <CampaignSearchBar placeHolder={"Search here by Campaign ID"}/>
+          <CampaignSearchBar placeHolder={"Search here by Campaign ID"} setQuery={setQuery}/>
         </div>
-        <CampaignTable data={tableData} />
+        <CampaignTable data={tableData} query={query} />
         {tableData?.length ? (<div className="absolute bottom-[-100px] right-0">
           <Pagination link={infCampaignAssigned} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (
@@ -82,8 +85,39 @@ function AssignedCampaign() {
 }
 
 export default AssignedCampaign;
-function CampaignTable({ data }) {
+function CampaignTable({ data,query }) {
+
   const navigate = useNavigate();
+
+  const [searchParams] = useState(["id","title"]);
+  const [tableData, setTableData] = useState(data);
+
+  function search(items) {
+      return items?.filter((item) => {
+        return searchParams?.some((newItem) => {
+          return (
+            item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
+          );
+        });
+      });
+    }
+
+    const [sort, setSort] = useState(null);
+
+    useEffect(() => {
+      setTableData(data);
+    },[data])
+
+
+    const sortAccending = (param) => {
+      param === 'id' ? setTableData(tableData.sort((a, b) => a.id - b.id)) : setTableData(tableData.sort((a, b) => a.id - b.id));
+      setSort(0);
+  };
+  const sortDecending = (param) => {
+      param === 'id' ? setTableData(tableData.sort((a, b) => b.id - a.id)) : setTableData(tableData.sort((a, b) => b.id - a.id));
+      setSort(1);
+  };
+
   return (
     <div className="flex flex-col max-w-[1280px] overflow-hidden">
       {/* <MyDialog isOpen={placeBid} close={() => setPlaceBid(false)} className="rounded-8">
@@ -95,8 +129,11 @@ function CampaignTable({ data }) {
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
-                  <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
+                  <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row">
                     Campaign ID
+                    <div className="ml-2 mt-1">
+                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                     </div>
                   </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     Campaign Title
@@ -119,7 +156,7 @@ function CampaignTable({ data }) {
                 </tr>
               </thead>
               <tbody>
-                {tableData?.map((data, i) => {
+                {search(tableData)?.map((data, i) => {
                   return (
                     <tr className="">
                       <td className="pl-6 py-4 whitespace-nowrap text-sm max-w-[150px] font-medium text-gray-900">

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
@@ -32,6 +32,9 @@ function Statement() {
   transitionStatementState = useSelector((state) => state?.infTransitionStatement?.results);
   let transitionState = useSelector((state) => console.log(state, "state"));
   console.log(transitionState);
+
+  const [query, setQuery] = useState("");
+
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -39,7 +42,7 @@ function Statement() {
       </div>
       <div className="ml-10">
         <div className="flex items-center pr-8 mt-8">
-          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} setQuery={setQuery} />
         </div>
         <div className="flex justify-between items-center mt-8">
           <DateRange />
@@ -47,7 +50,7 @@ function Statement() {
             Download Statement{" "}
           </button>
         </div>
-        <StatementTable />
+        <StatementTable query={query} />
         <div className="absolute bottom-4 right-6">
           {/* <Pagination /> */}
         </div>
@@ -58,7 +61,39 @@ function Statement() {
 
 export default Statement;
 
-function StatementTable() {
+function StatementTable({query}) {
+
+  const [searchParams] = useState(["id","title"]);
+
+  function search(items) {
+      return items?.filter((item) => {
+        return searchParams?.some((newItem) => {
+          return (
+            item?.[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
+          );
+        });
+      });
+    }
+
+    const [sort, setSort] = useState(null);
+
+    const [tableData, setTableData] = useState(transitionStatementState);
+    
+    useEffect(() => {
+        setTableData(transitionStatementState);
+  
+    }, [transitionStatementState])
+
+    const sortAccending = (param) => {
+      param === 'id' ? setTableData(tableData.sort((a, b) => a.id - b.id)) : setTableData(tableData.sort((a, b) => a.id - b.id));
+      setSort(0);
+  };
+  const sortDecending = (param) => {
+      param === 'id' ? setTableData(tableData.sort((a, b) => b.id - a.id)) : setTableData(tableData.sort((a, b) => b.id - a.id));
+      setSort(1);
+  };
+
+
   return (
     <div className="flex flex-col max-w-[1280px] mt-6">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -67,8 +102,11 @@ function StatementTable() {
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
-                  <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
+                  <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row">
                     Campaign ID
+                    <div className="mt-1 ml-2">
+                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                     </div>
                   </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     Campaign Title
@@ -88,7 +126,7 @@ function StatementTable() {
                 </tr>
               </thead>
               <tbody>
-                {transitionStatementState?.map((transStatement, id) => {
+                {search(transitionStatementState)?.map((transStatement, id) => {
                   return (
                     <tr className="" key={id}>
                       <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">

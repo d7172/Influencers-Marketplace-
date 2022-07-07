@@ -23,6 +23,9 @@ function Bids() {
   }, [activePage]);
   const infBidsObj = useSelector((state) => state?.infBids);
   infBids = infBidsObj?.results;
+
+  const [query, setQuery] = useState("");
+
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -40,9 +43,9 @@ function Bids() {
             />
             <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
           </div>
-          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} setQuery={setQuery} />
         </div>
-        <BidTable />
+        <BidTable query={query} />
         {infBids?.length ? (<div className="w-full mt-2 px-4">
           <Pagination link={infBidsObj} activePage={activePage} setActivePage={setActivePage} />
         </div>) : (
@@ -57,7 +60,7 @@ function Bids() {
 
 export default Bids;
 
-function BidTable() {
+function BidTable({query}) {
   const navigate = useNavigate();
   const [detailsTable, setDetailsTable] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -66,16 +69,54 @@ function BidTable() {
     activeIndex !== index && setActiveIndex(index);
     setDetailsTable(!detailsTable);
   };
+  
+  const [searchParams] = useState(["id","title"]);
+
+  function search(items) {
+      return items?.filter((item) => {
+        return searchParams?.some((newItem) => {
+          return (
+            item?.campaign_details?.[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
+          );
+        });
+      });
+    }
+
+    const [sort, setSort] = useState(null);
+
+    const [tableData, setTableData] = useState(infBids);
+    
+    useEffect(() => {
+        setTableData(infBids);
+  
+    }, [infBids])
+
+    const sortAccending = (param) => {
+      param === 'id' ? setTableData(tableData.sort((a, b) => a.id - b.id)) : setTableData(tableData.sort((a, b) => a.id - b.id));
+      setSort(0);
+  };
+  const sortDecending = (param) => {
+      param === 'id' ? setTableData(tableData.sort((a, b) => b.id - a.id)) : setTableData(tableData.sort((a, b) => b.id - a.id));
+      setSort(1);
+  };
+
+
   return (
     <div className="mt-6 pr-4">
       <div className="flex gap-10 border-b-2 pb-2.5 text-[14px] font-[500]">
-        <h1 className="w-[150px] text-[18px] font-[500] text-gray-900 text-left">Campaign ID</h1>
+        <div className="w-[150px] text-[18px] font-[500] text-gray-900 text-left flex flex-row">
+        <h1 className="w-[120px] text-[18px] font-[500] text-gray-900 text-left">Campaign ID</h1>
+        <div className="mt-1">
+                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                     </div>
+        </div>
+
         <h1 className="w-[180px] text-[18px] font-[500] text-gray-900 text-left">Campaign Title</h1>
         <h1 className="w-[80px]  text-[18px] font-[500] text-gray-900 text-left">Amount</h1>
         <h1 className="w-[130px] text-[18px] font-[500] text-gray-900 text-left">Social Platform</h1>
         <h1 className="w-[150px] text-[18px] font-[500] text-gray-900 text-left">Number of bids</h1>
       </div>
-      {infBids?.map((bid, id) => {
+      {search(infBids)?.map((bid, id) => {
         return (
           <>
             <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">

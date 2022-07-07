@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-function BrandCampaignTable({ route, campaignRows }) {
+function BrandCampaignTable({ route, campaignRows,query }) {
     const navigate = useNavigate();
     const [sort, setSort] = useState(null);
     const [tableData, setTableData] = useState(campaignRows);
+
+
+    useEffect(() => {
+        setTableData(campaignRows);
+
+    }, [campaignRows])
 
     const sortAccending = (param) => {
         param === 'id' ? setTableData(tableData.sort((a, b) => a.id - b.id)) : setTableData(tableData.sort((a, b) => a.amount - b.amount));
@@ -14,14 +20,28 @@ function BrandCampaignTable({ route, campaignRows }) {
         param === 'id' ? setTableData(tableData.sort((a, b) => b.id - a.id)) : setTableData(tableData.sort((a, b) => b.amount - a.amount));
         setSort(1);
     };
+
+    const [searchParams] = useState(["id","first_name","last_name","brand_name"]);
+
+    function search(items) {
+        return items?.filter((item) => {
+          return searchParams?.some((newItem) => {
+            return (
+              item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
+            );
+          });
+        });
+      }
     return (
         <div className="overflow-x-auto">
             <table className="w-full text-left">
                 <thead className="border-b">
                     <tr>
-                        <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3">
+                        <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3 flex flex-row ">
                             Campaign ID
-                            <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id')} /></span>
+                            <div className="ml-2 mt-1">
+                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                     </div>
                         </th>
                         {(route === "new-campaign") && <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3">
                             Brand Name
@@ -48,7 +68,7 @@ function BrandCampaignTable({ route, campaignRows }) {
                     </tr>
                 </thead>
                 <tbody className="text-sm text-gray-900 capitalize">
-                    {campaignRows?.map((data, i) => {
+                    {search(campaignRows)?.map((data, i) => {
                         let platforms = data?.social_media_deliverables?.map((item) => { return item.platform });
                         return (
                             <tr className="" key={i}>

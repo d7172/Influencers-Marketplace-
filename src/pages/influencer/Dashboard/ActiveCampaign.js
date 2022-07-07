@@ -31,6 +31,10 @@ function ActiveCampaign() {
 
   const infCampaignActive = useSelector((state) => state?.infCampaignActive);
   tableData = infCampaignActive?.results;
+  
+  const [query, setQuery] = useState("");
+
+
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -48,9 +52,9 @@ function ActiveCampaign() {
             />
             <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
           </div>
-          <CampaignSearchBar placeHolder={"Search here by campaign ID"} />
+          <CampaignSearchBar placeHolder={"Search here by campaign ID"} setQuery={setQuery} />
         </div>
-        <ActiveCampaignTable tableData={tableData} />
+        <ActiveCampaignTable tableData={tableData} query={query} />
         {tableData?.length ? (
           <div className="w-full mt-2 px-4">
             <Pagination link={infCampaignActive} activePage={activePage} setActivePage={setActivePage} />
@@ -67,7 +71,21 @@ function ActiveCampaign() {
 
 export default ActiveCampaign;
 
-function ActiveCampaignTable({ tableData }) {
+function ActiveCampaignTable({query }) { 
+
+  const [searchParams] = useState(["id","title"]);
+
+  function search(items) {
+      return items?.filter((item) => {
+        return searchParams?.some((newItem) => {
+          return (
+            item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
+          );
+        });
+      });
+    }
+
+    console.log(tableData, "table data");
   const [detailsTable, setDetailsTable] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [reasonDialog, setReasonDialog] = useState(false);
@@ -76,6 +94,25 @@ function ActiveCampaignTable({ tableData }) {
     activeIndex !== index && setActiveIndex(index);
     setDetailsTable(!detailsTable);
   };
+
+  const [sort, setSort] = useState(null);
+
+  const [tableDatas, setTableData] = useState(tableData);
+  
+  useEffect(() => {
+      setTableData(tableData);
+
+  }, [tableData])
+
+  const sortAccending = (param) => {
+    param === 'id' ? setTableData(tableDatas.sort((a, b) => a.id - b.id)) : setTableData(tableDatas.sort((a, b) => a.id - b.id));
+    setSort(0);
+};
+const sortDecending = (param) => {
+    param === 'id' ? setTableData(tableDatas.sort((a, b) => b.id - a.id)) : setTableData(tableDatas.sort((a, b) => b.id - a.id));
+    setSort(1);
+};
+
   return (
     <div className="flex flex-col max-w-[1280px] overflow-hidden">
       <MyDialog isOpen={reasonDialog} close={() => setReasonDialog(false)} className="rounded-8">
@@ -115,8 +152,11 @@ function ActiveCampaignTable({ tableData }) {
             <table className="min-w-full">
               <thead className="border-b">
                 <tr className="flex">
-                  <th scope="col" className="text-[18px] min-w-[130px] font-[500] text-gray-900 pl-6 py-4 text-left">
+                  <th scope="col" className="text-[18px] min-w-[130px] font-[500] text-gray-900 pl-6 py-4 text-left flex flex-row">
                     Campaign ID
+                    <div className="ml-2 mt-1">
+                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                     </div>
                   </th>
                   <th scope="col" className="text-[18px] min-w-[252px] font-[500] text-gray-900 pl-6 py-4 text-left">
                     Campaign Title
@@ -143,6 +183,7 @@ function ActiveCampaignTable({ tableData }) {
               </thead>
               <tbody>
                 {tableData?.map((data, i) => {
+                  console.log("active data", data);
                   return (
                     <>
                       <tr className="flex">
