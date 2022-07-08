@@ -27,7 +27,7 @@ function InfNewUser({ route }) {
         <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "New Users" }]} />
       </div>
       <div className="max-w-[1280px] pt-6 relative">
-        <div className="flex items-center p-4 justify-between w-full mb-5">
+        <div className="flex items-center p-4 justify-between w-full">
           <CampaignSearchBar placeHolder={"Search here"} setQuery={setQuery} />
           {/* <div
           className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"

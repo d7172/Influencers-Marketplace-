@@ -50,16 +50,20 @@ const [searchParams] = useState(["id","first_name","last_name"]);
               <thead className="border-b">
                 <tr>
                   {route === "active-user" && (
-                    <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row">
+                    <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
+                      <div className="flex flex-row">
                       User Id
-                      <div className="ml-2 mt-1">
-                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                     <span className='cursor-pointer ml-2 mt-1'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
                      </div>
                     </th>
                   )}
-                  <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
-                    Name
-                  </th>
+                  <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row ">
+                      Name
+                      {route !== "active-user" &&
+                      <div className="flex flex-row">
+                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                      </div>}
+                    </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     Number
                   </th>
