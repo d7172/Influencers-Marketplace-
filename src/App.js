@@ -114,7 +114,7 @@ function App() {
             <Route path="/admin/brand/brand-view-details" element={<BrandViewDetails route={"brand-view-details"} />} />
             <Route path="/admin/brand/brand-view-details/:id" element={<BrandViewDetails route={"brand-view-details"} />} />
               
-            <Route path="/admin/brand/activeUser/:id" element={<InfProfile route={"brand-active-user"} />} />
+            <Route path="/admin/brand/activeUser/:id" element={<InfDetails route={"brand-active-user"} />} />
             <Route path="/admin/influencer/active-user/:id" element={<InfProfile route={"brand-active-user"} />} />
 
 

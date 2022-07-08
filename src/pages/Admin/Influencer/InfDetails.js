@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 
 function InfDetails({ route }) {
+  console.log("route", route);
   const { id } = useParams();
+  const location = useLocation();
+  const isInf = location.pathname.includes("influencer");
+  const details = useSelector( isInf ? (state) => state?.infActiveUser?.results?.filter((r) => r.influencerDetail.id == id)[0]: (state) => state?.BrandActiveUser?.results?.filter((r) => r.id == id)[0]);
+
+  console.log("details", details);
+
+
   const navigate = useNavigate();
   const activeCampaign = [
     {
@@ -70,19 +78,21 @@ function InfDetails({ route }) {
   const activeTabStyle = "border-[#ffab2d]  bg-[#ffab2d1a]";
   const [tableData, setTableData] = useState(activeCampaign);
 
-  const infActiveUserDetails = useSelector((state) =>
-    state?.infActiveUser?.results?.filter((r) => r.influencerDetail.id == id)
-  )[0];
-  console.log("infActiveUserDetails", infActiveUserDetails);
+  // const infActiveUserDetails = useSelector((state) =>
+  //   state?.infActiveUser?.results?.filter((r) => r.influencerDetail.id == id)
+  // )[0];
+  // console.log("infActiveUserDetails", infActiveUserDetails);
 
-  const brandActiveUserDetails = useSelector((state) =>
-    state?.BrandActiveUser?.results?.filter((r) => r.id == id)[0]
-  );
-  console.log("brandActiveUserDetails", brandActiveUserDetails);
+  // const brandActiveUserDetails = useSelector((state) =>
+  //   state?.BrandActiveUser?.results?.filter((r) => r.id == id)[0]
+  // );
+  // console.log("brandActiveUserDetails", brandActiveUserDetails);
   // const userDetails = useSelector((state) => state?.infActiveUser);
-  const infDetails = infActiveUserDetails?.influencerDetail;
+  // const infDetails = infActiveUserDetails?.influencerDetail;
   // const brandDetails = brandActiveUserDetails?.brandDetail;
-  const date = new Date(infDetails.created_at);
+  const date = new Date(details?.created_at);
+  const infdate = new Date(details?.influencerDetail?.created_at);
+  console.log("date", date);
   return (
     <>
       <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
@@ -95,7 +105,7 @@ function InfDetails({ route }) {
                 navigate(`/admin/influencer/${route}`);
               },
             },
-            { title: infDetails.id},
+            { title: details?.id || details?.influencerDetail?.id },
           ]}
         />
       </div>
@@ -107,18 +117,22 @@ function InfDetails({ route }) {
 
         <div className="flex">
           <div className="mt-1 flex w-230">
-            <img className="w-360 rounded-md" src={infDetails.profile_pic} alt="avtar" />
+            <img className="w-360 rounded-md" src={details?.profile_pic || details?.influencerDetail?.profile_pic} alt="avtar" />
           </div>
           <div className="ml-4">
             <div className="text-[22px] font-[700] w-[180px] capitalize">
-              {infDetails.first_name + " " + infDetails.last_name}
+              {details?.first_name || details?.influencerDetail?.first_name }  {details?.last_name || details?.influencerDetail?.last_name}
             </div>
-            <div className="text-[16px] mt-1 font-[400] w-[180px]">@{infDetails.user_name}</div>
+            <div className="text-[16px] mt-1 font-[400] w-[180px]">
+            {details?.influencerDetail ? " @ " + details?.influencerDetail?.user_name: null}
+            </div>
             <div className="text-[16px] mt-4 font-[500] w-[180px]">
-              Join on {date.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" })}
+              Join on {details?.created_at ? date.toDateString(): infdate.toDateString()}
+             {/* { "Join on " + " " + date?.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }) ||
+             infdate?.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" })} */}
             </div>
-            <div className="text-[16px] mt-4 font-[400] w-[180px]">{infDetails.email}</div>
-            <div className="text-[16px] font-[400] w-[180px]">{infDetails.contact_number}</div>
+            <div className="text-[16px] mt-4 font-[400] w-[180px]">{details?.email || details?.influencerDetail?.email}</div>
+            <div className="text-[16px] font-[400] w-[180px]">{details?.contact_number || details?.influencerDetail?.contact_number}</div>
           </div>
           <div className="ml-10 items-center">
             <div className="flex border border-[#ffab2d] border-solid bg-[#ffab2d1a] justify-center ">
@@ -199,6 +213,7 @@ function InfDetails({ route }) {
             <h5 className="w-[130px]">Social Platform</h5>
           </div>
           {tableData.map((data, i) => (
+            // console.log("influencer data", data),
             <div className="flex gap-10 px-2 py-4 text-sm text-gray-900 whitespace-nowrap items-start">
               <div className=" w-[95px] font-medium">{data.id}</div>
               <div className="flex gap-4 items-center justify-center w-[220px] overflow-hidden">
@@ -268,3 +283,8 @@ export const imageSvg = (
     />
   </svg>
 );
+
+
+
+//const infDetails = infActiveUserDetails?.influencerDetail;
+  // const brandDetails = brandActiveUserDetails?.brandDetail;
