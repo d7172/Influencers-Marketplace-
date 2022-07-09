@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getBrandActiveUserData } from "../../store/Admin/Brand/ActiveUser/action";
-import { addNewCampaignData } from "../../store/Admin/Campaign/NewCampaign/action";
+import { addNewCampaignData, updateCampaignData } from "../../store/Admin/Campaign/NewCampaign/action";
 import { getCountryData } from "../../store/Country/action";
 import { getStatesData } from "../../store/State/action";
 import { getCategoriesData } from "../../store/Categories/action";
@@ -150,7 +150,7 @@ function CampaignDetails({ route }) {
     campain_goal: campaignDetails?.campain_goal,
     promotion_goal: campaignDetails?.promotion_goal,
     project_duration_in_days: campaignDetails?.project_duration_in_days,
-    age_group: [campaignDetails?.age_group],
+    age_group: campaignDetails?.age_group,
     gender: { label: campaignDetails?.gender === "M" ? "Male" : "Female", value: campaignDetails?.gender },
     audience_interest: campaignDetails?.audience_interest,
     number_of_influencer: campaignDetails?.number_of_influencer,
@@ -200,7 +200,8 @@ function CampaignDetails({ route }) {
           minimum_engagement: null,
           duration: null,
           amount: null,
-        }];
+        },
+      ];
       console.log(temp1, "sddsdsdsd");
       temp2 = temp2.concat(temp1);
       if (temp2.length <= 5) {
@@ -861,20 +862,14 @@ function CampaignDetails({ route }) {
                       Budget Per Influencer
                     </label>
                     <div className="w-full">
-                      <Dropdown
-                        dropdownStyle="w-full"
-                        className="w-full"
-                        label={values?.budget_per_influencer?.length ? values.budget_per_influencer : "1 - 10k"}
-                        options={[
-                          {
-                            label: "10k - 20k",
-                          },
-                          {
-                            label: "20k - 30k",
-                          },
-                        ]}
-                        onChange={(val) => setFieldValue("budget_per_influencer", val.label)}
+                      <input
+                        className="input-field w-full"
+                        id="budget_per_influencer"
+                        type="number"
+                        value={values?.budget_per_influencer}
+                        onChange={handleChange("budget_per_influencer")}
                       />
+
                       {errors.budget_per_influencer && touched.budget_per_influencer && (
                         <FormError>{errors.budget_per_influencer}</FormError>
                       )}
@@ -885,21 +880,12 @@ function CampaignDetails({ route }) {
                       Expected Budget Per Influencer
                     </label>
                     <div className="w-full">
-                      <Dropdown
-                        dropdownStyle="w-full"
-                        className="w-full"
-                        label={
-                          values?.expected_budget_per_influencer?.length ? values.expected_budget_per_influencer : "10k"
-                        }
-                        options={[
-                          {
-                            label: "20k",
-                          },
-                          {
-                            label: "30k",
-                          },
-                        ]}
-                        onChange={(val) => setFieldValue("expected_budget_per_influencer", val.label)}
+                      <input
+                        className="input-field w-full"
+                        id="expected_budget_per_influencer"
+                        type="number"
+                        value={values?.expected_budget_per_influencer}
+                        onChange={handleChange("expected_budget_per_influencer")}
                       />
                       {errors.expected_budget_per_influencer && touched.expected_budget_per_influencer && (
                         <FormError>{errors.expected_budget_per_influencer}</FormError>
@@ -1017,7 +1003,12 @@ function CampaignDetails({ route }) {
                         // social_media_deliverables
                       };
                       console.log("data", data);
-                      dispatch(addNewCampaignData(data, navigate));
+                      if (id) {
+                        const updatedData = { id: id, ...data };
+                        dispatch(updateCampaignData(updatedData, navigate));
+                      } else {
+                        dispatch(addNewCampaignData(data, navigate));
+                      }
                     }}
                   >
                     Submit Campaing

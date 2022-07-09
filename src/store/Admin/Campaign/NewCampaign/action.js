@@ -41,15 +41,20 @@ export const addNewCampaignData = (payload, navigate) => {
   };
 };
 
-export const updateCampaignData = (payload) => {
-  const url = `campaign/${payload?.influencer_id}/`;
+export const updateCampaignData = (payload, navigate) => {
+  const url = `campaign/${payload?.id}/`;
   return (dispatch) => {
     networkRequest(
       url,
       "PUT",
-      "JSON",
+      false,
       payload,
       (res) => {
+        if (res?.status_code === 200 && res.status === "success") {
+          navigate("/admin/campaign/new-campaign");
+        } else {
+          alert("Some error occured!!");
+        }
         dispatch({ type: "CAMPAIGN_UPDATED_SUCCESS", data: res });
       },
       () => {
@@ -60,7 +65,7 @@ export const updateCampaignData = (payload) => {
 };
 
 export const deleteCampaignData = (payload) => {
-  const url = `campaign/${payload?.influencer_id}/`;
+  const url = `campaign/${payload?.campaign_id}/`;
   return (dispatch) => {
     networkRequest(
       url,

@@ -1,11 +1,11 @@
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MyDialog from "./MyDialog";
 import PalceBid from "./PalceBid";
 
-function CampaignTable({ data,query }) {
+function CampaignTable({ data, query }) {
   const [placeBid, setPlaceBid] = useState(false);
   const infCampaignPool = data;
   const [deliverablesState, setDeliverablesState] = useState([]);
@@ -17,34 +17,35 @@ function CampaignTable({ data,query }) {
     setPlaceBid(true);
   };
 
-  const [searchParams] = useState(["id","title"]);
+  const [searchParams] = useState(["id", "title"]);
 
   function search(items) {
-      return items?.filter((item) => {
-        return searchParams?.some((newItem) => {
-          return (
-            item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
-          );
-        });
+    return items?.filter((item) => {
+      return searchParams?.some((newItem) => {
+        return item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1;
       });
-    }
+    });
+  }
 
-    const [sort, setSort] = useState(null);
+  const [sort, setSort] = useState(null);
 
-    const [tableData, setTableData] = useState(data);
-    
-    useEffect(() => {
-        setTableData(data);
-  
-    }, [data])
+  const [tableData, setTableData] = useState(data);
 
-    const sortAccending = (param) => {
-      param === 'id' ? setTableData(tableData.sort((a, b) => a.id - b.id)) : setTableData(tableData.sort((a, b) => a.id - b.id));
-      setSort(0);
+  useEffect(() => {
+    setTableData(data);
+  }, [data]);
+
+  const sortAccending = (param) => {
+    param === "id"
+      ? setTableData(tableData.sort((a, b) => a.id - b.id))
+      : setTableData(tableData.sort((a, b) => a.id - b.id));
+    setSort(0);
   };
   const sortDecending = (param) => {
-      param === 'id' ? setTableData(tableData.sort((a, b) => b.id - a.id)) : setTableData(tableData.sort((a, b) => b.id - a.id));
-      setSort(1);
+    param === "id"
+      ? setTableData(tableData.sort((a, b) => b.id - a.id))
+      : setTableData(tableData.sort((a, b) => b.id - a.id));
+    setSort(1);
   };
 
   return (
@@ -58,11 +59,25 @@ function CampaignTable({ data,query }) {
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
-                  <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row">
+                  <th
+                    scope="col"
+                    className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row"
+                  >
                     Campaign ID
                     <div className="ml-2 mt-1">
-                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
-                     </div>
+                      <span className="cursor-pointer">
+                        <img
+                          src="/svgs/uparrow.svg"
+                          className={`hover:invert-[.5] ${sort === 0 && "invert-[.5]"} `}
+                          onClick={() => sortAccending("id", "name", "first_name", "last_name")}
+                        />
+                        <img
+                          src="/svgs/downarrow.svg"
+                          className={`hover:invert-[.5] ${sort === 1 && "invert-[.5]"} `}
+                          onClick={() => sortDecending("id", "name", "first_name", "last_name")}
+                        />
+                      </span>
+                    </div>
                   </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     Campaign Title
@@ -132,7 +147,10 @@ function CampaignTable({ data,query }) {
                         {/* <h1 className="ml-[70px] text-[16px] font-[400] underline">+2 more</h1> */}
                       </td>
                       <td
-                        onClick={() => handleClick(pool.social_media_deliverables)}
+                        onClick={() => {
+                          const { social_media_deliverables, admin_amount, number_of_influencer } = pool;
+                          handleClick({ social_media_deliverables, admin_amount, number_of_influencer });
+                        }}
                         className="text-sm text-[#3751FF] font-[500] pl-6 py-4 whitespace-nowrap underline cursor-pointer"
                       >
                         Quick Bid

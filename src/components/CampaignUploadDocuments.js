@@ -38,6 +38,11 @@ function CampaignUploadDocuments({ close, campaign_id, influencer_id }) {
           onChange={(e) => setLink(e.target.value)}
         />
       </div>
+      <div className="flex flex-col text-left mx-14">
+        <label className=" text-sm font-medium text-grey-700">
+          Note: Please enter you drive link where all social media deliverables documents stored
+        </label>
+      </div>
       <div className="flex flex-col text-left mt-10">
         <label className="block text-sm font-medium text-gray-700">Document 1</label>
         <div className="mt-1 flex w-390 justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">

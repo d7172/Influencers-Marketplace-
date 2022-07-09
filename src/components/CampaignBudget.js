@@ -3,7 +3,7 @@ import React from "react";
 function CampaignBudget({ campaignDetails }) {
   return (
     <div>
-      <h1 className="text-[18px] font-[600] mt-4" >Campaign Budget & Payment Type</h1>
+      <h1 className="text-[18px] font-[600] mt-4">Campaign Budget & Payment Type</h1>
       <p className="max-w-[967px] text-[14px] mt-1 leading-[21px] text-[#969BA0]">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit
       </p>
@@ -18,7 +18,13 @@ function CampaignBudget({ campaignDetails }) {
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Amount</h1>
-          <p className="text-[18px] text-[#3751FF] font-[600] ">&#8377; {campaignDetails?.budget_per_influencer}</p>
+          <p className="text-[18px] text-[#3751FF] font-[600] ">
+            &#8377;{" "}
+            {Math.floor(
+              (campaignDetails?.admin_amount || campaignDetails?.brand_amount) /
+                JSON.parse(campaignDetails?.number_of_influencer)
+            )}
+          </p>
         </div>
       </div>
     </div>

@@ -1,21 +1,19 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getMoveToCampaignPoolData } from "../store/Admin/Campaign/MoveToPool/action";
 import { deleteCampaignData, getNewCampaignData } from "../store/Admin/Campaign/NewCampaign/action";
 import CustomToolTip from "./Tooltip";
-function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTableData, activePage, query}) {
+function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTableData, activePage, query }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [searchParams] = useState(["id","first_name","last_name"]);
+  const [searchParams] = useState(["id", "first_name", "last_name"]);
 
   function search(items) {
     return items?.filter((item) => {
       return searchParams?.some((newItem) => {
-        return (
-          item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
-        );
+        return item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1;
       });
     });
   }
@@ -32,52 +30,78 @@ function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTa
     sortDecendingname();
   }, [tableData]);
 
-
   const sortAccending = (param) => {
-    param === 'id' ? setTableData(tableDatas?.sort((a, b) => a.id - b.id)) : setTableData(tableDatas?.sort((a, b) => a.id - b.id));
-    console.log("sortAccending",tableDatas);
+    param === "id"
+      ? setTableData(tableDatas?.sort((a, b) => a.id - b.id))
+      : setTableData(tableDatas?.sort((a, b) => a.id - b.id));
+    console.log("sortAccending", tableDatas);
     setSort(0);
-};
-const sortDecending = (param) => {
-    param === 'id' ? setTableData(tableDatas?.sort((a, b) => b.id - a.id)) : setTableData(tableDatas?.sort((a, b) => b.id - a.id));
-    console.log("sortDecending",tableDatas);
+  };
+  const sortDecending = (param) => {
+    param === "id"
+      ? setTableData(tableDatas?.sort((a, b) => b.id - a.id))
+      : setTableData(tableDatas?.sort((a, b) => b.id - a.id));
+    console.log("sortDecending", tableDatas);
     setSort(1);
+  };
 
-};
-
-const sortAccendingname = (param) => {
-  const sortingusername = tabledatabyname?.sort((a, b) => a?.brand_name?.localeCompare(b?.brand_name));
-  console.log("sortAccendingname",sortingusername);
-  setTabledatabyname(sortingusername);
-  setSortbyname(0);
-}
-const sortDecendingname = (param) => {
-  const sortingusername = tabledatabyname?.sort((a, b) => b?.brand_name?.localeCompare(a?.brand_name));
-  console.log("sortDecendingname",sortingusername);
-  setTabledatabyname(sortingusername);
-  setSortbyname(1);
-}
-
+  const sortAccendingname = (param) => {
+    const sortingusername = tabledatabyname?.sort((a, b) => a?.brand_name?.localeCompare(b?.brand_name));
+    console.log("sortAccendingname", sortingusername);
+    setTabledatabyname(sortingusername);
+    setSortbyname(0);
+  };
+  const sortDecendingname = (param) => {
+    const sortingusername = tabledatabyname?.sort((a, b) => b?.brand_name?.localeCompare(a?.brand_name));
+    console.log("sortDecendingname", sortingusername);
+    setTabledatabyname(sortingusername);
+    setSortbyname(1);
+  };
 
   return (
     <div className="flex flex-col max-w-[1280px]">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div className={`overflow-x-auto ${tableData?.length&& `min-h-[43vh]`}`}>
+          <div className={`overflow-x-auto ${tableData?.length && `min-h-[43vh]`}`}>
             <table className="min-w-full">
               <thead className="border-b">
                 <tr>
-                  <th scope="col" className="text-[18px] min-w-[130px] font-[500] text-gray-900 pl-6 py-4 text-left flex flex-row">
+                  <th
+                    scope="col"
+                    className="text-[18px] min-w-[130px] font-[500] text-gray-900 pl-6 py-4 text-left flex flex-row"
+                  >
                     Campaign Id
                     <div className="flex flex-row">
-                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
-                      </div>
+                      <span className="cursor-pointer ml-2 mt-1 ">
+                        <img
+                          src="/svgs/uparrow.svg"
+                          className={`hover:invert-[.5] ${sort === 0 && "invert-[.5]"} `}
+                          onClick={() => sortAccending("id", "name", "first_name", "last_name")}
+                        />
+                        <img
+                          src="/svgs/downarrow.svg"
+                          className={`hover:invert-[.5] ${sort === 1 && "invert-[.5]"} `}
+                          onClick={() => sortDecending("id", "name", "first_name", "last_name")}
+                        />
+                      </span>
+                    </div>
                   </th>
                   <th scope="col" className="text-[18px] min-w-[150px] font-[500] text-gray-900 pl-6 py-4 text-left">
                     <div className="flex flex-row">
-                    Brand Name
-                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
-                      </div>
+                      Brand Name
+                      <span className="cursor-pointer ml-2 mt-1 ">
+                        <img
+                          src="/svgs/uparrow.svg"
+                          className={`hover:invert-[.5] ${sortbyname === 0 && "invert-[.5]"} `}
+                          onClick={() => sortAccendingname()}
+                        />
+                        <img
+                          src="/svgs/downarrow.svg"
+                          className={`hover:invert-[.5] ${sortbyname === 1 && "invert-[.5]"} `}
+                          onClick={() => sortDecendingname()}
+                        />
+                      </span>
+                    </div>
                   </th>
                   <th scope="col" className="text-[18px] min-w-[252px] font-[500] text-gray-900 pl-6 py-4 text-left">
                     Campaign title
@@ -192,9 +216,13 @@ const sortDecendingname = (param) => {
                               title: "Assigned to Influencers",
                               onClick: () => {
                                 // setCampId(data?.id)
-                                setInfTableData({id: data?.id, category: data?.category, platform: data?.social_platform[0]})
+                                setInfTableData({
+                                  id: data?.id,
+                                  category: data?.category,
+                                  platform: data?.social_platform[0],
+                                });
                                 setInfTable(true);
-                              }
+                              },
                             },
                             {
                               title: "Move to Campaign Pool",
@@ -206,7 +234,7 @@ const sortDecendingname = (param) => {
                             {
                               title: "Delete",
                               onClick: () => {
-                                dispatch(deleteCampaignData({ influencer_id: data?.id }));
+                                dispatch(deleteCampaignData({ campaign_id: data?.id }));
                                 window.location.reload();
                                 dispatch(getNewCampaignData(null, activePage));
                               },
