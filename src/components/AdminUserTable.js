@@ -8,13 +8,14 @@ function AdminUserTable({ tableData, route ,query  }) {
   const [tabledatabyname, setTabledatabyname] = useState(tableData);
   const [sort, setSort] = useState(null);
   const [sortbyname, setSortbyname] = useState(null);
+  const [filternamedata, setFilternamedata] = useState([]);
 
   useEffect(() => {
     setTableData(tableData);
     setTabledatabyname(tableData);
     sortAccendingname();
     sortDecendingname();
-  }, [tableData]);
+  }, [tableData,filternamedata]);
 
 
   const sortAccending = (param) => {
@@ -29,17 +30,17 @@ const sortDecending = (param) => {
 
 };
 
-const sortAccendingname = (param) => {
-    const sortingusername = tabledatabyname.sort((a, b) => a?.user_name?.localeCompare(b?.user_name));
-    console.log("sortAccendingname",sortingusername);
-    setTabledatabyname(sortingusername);
-    setSortbyname(0);
+const sortAccendingname = () => {
+  const sortingusername = tabledatabyname?.sort((a, b) => a?.user_name?.localeCompare(b?.user_name));
+  console.log("sortAccendingname",sortingusername);
+  setFilternamedata(sortingusername);
+  setSortbyname(0);
 }
-const sortDecendingname = (param) => {
-    const sortingusername = tabledatabyname.sort((a, b) => b?.user_name?.localeCompare(a?.user_name));
-    console.log("sortDecendingname",sortingusername);
-    setTabledatabyname(sortingusername);
-    setSortbyname(1);
+const sortDecendingname = () => {
+  const sortingusername = tabledatabyname?.sort((a, b) => b?.user_name?.localeCompare(a?.user_name));
+  console.log("sortDecendingname",sortingusername);
+  setFilternamedata(sortingusername);
+  setSortbyname(1);
 }
 
 const [searchParams] = useState(["id","first_name","last_name"]);
@@ -74,7 +75,6 @@ const [searchParams] = useState(["id","first_name","last_name"]);
                   )}
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row ">
                       Name
-                      
                       <div className="flex flex-row">
                       <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
                       </div>

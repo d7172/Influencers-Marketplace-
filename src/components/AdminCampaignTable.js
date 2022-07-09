@@ -24,13 +24,14 @@ function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTa
   const [tableDatas, setTableData] = useState(tableData);
   const [sortbyname, setSortbyname] = useState(null);
   const [tabledatabyname, setTabledatabyname] = useState(tableData);
+  const [filternamedata, setFilternamedata] = useState([]);
 
   useEffect(() => {
     setTableData(tableData);
     setTabledatabyname(tableData);
     sortAccendingname();
     sortDecendingname();
-  }, [tableData]);
+  }, [tableData,filternamedata]);
 
 
   const sortAccending = (param) => {
@@ -48,13 +49,13 @@ const sortDecending = (param) => {
 const sortAccendingname = (param) => {
   const sortingusername = tabledatabyname?.sort((a, b) => a?.brand_name?.localeCompare(b?.brand_name));
   console.log("sortAccendingname",sortingusername);
-  setTabledatabyname(sortingusername);
+  setFilternamedata(sortingusername);
   setSortbyname(0);
 }
 const sortDecendingname = (param) => {
   const sortingusername = tabledatabyname?.sort((a, b) => b?.brand_name?.localeCompare(a?.brand_name));
   console.log("sortDecendingname",sortingusername);
-  setTabledatabyname(sortingusername);
+  setFilternamedata(sortingusername);
   setSortbyname(1);
 }
 
