@@ -22,9 +22,14 @@ function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTa
 
   const [sort, setSort] = useState(null);
   const [tableDatas, setTableData] = useState(tableData);
+  const [sortbyname, setSortbyname] = useState(null);
+  const [tabledatabyname, setTabledatabyname] = useState(tableData);
 
   useEffect(() => {
     setTableData(tableData);
+    setTabledatabyname(tableData);
+    sortAccendingname();
+    sortDecendingname();
   }, [tableData]);
 
 
@@ -40,6 +45,20 @@ const sortDecending = (param) => {
 
 };
 
+const sortAccendingname = (param) => {
+  const sortingusername = tabledatabyname?.sort((a, b) => a?.brand_name?.localeCompare(b?.brand_name));
+  console.log("sortAccendingname",sortingusername);
+  setTabledatabyname(sortingusername);
+  setSortbyname(0);
+}
+const sortDecendingname = (param) => {
+  const sortingusername = tabledatabyname?.sort((a, b) => b?.brand_name?.localeCompare(a?.brand_name));
+  console.log("sortDecendingname",sortingusername);
+  setTabledatabyname(sortingusername);
+  setSortbyname(1);
+}
+
+
   return (
     <div className="flex flex-col max-w-[1280px]">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -54,8 +73,11 @@ const sortDecending = (param) => {
                       <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
                       </div>
                   </th>
-                  <th scope="col" className="text-[18px] min-w-[140px] font-[500] text-gray-900 pl-6 py-4 text-left">
+                  <th scope="col" className="text-[18px] min-w-[150px] font-[500] text-gray-900 pl-6 py-4 text-left">
+                    <div className="flex flex-row">
                     Brand Name
+                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
+                      </div>
                   </th>
                   <th scope="col" className="text-[18px] min-w-[252px] font-[500] text-gray-900 pl-6 py-4 text-left">
                     Campaign title

@@ -110,12 +110,17 @@ function CampaignTable({ tableData, subTableData, search, campaignRows }) {
   };
 
   const [sort, setSort] = useState(null);
-  // const [assigntableData, setTableData] = useState(tableData);
+  const [sortbyname, setSortbyname] = useState(null);
   const [tableDatas, setTableData] = useState(tableData);
+  const [tabledatabyname, setTabledatabyname] = useState(tableData);
+  // const [assigntableData, setTableData] = useState(tableData);
 
 
    useEffect(() => {
     setTableData(tableData);
+    setTabledatabyname(tableData);
+    sortAccendingname();
+    sortDecendingname();
   }, [tableData]);
 
   const sortAccending = (param) => {
@@ -132,6 +137,19 @@ function CampaignTable({ tableData, subTableData, search, campaignRows }) {
     console.log("sortDecending", tableDatas);
     setSort(1);
   }
+  const sortAccendingname = (param) => {
+    const sortingusername = tabledatabyname.sort((a, b) => a?.campaign_details?.brand_name?.localeCompare(b?.campaign_details?.brand_name));
+    console.log("sortAccendingname",sortingusername);
+    setTabledatabyname(sortingusername);
+    setSortbyname(0);
+  }
+  const sortDecendingname = (param) => {
+    const sortingusername = tabledatabyname.sort((a, b) => b?.campaign_details?.brand_name?.localeCompare(a?.campaign_details?.brand_name));
+    console.log("sortDecendingname",sortingusername);
+    setTabledatabyname(sortingusername);
+    setSortbyname(1);
+  }
+  
   // console.log(tableData[0].campaigndetails);
   // console.log(tableData[0].influencerdetails);
   return (
@@ -159,8 +177,11 @@ function CampaignTable({ tableData, subTableData, search, campaignRows }) {
                       </span>
                     </div>
                   </th>
-                  <th scope="col" className=" text-[18px] w-[155px] font-[500] text-gray-900 pl-6 py-4 text-left">
+                  <th scope="col" className=" text-[18px] w-[155px] font-[500] text-gray-900 pl-6 py-4 text-left flex flex-row">
                     Brand Name
+                    <div className="flex flex-row">
+                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
+                      </div>
                   </th>
                   <th scope="col" className=" text-[18px] w-[210px] font-[500] text-gray-900 pl-6 py-4 text-left">
                     Campaign title

@@ -13,3 +13,14 @@ export const BrandAssignedCampaign = (state = init, action) => {
             return state
     }
 }
+
+export const BrandAssignQuotation = (state = init, action) => {
+    switch (action.type) {
+        case "BRAND_ASSIGN_QUOTATION_SUCCESS":
+            return action.data;
+        case "BRAND_ASSIGN_QUOTATION_FAIL":
+            return init;
+        default:
+            return state
+    }
+}

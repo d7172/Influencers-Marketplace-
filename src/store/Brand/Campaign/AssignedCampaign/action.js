@@ -38,3 +38,27 @@ export const updateQuotationStatus = (payload, navigate) => {
         )
     }
 }
+
+export const brandassignquotation = (payload, navigate) => {
+    const url =`brand-campaign-assign-quotation-accept-reject`;
+    return (dispatch) => {
+        networkRequest(
+            url,
+            "POST",
+            "JSON",
+            payload,
+            (res) => {
+                if(res.status = 200){
+                    navigate(`/brand/campaign/assigned-campaign`)
+                }
+                console.log("status", res.status);
+                dispatch({ type: "BRAND_ASSIGN_QUOTATION_SUCCESS", data: res })
+            },
+            (error)=>{
+                console.log("error", error);
+                dispatch({ type: "BRAND_ASSIGN_QUOTATION_FAIL" })
+            }
+
+        )
+    }
+}

@@ -7,13 +7,9 @@ import BrandViewDetails from "../pages/Admin/Brand/BrandViewDetails";
 
 function BrandUserTable({ tableData, route,query  }) {
  
-  const [tableDatas, setTableData] = useState(tableData);
+
   const [searchParams] = useState(["id","brand_name"]);
 
-
-  useEffect(() => {
-    setTableData(tableData);
-  }, [tableData]);
 
 
   function search(items) {
@@ -27,6 +23,17 @@ function BrandUserTable({ tableData, route,query  }) {
   }
 
 const [sort, setSort] = useState(null);
+const [sortbyname, setSortbyname] = useState(null);
+const [tableDatas, setTableData] = useState(tableData);
+const [tabledatabyname, setTabledatabyname] = useState(tableData);
+
+
+useEffect(() => {
+  setTableData(tableData);
+  setTabledatabyname(tableData);
+    sortAccendingname();
+    sortDecendingname();
+}, [tableData]);
 
   const sortAccending = (param) => {
     param === 'id' ? setTableData(tableDatas?.sort((a, b) => a.id - b.id)) : setTableData(tableDatas?.sort((a, b) => a.id - b.id));
@@ -36,6 +43,19 @@ const sortDecending = (param) => {
     param === 'id' ? setTableData(tableDatas?.sort((a, b) => b.id - a.id)) : setTableData(tableDatas?.sort((a, b) => b.id - a.id));
     setSort(1);
 };
+
+const sortAccendingname = (param) => {
+  const sortingusername = tabledatabyname.sort((a, b) => a?.brand_name?.localeCompare(b?.brand_name));
+  console.log("sortAccendingname",sortingusername);
+  setTabledatabyname(sortingusername);
+  setSortbyname(0);
+}
+const sortDecendingname = (param) => {
+  const sortingusername = tabledatabyname.sort((a, b) => b?.brand_name?.localeCompare(a?.brand_name));
+  console.log("sortDecendingname",sortingusername);
+  setTabledatabyname(sortingusername);
+  setSortbyname(1);
+}
 
   const navigate = useNavigate();
   return (
@@ -57,10 +77,10 @@ const sortDecending = (param) => {
                     )}
                     <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row ">
                       Brand Name
-                      {route !== "active-user" &&
-                      <div className="flex flex-row">
-                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
-                      </div>}
+                    
+                     <div className="flex flex-row">
+                     <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
+                     </div>
                     </th>
                     <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                       Number

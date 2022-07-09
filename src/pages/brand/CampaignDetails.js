@@ -10,7 +10,8 @@ import CloseBtn from '../../components/CloseBtn';
 import ResonForRejction from '../../components/ResonForRejction';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { updateQuotationStatus } from '../../store/Brand/Campaign/AssignedCampaign/action';
+import { updateQuotationStatus,brandassignquotation } from '../../store/Brand/Campaign/AssignedCampaign/action';
+
 
 
 function CampaignDetails({ route }) {
@@ -21,6 +22,7 @@ function CampaignDetails({ route }) {
     const isAssigned = location.pathname.includes("assigned-campaign");
     const isActive = location.pathname.includes("active-campaign");
     const isRejected = location.pathname.includes("rejected-campaign");
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -29,6 +31,8 @@ function CampaignDetails({ route }) {
         isAssigned ? state.BrandAssignedCampaign?.results?.filter((i) => i?.campaigndetails?.id == id)[0]
             : isActive ? state?.BrandActiveCampaign?.results?.filter((i) => i.id == id)[0]
                 : state?.BrandRejectedCampaign?.results?.filter((i) => i.id == id)[0]
+
+        
     )
     const [documentPhaseDialog, setDocumentPhaseDialog] = useState(false);
     const [sendBtn, setSentBtn] = useState(true);
