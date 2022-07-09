@@ -193,7 +193,7 @@ function CampaignDetails({ route }) {
                     </div>
                 </MyDialog>
                 <MyDialog isOpen={rejectionDialog} close={() => { setRejectionDialog(false) }} className="rounded-8">
-                    <ResonForRejction close={() => { setReason(""); setRejectionDialog(false) }} onSubmit={() => { isAssigned && updateQuotion("reject", reason); setRejectionDialog(false) }} reason={reason} setReason={setReason} />
+                    <ResonForRejction close={() => { setReason(""); setRejectionDialog(false) }} onSubmit={() => { isAssigned && updateQuotion("reject", reason); setRejectionDialog(false) || isActive && updateQuotion("reject",reason) }} reason={reason} setReason={setReason} />
                 </MyDialog>
                 <div className="ml-4">
                     <BackArrowBtn className="" onClick={() => { navigate(location.pathname.slice(0, location.pathname.lastIndexOf("/"))) }} />
@@ -271,7 +271,7 @@ function CampaignDetails({ route }) {
                         <div className="flex w-[50%] justify-end">
                             <div>
                                 <button
-                                    onClick={() => { isAssigned && updateQuotion("active", "") }}
+                                    onClick={() => { isAssigned && updateQuotion("active", "")  || isActive && updateQuotion("active", "")}}
                                     className="bg-[#3751FF] rounded-full text-white w-[171px] h-[54px] mr-10"
                                 >
                                     Accept
@@ -310,7 +310,7 @@ function CampaignDetails({ route }) {
                                 </table>
                             </div>
                             <div>
-                                <h1 className='font-[600]'>Hold Payment: &#8377;4840</h1>
+                                <h1 className='font-[600] text-[18px]'>Hold Payment: &#8377;4840</h1>
                                 <p className='text-sm' >(This payment will be released on 26 /11 / 2022)</p>
                             </div>
                         </div>

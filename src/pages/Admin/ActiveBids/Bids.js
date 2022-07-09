@@ -54,6 +54,25 @@ function search(items) {
     });
   });
 }
+
+    const [tableDatas, setTableData] = useState(tableData);
+  const [sort, setSort] = useState(null);
+
+
+  const sortAccending = (param) => {
+    param === "id"
+      ? setTableData(tableDatas?.sort((a, b) => a.id - b.id))
+      : setTableData(tableDatas?.sort((a, b) => a.id - b.id));
+    console.log("sortAccending", tableDatas);
+    setSort(0);
+  };
+  const sortDecending = (param) => {
+    param === "id"
+      ? setTableData(tableDatas?.sort((a, b) => b.id - a.id))
+      : setTableData(tableDatas?.sort((a, b) => b.id - a.id));
+    console.log("sortDecending", tableDatas);
+    setSort(1);
+  };
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -108,8 +127,11 @@ function search(items) {
               <table className="min-w-full">
                 <thead className="border-b">
                   <tr className="flex">
-                    <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left flex flex-row">
                       Campaign Id
+                      <div className="flex flex-row">
+                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                      </div>
                     </th>
                     <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left">
                       Brand Name
