@@ -31,6 +31,7 @@ const  Bids = () => {
 
   const AdminActiveBids = useSelector((state) => state?.AdminActiveBids);
   tableData = AdminActiveBids?.results;
+  console.log("AdminActiveBids", tableData);
 
   const infTableCol = ["User ID", "Influencer Name", "Influencer Bids Number"];
   const navigate = useNavigate();
@@ -55,24 +56,47 @@ function search(items) {
   });
 }
 
-    const [tableDatas, setTableData] = useState(tableData);
-  const [sort, setSort] = useState(null);
+const [sort, setSort] = useState(null);
+  const [sortbyname, setSortbyname] = useState(null);
+  const [tableDatas, setTableData] = useState(tableData);
+  const [tabledatabyname, setTabledatabyname] = useState(tableData);
+  const [filternamedata, setFilternamedata] = useState([]);
 
+  
+  useEffect(() => {
+    setTableData(tableData);
+    setTabledatabyname(tableData);
+    sortAccendingname();
+    sortDecendingname();
+  }, [tableData,filternamedata]); 
 
   const sortAccending = (param) => {
     param === "id"
-      ? setTableData(tableDatas?.sort((a, b) => a.id - b.id))
-      : setTableData(tableDatas?.sort((a, b) => a.id - b.id));
+      ? setTableData(tableDatas?.sort((a, b) => a.campaign_details.id - b.campaign_details.id))
+      : setTableData(tableDatas?.sort((a, b) => a.campaign_details.id - b.campaign_details.id));
     console.log("sortAccending", tableDatas);
     setSort(0);
   };
   const sortDecending = (param) => {
     param === "id"
-      ? setTableData(tableDatas?.sort((a, b) => b.id - a.id))
-      : setTableData(tableDatas?.sort((a, b) => b.id - a.id));
+      ? setTableData(tableDatas?.sort((a, b) => b.campaign_details.id - a.campaign_details.id))
+      : setTableData(tableDatas?.sort((a, b) => b.campaign_details.id - a.campaign_details.id));
     console.log("sortDecending", tableDatas);
     setSort(1);
-  };
+  }
+  const sortAccendingname = (param) => {
+    const sortingusername = tabledatabyname?.sort((a, b) => a?.campaign_details?.brand_name?.localeCompare(b?.campaign_details?.brand_name));
+    console.log("sortAccendingname",sortingusername);
+    setFilternamedata(sortingusername);
+    setSortbyname(0);
+  }
+  const sortDecendingname = (param) => {
+    const sortingusername = tabledatabyname?.sort((a, b) => b?.campaign_details?.brand_name?.localeCompare(a?.campaign_details?.brand_name));
+    console.log("sortDecendingname",sortingusername);
+    setFilternamedata(sortingusername);
+    setSortbyname(1);
+  }
+
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
@@ -129,12 +153,26 @@ function search(items) {
                   <tr className="flex">
                     <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left flex flex-row">
                       Campaign Id
-                      <div className="flex flex-row">
-                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
-                      </div>
+                     <div className="flex flex-row">
+                      <span className="cursor-pointer ml-2 mt-1 ">
+                        <img
+                          src="/svgs/uparrow.svg"
+                          className={`hover:invert-[.5] ${sort === 0 && "invert-[.5]"} `}
+                          onClick={() => sortAccending("id", "name", "first_name", "last_name")}
+                        />
+                        <img
+                          src="/svgs/downarrow.svg"
+                          className={`hover:invert-[.5] ${sort === 1 && "invert-[.5]"} `}
+                          onClick={() => sortDecending("id", "name", "first_name", "last_name")}
+                        />
+                      </span>
+                    </div>
                     </th>
-                    <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left">
+                    <th scope="col" className="text-[18px] w-[150px] font-[500] text-gray-900 pl-4 py-4 text-left flex flex-row">
                       Brand Name
+                      <div className="flex flex-row">
+                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
+                      </div>
                     </th>
                     <th scope="col" className="text-[18px] w-[200px] font-[500] text-gray-900 pl-4 py-4 text-left">
                       Campaign Title

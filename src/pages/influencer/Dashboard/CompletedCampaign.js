@@ -108,12 +108,15 @@ function CampaignTable({ data ,query }) {
     const [sort, setSort] = useState(null);
 
     const [tableDatas, setTableData] = useState(tableData);
-    
-    useEffect(() => {
-        setTableData(tableDatas);
-  
-    }, [data])
+    const [sortbytitle, setSortbytitle] = useState(null);
+  const [filternamedata, setFilternamedata] = useState([]);
 
+  
+  useEffect(() => {
+    setTableData(tableData);
+    sortAccendingtitle();
+    sortDecendingtitle();
+}, [tableData,filternamedata])
     const sortAccending = (param) => {
       param === 'id' ? setTableData(tableDatas.sort((a, b) => a.id - b.id)) : setTableData(tableDatas.sort((a, b) => a.id - b.id));
       setSort(0);
@@ -122,6 +125,21 @@ function CampaignTable({ data ,query }) {
       param === 'id' ? setTableData(tableDatas.sort((a, b) => b.id - a.id)) : setTableData(tableDatas.sort((a, b) => b.id - a.id));
       setSort(1);
   };
+
+  const sortAccendingtitle = () => {
+    const sortingtitle = tableDatas?.sort((a, b) => a?.title?.localeCompare(b?.title));
+    console.log("sortAccendingname",sortingtitle);
+    setFilternamedata(sortingtitle);
+    setSortbytitle(0);
+  }
+  const sortDecendingtitle = () => {
+    const sortingtitle = tableDatas?.sort((a, b) => b?.title?.localeCompare(a?.title));
+    console.log("sortDecendingname",sortingtitle);
+    setFilternamedata(sortingtitle);
+    setSortbytitle(1);
+  }
+
+
 
 
   return (
@@ -142,7 +160,10 @@ function CampaignTable({ data ,query }) {
                      </div>
                   </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
-                    Campaign Title
+                  <div className="flex flex-row">
+                            Campaign Title
+                     <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbytitle===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingtitle()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbytitle===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingtitle()} /></span>
+                     </div>
                   </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     From

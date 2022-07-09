@@ -26,14 +26,14 @@ const [sort, setSort] = useState(null);
 const [sortbyname, setSortbyname] = useState(null);
 const [tableDatas, setTableData] = useState(tableData);
 const [tabledatabyname, setTabledatabyname] = useState(tableData);
-
+const [filternamedata, setFilternamedata] = useState([]);
 
 useEffect(() => {
   setTableData(tableData);
   setTabledatabyname(tableData);
     sortAccendingname();
     sortDecendingname();
-}, [tableData]);
+}, [tableData,filternamedata]);
 
   const sortAccending = (param) => {
     param === 'id' ? setTableData(tableDatas?.sort((a, b) => a.id - b.id)) : setTableData(tableDatas?.sort((a, b) => a.id - b.id));
@@ -44,16 +44,16 @@ const sortDecending = (param) => {
     setSort(1);
 };
 
-const sortAccendingname = (param) => {
-  const sortingusername = tabledatabyname.sort((a, b) => a?.brand_name?.localeCompare(b?.brand_name));
+const sortAccendingname = () => {
+  const sortingusername = tabledatabyname?.sort((a, b) => a?.brand_name?.localeCompare(b?.brand_name));
   console.log("sortAccendingname",sortingusername);
-  setTabledatabyname(sortingusername);
+  setFilternamedata(sortingusername);
   setSortbyname(0);
 }
-const sortDecendingname = (param) => {
-  const sortingusername = tabledatabyname.sort((a, b) => b?.brand_name?.localeCompare(a?.brand_name));
+const sortDecendingname = () => {
+  const sortingusername = tabledatabyname?.sort((a, b) => b?.brand_name?.localeCompare(a?.brand_name));
   console.log("sortDecendingname",sortingusername);
-  setTabledatabyname(sortingusername);
+  setFilternamedata(sortingusername);
   setSortbyname(1);
 }
 
@@ -77,7 +77,6 @@ const sortDecendingname = (param) => {
                     )}
                     <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row ">
                       Brand Name
-                    
                      <div className="flex flex-row">
                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
                      </div>

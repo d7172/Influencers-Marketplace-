@@ -85,20 +85,36 @@ function BidTable({query}) {
     const [sort, setSort] = useState(null);
 
     const [tableData, setTableData] = useState(infBids);
+    const [sortbytitle, setSortbytitle] = useState(null);
+    const [filternamedata, setFilternamedata] = useState([]);
     
     useEffect(() => {
         setTableData(infBids);
-  
-    }, [infBids])
+        sortAccendingtitle();
+    sortDecendingtitle();
+    }, [infBids,filternamedata])
 
     const sortAccending = (param) => {
-      param === 'id' ? setTableData(tableData.sort((a, b) => a.id - b.id)) : setTableData(tableData.sort((a, b) => a.id - b.id));
+      param === 'id' ? setTableData(tableData.sort((a, b) => a.campaign_details.id - b.campaign_details.id)) : setTableData(tableData.sort((a, b) => a.campaign_details.id - b.campaign_details.id));
       setSort(0);
   };
   const sortDecending = (param) => {
-      param === 'id' ? setTableData(tableData.sort((a, b) => b.id - a.id)) : setTableData(tableData.sort((a, b) => b.id - a.id));
+      param === 'id' ? setTableData(tableData.sort((a, b) => b.campaign_details.id - a.campaign_details.id)) : setTableData(tableData.sort((a, b) => b.campaign_details.id - a.campaign_details.id));
       setSort(1);
   };
+
+  const sortAccendingtitle = () => {
+    const sortingtitle = tableData?.sort((a, b) => a?.campaign_details.title?.localeCompare(b?.campaign_details.title));
+    console.log("sortAccendingname",sortingtitle);
+    setFilternamedata(sortingtitle);
+    setSortbytitle(0);
+  }
+  const sortDecendingtitle = () => {
+    const sortingtitle = tableData?.sort((a, b) => b?.campaign_details.title?.localeCompare(a?.campaign_details.title));
+    console.log("sortDecendingname",sortingtitle);
+    setFilternamedata(sortingtitle);
+    setSortbytitle(1);
+  }
 
 
   return (
@@ -110,9 +126,13 @@ function BidTable({query}) {
                      <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
                      </div>
         </div>
-
+        <div className="w-[150px] text-[18px] font-[500] text-gray-900 text-left flex flex-row">
         <h1 className="w-[180px] text-[18px] font-[500] text-gray-900 text-left">Campaign Title</h1>
-        <h1 className="w-[80px]  text-[18px] font-[500] text-gray-900 text-left">Amount</h1>
+        <div className="mt-1">
+                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbytitle===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingtitle()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbytitle===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingtitle()} /></span>
+                     </div>
+                     </div>
+                           <h1 className="w-[80px]  text-[18px] font-[500] text-gray-900 text-left">Amount</h1>
         <h1 className="w-[130px] text-[18px] font-[500] text-gray-900 text-left">Social Platform</h1>
         <h1 className="w-[150px] text-[18px] font-[500] text-gray-900 text-left">Number of bids</h1>
       </div>

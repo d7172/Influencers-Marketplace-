@@ -28,8 +28,15 @@ function CampaignTable({ data, query }) {
   }
 
   const [sort, setSort] = useState(null);
-
+  const [sortbytitle, setSortbytitle] = useState(null);
   const [tableData, setTableData] = useState(data);
+  const [filternamedata, setFilternamedata] = useState([]);
+
+  useEffect(() => {
+    setTableData(data);
+    sortAccendingtitle();
+    sortDecendingtitle();
+  }, [data, filternamedata]);
 
   useEffect(() => {
     setTableData(data);
@@ -46,6 +53,19 @@ function CampaignTable({ data, query }) {
       ? setTableData(tableData.sort((a, b) => b.id - a.id))
       : setTableData(tableData.sort((a, b) => b.id - a.id));
     setSort(1);
+  };
+
+  const sortAccendingtitle = () => {
+    const sortingtitle = tableData?.sort((a, b) => a?.title?.localeCompare(b?.title));
+    console.log("sortAccendingname", sortingtitle);
+    setFilternamedata(sortingtitle);
+    setSortbytitle(0);
+  };
+  const sortDecendingtitle = () => {
+    const sortingtitle = tableData?.sort((a, b) => b?.title?.localeCompare(a?.title));
+    console.log("sortDecendingname", sortingtitle);
+    setFilternamedata(sortingtitle);
+    setSortbytitle(1);
   };
 
   return (
@@ -80,7 +100,21 @@ function CampaignTable({ data, query }) {
                     </div>
                   </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
-                    Campaign Title
+                    <div className="flex flex-row">
+                      Campaign Title
+                      <span className="cursor-pointer ml-2 mt-1 ">
+                        <img
+                          src="/svgs/uparrow.svg"
+                          className={`hover:invert-[.5] ${sortbytitle === 0 && "invert-[.5]"} `}
+                          onClick={() => sortAccendingtitle()}
+                        />
+                        <img
+                          src="/svgs/downarrow.svg"
+                          className={`hover:invert-[.5] ${sortbytitle === 1 && "invert-[.5]"} `}
+                          onClick={() => sortDecendingtitle()}
+                        />
+                      </span>
+                    </div>
                   </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     From

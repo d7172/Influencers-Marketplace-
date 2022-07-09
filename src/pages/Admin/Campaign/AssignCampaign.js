@@ -113,6 +113,8 @@ function CampaignTable({ tableData, subTableData, search, campaignRows }) {
   const [sortbyname, setSortbyname] = useState(null);
   const [tableDatas, setTableData] = useState(tableData);
   const [tabledatabyname, setTabledatabyname] = useState(tableData);
+  const [filternamedata, setFilternamedata] = useState([]);
+
   // const [assigntableData, setTableData] = useState(tableData);
 
 
@@ -121,7 +123,7 @@ function CampaignTable({ tableData, subTableData, search, campaignRows }) {
     setTabledatabyname(tableData);
     sortAccendingname();
     sortDecendingname();
-  }, [tableData]);
+  }, [tableData,filternamedata]);
 
   const sortAccending = (param) => {
     param === "id"
@@ -138,20 +140,22 @@ function CampaignTable({ tableData, subTableData, search, campaignRows }) {
     setSort(1);
   }
   const sortAccendingname = (param) => {
-    const sortingusername = tabledatabyname.sort((a, b) => a?.campaign_details?.brand_name?.localeCompare(b?.campaign_details?.brand_name));
+    const sortingusername = tabledatabyname?.sort((a, b) => a?.campaign_details?.brand_name?.localeCompare(b?.campaign_details?.brand_name));
     console.log("sortAccendingname",sortingusername);
-    setTabledatabyname(sortingusername);
+    setFilternamedata(sortingusername);
     setSortbyname(0);
   }
   const sortDecendingname = (param) => {
-    const sortingusername = tabledatabyname.sort((a, b) => b?.campaign_details?.brand_name?.localeCompare(a?.campaign_details?.brand_name));
+    const sortingusername = tabledatabyname?.sort((a, b) => b?.campaign_details?.brand_name?.localeCompare(a?.campaign_details?.brand_name));
     console.log("sortDecendingname",sortingusername);
-    setTabledatabyname(sortingusername);
+    setFilternamedata(sortingusername);
     setSortbyname(1);
   }
   
   // console.log(tableData[0].campaigndetails);
   // console.log(tableData[0].influencerdetails);
+
+  
   return (
     <div className="flex flex-col w-full">
       <div className="overflow-x-hidden sm:-mx-6 lg:-mx-8">
