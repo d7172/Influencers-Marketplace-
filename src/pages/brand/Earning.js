@@ -61,6 +61,18 @@ function Earning() {
       },
     },
   };
+
+  const [sort, setSort] = useState(null);
+  const [tableData, setTableData] = useState(earningData);
+  const sortAccending = (param) => {
+    param === 'id' ? setTableData(tableData.sort((a, b) => a.id - b.id)) : setTableData(tableData.sort((a, b) => a.amount - b.amount));
+    setSort(0);
+};
+const sortDecending = (param) => {
+    param === 'id' ? setTableData(tableData.sort((a, b) => b.id - a.id)) : setTableData(tableData.sort((a, b) => b.amount - a.amount));
+    setSort(1);
+};
+
   return (
     <div className="pb-20">
       <div className="flex px-8 gap-10 justify-between mt-6">
@@ -111,6 +123,9 @@ function Earning() {
                   <tr>
                     <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
                       Campaign ID
+                      <div className="ml-2 mt-1">
+                     <span className='cursor-pointer'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
+                     </div>
                     </th>
                     <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                       Campaign Title

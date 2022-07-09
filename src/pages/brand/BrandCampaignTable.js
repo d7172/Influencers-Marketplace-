@@ -4,13 +4,21 @@ import { useNavigate } from 'react-router-dom';
 function BrandCampaignTable({ route, campaignRows,query }) {
     const navigate = useNavigate();
     const [sort, setSort] = useState(null);
-    const [tableData, setTableData] = useState(campaignRows);
+    const [sortbyname, setSortbyname] = useState(null);
+    const [sortbytitle, setSortbytitle] = useState(null);
 
+    const [tableData, setTableData] = useState(campaignRows);
+    const [tabledatabyname, setTabledatabyname] = useState(campaignRows);
+    const [filternamedata, setFilternamedata] = useState([]);
 
     useEffect(() => {
         setTableData(campaignRows);
-
-    }, [campaignRows])
+        setTabledatabyname(campaignRows);
+        sortAccendingname();
+        sortDecendingname();
+        sortAccendingtitle();
+        sortDecendingtitle();
+    }, [campaignRows,filternamedata])
 
     const sortAccending = (param) => {
         param === 'id' ? setTableData(tableData.sort((a, b) => a.id - b.id)) : setTableData(tableData.sort((a, b) => a.amount - b.amount));
@@ -20,6 +28,33 @@ function BrandCampaignTable({ route, campaignRows,query }) {
         param === 'id' ? setTableData(tableData.sort((a, b) => b.id - a.id)) : setTableData(tableData.sort((a, b) => b.amount - a.amount));
         setSort(1);
     };
+
+    const sortAccendingname = () => {
+        const sortingusername = tabledatabyname?.sort((a, b) => a?.brand_name?.localeCompare(b?.brand_name));
+        console.log("sortAccendingname",sortingusername);
+        setFilternamedata(sortingusername);
+        setSortbyname(0);
+      }
+      const sortDecendingname = () => {
+        const sortingusername = tabledatabyname?.sort((a, b) => b?.brand_name?.localeCompare(a?.brand_name));
+        console.log("sortDecendingname",sortingusername);
+        setFilternamedata(sortingusername);
+        setSortbyname(1);
+      }
+    
+      const sortAccendingtitle = () => {
+        const sortingtitle = tabledatabyname?.sort((a, b) => a?.title?.localeCompare(b?.title));
+        console.log("sortAccendingname",sortingtitle);
+        setFilternamedata(sortingtitle);
+        setSortbytitle(0);
+      }
+      const sortDecendingtitle = () => {
+        const sortingtitle = tabledatabyname?.sort((a, b) => b?.title?.localeCompare(a?.title));
+        console.log("sortDecendingname",sortingtitle);
+        setFilternamedata(sortingtitle);
+        setSortbytitle(1);
+      }
+    
 
     const [searchParams] = useState(["id","first_name","last_name","brand_name"]);
 
@@ -44,10 +79,16 @@ function BrandCampaignTable({ route, campaignRows,query }) {
                      </div>
                         </th>
                         {(route === "new-campaign") && <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3">
+                            <div className="flex flex-row">
                             Brand Name
+                     <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
+                     </div>
                         </th>}
                         <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3">
+                            <div className="flex flex-row">
                             Campaign Title
+                     <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbytitle===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingtitle()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbytitle===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingtitle()} /></span>
+                     </div>
                         </th>
                         {(route === "assigned-campaign") && <th scope="col" className="text-lg text-gray-900 font-[500] px-6 py-3">
                             Campaign Date
