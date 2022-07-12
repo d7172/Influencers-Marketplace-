@@ -27,54 +27,6 @@ const AdmNewCampaign = ({ route }) => {
   const AdminNewCampaign = useSelector((state) => state?.AdminNewCampaign);
   tableData = AdminNewCampaign?.results;
   const navigate = useNavigate();
-  console.log(AdminNewCampaign, "After delete");
-  // const infTableData = [
-  //   {
-  //     id: 1,
-  //     name: "Steven Solan",
-  //     completed_campaign: "2",
-  //     social_media_deliverables: [
-  //       {
-  //         platform: "facebook"
-  //       },
-  //       {
-  //         platform: "instagram"
-  //       },
-  //       {
-  //         platform: "youtube"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Barbara Searcy",
-  //     completed_campaign: "1",
-  //     social_media_deliverables: [
-  //       {
-  //         platform: "facebook"
-  //       },
-  //       {
-  //         platform: "instagram"
-  //       },
-  //       {
-  //         platform: "youtube"
-  //       },
-  //       {
-  //         platform: "linkedin"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Thomas Gilbreath",
-  //     completed_campaign: "5",
-  //     social_media_deliverables: [
-  //       {
-  //         platform: "instagram"
-  //       }
-  //     ]
-  //   }
-  // ]
   console.log(infTable);
   const assignProcessData = useSelector((state) => state?.AdminAssignProcess?.results);
   console.log(assignProcessData);
@@ -100,39 +52,53 @@ const AdmNewCampaign = ({ route }) => {
       <div className="pt-4 relative">
         <div className="flex items-center p-4 justify-between w-full mb-5">
           <CampaignSearchBar placeHolder={"Search here"} setQuery={setQuery} />
-          {!infTable && <div
-            className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
-            onClick={() => navigate("/admin/campaign/new-campaign/add")}
-          >
-            <button> + Add New Campaign </button>
-          </div>}
+          {!infTable && (
+            <div
+              className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
+              onClick={() => navigate("/admin/campaign/new-campaign/add")}
+            >
+              <button> + Add New Campaign </button>
+            </div>
+          )}
         </div>
-        {!infTable && <div className="flex gap-4 items-center ml-4">
-          <label className="text-[12px] text-[#939393]">Sort By Status</label>
-          <Dropdown
-            lable="Pending for Approval"
-            options={[{ lable: "Pending for Approval" }, { lable: "Approved" }]}
-            dropdownStyle="w-[200px]"
-            className="w-[200px] h-[38px]"
-          />
-          <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
-        </div>}
-        {infTable ? <InfTable infTableData={infTableData} setInfTable={setInfTable} />
-          : (<>
+        {!infTable && (
+          <div className="flex gap-4 items-center ml-4">
+            <label className="text-[12px] text-[#939393]">Sort By Status</label>
+            <Dropdown
+              lable="Pending for Approval"
+              options={[{ lable: "Pending for Approval" }, { lable: "Approved" }]}
+              dropdownStyle="w-[200px]"
+              className="w-[200px] h-[38px]"
+            />
+            <button className="rounded-[8px] w-[55px] h-[37px] border border-[#C4C4C4] shadow-dateRange">GO</button>
+          </div>
+        )}
+        {infTable ? (
+          <InfTable infTableData={infTableData} setInfTable={setInfTable} />
+        ) : (
+          <>
             <div className="flex items-center py-4 px-8">
-              <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} setInfTableData={setInfTableData} setInfTable={setInfTable} route={route} activePage={activePage} query={query} />
+              <AdminCampaignTable
+                tableData={tableData}
+                mainRoute={"campaign"}
+                setInfTableData={setInfTableData}
+                setInfTable={setInfTable}
+                route={route}
+                activePage={activePage}
+                query={query}
+              />
             </div>
             {tableData?.length ? (
               <div className="w-full mt-2 px-4">
                 <Pagination link={AdminNewCampaign} activePage={activePage} setActivePage={setActivePage} />
-              </div>) : (
+              </div>
+            ) : (
               <div className="text-center mt-4">
                 <p className="text-gray-500">No data to display.</p>
               </div>
             )}
           </>
-          )}
-
+        )}
       </div>
     </>
   );
@@ -140,41 +106,41 @@ const AdmNewCampaign = ({ route }) => {
 
 export default AdmNewCampaign;
 
-function InfTable({ infTableData, setInfTable , search }) {
+function InfTable({ infTableData, setInfTable, search }) {
   const dispatch = useDispatch();
   let tableData = [];
-  
+
   useEffect(() => {
     const payload = {
       campaign_id: infTableData?.id,
       category: infTableData?.category,
-      social_platform: infTableData?.platform
-    }
+      social_platform: infTableData?.platform,
+    };
     dispatch(getAssignProcessData(payload, 1));
-  }, [])
+  }, []);
 
-  tableData = useSelector((state)=>state?.AdminAssignProcess?.results)[0];
+  tableData = useSelector((state) => state?.AdminAssignProcess?.results)[0];
   console.log(tableData);
   const handleOnClick = (infId) => {
     const payload = {
       influencers: infId,
       campaign: infTableData?.id,
-      extra: {}
-    }
+      extra: {},
+    };
     const data = new FormData();
     data.append("data", JSON.stringify(payload));
 
     dispatch(assignToInf(data));
-  }
+  };
   const assignToInfData = useSelector((state) => state?.AdminAssignProcess?.results);
   console.log(assignToInfData);
   return (
     <div className="my-4 mx-8">
       <div className="flex justify-between px-2 mb-2">
-        <p className="font-bold " >Assigned to Influencers in Same Category</p>
+        <p className="font-bold ">Assigned to Influencers in Same Category</p>
         <BackArrowBtn onClick={() => setInfTable(false)} />
       </div>
-      <div className="grid grid-cols-5 gap-x-2 mb-6 text-lg p-2 border-b-2" >
+      <div className="grid grid-cols-5 gap-x-2 mb-6 text-lg p-2 border-b-2">
         <div>
           <p>User Id</p>
         </div>
@@ -188,7 +154,7 @@ function InfTable({ infTableData, setInfTable , search }) {
           <p>Social Platform</p>
         </div>
       </div>
-      <div className="grid grid-cols-5 gap-x-2 p-2 text-sm" >
+      <div className="grid grid-cols-5 gap-x-2 p-2 text-sm">
         {search(tableData)?.influencerdetails?.map((data) => {
           return (
             <>
@@ -201,25 +167,29 @@ function InfTable({ infTableData, setInfTable , search }) {
               <div className="mb-6">
                 <p>{data?.complete_campaign}</p>
               </div>
-              <div className="flex relative mb-6" >
+              <div className="flex relative mb-6">
                 {data?.social_media_deliverables?.map((item, i) => {
                   return (
-                    <img key={i} src={`/svgs/${item?.platform}.svg`} className={`absolute z-40 w-[20px] `} alt="social_platform" style={{ left: `${(i + 1) * 12}px` }} />)
-                })
-                }
-                <p className="absolute right-16" >+2 more</p>
+                    <img
+                      key={i}
+                      src={`/svgs/${item?.platform}.svg`}
+                      className={`absolute z-40 w-[20px] `}
+                      alt="social_platform"
+                      style={{ left: `${(i + 1) * 12}px` }}
+                    />
+                  );
+                })}
+                <p className="absolute right-16">+2 more</p>
               </div>
               <div className="mb-6">
-                <p className="underline text-[#3751FF] cursor-pointer"
-                onClick={() => handleOnClick(data?.id)}
-                >Assign</p>
+                <p className="underline text-[#3751FF] cursor-pointer" onClick={() => handleOnClick(data?.id)}>
+                  Assign
+                </p>
               </div>
             </>
-          )
-        })
-
-        }
+          );
+        })}
       </div>
     </div>
-  )
+  );
 }

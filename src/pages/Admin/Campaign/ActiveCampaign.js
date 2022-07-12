@@ -18,7 +18,6 @@ const AdmActiveCampaign = ({ route }) => {
 
   const AdminActiveCampaign = useSelector((state) => state?.AdminActiveCampaign);
   tableData = AdminActiveCampaign?.results;
-  console.log(tableData);
 
   const [query, setQuery] = useState("");
 
@@ -33,9 +32,11 @@ const AdmActiveCampaign = ({ route }) => {
       <div className="flex items-center py-4 px-8">
         <AdminCampaignTable tableData={tableData} mainRoute={"campaign"} route={route} query={query} />
       </div>
-      {tableData?.length ? (<div className="w-full mt-2 px-4">
-        <Pagination link={AdminActiveCampaign} activePage={activePage} setActivePage={setActivePage} />
-      </div>) : (
+      {tableData?.length ? (
+        <div className="w-full mt-2 px-4">
+          <Pagination link={AdminActiveCampaign} activePage={activePage} setActivePage={setActivePage} />
+        </div>
+      ) : (
         <div className="text-center mt-4">
           <p className="text-gray-500">No data to display.</p>
         </div>

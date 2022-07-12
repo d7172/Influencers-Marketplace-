@@ -17,7 +17,6 @@ function DetailsTable({ campaignId, columnData, rowData }) {
           </tr>
         </thead>
         <tbody>
-          {console.log(rowData, "-----row data-----")}
           {rowData?.influencer_details.map((inf) => {
             return (
               <tr key={inf?.id}>

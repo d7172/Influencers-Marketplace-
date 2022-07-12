@@ -18,8 +18,6 @@ function CampaignUploadDocuments({ close, campaign_id, influencer_id }) {
     finalData.append("data", data);
     finalData.append("document1", doc1);
     finalData.append("document2", doc2);
-
-    console.log(finalData.getAll("document2"), "final data");
   };
   return (
     <div className="w-[500px] flex justify-center items-center flex-col pb-10">

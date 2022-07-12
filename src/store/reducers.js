@@ -42,6 +42,7 @@ import { infActiveReject } from "./Admin/Influencer/Active-Reject/reducer";
 import { campaignActiveReject } from "./Admin/Campaign/Active-Reject/reducer";
 import { brandActiveReject } from "./Admin/Brand/Active-Reject/reducer";
 import { infUploadDocuments } from "./infDocumentUpload/reducer";
+import { UploadAdminDocs } from "./Admin/Campaign/CampaignDocumentPhase/reducer";
 
 const reducers = combineReducers({
   signUpState,
@@ -88,6 +89,7 @@ const reducers = combineReducers({
   campaignActiveReject,
   brandActiveReject,
   infUploadDocuments,
+  UploadAdminDocs,
 });
 
 export default reducers;

@@ -11,7 +11,6 @@ import { personalDetailsSchema } from "../../../utils/formsSchema";
 import { useNavigate, useParams } from "react-router-dom";
 import { InfActiveReject } from "../../../store/Admin/Influencer/Active-Reject/action";
 
-
 const initForm = {
   first_name: "",
   last_name: "",
@@ -31,7 +30,7 @@ export const ImgUpload = ({ children }) => {
   return <p className="text-[13px] mt-1 text-green-600">Added {children}</p>;
 };
 
-function BrandViewDetails({route}) {
+function BrandViewDetails({ route }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [rejectBid, setRejectBid] = useState(false);
@@ -54,8 +53,7 @@ function BrandViewDetails({route}) {
   let rejectedUserData = useSelector((state) => state?.brandrejecteduser);
 
   const brandrejecteduser = rejectedUserData?.results.filter((i) => i.id == id)[0];
-  
-  console.log(BrandActiveUser, "------brandActiveUser--------");
+
   const User = {
     first_name: (brandNewUser || BrandActiveUser || brandrejecteduser)?.first_name,
     last_name: (brandNewUser || BrandActiveUser || brandrejecteduser)?.last_name,
@@ -68,13 +66,12 @@ function BrandViewDetails({route}) {
     profile_pic: (brandNewUser || BrandActiveUser || brandrejecteduser)?.profile_pic,
     cover_pic: (brandNewUser || BrandActiveUser || brandrejecteduser)?.cover_pic,
     zipcode: (brandNewUser || BrandActiveUser || brandrejecteduser)?.zipcode,
-  }
+  };
 
   const handleApproveInf = () => {
     const approvalData = new FormData();
     approvalData.append("brand_id", JSON.parse(id));
     approvalData.append("status", "active");
-    console.log(approvalData, "approvalData");
     dispatch(InfActiveReject(approvalData, navigate));
   };
   const handleRejectInf = () => {
@@ -82,7 +79,6 @@ function BrandViewDetails({route}) {
     rejectData.append("brand_id", JSON.parse(id));
     rejectData.append("status", "reject");
     rejectData.append("reason", reason);
-    console.log(rejectData, "rejectData");
     dispatch(InfActiveReject(rejectData, navigate));
   };
   useEffect(() => {
@@ -90,9 +86,9 @@ function BrandViewDetails({route}) {
     dispatch(getCategoriesData());
   }, [brandNewUser, BrandActiveUser]);
 
-    return (
-        <>
-        <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
+  return (
+    <>
+      <div className="flex gap-4 px-4 w-[100%] justify-center items-center h-[50px] bg-[#F1F1F1]">
         <Breadcrumbs
           options={[
             { title: "influencer" },
@@ -114,7 +110,7 @@ function BrandViewDetails({route}) {
           onSubmit={() => handleRejectInf()}
         />
       </MyDialog>
-            <div className=" w-full min-w-infNavbar px-8 items-center justify-between">
+      <div className=" w-full min-w-infNavbar px-8 items-center justify-between">
         <div className=" gap-4 px-4 w-[100%] mt-[5px] bg-[white]">
           <h1 className="text-start text-2xl font-bold mt-4">Personal Details</h1>
           <p className="block mb-[15px] text-[12px]  font-[400] text-gray-700">
@@ -215,12 +211,12 @@ function BrandViewDetails({route}) {
                       </div>
                       <div>
                         <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                        Organization Name
+                          Organization Name
                         </label>
                         <input
                           disabled={disable}
                           className="input-field w-390"
-                        //   id="email"
+                          //   id="email"
                           type="text"
                           value={values.organization_name}
                           placeholder="Boat"
@@ -231,12 +227,12 @@ function BrandViewDetails({route}) {
                       </div>
                       <div>
                         <label className="block text-gray-700 text-sm mb-2" htmlFor="firstName">
-                        Type of Organization 
+                          Type of Organization
                         </label>
                         <input
                           disabled={disable}
                           className="input-field w-390"
-                        //   id="email"
+                          //   id="email"
                           type="text"
                           value={values.organization_type}
                           placeholder="LLP"
@@ -247,7 +243,6 @@ function BrandViewDetails({route}) {
                       </div>
                     </div>
                     <div className="mt-10 flex gap-20">
-                      
                       <div>
                         <label className="block text-sm font-medium text-gray-700">Cover Picture</label>
 
@@ -274,7 +269,6 @@ function BrandViewDetails({route}) {
                     </div>
                   </div>
 
-                
                   <div className="mt-8 text-[16px] font-[600] w-[180px]">Contact Details</div>
                   <div className="block mb-[15px] text-[12px] font-[400] text-gray-700">
                     Lorem ipsum dolor sit amet, consectetur
@@ -286,13 +280,13 @@ function BrandViewDetails({route}) {
                           Country
                         </label>
                         <input
-                        //   disabled={disable}
+                          //   disabled={disable}
                           className="input-field w-390"
                           id="country"
                           type="text"
                           placeholder="country"
-                        //   value={values.address_details.country}
-                        //   onChange={handleChange("country")}
+                          //   value={values.address_details.country}
+                          //   onChange={handleChange("country")}
                         />
                       </div>
                       <div>
@@ -300,13 +294,13 @@ function BrandViewDetails({route}) {
                           City
                         </label>
                         <input
-                        //   disabled={disable}
+                          //   disabled={disable}
                           className="input-field w-390"
                           id="city"
                           type="text"
                           placeholder="city"
-                        //   value={values.address_details.city}
-                        //   onChange={handleChange("city")}
+                          //   value={values.address_details.city}
+                          //   onChange={handleChange("city")}
                         />
                       </div>
                       <div>
@@ -314,13 +308,13 @@ function BrandViewDetails({route}) {
                           Address
                         </label>
                         <input
-                        //   disabled={disable}
+                          //   disabled={disable}
                           className="input-field w-390"
                           id="address"
                           type="text"
                           placeholder="address"
-                        //   value={values.address_details.line_1 + values.address_details.line_2}
-                        //   onChange={handleChange("address")}
+                          //   value={values.address_details.line_1 + values.address_details.line_2}
+                          //   onChange={handleChange("address")}
                         />
                       </div>
                       <div>
@@ -378,7 +372,7 @@ function BrandViewDetails({route}) {
           </Formik>
         </div>
       </div>
-        </>
-    )
+    </>
+  );
 }
 export default BrandViewDetails;

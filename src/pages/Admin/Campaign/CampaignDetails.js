@@ -8,6 +8,7 @@ import CampaignRequirement from "../../../components/CampaignRequirement";
 import MyDialog from "../../../components/MyDialog";
 import CloseBtn from "../../../components/CloseBtn";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import CampaignUploadDocuments from "../../../components/CampaignUploadDocuments";
 
 function CampaignDetails({ route }) {
   const location = useLocation();
@@ -22,7 +23,7 @@ function CampaignDetails({ route }) {
     isAssigned
       ? state?.AdminAssigned?.results?.filter((i) => i?.campaigndetails?.id == id)[0]
       : isActive
-      ? state?.AdminActiveCampaign?.results?.filter((i) => i.id == id)[0]
+      ? state?.AdminActiveCampaign?.results?.filter((i) => i?.campaign_details?.id == id)[0].campaign_details
       : isQuotation
       ? state?.AdminQuotationCampaign?.results?.filter((i) => i.campaign_details.id == id)[0].campaign_details
       : state?.AdminRejectedCampaign?.results?.filter((i) => i.id == id)[0]
@@ -35,29 +36,9 @@ function CampaignDetails({ route }) {
   const [reasonDialog, setReasonDialog] = useState(false);
   const [paymentDialog, setPaymentDialog] = useState(false);
   const [docReqDialog, setDocReqDialog] = useState(false);
-
+  const [description, setDescription] = useState("");
+  const [link, setLink] = useState("");
   const navigate = useNavigate();
-  const social_media_deliverables = [
-    {
-      infName: "Steven Sloan",
-      platform: "instagram",
-      deliverables: ["Story", "Reels", "Swipe up Story / Link", "IGTV"],
-      duration_in_day: ["1 Days", "1 Days", "1 Days", "1 Days"],
-      engagement_rate: 3,
-      amount: [500, 500, 500, 500],
-      documentsLinks: ["link", "link", "link", "link"],
-    },
-    {
-      infName: "Jhon Deo",
-      platform: "facebook",
-      deliverables: ["Story", "Reels", "Swipe up Story / Link", "IGTV"],
-      duration_in_day: ["1 Days", "1 Days", "1 Days", "1 Days"],
-      engagement_rate: 2.5,
-      amount: [500, 500, 500, 500],
-      documentsLinks: ["link", "link", "link", "link"],
-    },
-  ];
-  // console.log(location.pathname.slice(0, location.pathname.lastIndexOf("/")));
   return (
     <div>
       <div className="w-full bg-[#F2F2F2] py-4 px-8">
@@ -234,18 +215,37 @@ function CampaignDetails({ route }) {
             <p className="w-390 text-gray-500 text-sm">
               Log in to your account using email and password provided during registration.
             </p>
-            <div className="text-left mt-14">
+            <div className="flex flex-col text-left">
+              <label>Add Link</label>
+              <input
+                type="text"
+                value={link}
+                className="input-field w-390 mt-1"
+                placeholder="Enter Link"
+                onChange={(e) => setLink(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col text-left mx-14">
+              <label className=" text-sm font-medium text-grey-700">
+                Note: Please enter you drive link where all social media deliverables documents stored
+              </label>
+            </div>
+            <div className="text-left mt-7">
               <label className="font-[400] text-[16px] ">Enter your Description</label>
               <textarea
                 className="block w-[390px] h-[200px] mt-1 px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:shadow-blue-300 focus:outline-none"
                 id="exampleFormControlTextarea1"
                 rows="3"
+                value={description}
                 placeholder="Your message"
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
               />
             </div>
             <button
               onClick={() => setDocReqDialog(false)}
-              className="bg-[#3751FF] text-white w-[400px] h-[47px] rounded-full mt-10"
+              className="bg-[#3751FF] text-white w-[400px] h-[47px] rounded-full mt-5"
             >
               Send
             </button>
@@ -280,8 +280,11 @@ function CampaignDetails({ route }) {
               <div className="flex">
                 <div className="flex flex-col mr-8">
                   <h1 className="text-start text-[18px] font-bold mt-6 mb-1">Assigned Influencer</h1>
-                  <p className="inline-block text-start font-[500] mb-4">Steven Sloan</p>
-                  <p className="inline-block text-start font-[500] mb-4">Jhon Deo</p>
+                  {campaignDetails?.influencer_details?.map((inf) => {
+                    return (
+                      <p className="inline-block text-start font-[500] mb-4">{inf.first_name + " " + inf.last_name}</p>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -335,31 +338,33 @@ function CampaignDetails({ route }) {
           )}
           {isActive && (
             <div className="my-6">
-              <h1 className="text-[20px] font-[600]">Document Phase</h1>
+              <h1 className="text-[20px] font-[600]">Brand Document Phase</h1>
               <p className=" mt-1 leading-[21px] text-[#969BA0]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit{" "}
               </p>
               <div className="flex mt-6">
-                <div className="mr-8 text-center">
-                  <p className="font-[600]">Document</p>
-                  <p className="font-[600]">1.</p>
-                  <p className="underline text-[#969BA0]">Document rejected</p>
-                  <p className="underline text-[#969BA0] cursor-pointer">Click here</p>
-                </div>
-                <div className="mr-8 text-center">
-                  <p className="font-[600]">Document</p>
-                  <p className="font-[600]">2.</p>
-                  <p className="underline text-[#3751FF] cursor-pointer">Click here</p>
-                </div>
-                <div className="mr-8 text-center">
-                  <p className="font-[600]">Document</p>
-                  <p className="font-[600]">3.</p>
-                  <p className="underline text-[#969BA0] cursor-pointer">Click here</p>
-                </div>
+                {campaignDetails?.brand_phase_docs?.map((branDocs, i) => {
+                  return (
+                    <div className="mr-8 text-center">
+                      <p className="font-[600]">Document</p>
+                      <p className="font-[600]">{i + 1}.</p>
+                      <p className="underline text-[#969BA0]">Document {branDocs.docs_status}</p>
+                      <p className="underline text-[#969BA0] cursor-pointer">
+                        <a href={branDocs.link}>Click here</a>
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
-          {(isActive || isRejected) && <CampaignBudget campaignDetails={campaignDetails} />}
+          {(isActive || isRejected) && (
+            <CampaignBudget
+              isActive={isActive}
+              setDocumentPhaseDialog={setDocReqDialog}
+              campaignDetails={campaignDetails}
+            />
+          )}
           <hr className="my-8" />
           <BrandCampaignDeliverables
             route={route}
@@ -368,6 +373,52 @@ function CampaignDetails({ route }) {
             setPaymentDialog={setPaymentDialog}
             deliverableDetails={campaignDetails?.social_media_deliverables}
           />
+          <hr className="my-8" />
+          {isActive && (
+            <div className="my-6">
+              <h1 className="text-[20px] font-[600]">Influencer Document Phase</h1>
+              <p className=" mt-1 leading-[21px] text-[#969BA0]">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit{" "}
+              </p>
+              {campaignDetails.influencer_details.map((inf) => {
+                return (
+                  <>
+                    <p className="mr-8 pl-3 w-[140px] text-[18px] font-[600] border-2 border-black">
+                      influencer {inf.id}.
+                    </p>
+                    <div className="flex mt-6">
+                      {inf.campaign_document_phase.map((doc, i) => {
+                        return (
+                          <div className="mr-8 text-center">
+                            <p className="font-[600]">Document</p>
+                            <p className="font-[600]">{i + 1}.</p>
+                            <p className="underline text-[#969BA0]">Document {doc.docs_status}</p>
+                            <p className="underline text-[#969BA0] cursor-pointer">
+                              <a href={doc.link} alt={doc.id}>
+                                view link
+                              </a>
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </>
+                );
+              })}
+              <div className="mt-14 flex">
+                <button type="button" className="rounded-[50px] bg-primary text-white px-4 py-2 mx-4">
+                  Accept
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {}}
+                  className="rounded-[50px] text-[#969BA0] px-4 py-2 border-2 border-blue-300"
+                >
+                  Reject
+                </button>
+              </div>
+            </div>
+          )}
           <hr className="my-8" />
           {(isActive || isRejected) && (
             <div>
@@ -379,7 +430,7 @@ function CampaignDetails({ route }) {
               </div>
               <hr className="my-8" />
               <div>
-                <h1>Terms & Conditions</h1>
+                <h4>Terms & Conditions</h4>
                 <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">{campaignDetails?.terms_and_condition} </p>
               </div>
               <hr className="my-8" />

@@ -17,7 +17,6 @@ function BrandRejectedUser({ route }) {
     dispatch(getBrandRejectedUserData(payload, activePage));
   }, [activePage]);
   const BrandRejectedUser = useSelector((state) => state?.brandrejecteduser);
-  console.log("BrandRejectedUser", BrandRejectedUser);
   tableData = BrandRejectedUser?.results;
 
   const [query, setQuery] = useState("");
@@ -25,16 +24,29 @@ function BrandRejectedUser({ route }) {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "Rejected Brands" }]} />
+        <Breadcrumbs
+          options={[
+            {
+              title: "Dashboard",
+              onClick: () => {
+                navigate(`/admin/dashboard`);
+              },
+            },
+            { title: "All Users" },
+            { title: "Rejected Brands" },
+          ]}
+        />
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center px-8">
           <CampaignSearchBar placeHolder={"Search here by userID"} setQuery={setQuery} />
         </div>
         <BrandUserTable tableData={tableData} route={route} query={query} />
-        {tableData?.length ? (<div className="w-full mt-2 px-4">
-          <Pagination link={BrandRejectedUser} activePage={activePage} setActivePage={setActivePage} />
-        </div>) : (
+        {tableData?.length ? (
+          <div className="w-full mt-2 px-4">
+            <Pagination link={BrandRejectedUser} activePage={activePage} setActivePage={setActivePage} />
+          </div>
+        ) : (
           <div className="text-center mt-4">
             <p className="text-gray-500">No data to display.</p>
           </div>

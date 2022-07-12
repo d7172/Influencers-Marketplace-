@@ -16,8 +16,6 @@ function BrandNewUser({ route }) {
     dispatch(getBrandNewUserData(payload, activePage));
   }, [activePage]);
   const BrandNewUser = useSelector((state) => state?.brandNewUser);
-  console.log("BrandNewUser", BrandNewUser);
-  // tableData = BrandNewUser?.results;
   const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
@@ -25,27 +23,40 @@ function BrandNewUser({ route }) {
   return (
     <>
       <div className="flex items-center gap-4 px-4 w-[100%] h-[50px] bg-[#F1F1F1]">
-        <Breadcrumbs options={[{ title: "Dashboard", onClick: () => { navigate(`/admin/dashboard`) } }, { title: "All Users" }, { title: "New Brands" }]} />
+        <Breadcrumbs
+          options={[
+            {
+              title: "Dashboard",
+              onClick: () => {
+                navigate(`/admin/dashboard`);
+              },
+            },
+            { title: "All Users" },
+            { title: "New Brands" },
+          ]}
+        />
       </div>
       <div className="max-w-[1280px] pt-6 relative">
         <div className="flex items-center px-8">
           <CampaignSearchBar placeHolder={"Search here"} setQuery={setQuery} />
-          </div>
-          {/* <div
+        </div>
+        {/* <div
           className="border-2 border-[#3751FF] text-[#3751FF] px-6 py-3 hover:bg-[#3751FF] hover:text-white"
           onClick={() => navigate("/admin/influencer/new-user/add")}
         >
           <button> + Add New Influencer </button>
         </div> */}
-        </div>
-        <BrandUserTable tableData={tableData} route={"new-user"} query={query}/>
-        {tableData?.length ? (<div className="w-full mt-2 px-4">
+      </div>
+      <BrandUserTable tableData={tableData} route={"new-user"} query={query} />
+      {tableData?.length ? (
+        <div className="w-full mt-2 px-4">
           <Pagination link={BrandNewUser} activePage={activePage} setActivePage={setActivePage} />
-        </div>) : (
-          <div className="text-center mt-4">
-            <p className="text-gray-500">No data to display.</p>
-          </div>
-        )}
+        </div>
+      ) : (
+        <div className="text-center mt-4">
+          <p className="text-gray-500">No data to display.</p>
+        </div>
+      )}
     </>
   );
 }

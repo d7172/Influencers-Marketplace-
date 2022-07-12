@@ -12,7 +12,6 @@ function CampaignTable({ data, query }) {
   const navigate = useNavigate();
 
   const handleClick = (data) => {
-    // console.log(data, "data");
     setDeliverablesState(data);
     setPlaceBid(true);
   };
@@ -57,13 +56,11 @@ function CampaignTable({ data, query }) {
 
   const sortAccendingtitle = () => {
     const sortingtitle = tableData?.sort((a, b) => a?.title?.localeCompare(b?.title));
-    console.log("sortAccendingname", sortingtitle);
     setFilternamedata(sortingtitle);
     setSortbytitle(0);
   };
   const sortDecendingtitle = () => {
     const sortingtitle = tableData?.sort((a, b) => b?.title?.localeCompare(a?.title));
-    console.log("sortDecendingname", sortingtitle);
     setFilternamedata(sortingtitle);
     setSortbytitle(1);
   };

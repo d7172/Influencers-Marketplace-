@@ -11,7 +11,6 @@ function PalceBid({ close, deliverablesDetails = [] }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("-------------placeBid--------------", deliverablesDetails);
   const [bidError, setBidError] = useState("");
   const [placebiddescription, setPlacebiddescription] = useState("");
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
@@ -32,7 +31,6 @@ function PalceBid({ close, deliverablesDetails = [] }) {
   const max_bid_amount = Math.floor(
     deliverablesDetails.admin_amount / JSON.parse(deliverablesDetails.number_of_influencer)
   );
-  console.log(max_bid_amount, "max_bid_amount");
   const handlebid = (e) => {
     const payload = {
       campaign_details: poolId,
@@ -41,7 +39,6 @@ function PalceBid({ close, deliverablesDetails = [] }) {
       description: placebiddescription,
       extra: { social: data },
     };
-    console.log(payload, "payload");
 
     const reqData = new FormData();
     reqData.append("data", JSON.stringify(payload));
@@ -57,7 +54,6 @@ function PalceBid({ close, deliverablesDetails = [] }) {
   let bidTotal = 0;
   useEffect(() => {
     const temp = deliverablesDetails.social_media_deliverables.filter((i) => i.platform == platform)[0];
-    // console.log(temp);
     setDeliverablesList(
       temp?.deliverables?.map((i) => {
         return { label: i };
@@ -85,7 +81,6 @@ function PalceBid({ close, deliverablesDetails = [] }) {
     const temp = [{ label: platformToRemove }];
     setPlatformsList(platformsList.concat(temp));
   }
-  console.log(data);
   return (
     <div className="flex justify-center items-center flex-col">
       <CloseBtn onClick={close} className="absolute right-5 top-7" />

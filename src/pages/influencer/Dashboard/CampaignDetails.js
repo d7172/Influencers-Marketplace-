@@ -294,7 +294,7 @@ function CampaignDetails({ route }) {
               </div>
               <hr className="my-8" />
               <div>
-                <h1>Terms & Conditions</h1>
+                <h4>Terms & Conditions</h4>
                 <p className="max-w-[967px] text-[14px] text-[#969BA0] my-2">
                   {infBidDetails.campaign_details?.terms_and_condition}{" "}
                 </p>

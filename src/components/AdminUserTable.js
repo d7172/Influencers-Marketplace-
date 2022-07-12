@@ -1,9 +1,8 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
-function AdminUserTable({ tableData, route ,query  }) {
-
+function AdminUserTable({ tableData, route, query }) {
   const [tableDatas, setTableData] = useState(tableData);
   const [tabledatabyname, setTabledatabyname] = useState(tableData);
   const [sort, setSort] = useState(null);
@@ -15,46 +14,41 @@ function AdminUserTable({ tableData, route ,query  }) {
     setTabledatabyname(tableData);
     sortAccendingname();
     sortDecendingname();
-  }, [tableData,filternamedata]);
-
+  }, [tableData, filternamedata]);
 
   const sortAccending = (param) => {
-    param === 'id' ? setTableData(tableDatas?.sort((a, b) => a.id - b.id)) : setTableData(tableDatas?.sort((a, b) => a.id - b.id));
-    console.log("sortAccending",tableDatas);
+    param === "id"
+      ? setTableData(tableDatas?.sort((a, b) => a.id - b.id))
+      : setTableData(tableDatas?.sort((a, b) => a.id - b.id));
     setSort(0);
-};
-const sortDecending = (param) => {
-    param === 'id' ? setTableData(tableDatas?.sort((a, b) => b.id - a.id)) : setTableData(tableDatas?.sort((a, b) => b.id - a.id));
-    console.log("sortDecending",tableDatas);
+  };
+  const sortDecending = (param) => {
+    param === "id"
+      ? setTableData(tableDatas?.sort((a, b) => b.id - a.id))
+      : setTableData(tableDatas?.sort((a, b) => b.id - a.id));
     setSort(1);
+  };
 
-};
+  const sortAccendingname = () => {
+    const sortingusername = tabledatabyname?.sort((a, b) => a?.user_name?.localeCompare(b?.user_name));
+    setFilternamedata(sortingusername);
+    setSortbyname(0);
+  };
+  const sortDecendingname = () => {
+    const sortingusername = tabledatabyname?.sort((a, b) => b?.user_name?.localeCompare(a?.user_name));
+    setFilternamedata(sortingusername);
+    setSortbyname(1);
+  };
 
-const sortAccendingname = () => {
-  const sortingusername = tabledatabyname?.sort((a, b) => a?.user_name?.localeCompare(b?.user_name));
-  console.log("sortAccendingname",sortingusername);
-  setFilternamedata(sortingusername);
-  setSortbyname(0);
-}
-const sortDecendingname = () => {
-  const sortingusername = tabledatabyname?.sort((a, b) => b?.user_name?.localeCompare(a?.user_name));
-  console.log("sortDecendingname",sortingusername);
-  setFilternamedata(sortingusername);
-  setSortbyname(1);
-}
-
-const [searchParams] = useState(["id","first_name","last_name"]);
+  const [searchParams] = useState(["id", "first_name", "last_name"]);
 
   function search(items) {
     return items?.filter((item) => {
       return searchParams?.some((newItem) => {
-        return (
-          item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
-        );
+        return item[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1;
       });
     });
   }
-
 
   const navigate = useNavigate();
   return (
@@ -68,17 +62,39 @@ const [searchParams] = useState(["id","first_name","last_name"]);
                   {route === "active-user" && (
                     <th scope="col" className="text-[18px] min-w-[155px] font-[500] text-gray-900 px-6 py-4 text-left">
                       <div className="flex flex-row">
-                      User Id
-                     <span className='cursor-pointer ml-2 mt-1'><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sort===0)&&('invert-[.5]')} `} onClick={()=>sortAccending('id','name','first_name','last_name')}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sort===1)&&('invert-[.5]')} `} onClick={()=>sortDecending('id','name','first_name','last_name')} /></span>
-                     </div>
+                        User Id
+                        <span className="cursor-pointer ml-2 mt-1">
+                          <img
+                            src="/svgs/uparrow.svg"
+                            className={`hover:invert-[.5] ${sort === 0 && "invert-[.5]"} `}
+                            onClick={() => sortAccending("id", "name", "first_name", "last_name")}
+                          />
+                          <img
+                            src="/svgs/downarrow.svg"
+                            className={`hover:invert-[.5] ${sort === 1 && "invert-[.5]"} `}
+                            onClick={() => sortDecending("id", "name", "first_name", "last_name")}
+                          />
+                        </span>
+                      </div>
                     </th>
                   )}
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left flex flex-row ">
-                      Name
-                      <div className="flex flex-row">
-                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
-                      </div>
-                    </th>
+                    Name
+                    <div className="flex flex-row">
+                      <span className="cursor-pointer ml-2 mt-1 ">
+                        <img
+                          src="/svgs/uparrow.svg"
+                          className={`hover:invert-[.5] ${sortbyname === 0 && "invert-[.5]"} `}
+                          onClick={() => sortAccendingname()}
+                        />
+                        <img
+                          src="/svgs/downarrow.svg"
+                          className={`hover:invert-[.5] ${sortbyname === 1 && "invert-[.5]"} `}
+                          onClick={() => sortDecendingname()}
+                        />
+                      </span>
+                    </div>
+                  </th>
                   <th scope="col" className="text-[18px] font-[500] text-gray-900 px-6 py-4 text-left">
                     Number
                   </th>
@@ -91,7 +107,6 @@ const [searchParams] = useState(["id","first_name","last_name"]);
                 </tr>
               </thead>
               <tbody>
-                {console.log(tableData, "data in table compo")}
                 {search(tableData)?.map((data) => {
                   return (
                     <tr className="">

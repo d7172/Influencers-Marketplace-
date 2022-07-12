@@ -1,7 +1,6 @@
 import React from "react";
 
-function CampaignRequirement({ campaignDetails, }) {
-    // console.log("campaignDetails", campaignDetails);
+function CampaignRequirement({ campaignDetails }) {
   return (
     <div>
       <h1 className="text-[18px] font-[600] ">Campaign Requirement</h1>
@@ -29,11 +28,13 @@ function CampaignRequirement({ campaignDetails, }) {
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Gender</h1>
-          <p className="text-[18px] font-[600] ">{campaignDetails?.gender==='M'?'Male':'Female'}</p>
+          <p className="text-[18px] font-[600] ">{campaignDetails?.gender === "M" ? "Male" : "Female"}</p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Country</h1>
-          <p className="text-[18px] font-[600] capitalize">{campaignDetails?.country || campaignDetails?.country_name}</p>
+          <p className="text-[18px] font-[600] capitalize">
+            {campaignDetails?.country || campaignDetails?.country_name}
+          </p>
         </div>
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">State</h1>

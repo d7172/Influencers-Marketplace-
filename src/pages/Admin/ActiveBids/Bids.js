@@ -16,7 +16,7 @@ import Breadcrumbs from "../../../components/Breadcrumbs";
 // import MyDialog from "./MyDialog";
 // import PalceBid from "./PalceBid";
 
-const  Bids = () => {
+const Bids = () => {
   // const [placeBid, setPlaceBid] = useState(false);
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
@@ -31,7 +31,6 @@ const  Bids = () => {
 
   const AdminActiveBids = useSelector((state) => state?.AdminActiveBids);
   tableData = AdminActiveBids?.results;
-  console.log("AdminActiveBids", tableData);
 
   const infTableCol = ["User ID", "Influencer Name", "Influencer Bids Number"];
   const navigate = useNavigate();
@@ -44,58 +43,55 @@ const  Bids = () => {
   };
 
   const [query, setQuery] = useState("");
-  const [searchParams] = useState(["id","brand_name"]);
+  const [searchParams] = useState(["id", "brand_name"]);
 
-function search(items) {
-  return items?.filter((item) => {
-    return searchParams?.some((newItem) => {
-      return (
-        item?.campaign_details?.[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1
-      );
+  function search(items) {
+    return items?.filter((item) => {
+      return searchParams?.some((newItem) => {
+        return item?.campaign_details?.[newItem]?.toString()?.toLowerCase()?.indexOf(query.toLowerCase()) > -1;
+      });
     });
-  });
-}
+  }
 
-const [sort, setSort] = useState(null);
+  const [sort, setSort] = useState(null);
   const [sortbyname, setSortbyname] = useState(null);
   const [tableDatas, setTableData] = useState(tableData);
   const [tabledatabyname, setTabledatabyname] = useState(tableData);
   const [filternamedata, setFilternamedata] = useState([]);
 
-  
   useEffect(() => {
     setTableData(tableData);
     setTabledatabyname(tableData);
     sortAccendingname();
     sortDecendingname();
-  }, [tableData,filternamedata]); 
+  }, [tableData, filternamedata]);
 
   const sortAccending = (param) => {
     param === "id"
       ? setTableData(tableDatas?.sort((a, b) => a.campaign_details.id - b.campaign_details.id))
       : setTableData(tableDatas?.sort((a, b) => a.campaign_details.id - b.campaign_details.id));
-    console.log("sortAccending", tableDatas);
     setSort(0);
   };
   const sortDecending = (param) => {
     param === "id"
       ? setTableData(tableDatas?.sort((a, b) => b.campaign_details.id - a.campaign_details.id))
       : setTableData(tableDatas?.sort((a, b) => b.campaign_details.id - a.campaign_details.id));
-    console.log("sortDecending", tableDatas);
     setSort(1);
-  }
+  };
   const sortAccendingname = (param) => {
-    const sortingusername = tabledatabyname?.sort((a, b) => a?.campaign_details?.brand_name?.localeCompare(b?.campaign_details?.brand_name));
-    console.log("sortAccendingname",sortingusername);
+    const sortingusername = tabledatabyname?.sort((a, b) =>
+      a?.campaign_details?.brand_name?.localeCompare(b?.campaign_details?.brand_name)
+    );
     setFilternamedata(sortingusername);
     setSortbyname(0);
-  }
+  };
   const sortDecendingname = (param) => {
-    const sortingusername = tabledatabyname?.sort((a, b) => b?.campaign_details?.brand_name?.localeCompare(a?.campaign_details?.brand_name));
-    console.log("sortDecendingname",sortingusername);
+    const sortingusername = tabledatabyname?.sort((a, b) =>
+      b?.campaign_details?.brand_name?.localeCompare(a?.campaign_details?.brand_name)
+    );
     setFilternamedata(sortingusername);
     setSortbyname(1);
-  }
+  };
 
   return (
     <>
@@ -151,27 +147,44 @@ const [sort, setSort] = useState(null);
               <table className="min-w-full">
                 <thead className="border-b">
                   <tr className="flex">
-                    <th scope="col" className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left flex flex-row">
+                    <th
+                      scope="col"
+                      className="text-[18px] w-[140px] font-[500] text-gray-900 pl-4 py-4 text-left flex flex-row"
+                    >
                       Campaign Id
-                     <div className="flex flex-row">
-                      <span className="cursor-pointer ml-2 mt-1 ">
-                        <img
-                          src="/svgs/uparrow.svg"
-                          className={`hover:invert-[.5] ${sort === 0 && "invert-[.5]"} `}
-                          onClick={() => sortAccending("id", "name", "first_name", "last_name")}
-                        />
-                        <img
-                          src="/svgs/downarrow.svg"
-                          className={`hover:invert-[.5] ${sort === 1 && "invert-[.5]"} `}
-                          onClick={() => sortDecending("id", "name", "first_name", "last_name")}
-                        />
-                      </span>
-                    </div>
+                      <div className="flex flex-row">
+                        <span className="cursor-pointer ml-2 mt-1 ">
+                          <img
+                            src="/svgs/uparrow.svg"
+                            className={`hover:invert-[.5] ${sort === 0 && "invert-[.5]"} `}
+                            onClick={() => sortAccending("id", "name", "first_name", "last_name")}
+                          />
+                          <img
+                            src="/svgs/downarrow.svg"
+                            className={`hover:invert-[.5] ${sort === 1 && "invert-[.5]"} `}
+                            onClick={() => sortDecending("id", "name", "first_name", "last_name")}
+                          />
+                        </span>
+                      </div>
                     </th>
-                    <th scope="col" className="text-[18px] w-[150px] font-[500] text-gray-900 pl-4 py-4 text-left flex flex-row">
+                    <th
+                      scope="col"
+                      className="text-[18px] w-[150px] font-[500] text-gray-900 pl-4 py-4 text-left flex flex-row"
+                    >
                       Brand Name
                       <div className="flex flex-row">
-                      <span className='cursor-pointer ml-2 mt-1 '><img src='/svgs/uparrow.svg' className={`hover:invert-[.5] ${(sortbyname===0)&&('invert-[.5]')} `} onClick={()=>sortAccendingname()}/><img src='/svgs/downarrow.svg' className={`hover:invert-[.5] ${(sortbyname===1)&&('invert-[.5]')} `} onClick={()=>sortDecendingname()} /></span>
+                        <span className="cursor-pointer ml-2 mt-1 ">
+                          <img
+                            src="/svgs/uparrow.svg"
+                            className={`hover:invert-[.5] ${sortbyname === 0 && "invert-[.5]"} `}
+                            onClick={() => sortAccendingname()}
+                          />
+                          <img
+                            src="/svgs/downarrow.svg"
+                            className={`hover:invert-[.5] ${sortbyname === 1 && "invert-[.5]"} `}
+                            onClick={() => sortDecendingname()}
+                          />
+                        </span>
                       </div>
                     </th>
                     <th scope="col" className="text-[18px] w-[200px] font-[500] text-gray-900 pl-4 py-4 text-left">
@@ -260,6 +273,6 @@ const [sort, setSort] = useState(null);
       </div>
     </>
   );
-}
+};
 
 export default Bids;

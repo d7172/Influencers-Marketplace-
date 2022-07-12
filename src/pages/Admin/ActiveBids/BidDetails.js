@@ -16,7 +16,6 @@ function BidDetails({ inf_id }) {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(id);
   const active = "#3751FF";
   const inactive = "#969BA0";
 
@@ -26,7 +25,6 @@ function BidDetails({ inf_id }) {
   const AdmActiveBid = useSelector((state) => state.AdminActiveBids);
   const AdmActiveBidDetails = AdmActiveBid.results.filter((i) => i.campaign_details.id == id)[0];
   // const [reason, setReason] = useState("");
-  console.log(AdmActiveBidDetails, "AdmActiveBidDetails-------------");
   const handleSubmit = (amount, revise_amount) => {
     const data = {
       campaign_id: JSON.parse(id),

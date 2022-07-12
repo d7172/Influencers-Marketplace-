@@ -133,13 +133,12 @@ function CampaignDetails({ route }) {
     })
   );
 
-  // console.log(categoryData);
   const campaignDetails = useSelector((state) =>
     route === "admin"
       ? state?.AdminNewCampaign?.results?.filter((r) => r.id == id)[0]
       : state?.BrandNewCampaign?.results?.filter((r) => r.id == id)[0]
   );
-  console.log(campaignDetails, "campaignDetails--------------------------");
+
   const Details = {
     title: campaignDetails?.title,
     from_date: campaignDetails?.from_date,
@@ -176,19 +175,10 @@ function CampaignDetails({ route }) {
     state: { id: null, name: campaignDetails?.state },
     social_media_deliverables: campaignDetails?.social_media_deliverables,
   };
-  // console.log("Details", Details);
+
   const [deliverablesRow, setDeliverablesRow] = useState([]);
-  // let deliDetails = {
-  //   platform: "",
-  //   deliverables: [],
-  //   minimum_reach: "",
-  //   minimum_engagement: "",
-  //   duration: null,
-  //   amount: null
-  // }
 
   function handlePlatformChange(isChecked, arr, social_platform, setFieldValue, currentcheckbox) {
-    // console.log("alaslspaspddioadi", social_platform.length);
     let temp1;
     let temp2 = arr;
     if (isChecked) {
@@ -980,27 +970,22 @@ function CampaignDetails({ route }) {
                         state: values.state.id,
                         gender: values.gender.value,
                         socialplatform: values.social_media_deliverables,
-                        // social_platform
-
-                        // social_platform: values.social_platform.toString(),
-                        // industry: values.industry.toString()
                       };
 
                       const data = {
                         ...values,
-                        // setSocialPlatform:socialplatform,
+
                         brand: values.brand.id,
                         country: values.country.id,
                         state: values.state.id,
                         gender: values.gender.value,
-                        // socialplatform: values.social_media_deliverables,
+
                         social_platform: ["wre", "qww"],
                         minimum_facebook_reach: ["12", "30"],
                         minimum_facebook_engagement: ["45", "30"],
                         number_of_days: "10",
                         facebook_deliverables: "40",
                         social_media_deliverables: values.social_media_deliverables,
-                        // social_media_deliverables
                       };
                       console.log("data", data);
                       if (id) {
@@ -1011,14 +996,19 @@ function CampaignDetails({ route }) {
                       }
                     }}
                   >
-                    Submit Campaing
+                    {id ? "Approve campaign" : "Create Campaign"}
                   </button>
                   <button
                     type="button"
                     className="rounded-[50px] text-[#969BA0] px-4 py-2 underline"
-                    onClick={() => navigate(`/${route}/campaign/new-campaign`)}
+                    onClick={() => {
+                      if (id) {
+                      } else {
+                        navigate(`/${route}/campaign/new-campaign`);
+                      }
+                    }}
                   >
-                    Cancle
+                    {id ? "Reject" : "Cancel"}
                   </button>
                 </div>
               </div>

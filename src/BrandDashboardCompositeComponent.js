@@ -8,20 +8,15 @@ function BrandDashboardCompositeComponent() {
   // const isDashboard = location?.pathname === "/brand/dashboard";
   // const isSupport = location?.pathname === "/brand/support";
 
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     const path = location.pathname;
-
-    // (path.startsWith("/brand/campaign")) ? setTitle(path.slice(7, path.lastIndexOf('/'))) : setTitle(path.slice(7));
     setTitle(path.slice(7));
-    // (path === "/brand/dashboard" || path === "/brand/support") ? setBreadCumbs(false) : setBreadCumbs(true);
-
-    // console.log();
-  }, [location.pathname])
+  }, [location.pathname]);
   return (
     <div className="flex h-full">
-      <aside className="h-screen sticky top-0" >
+      <aside className="h-screen sticky top-0">
         <BrandDashboardSidebar />
       </aside>
       <main className="w-full overflow-hidden">
