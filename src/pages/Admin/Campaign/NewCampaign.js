@@ -109,7 +109,7 @@ export default AdmNewCampaign;
 function InfTable({ infTableData, setInfTable, search }) {
   const dispatch = useDispatch();
   let tableData = [];
-
+  console.log(infTableData, "-----inf table data------");
   useEffect(() => {
     const payload = {
       campaign_id: infTableData?.id,

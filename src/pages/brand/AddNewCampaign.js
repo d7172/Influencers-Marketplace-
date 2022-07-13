@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
-import { personalDetailsSchema } from "../../utils/formsSchema";
 import Dropdown from "../../components/Dropdown";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -12,6 +11,8 @@ import { getCountryData } from "../../store/Country/action";
 import { getStatesData } from "../../store/State/action";
 import { getCategoriesData } from "../../store/Categories/action";
 import { MultiSelect } from "react-multi-select-component";
+import ResonForRejection from "../../components/ResonForRejction";
+import MyDialog from "../../components/MyDialog";
 
 const initForm = {
   title: "",
@@ -98,6 +99,8 @@ function CampaignDetails({ route }) {
   const [socialplatform, setSocialPlatform] = useState([]);
   const [deliverables, setDeliverables] = useState([]);
   const [selected, setSelected] = useState([]);
+  const [reason, setReason] = useState("");
+  const [reasonDialog, setReasonDialog] = useState(false);
   const options = [
     { id: 0, label: "Create post", value: "Create post" },
     { id: 1, label: "Create story", value: "Create story" },
@@ -207,16 +210,7 @@ function CampaignDetails({ route }) {
     }
     setFieldValue([]);
   }
-  // const checkcount = temp2.filter((obj) => obj.platform).length;
-  // console.log(
-  //   checkcount,
-  //   "checkcount",
-  // );
-  // function handleValues(e, id) {
-  //   let tempValues = deliverables;
-  //   let objToChange = tempValues.filter((item) => item.id === id);
-  //   { ...objToChange, [e.target.name]: e.target.value };
-  // }
+
   useEffect(() => {
     setDeliverables(
       socialplatform.map((item) => {
@@ -267,6 +261,16 @@ function CampaignDetails({ route }) {
           ]}
         />
       </div>
+      <MyDialog isOpen={reasonDialog} close={() => setReasonDialog(false)} className="rounded-8">
+        <ResonForRejection
+          close={() => setReasonDialog(false)}
+          reason={reason}
+          setReason={setReason}
+          onSubmit={() => {
+            setReasonDialog(false);
+          }}
+        />
+      </MyDialog>
       <div className="px-8 py-5">
         <h1 className="text-start text-2xl font-bold mb-2">Campaign Details</h1>
         <p className="w-390 inline-block text-gray-500 text-sm text-start m-auto mb-4">
@@ -275,12 +279,7 @@ function CampaignDetails({ route }) {
         <Formik
           enableReinitialize={true}
           initialValues={campFormDetails}
-          // validationSchema={}
           onSubmit={(values) => {
-            // console.log(
-            //   { ...values, brand: values.brand.id, country: values.country.id, state: values.state.id },
-            //   "values add new campaign"
-            // );
             const data = {};
           }}
         >
@@ -1003,6 +1002,7 @@ function CampaignDetails({ route }) {
                     className="rounded-[50px] text-[#969BA0] px-4 py-2 underline"
                     onClick={() => {
                       if (id) {
+                        setReasonDialog(true);
                       } else {
                         navigate(`/${route}/campaign/new-campaign`);
                       }

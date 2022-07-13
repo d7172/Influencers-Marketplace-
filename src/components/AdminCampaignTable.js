@@ -157,15 +157,17 @@ function AdminCampaignTable({ tableData, mainRoute, route, setInfTable, setInfTa
                       </td>
                       {route !== "rejected-campaign" && (
                         <td className="text-[16px] max-w-[170px] min-w-[170px] flex  relative text-gray-900  font-light pl-6 py-4 whitespace-nowrap">
-                          {data?.campaign_details?.social_media_deliverables?.map((smd) => {
-                            return (
-                              <img
-                                className="absolute z-30 left-[34px] w-[20px] h-[20px]"
-                                src={`/svgs/${smd.platform}.svg`}
-                                alt="face"
-                              />
-                            );
-                          })}
+                          {(data?.campaign_details?.social_media_deliverables || data?.social_media_deliverables)?.map(
+                            (smd) => {
+                              return (
+                                <img
+                                  className="absolute z-30 left-[34px] w-[20px] h-[20px]"
+                                  src={`/svgs/${smd.platform}.svg`}
+                                  alt="face"
+                                />
+                              );
+                            }
+                          )}
                         </td>
                       )}
                       {route === "active-campaign" || route === "rejected-campaign" ? (
