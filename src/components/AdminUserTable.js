@@ -40,7 +40,7 @@ function AdminUserTable({ tableData, route, query }) {
     setSortbyname(1);
   };
 
-  const [searchParams] = useState(["id", "first_name", "last_name"]);
+  const [searchParams] = useState(["id", "first_name", "last_name","user_name"]);
 
   function search(items) {
     return items?.filter((item) => {
@@ -107,17 +107,18 @@ function AdminUserTable({ tableData, route, query }) {
                 </tr>
               </thead>
               <tbody>
-                {search(tableData)?.map((data) => {
+                {tableData?.map((data) => {
+                  console.log("infdata", data);
                   return (
                     <tr className="">
-                      {route === "active-user" && (
+                      {/* {route === "active-user" && (
                         <td
                           className="text-sm text-[#3751FF] font-[500] px-6 py-4 whitespace-nowrap underline cursor-pointer"
                           onClick={() => navigate(`/admin/influencer/activeUser/${data?.id}`)}
                         >
                           {data?.id}
                         </td>
-                      )}
+                      )} */}
                       <td className="px-6 py-4 whitespace-nowrap text-sm max-w-[170px] font-medium text-gray-900">
                         {/* {data.first_name || data?.name} */}
                         {data?.user_name}

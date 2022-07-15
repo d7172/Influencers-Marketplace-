@@ -28,9 +28,18 @@ export const addNewCampaignData = (payload, navigate) => {
       payload,
       (res) => {
         if (res?.status_code === 201 && res?.status === "success") {
-          navigate("/admin/campaign/new-campaign");
-        } else {
-          alert("Some error occured!!");
+          console.log("if");
+          // navigate("/admin/campaign/new-campaign");
+        } 
+        else {
+          if(res.data.admin_amount && res.data.revise_amount){
+            alert(res.messages);
+            navigate("/admin/campaign/new-campaign");
+          }
+          else{
+            alert(res.messages);
+            navigate("/admin/brand/new-user");
+          }
         }
         dispatch({ type: "NEW_CAMPAIGN_ADDED_SUCCESS", data: res });
       },
@@ -53,7 +62,7 @@ export const updateCampaignData = (payload, navigate) => {
         if (res?.status_code === 200 && res.status === "success") {
           navigate("/admin/campaign/new-campaign");
         } else {
-          alert("Some error occured!!");
+          alert(res.messages);
         }
         dispatch({ type: "CAMPAIGN_UPDATED_SUCCESS", data: res });
       },

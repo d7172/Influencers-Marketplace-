@@ -1,7 +1,7 @@
 import { networkRequest } from "../../../_shared/api";
 
-export const getBrandNewUserData = (payload, activePage) => {
-    const url = `brand-user-list/?page=${activePage}&status=0`;
+export const getBrandNewUserData = (payload,activePage) => {
+    const url = `brand-user-list/?page=${activePage}&status=1`;
     return (dispatch) => {
       networkRequest(
         url,
@@ -9,9 +9,8 @@ export const getBrandNewUserData = (payload, activePage) => {
         "JSON",
         payload,
         (res) => {
-          dispatch({ type: "BRAND_NEW_USER_SUCCESS", data: res },
-          console.log("res", res)
-          );
+          dispatch({ type: "BRAND_NEW_USER_SUCCESS", data: res });
+          console.log("res", res);
         },
         () => {
           dispatch({ type: "BRAND_NEW_USER_FAIL" });

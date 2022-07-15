@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import CampaignSearchBar from "../../../components/CampaignSearchBar";
-import Pagination from "../../../components/Pagination";
 import BrandUserTable from "../../../components/BrandUserTable";
 import { useDispatch, useSelector } from "react-redux";
 import { getBrandNewUserData } from "../../../store/Admin/Brand/NewUser/action";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../../../components/Pagination";
+ 
 
 function BrandNewUser({ route }) {
   let tableData = [];
   const [activePage, setActivePage] = useState(1);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const payload = null;
     dispatch(getBrandNewUserData(payload, activePage));
   }, [activePage]);
-  const BrandNewUser = useSelector((state) => state?.brandNewUser);
+
+
+  const brandNewUser = useSelector((state) => state?.BrandNewUser);
+  tableData = brandNewUser?.results;
+  console.log("brandNewUser", brandNewUser);
+  
   const navigate = useNavigate();
 
   const [query, setQuery] = useState("");
@@ -32,7 +39,7 @@ function BrandNewUser({ route }) {
               },
             },
             { title: "All Users" },
-            { title: "New Brands" },
+            { title: route },
           ]}
         />
       </div>
@@ -47,10 +54,14 @@ function BrandNewUser({ route }) {
           <button> + Add New Influencer </button>
         </div> */}
       </div>
-      <BrandUserTable tableData={tableData} route={"new-user"} query={query} />
+      <BrandUserTable 
+      tableData={tableData} 
+      route={route}
+      activePage={activePage} 
+      query={query} />
       {tableData?.length ? (
         <div className="w-full mt-2 px-4">
-          <Pagination link={BrandNewUser} activePage={activePage} setActivePage={setActivePage} />
+          <Pagination link={brandNewUser} activePage={activePage} setActivePage={setActivePage} />
         </div>
       ) : (
         <div className="text-center mt-4">

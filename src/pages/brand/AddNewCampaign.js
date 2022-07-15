@@ -894,7 +894,7 @@ function CampaignDetails({ route }) {
                     />
                     {errors.amount && touched.amount && <FormError>{errors.amount}</FormError>}
                   </div>
-                  <div className="w-[27%]">
+                 { route == "admin" ? <div className="w-[27%]">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="admin_amount">
                       Admin Amount<span className="text-red-500">*</span>
                     </label>
@@ -906,8 +906,10 @@ function CampaignDetails({ route }) {
                       onChange={handleChange("admin_amount")}
                     />
                     {errors.admin_amount && touched.admin_amount && <FormError>{errors.admin_amount}</FormError>}
-                  </div>
-                  <div className="w-[27%]">
+                  </div> : 
+                  null
+                  }
+                 {route == "admin" ?  <div className="w-[27%]">
                     <label className="block text-gray-700 text-sm mb-2" htmlFor="revise_amount">
                       Revise price<span className="text-red-500">*</span>
                     </label>
@@ -920,7 +922,9 @@ function CampaignDetails({ route }) {
                       onChange={handleChange("revise_amount")}
                     />
                     {errors.revise_amount && touched.revise_amount && <FormError>{errors.revise_amount}</FormError>}
-                  </div>
+                  </div>:
+                  null
+                  }
                 </div>
                 <div className="my-8">
                   <h1 className="text-start text-2xl font-bold mb-2 mt-4">Describe Your Campaign</h1>
@@ -991,7 +995,9 @@ function CampaignDetails({ route }) {
                         const updatedData = { id: id, ...data };
                         dispatch(updateCampaignData(updatedData, navigate));
                       } else {
-                        dispatch(addNewCampaignData(data, navigate));
+                        route == "admin" ? 
+                        dispatch(addNewCampaignData(data, navigate)) : dispatch(addNewCampaignData(data, navigate));
+                        // dispatch(addNewCampaignData(data, navigate));
                       }
                     }}
                   >
@@ -1004,7 +1010,8 @@ function CampaignDetails({ route }) {
                       if (id) {
                         setReasonDialog(true);
                       } else {
-                        navigate(`/${route}/campaign/new-campaign`);
+                       route == "admin" ?
+                        navigate("/admin/campaigns") : navigate("brand/new-user");
                       }
                     }}
                   >

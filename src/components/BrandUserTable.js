@@ -122,6 +122,7 @@ function BrandUserTable({ tableData, route, query }) {
                 </thead>
                 <tbody>
                   {search(tableData)?.map((data) => {
+                    console.log("data", data);
                     return (
                       <tr className="">
                         {route === "active-user" && (

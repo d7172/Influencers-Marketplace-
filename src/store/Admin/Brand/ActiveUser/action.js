@@ -1,7 +1,8 @@
 import { networkRequest } from "../../../_shared/api";
 
-export const getBrandActiveUserData = (payload) => {
-    const url = "brand-user-list/?status=1"
+export const getBrandActiveUserData = (payload,activePage) => {
+    console.log("payload", payload);
+    const url = `brand-user-list/?page=${activePage}&status=1`;
     return (dispatch) => {
         networkRequest(
             url,

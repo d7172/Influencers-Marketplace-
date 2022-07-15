@@ -17,6 +17,8 @@ function InfNewUser({ route }) {
   }, [activePage]);
   const infNewUser = useSelector((state) => state?.infNewUser);
   tableData = infNewUser?.results;
+  console.log("tableDatainfinate", infNewUser);
+  tableData = infNewUser?.results.map((r) => r?.influencerDetail)
   const navigate = useNavigate();
 
   const [query, setQuery] = useState("");

@@ -18,7 +18,7 @@ function BrandActiveUser({ route }) {
   }, [activePage]);
   const brandActiveUser = useSelector((state) => state?.BrandActiveUser);
   tableData = brandActiveUser?.results;
-
+  console.log("brandActiveUser", brandActiveUser);
   const [query, setQuery] = useState("");
 
   return (
@@ -41,7 +41,7 @@ function BrandActiveUser({ route }) {
         <div className="flex items-center px-8">
           <CampaignSearchBar placeHolder={"Search here by userID"} setQuery={setQuery} />
         </div>
-        <BrandUserTable tableData={tableData} route={"active-user"} query={query} />
+        <BrandUserTable tableData={tableData} route={route} query={query} />
         {tableData?.length ? (
           <div className="w-full mt-2 px-4">
             <Pagination link={brandActiveUser} activePage={activePage} setActivePage={setActivePage} />

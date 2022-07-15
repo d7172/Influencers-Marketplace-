@@ -46,8 +46,6 @@ function CampaignDetails({ route }) {
     const data = new FormData();
     data.append("campaign_id", JSON.stringify(id));
     data.append("status", status);
-    // data.append("desciption", JSON.stringify(desc))
-    // console.log(payload);
     dispatch(updateQuotationStatus(data, navigate));
   }
 

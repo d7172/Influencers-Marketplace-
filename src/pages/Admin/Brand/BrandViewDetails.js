@@ -10,7 +10,7 @@ import { getCategoriesData } from "../../../store/Categories/action";
 import { personalDetailsSchema } from "../../../utils/formsSchema";
 import { useNavigate, useParams } from "react-router-dom";
 import { InfActiveReject } from "../../../store/Admin/Influencer/Active-Reject/action";
-
+import { brandActiveReject } from "../../../store/Admin/Brand/Active-Reject/action";
 const initForm = {
   first_name: "",
   last_name: "",
@@ -85,6 +85,18 @@ function BrandViewDetails({ route }) {
     id && setPersonalDetails(User);
     dispatch(getCategoriesData());
   }, [brandNewUser, BrandActiveUser]);
+
+
+  function updateQuotion (status, desc) {
+
+    const id = BrandActiveUser?.id;
+
+
+    const data = new FormData();
+    data.append("status", status);
+    data.append("brand_id", JSON.stringify(id));
+    dispatch(brandActiveReject(data, navigate));
+  }
 
   return (
     <>
@@ -338,6 +350,9 @@ function BrandViewDetails({ route }) {
                       <button
                         type="button"
                         className="w-[150px] rounded-[50px] bg-primary text-white py-2"
+                        onClick={() => {
+                          BrandActiveUser && updateQuotion("active","")
+                        }}
                         // onClick={() => {
                         //   console.log({ ...values, gender: values.gender.charAt(0) }, "values");
                         //   (route === "new-user" || route === "rejected-user") && handleApproveInf();
