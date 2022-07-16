@@ -10,6 +10,7 @@ export const getBrandRejectedUserData = (payload, activePage) => {
         payload,
         (res) => {
             dispatch({ type: "BRAND_REJECTED_USER_SUCCESS", data: res });
+            console.log("BRAND_REJECTED_USER_SUCCESS", res);
         },
         () => {
             dispatch({ type: "BRAND_REJECTED_USER_FAIL" });

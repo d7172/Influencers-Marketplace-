@@ -10,6 +10,7 @@ export const brandActiveReject = (payload, activePage) => {
       payload,
       (res) => {
         dispatch({ type: "BRAND_ACTIVE_REJECT_SUCCESS", data: res });
+        alert(res.messages);
       },
       () => {
         dispatch({ type: "BRAND_ACTIVE_REJECT_FAIL" });

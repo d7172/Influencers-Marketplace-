@@ -17,6 +17,7 @@ function BrandRejectedUser({ route }) {
     dispatch(getBrandRejectedUserData(payload, activePage));
   }, [activePage]);
   const BrandRejectedUser = useSelector((state) => state?.brandrejecteduser);
+  console.log("BrandRejectedUser", BrandRejectedUser);
   tableData = BrandRejectedUser?.results;
 
   const [query, setQuery] = useState("");

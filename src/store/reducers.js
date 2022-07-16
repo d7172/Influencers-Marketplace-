@@ -44,6 +44,8 @@ import { brandActiveReject } from "./Admin/Brand/Active-Reject/reducer";
 import { infUploadDocuments } from "./infDocumentUpload/reducer";
 import { UploadAdminDocs } from "./Admin/Campaign/CampaignDocumentPhase/reducer";
 import { BrandNewUser } from "./Admin/Brand/NewUser/reducer";
+import { brandrejecteduser } from "./Admin/Brand/RejectedUser/reducer";
+
 
 const reducers = combineReducers({
   signUpState,
@@ -59,10 +61,10 @@ const reducers = combineReducers({
   infTransitionEarning,
   infTransitionDownloadStatement,
   infNewUser,
-  // infActiveUser,
+  infActiveUser,
   infRejectedUser,
   infLatestTransition,
-  // BrandActiveUser,
+  BrandActiveUser,
   AdminActiveBids,
   AdminNewCampaign,
   AdminRejectedCampaign,
@@ -92,6 +94,7 @@ const reducers = combineReducers({
   infUploadDocuments,
   UploadAdminDocs,
   BrandNewUser,
+  brandrejecteduser
 });
 
 export default reducers;

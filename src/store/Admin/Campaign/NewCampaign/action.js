@@ -38,7 +38,7 @@ export const addNewCampaignData = (payload, navigate) => {
           }
           else{
             alert(res.messages);
-            navigate("/admin/brand/new-user");
+            // navigate("/admin/brand/new-user");
           }
         }
         dispatch({ type: "NEW_CAMPAIGN_ADDED_SUCCESS", data: res });

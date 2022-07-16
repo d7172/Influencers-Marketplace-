@@ -76,10 +76,13 @@ function BrandViewDetails({ route }) {
   };
   const handleRejectInf = () => {
     const rejectData = new FormData();
+    console.log("rejectDatareject", rejectData);
     rejectData.append("brand_id", JSON.parse(id));
     rejectData.append("status", "reject");
     rejectData.append("reason", reason);
-    dispatch(InfActiveReject(rejectData, navigate));
+    dispatch(brandActiveReject(rejectData, navigate));
+    setRejectBid(false);
+    navigate("/admin/brand/rejected-user");
   };
   useEffect(() => {
     id && setPersonalDetails(User);
@@ -368,13 +371,13 @@ function BrandViewDetails({ route }) {
                       <button
                         type="button"
                         className="w-[150px] rounded-[50px] bg-[#FFFFFF] py-2 box-shadow-button"
-                        // onClick={() => {
-                        //   route === "new-user"
-                        //     ? setRejectBid(true)
-                        //     : route === "active-user"
-                        //     ? navigate(`/admin/influencer/active-user`)
-                        //     : navigate(`/admin/influencer/rejected-user`);
-                        // }}
+                        onClick={() => {
+                          route === "active-user"
+                            ? setRejectBid(true)
+                            : route === "active-user"
+                            ? navigate(`/admin/brand/active-user`)
+                            : navigate(`/admin/brand/rejected-user`);
+                        }}
                       >
                         {"Reject"}
                         {/* {route === "new-user" ? `Reject` : `Cancel`} */}

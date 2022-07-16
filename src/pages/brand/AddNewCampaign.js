@@ -330,7 +330,7 @@ function CampaignDetails({ route }) {
                         dropdownStyle="w-168"
                         className="w-168"
                         label={values?.brand?.name?.length ? values?.brand?.name : "Brand"}
-                        options={activeBrands.map((data) => {
+                        options={activeBrands?.map((data) => {
                           return {
                             label: data.name,
                             id: data.id,
@@ -995,9 +995,8 @@ function CampaignDetails({ route }) {
                         const updatedData = { id: id, ...data };
                         dispatch(updateCampaignData(updatedData, navigate));
                       } else {
-                        route == "admin" ? 
-                        dispatch(addNewCampaignData(data, navigate)) : dispatch(addNewCampaignData(data, navigate));
-                        // dispatch(addNewCampaignData(data, navigate));
+                        // dispatch(addNewCampaignData(data, navigate)) : dispatch(addNewCampaignData(data, navigate));
+                        dispatch(addNewCampaignData(data, navigate));
                       }
                     }}
                   >

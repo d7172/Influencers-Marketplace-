@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import CustomToolTip from "./Tooltip";
 import { SearchIcon } from "@heroicons/react/solid";
 import BrandViewDetails from "../pages/Admin/Brand/BrandViewDetails";
+import { networkRequest } from "../store/_shared/api";
+import { useDispatch, useSelector } from "react-redux";
+import { brandActiveReject } from "../store/Admin/Brand/Active-Reject/action";
+import { useNavigate, useParams } from "react-router-dom";
 
 function BrandUserTable({ tableData, route, query }) {
+  const dispatch = useDispatch();
   const [searchParams] = useState(["id", "brand_name"]);
 
   function search(items) {
@@ -27,7 +31,20 @@ function BrandUserTable({ tableData, route, query }) {
     setTabledatabyname(tableData);
     sortAccendingname();
     sortDecendingname();
-  }, [tableData, filternamedata]);
+  }, [tableData,filternamedata]);
+
+  
+  
+  const handleRejectInf = (id) => {
+    const rejectData = new FormData();
+    console.log("rejectDatareject", rejectData);
+    rejectData.append("brand_id", id);
+    rejectData.append("status", "active");
+    dispatch(brandActiveReject(rejectData));
+    // rejectData.append("status", "active");
+    // dispatch(brandActiveReject(rejectData, navigate));
+    // navigate("/admin/brand/active-user");
+  };
 
   const sortAccending = (param) => {
     param === "id"
@@ -182,9 +199,9 @@ function BrandUserTable({ tableData, route, query }) {
                             items={[
                               {
                                 title: "Re-active",
-                                // onClick: () => {
-                                //   // setCampId(data?.id)
-                                // }
+                                onClick: () => {
+                                  handleRejectInf();
+                                }
                               },
                               {
                                 title: "Delete",
