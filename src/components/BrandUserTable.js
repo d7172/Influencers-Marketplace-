@@ -34,12 +34,14 @@ function BrandUserTable({ tableData, route, query }) {
   }, [tableData,filternamedata]);
 
   
+  const id = tableDatas?.[0]?.id;
+  console.log("id+++++++++++++++++++++",id);
   
-  const handleRejectInf = (id) => {
+  const handleRejectInf = (tableData) => {
     const rejectData = new FormData();
-    console.log("rejectDatareject", rejectData);
     rejectData.append("brand_id", id);
     rejectData.append("status", "active");
+    console.log("rejectDatareject", rejectData);
     dispatch(brandActiveReject(rejectData));
     // rejectData.append("status", "active");
     // dispatch(brandActiveReject(rejectData, navigate));
