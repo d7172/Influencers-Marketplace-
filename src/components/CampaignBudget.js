@@ -1,6 +1,7 @@
 import React from "react";
 
 function CampaignBudget({ campaignDetails, setDocumentPhaseDialog, isActive }) {
+  console.log("CampaignBudget", campaignDetails);
   return (
     <div>
       <h1 className="text-[18px] font-[600] mt-4">Campaign Budget & Payment Type</h1>
@@ -19,11 +20,11 @@ function CampaignBudget({ campaignDetails, setDocumentPhaseDialog, isActive }) {
         <div>
           <h1 className="text-[16px] font-[500] mb-1 text-gray-600">Amount</h1>
           <p className="text-[18px] text-[#3751FF] font-[600] ">
-            &#8377;{" "}
-            {Math.floor(
+            &#8377;{campaignDetails?.amount}
+            {/* {Math.floor(
               (campaignDetails?.admin_amount || campaignDetails?.brand_amount) /
                 JSON.parse(campaignDetails?.number_of_influencer)
-            )}
+            )} */}
           </p>
         </div>
         {isActive && (

@@ -10,6 +10,7 @@ export const getBrandActiveCampaignData = (payload, activePage) => {
             payload,
             (res) => {
                 dispatch({ type: "BRAND_ACTIVE_CAMPAIGN_SUCCESS", data: res });
+                console.log("active campaign", res);
             },
             () => {
                 dispatch({ type: "BRAND_ACTIVE_CAMPAIGN_FAIL" });

@@ -11,6 +11,10 @@ import { personalDetailsSchema } from "../../../utils/formsSchema";
 import { useNavigate, useParams } from "react-router-dom";
 import { InfActiveReject } from "../../../store/Admin/Influencer/Active-Reject/action";
 import { brandActiveReject } from "../../../store/Admin/Brand/Active-Reject/action";
+import { getCountryData } from "../../../store/Country/action";
+import { getStatesData } from "../../../store/State/action";
+
+
 const initForm = {
   first_name: "",
   last_name: "",
@@ -22,6 +26,8 @@ const initForm = {
   address_details: {},
   profile_title: "",
   cover_pic: "",
+  about_organization: "",
+  address: "",
 };
 export const FormError = ({ children }) => {
   return <p className="text-red-500 text-xs italic mt-1">{children}</p>;
@@ -54,6 +60,25 @@ function BrandViewDetails({ route }) {
 
   const brandrejecteduser = rejectedUserData?.results.filter((i) => i.id == id)[0];
 
+
+  useEffect(() => {
+    dispatch(getCountryData());
+    dispatch(getStatesData());
+    
+  }, []);
+  let Country = useSelector((state) =>
+  state?.countryList?.results.map((r) => {
+      return { id: r?.id, name: r?.name, label: r?.name };
+  })
+  );
+
+  let State = useSelector((state) =>
+  state?.stateList?.results.map((r) => {
+      return { id: r?.id, name: r?.name, label: r?.name };
+  })
+);
+
+
   const User = {
     first_name: (brandNewUser || BrandActiveUser || brandrejecteduser)?.first_name,
     last_name: (brandNewUser || BrandActiveUser || brandrejecteduser)?.last_name,
@@ -66,6 +91,10 @@ function BrandViewDetails({ route }) {
     profile_pic: (brandNewUser || BrandActiveUser || brandrejecteduser)?.profile_pic,
     cover_pic: (brandNewUser || BrandActiveUser || brandrejecteduser)?.cover_pic,
     zipcode: (brandNewUser || BrandActiveUser || brandrejecteduser)?.zipcode,
+    country: (brandNewUser || BrandActiveUser || brandrejecteduser)?.country,
+    about_organization: (brandNewUser || BrandActiveUser || brandrejecteduser)?.about_organization,
+    address: (brandNewUser || BrandActiveUser || brandrejecteduser)?.address,
+    state: (brandNewUser || BrandActiveUser || brandrejecteduser)?.state,
   };
 
   const handleApproveInf = () => {
@@ -141,8 +170,7 @@ function BrandViewDetails({ route }) {
               setPersonalDetails({});
             }}
           >
-            {({ handleChange, handleSubmit, values, errors, setFieldValue, touched }) => {
-              console.log(values, "values");
+            {({ handleChange, handleSubmit, values, errors, setFieldValue, touched}) => {
               return (
                 <>
                   <div className="w-[1100px]">
@@ -278,8 +306,8 @@ function BrandViewDetails({ route }) {
                         id="exampleFormControlTextarea1"
                         rows="3"
                         placeholder="Your message"
-                        // value={values.about_yourself}
-                        // onChange={(e) => setFieldValue("about_yourself", e.target.value)}
+                        value={values.about_organization}
+                        onChange={(e) => setFieldValue("about_organization", e.target.value)}
                       />
                     </div>
                   </div>
@@ -300,22 +328,22 @@ function BrandViewDetails({ route }) {
                           id="country"
                           type="text"
                           placeholder="country"
-                          //   value={values.address_details.country}
-                          //   onChange={handleChange("country")}
+                            value={Country[0]?.name}
+                            onChange={(val) => setFieldValue("country", { id: val?.id, name: val?.name })}
                         />
                       </div>
                       <div>
                         <label className="block text-gray-700 text-sm mb-2" htmlFor="city">
-                          City
+                          State
                         </label>
                         <input
                           //   disabled={disable}
                           className="input-field w-390"
                           id="city"
                           type="text"
-                          placeholder="city"
-                          //   value={values.address_details.city}
-                          //   onChange={handleChange("city")}
+                          placeholder="State"
+                          value={State[0]?.name}
+                          onChange={(val) => setFieldValue("state", { id: val?.id, name: val?.name })}
                         />
                       </div>
                       <div>
@@ -328,8 +356,8 @@ function BrandViewDetails({ route }) {
                           id="address"
                           type="text"
                           placeholder="address"
-                          //   value={values.address_details.line_1 + values.address_details.line_2}
-                          //   onChange={handleChange("address")}
+                            value={values.address}
+                            onChange={handleChange("address")}
                         />
                       </div>
                       <div>

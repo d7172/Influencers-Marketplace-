@@ -46,8 +46,8 @@ const initForm = {
   note_from_admin: "",
   terms_and_condition: "",
   brand: { id: null, name: "" },
-  country: { id: null, name: "" },
-  state: { id: null, name: "" },
+  country: { id: 1, name: "" },
+  state: { id: 2, name: "" },
 };
 
 const platforms = [
@@ -130,6 +130,7 @@ function CampaignDetails({ route }) {
       return { id: r?.id, name: r?.name };
     })
   );
+  console.log("Country++++++++++++++++++++", Country);
   State = useSelector((state) =>
     state?.stateList?.results.map((r) => {
       return { id: r?.id, name: r?.name };
@@ -140,7 +141,8 @@ function CampaignDetails({ route }) {
     route === "admin"
       ? state?.AdminNewCampaign?.results?.filter((r) => r.id == id)[0]
       : state?.BrandNewCampaign?.results?.filter((r) => r.id == id)[0]
-  );
+      );
+      console.log("campaignDetails", campaignDetails?.social_media_deliverables)
 
   const Details = {
     title: campaignDetails?.title,
@@ -174,10 +176,14 @@ function CampaignDetails({ route }) {
     note_from_admin: campaignDetails?.note_from_admin,
     terms_and_condition: campaignDetails?.terms_and_condition,
     brand: { id: campaignDetails?.brand, name: campaignDetails?.brand_name },
-    country: { id: null, name: campaignDetails?.country },
-    state: { id: null, name: campaignDetails?.state },
+    country:Country[0],
+    // country: { id: null, name: campaignDetails?.country },
+    state: State[0],
+    // state: { id: 2, name: campaignDetails?.state },
     social_media_deliverables: campaignDetails?.social_media_deliverables,
   };
+
+  console.log("Details", Details.social_media_deliverables);
 
   const [deliverablesRow, setDeliverablesRow] = useState([]);
 
@@ -988,15 +994,17 @@ function CampaignDetails({ route }) {
                         minimum_facebook_engagement: ["45", "30"],
                         number_of_days: "10",
                         facebook_deliverables: "40",
-                        social_media_deliverables: values.social_media_deliverables,
+                        social_media_deliverables: [values.social_media_deliverables],
                       };
-                      console.log("data", data);
+                      console.log("data++++++++++++++++++++", data.social_media_deliverables);
                       if (id) {
                         const updatedData = { id: id, ...data };
                         dispatch(updateCampaignData(updatedData, navigate));
+                        console.log("updatedData", updatedData);
                       } else {
                         // dispatch(addNewCampaignData(data, navigate)) : dispatch(addNewCampaignData(data, navigate));
                         dispatch(addNewCampaignData(data, navigate));
+                        console.log("aadeddddata++++++++++++++++++++", data);
                       }
                     }}
                   >

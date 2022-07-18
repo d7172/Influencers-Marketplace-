@@ -10,6 +10,7 @@ import { getBrandActiveCampaignData } from '../../store/Brand/Campaign/ActiveCam
 function ActiveCampaign() {
   const [activePage, setActivePage] = useState(1);
   const loggedInUserData = JSON.parse(localStorage?.userInfo)?.data[0];
+  console.log("loggedInUserData", loggedInUserData);
   const dispatch = useDispatch();
   useEffect(() => {
     const payload = {
@@ -23,7 +24,7 @@ function ActiveCampaign() {
 
   const brandCampActive = useSelector((state) => state?.BrandActiveCampaign);
   let tableData = brandCampActive?.results;
-
+  console.log("active campaign+++++++++++++++++++", tableData);
   const [query, setQuery] = useState("");
 
   return (
